@@ -37,28 +37,26 @@
         <div class="canvas-close">
             <i class="fa fa-close"></i>
         </div>
-        <div class="canvas-search search-switch">
+        <!-- <div class="canvas-search search-switch">
             <i class="fa fa-search"></i>
-        </div>
+        </div> -->
         <nav class="canvas-menu mobile-menu">
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="">About Us</a></li>
-                <li><a href="">Classes</a></li>
-                <li><a href="">Schedule</a></li>
-                <li><a href="">Our Team</a></li>
-                <li><a href="">Contact</a></li>
+                <li><a href="#class">Classes</a></li>
+                <li><a href="#choices">Class Choices</a></li>
+                <li><a href="#gallery">Gallery</a></li>
                 <li><a href="{{ route('login') }}">Login</a></li>
                 <li><a href="{{ route('daftar') }}">Register</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
-        <div class="canvas-social">
+        <!-- <div class="canvas-social">
             <a href="#"><i class="fa fa-facebook"></i></a>
             <a href="#"><i class="fa fa-twitter"></i></a>
             <a href="#"><i class="fa fa-youtube-play"></i></a>
             <a href="#"><i class="fa fa-instagram"></i></a>
-        </div>
+        </div> -->
     </div>
     <!-- Offcanvas Menu Section End -->
 
@@ -77,10 +75,9 @@
                     <nav class="nav-menu">
                         <ul>
                             <li><a href="/">Home</a></li>
-                            <li><a href="">About Us</a></li>
-                            <li><a href="">Classes</a></li>
-                            <li><a href="">Schedule</a></li>
-                            <li><a href="">Our Team</a></li>
+                            <li><a href="#class">Classes</a></li>
+                            <li><a href="#choices">Class Choices</a></li>
+                            <li><a href="#gallery">Gallery</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -105,6 +102,10 @@
     <!-- Header End -->
 
     @yield('content')
+
+    <button id="btnToTop" class="btn-to-top btn-lg" title="Home">
+        <i class="fa fa-arrow-up"></i>
+    </button>
 
     <!-- Footer Section Begin -->
     <section class="footer-section">

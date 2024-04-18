@@ -57,8 +57,8 @@
     });
 
     /*------------------
-		Navigation
-	--------------------*/
+        Navigation
+    --------------------*/
     $(".mobile-menu").slicknav({
         prependTo: '#mobile-menu-wrap',
         allowParentLinks: true
@@ -172,3 +172,70 @@
     });
 
 })(jQuery);
+
+document.addEventListener("DOMContentLoaded", function () {
+    var btnToTop = document.getElementById("btnToTop");
+
+    // Tampilkan tombol "Kembali ke Atas" saat pengguna menggulir ke bawah
+    window.addEventListener("scroll", function () {
+        if (document.documentElement.scrollTop > 100) {
+            btnToTop.style.display = "block";
+        } else {
+            btnToTop.style.display = "none";
+        }
+    });
+
+    // Animasi smooth scroll saat tombol "Kembali ke Atas" diklik
+    btnToTop.addEventListener("click", function () {
+        scrollToTop(1000); // Waktu animasi dalam milidetik (misalnya 1000ms atau 1 detik)
+    });
+
+    // Fungsi untuk animasi smooth scroll
+    function scrollToTop(duration) {
+        var start = window.pageYOffset;
+        var startTime = performance.now();
+
+        function scrollAnimation(currentTime) {
+            var elapsedTime = currentTime - startTime;
+            var ease = easeInOut(elapsedTime, start, -start, duration);
+            window.scrollTo(0, ease);
+            if (elapsedTime < duration) {
+                requestAnimationFrame(scrollAnimation);
+            }
+        }
+
+        // Fungsi interpolasi untuk animasi ease-in-out
+        function easeInOut(t, b, c, d) {
+            t /= d / 2;
+            if (t < 1) return c / 2 * t * t + b;
+            t--;
+            return -c / 2 * (t * (t - 2) - 1) + b;
+        }
+
+        requestAnimationFrame(scrollAnimation);
+    }
+});
+
+$(document).ready(function(){
+    // Add smooth scrolling to all links
+    $("a").on('click', function(event) {
+        // Make sure this.hash has a value before overriding default behavior
+        if (this.hash !== "") {
+            // Prevent default anchor click behavior
+            event.preventDefault();
+
+            // Store hash
+            var hash = this.hash;
+
+            // Using jQuery's animate() method to add smooth page scroll
+            // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+            $('html, body').animate({
+                scrollTop: $(hash).offset().top
+            }, 800, function(){
+
+                // Add hash (#) to URL when done scrolling (default click behavior)
+                window.location.hash = hash;
+            });
+        } // End if
+    });
+});

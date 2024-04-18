@@ -86,7 +86,7 @@
 
 <!-- Classes Section Begin -->
 <section class="classes-section spad">
-    <div class="container">
+    <div id="class" class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
@@ -162,12 +162,12 @@
 <!-- ChoseUs Section End -->
 
 <section class="choseus-section spad">
-    <div class="container">
+    <div id="choices" class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <h2>{{ $totalPeminatan }} <small>class interests</small></h2>
-                    <h2>have been selected!</h2>
+                    <h2>{{ $totalPeminatan }} <small>class choiced</small></h2>
+                    <h2>has been choiced!</h2>
                 </div>
             </div>
         </div>
@@ -200,7 +200,7 @@
 
 <!-- Gallery Section Begin -->
 <div class="gallery-section">
-    <div class="gallery">
+    <div id="gallery" class="gallery">
         <div class="grid-sizer"></div>
         <div class="gs-item grid-wide set-bg" data-setbg="{{ asset('dist/img/gallery/gallery-1.jpg') }}">
             <a href="{{ asset('dist/img/gallery/gallery-1.jpg') }}" class="thumb-icon image-popup"><i class="fa fa-picture-o"></i></a>
