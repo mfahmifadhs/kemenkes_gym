@@ -1,505 +1,329 @@
 @extends('app')
 @section('content')
 
-<!-- start banner Area -->
-<section class="banner-area relative" id="home">
-    <div class="overlay overlay-bg"></div>
-    <div class="container">
-        <div class="row fullscreen d-flex align-items-center justify-content-start">
-            <div class="banner-content col-lg-12 col-md-12">
-                <h1 class="text-uppercase">
-                    Real Fitness <br>
-                    Depends on Exercise
-                </h1>
-                <p class="text-white text-uppercase pt-20 pb-20">
-                    Shape your body well.
-                </p>
+@section('css')
+<style>
+    .chart {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    canvas {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+@endsection
+
+<!-- Hero Section Begin -->
+<section class="hero-section">
+    <div class="hs-slider owl-carousel">
+        <div class="hs-item set-bg" data-setbg="{{ asset('dist/img/hero-1.jpg') }}" style="background-color: rgba(0, 0, 0, 0.5);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-6">
+                        <div class="hi-text">
+                            <!-- <span>Shape your body</span> -->
+                            <h1>Push <strong>strong</strong> traning hard</h1>
+                            <a href="{{ route('daftar') }}" class="primary-btn btn-normal">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hs-item set-bg" data-setbg="{{ asset('dist/img/hero-2.jpg') }}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-6">
+                        <div class="hi-text">
+                            <!-- <span>Shape your body</span> -->
+                            <h1>You're <strong>stronger</strong> than you think</h1>
+                            <a href="{{ route('daftar') }}" class="primary-btn btn-normal">Join Now</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
-<!-- End banner Area -->
+<!-- Hero Section End -->
 
-<!-- Start offer Area -->
-<section class="offer-area section-gap" id="offer">
+<!-- ChoseUs Section Begin -->
+<section class="choseus-section spad">
     <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="menu-content pb-70 col-lg-8">
-                <div class="title text-center">
-                    <h1 class=" mb-10">We care about what we offer</h1>
-                    <p>Who are in extremely love with eco friendly system.</p>
-                </div>
-            </div>
-        </div>
         <div class="row">
-            <div class="col-lg-4">
-                <div class="single-offer">
-                    <img class="img-fluid" src="img/o1.png" alt="">
-                    <h4>Regular Exercise</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="single-offer">
-                    <img class="img-fluid" src="img/o2.png" alt="">
-                    <h4>Training on the go</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="single-offer">
-                    <img class="img-fluid" src="img/o3.png" alt="">
-                    <h4>Body Building Packages</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End offer Area -->
-
-<!-- Start convert Area -->
-<section class="convert-area" id="convert">
-    <div class="container">
-        <div class="convert-wrap">
-            <div class="row d-flex justify-content-center">
-                <div class="menu-content pb-70 col-lg-8">
-                    <div class="title text-center">
-                        <h1 class="text-white mb-10">Calclulate Your Body Mass Index</h1>
-                        <p class="text-white">Who are in extremely love with eco friendly system.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center align-items-start">
-                <div class="col-lg-3 col-md-6 cols-img">
-                    <input type="text" name="feet" placeholder="Your Height (inches)" class="form-control mb-20">
-                </div>
-                <div class="col-lg-3 col-md-6 cols">
-                    <input type="text" name="pounds" placeholder="Your Weight (ibs)" class="form-control mb-20">
-                </div>
-                <div class="col-lg-3 col-md-6 cols">
-                    <a href="#" class="primary-btn header-btn text-uppercase">Calculate Your BMI</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End convert Area -->
-
-<!-- Start top-course Area -->
-<section class="top-course-area section-gap" id="top-course">
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="menu-content pb-70 col-lg-9">
-                <div class="title text-center">
-                    <h1 class="mb-10">Top Courses That are open for Students</h1>
-                    <p>Who are in extremely love with eco friendly system.</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="single-course">
-                    <div class="thumb">
-                        <img class="img-fluid" src="img/c1.jpg" alt="">
-                    </div>
-                    <span class="course-status">Course Available</span>
-                    <a href="#">
-                        <h4>Running Classes <span>$275</span></h4>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-course">
-                    <div class="thumb">
-                        <img class="img-fluid" src="img/c2.jpg" alt="">
-                    </div>
-                    <span class="course-status">Course Available</span>
-                    <a href="#">
-                        <h4>Weight Lifting Classes <span>$200</span></h4>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-course">
-                    <div class="thumb">
-                        <img class="img-fluid" src="img/c3.jpg" alt="">
-                    </div>
-                    <span class="course-status">Course Available</span>
-                    <a href="#">
-                        <h4>Body Combat Classes <span>$225</span></h4>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-course">
-                    <div class="thumb">
-                        <img class="img-fluid" src="img/c4.jpg" alt="">
-                    </div>
-                    <span class="course-status">Course Available</span>
-                    <a href="#">
-                        <h4>Organic Yoga Classes <span>$300</span></h4>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-course">
-                    <div class="thumb">
-                        <img class="img-fluid" src="img/c5.jpg" alt="">
-                    </div>
-                    <span class="course-status">Course Available</span>
-                    <a href="#">
-                        <h4>Raw Fitness Classes <span>$500</span></h4>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-course">
-                    <div class="thumb">
-                        <img class="img-fluid" src="img/c6.jpg" alt="">
-                    </div>
-                    <span class="course-status">Course Available</span>
-                    <a href="#">
-                        <h4>Body Building Classes <span>$250</span></h4>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End top-course Area -->
-
-<!-- Start feature Area -->
-<section class="feature-area">
-    <div class="container-fluid">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-lg-3 feat-img no-padding">
-                <img class="img-fluid" src="img/f1.jpg" alt="">
-            </div>
-            <div class="col-lg-3 no-padding feat-txt">
-                <h6 class="text-uppercase text-white">Basic & Common Repairs</h6>
-                <h1>Basic Revolutions</h1>
-                <p>
-                    Computer users and programmers have become so accustomed to using Windows, even for the changing capabilities and the appearances of the graphical.
-                </p>
-            </div>
-            <div class="col-lg-3 feat-img no-padding">
-                <img class="img-fluid" src="img/f2.jpg" alt="">
-            </div>
-            <div class="col-lg-3 no-padding feat-txt">
-                <h6 class="text-uppercase text-white">Basic & Common Repairs</h6>
-                <h1>Basic Revolutions</h1>
-                <p>
-                    Computer users and programmers have become so accustomed to using Windows, even for the changing capabilities and the appearances of the graphical.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End feature Area -->
-
-<!-- Start schedule Area -->
-<section class="schedule-area section-gap" id="schedule">
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="menu-content pb-70 col-lg-8">
-                <div class="title text-center">
-                    <h1 class="mb-10">Schedule your Fitness Process</h1>
-                    <p>Who are in extremely love with eco friendly system.</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="table-wrap col-lg-12">
-                <table class="schdule-table table table-bordered">
-                    <thead class="thead-light">
-                        <tr>
-                            <th class="head" scope="col">Course name</th>
-                            <th class="head" scope="col">mon</th>
-                            <th class="head" scope="col">tue</th>
-                            <th class="head" scope="col">wed</th>
-                            <th class="head" scope="col">thu</th>
-                            <th class="head" scope="col">fri</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th class="name" scope="row">Fitness Aero</th>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                        </tr>
-                        <tr>
-                            <th class="name" scope="row">Senior Fitness</th>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                        </tr>
-                        <tr>
-                            <th class="name" scope="row">Fitness Aero</th>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                        </tr>
-                        <tr>
-                            <th class="name" scope="row">Senior Fitness</th>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                        </tr>
-                        <tr>
-                            <th class="name" scope="row">Senior Fitness</th>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                        </tr>
-                        <tr>
-                            <th class="name" scope="row">Senior Fitness</th>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                            <td>10.00 <br> 02.00</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End schedule Area -->
-
-
-<!-- Start team Area -->
-<section class="team-area section-gap" id="trainer">
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="menu-content pb-70 col-lg-8">
-                <div class="title text-center">
-                    <h1 class="mb-10">Our Experienced Trainers</h1>
-                    <p>Who are in extremely love with eco friendly system.</p>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-center d-flex align-items-center">
-            <div class="col-md-3 single-team">
-                <div class="thumb">
-                    <img class="img-fluid" src="img/t1.jpg" alt="">
-                    <div class="align-items-center justify-content-center d-flex">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                    </div>
-                </div>
-                <div class="meta-text mt-30 text-center">
-                    <h4>Ethel Davis</h4>
-                    <p>Managing Director (Sales)</p>
-                </div>
-            </div>
-            <div class="col-md-3 single-team">
-                <div class="thumb">
-                    <img class="img-fluid" src="img/t2.jpg" alt="">
-                    <div class="align-items-center justify-content-center d-flex">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                    </div>
-                </div>
-                <div class="meta-text mt-30 text-center">
-                    <h4>Rodney Cooper</h4>
-                    <p>Creative Art Director (Project)</p>
-                </div>
-            </div>
-            <div class="col-md-3 single-team">
-                <div class="thumb">
-                    <img class="img-fluid" src="img/t3.jpg" alt="">
-                    <div class="align-items-center justify-content-center d-flex">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                    </div>
-                </div>
-                <div class="meta-text mt-30 text-center">
-                    <h4>Dora Walker</h4>
-                    <p>Senior Core Developer</p>
-                </div>
-            </div>
-            <div class="col-md-3 single-team">
-                <div class="thumb">
-                    <img class="img-fluid" src="img/t4.jpg" alt="">
-                    <div class="align-items-center justify-content-center d-flex">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                    </div>
-                </div>
-                <div class="meta-text mt-30 text-center">
-                    <h4>Lena Keller</h4>
-                    <p>Creative Content Developer</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End team Area -->
-
-<!-- Start price Area -->
-<section class="price-area pt-100" id="plan">
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="menu-content pb-60 col-lg-8">
-                <div class="title text-center">
-                    <h1 class="mb-10">Choose the Perfect Plan for you</h1>
-                    <p>Who are in extremely love with eco friendly system.</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="single-price">
-                    <div class="top-sec d-flex justify-content-between">
-                        <div class="top-left">
-                            <h4>Standard</h4>
-                            <p>For the <br>individuals</p>
-                        </div>
-                        <div class="top-right">
-                            <h1>£199</h1>
-                        </div>
-                    </div>
-                    <div class="bottom-sec">
-                        <p>
-                            “Few would argue that, despite the advancements
-                        </p>
-                    </div>
-                    <div class="end-sec">
-                        <ul>
-                            <li>2.5 GB Free Photos</li>
-                            <li>Secure Online Transfer Indeed</li>
-                            <li>Unlimited Styles for interface</li>
-                            <li>Reliable Customer Service</li>
-                            <li>Manual Backup Provided</li>
-                        </ul>
-                        <button class="primary-btn price-btn mt-20">Purchase Plan<span class="lnr lnr-arrow-right"></span></button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="single-price">
-                    <div class="top-sec d-flex justify-content-between">
-                        <div class="top-left">
-                            <h4>Business</h4>
-                            <p>For the <br>small Company</p>
-                        </div>
-                        <div class="top-right">
-                            <h1>£399</h1>
-                        </div>
-                    </div>
-                    <div class="bottom-sec">
-                        <p>
-                            “Few would argue that, despite the advancements
-                        </p>
-                    </div>
-                    <div class="end-sec">
-                        <ul>
-                            <li>2.5 GB Free Photos</li>
-                            <li>Secure Online Transfer Indeed</li>
-                            <li>Unlimited Styles for interface</li>
-                            <li>Reliable Customer Service</li>
-                            <li>Manual Backup Provided</li>
-                        </ul>
-                        <button class="primary-btn price-btn mt-20">Purchase Plan<span class="lnr lnr-arrow-right"></span></button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="single-price">
-                    <div class="top-sec d-flex justify-content-between">
-                        <div class="top-left">
-                            <h4>Ultimate</h4>
-                            <p>For the <br>large Company</p>
-                        </div>
-                        <div class="top-right">
-                            <h1>£499</h1>
-                        </div>
-                    </div>
-                    <div class="bottom-sec">
-                        <p>
-                            “Few would argue that, despite the advancements
-                        </p>
-                    </div>
-                    <div class="end-sec">
-                        <ul>
-                            <li>2.5 GB Free Photos</li>
-                            <li>Secure Online Transfer Indeed</li>
-                            <li>Unlimited Styles for interface</li>
-                            <li>Reliable Customer Service</li>
-                            <li>Manual Backup Provided</li>
-                        </ul>
-                        <button class="primary-btn price-btn mt-20">Purchase Plan<span class="lnr lnr-arrow-right"></span></button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-<!-- End price Area -->
-
-<!-- Start brand Area -->
-<section class="brand-area section-gap">
-    <div class="container">
-        <div class="row logo-wrap">
-            <a class="col single-img" href="#">
-                <img class="d-block mx-auto" src="img/l1.png" alt="">
-            </a>
-            <a class="col single-img" href="#">
-                <img class="d-block mx-auto" src="img/l2.png" alt="">
-            </a>
-            <a class="col single-img" href="#">
-                <img class="d-block mx-auto" src="img/l3.png" alt="">
-            </a>
-            <a class="col single-img" href="#">
-                <img class="d-block mx-auto" src="img/l4.png" alt="">
-            </a>
-            <a class="col single-img" href="#">
-                <img class="d-block mx-auto" src="img/l5.png" alt="">
-            </a>
-        </div>
-    </div>
-</section>
-<!-- End brand Area -->
-
-<!-- Start callto Area -->
-<section class="callto-area section-gap relative">
-    <div class="overlay overlay-bg"></div>
-    <div class="container">
-        <div class="row justify-content-center">
             <div class="col-lg-12">
-                <h1 class="text-white">Huge Transaction in last Week</h1>
-                <p class="text-white pt-20 pb-20">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore <br> magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-                </p>
-                <a class="primary-btn" href="#">Become a Member</a>
+                <div class="section-title">
+                    <span>Why chose us?</span>
+                    <h2>PUSH YOUR LIMITS FORWARD</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-sm-6">
+                <div class="cs-item">
+                    <span class="flaticon-034-stationary-bike"></span>
+                    <h4>WEIGHT LOSS</h4>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="cs-item">
+                    <span class="flaticon-002-dumbell"></span>
+                    <h4>MUSCLE MASS INCREASE</h4>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="cs-item">
+                    <span class="flaticon-014-heart-beat"></span>
+                    <h4>MAINTAINING FITNESS</h4>
+                </div>
             </div>
         </div>
     </div>
 </section>
-<!-- End callto Area -->
+<!-- ChoseUs Section End -->
+
+<!-- Classes Section Begin -->
+<section class="classes-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <span>Our Classes</span>
+                    <h2>WHAT WE CAN OFFER</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="class-item">
+                    <div class="ci-pic">
+                        <img src="{{ asset('dist/img/class/class-1.jpg') }}" alt="">
+                    </div>
+                    <div class="ci-text">
+                        <span>STRENGTH</span>
+                        <h5>PILATES</h5>
+                        <a href="#"><i class="fa fa-angle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="class-item">
+                    <div class="ci-pic">
+                        <img src="{{ asset('dist/img/class/class-2.jpg') }}" alt="">
+                    </div>
+                    <div class="ci-text">
+                        <span>STRENGTH</span>
+                        <h5>Body Combat</h5>
+                        <a href="#"><i class="fa fa-angle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="class-item">
+                    <div class="ci-pic">
+                        <img src="{{ asset('dist/img/class/class-3.jpg') }}" alt="">
+                    </div>
+                    <div class="ci-text">
+                        <span>STRENGTH</span>
+                        <h5>Zumba</h5>
+                        <a href="#"><i class="fa fa-angle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="class-item">
+                    <div class="ci-pic">
+                        <img src="{{ asset('dist/img/class/class-4.jpg') }}" alt="">
+                    </div>
+                    <div class="ci-text">
+                        <span>Cardio</span>
+                        <h4>Bootcamp</h4>
+                        <a href="#"><i class="fa fa-angle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="class-item">
+                    <div class="ci-pic">
+                        <img src="{{ asset('dist/img/class/class-5.jpg') }}" alt="">
+                    </div>
+                    <div class="ci-text">
+                        <span>Training</span>
+                        <h4>Muaythai</h4>
+                        <a href="#"><i class="fa fa-angle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ChoseUs Section End -->
+
+<section class="choseus-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>{{ $totalPeminatan }} <small>class interests</small></h2>
+                    <h2>have been selected!</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12">
+                <div class="table-responsive">
+                    <div class="chart">
+                        <canvas id="memberChart" height="520px"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Banner Section Begin -->
+<section class="banner-section set-bg" data-setbg="{{ asset('dist/img/banner-bg.jpg') }}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="bs-text">
+                    <h2>Are you ready !</h2>
+                    <a href="{{ route('daftar') }}" class="primary-btn  btn-normal">Join Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Banner Section End -->
+
+<!-- Gallery Section Begin -->
+<div class="gallery-section">
+    <div class="gallery">
+        <div class="grid-sizer"></div>
+        <div class="gs-item grid-wide set-bg" data-setbg="{{ asset('dist/img/gallery/gallery-1.jpg') }}">
+            <a href="{{ asset('dist/img/gallery/gallery-1.jpg') }}" class="thumb-icon image-popup"><i class="fa fa-picture-o"></i></a>
+        </div>
+        <div class="gs-item set-bg" data-setbg="{{ asset('dist/img/gallery/gallery-2.jpg') }}">
+            <a href="{{ asset('dist/img/gallery/gallery-2.jpg') }}" class="thumb-icon image-popup"><i class="fa fa-picture-o"></i></a>
+        </div>
+        <div class="gs-item set-bg" data-setbg="{{ asset('dist/img/gallery/gallery-3.jpg') }}">
+            <a href="{{ asset('dist/img/gallery/gallery-3.jpg') }}" class="thumb-icon image-popup"><i class="fa fa-picture-o"></i></a>
+        </div>
+        <div class="gs-item set-bg" data-setbg="{{ asset('dist/img/gallery/gallery-4.jpg') }}">
+            <a href="{{ asset('dist/img/gallery/gallery-4.jpg') }}" class="thumb-icon image-popup"><i class="fa fa-picture-o"></i></a>
+        </div>
+        <div class="gs-item set-bg" data-setbg="{{ asset('dist/img/gallery/gallery-5.jpg') }}">
+            <a href="{{ asset('dist/img/gallery/gallery-5.jpg') }}" class="thumb-icon image-popup"><i class="fa fa-picture-o"></i></a>
+        </div>
+        <div class="gs-item grid-wide set-bg" data-setbg="{{ asset('dist/img/gallery/gallery-6.jpg') }}">
+            <a href="{{ asset('dist/img/gallery/gallery-6.jpg') }}" class="thumb-icon image-popup"><i class="fa fa-picture-o"></i></a>
+        </div>
+    </div>
+</div>
+<!-- Gallery Section End -->
+
+<!-- Get In Touch Section Begin -->
+<div class="gettouch-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="gt-text">
+                    <i class="fa fa-map-marker"></i>
+                    <p>Jl. H. R. Rasuna Said No.Kav 4-9 Blok X-5, RT.1/RW.2, Kuningan, Kecamatan Setiabudi, Kota Jakarta Selatan,<br /> 12950</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gt-text">
+                    <i class="fa fa-mobile"></i>
+                    <ul>
+                        <li>(021) 5223017 </li>
+                        <li>081212958422</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gt-text email">
+                    <i class="fa fa-envelope"></i>
+                    <p>klinikkemenkes@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Get In Touch Section End -->
+
+@section('js')
+<script>
+    var surveyUrl = "{{ route('member.chart') }}";
+    var Survey = [];
+    var SurveyTotal = [];
+
+    $(document).ready(function() {
+        $.get(surveyUrl, function(result) {
+            result.forEach(function(data) {
+                Survey.push(data.nama_kelas);
+                SurveyTotal.push(data.total_member);
+            });
+
+            var doughnutChartCanvas = document.getElementById('memberChart').getContext('2d');
+            var doughnutChartData = {
+                labels: Survey,
+                datasets: [{
+                    data: SurveyTotal,
+                    backgroundColor: ['#e91e63', '#00e676', '#ff5722', '#1e88e5', '#ffd600', '#00FFFF', '#8A2BE2'],
+                }]
+            };
+
+            var doughnutChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 20,
+                        fontColor: '#fff',
+                        padding: 15
+                    },
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            return data.labels[tooltipItem.index] + ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                        }
+                    }
+                },
+                plugins: {
+                    datalabels: {
+                        color: '#111',
+                        textAlign: 'center',
+                        font: {
+                            lineHeight: 1.6,
+                            fontWeight: 'bold'
+                        },
+                        formatter: function(value, ctx) {
+                            var dataset = ctx.chart.data.datasets[ctx.datasetIndex];
+                            var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                                return previousValue + currentValue;
+                            });
+                            var currentValue = dataset.data[ctx.dataIndex];
+                            var percentage = Math.floor(((currentValue / total) * 100) + 0.5);
+                            return ctx.chart.data.labels[ctx.dataIndex] + '\n' + percentage + '%';
+                        }
+                    }
+                }
+            };
+
+            new Chart(doughnutChartCanvas, {
+                type: 'pie',
+                data: doughnutChartData,
+                options: doughnutChartOptions
+            });
+        });
+    });
+</script>
+@endsection
 
 @endsection

@@ -1,0 +1,113 @@
+@extends('dashboard.layout.app')
+@section('content')
+
+<!-- ChoseUs Section Begin -->
+<section class="identity-section spad">
+    <div class="container">
+        <div class="row identity">
+            <div class="col-md-9 mx-auto">
+                <div class="row">
+                    <div class="col-6 text-left">
+                        <div class="section-title">
+                            <h4 class="text-main"><u>JOIN {{ $jadwal->kelas->nama_kelas }}</u></h4>
+                        </div>
+                    </div>
+                    <div class="col-6 text-right mt-1">
+                        <a href="{{ route('jadwal.show') }}" class="btn btn-primary">
+                            <i class="fa fa-arrow-circle-left"></i> Back
+                        </a>
+                    </div>
+                </div>
+
+                @if ($message = Session::get('success'))
+                <div id="alert" class="alert bg-success">
+                    <div class="row">
+                        <p style="color:white;margin: auto;">{{ $message }}</p>
+                    </div>
+                </div>
+                <script>
+                    setTimeout(function() {
+                        document.getElementById('alert').style.display = 'none';
+                    }, 5000);
+                </script>
+                @endif
+
+                <div class="section-body mb-5">
+                    <div class="schedule p-3" style="border: 1px solid #f36100;">
+                        <div class="section-title mb-2">
+                            <span>Join Class</span>
+                        </div>
+                        @php $totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kelas)->count(); @endphp
+                        <div class="row text-white mb-2">
+                            <label class="col-md-3 col-3">Class</label>
+                            <div class="col-md-9 col-9">: {{ $jadwal->kelas->nama_kelas }}</div>
+                            <label class="col-md-3 col-3">Date</label>
+                            <div class="col-md-9 col-9">: {{ Carbon\Carbon::parse($jadwal->tanggal_kelas)->format('l / d F Y') }}</div>
+                            <label class="col-md-3 col-3">Time</label>
+                            <div class="col-md-9 col-9">: {{ Carbon\Carbon::parse($jadwal->waktu_mulai)->format('H.i') }} s/d {{ Carbon\Carbon::parse($jadwal->waktu_selesai)->format('H.i') }}</div>
+                            <label class="col-md-3 col-3">Trainer</label>
+                            <div class="col-md-9 col-9">: {{ $jadwal->nama_pelatih }}</div>
+                            <label class="col-md-3 col-3">Kuota</label>
+                            <div class="col-md-9 col-9">: {{ $totalPeserta }} / {{ $jadwal->kuota }}</div>
+                            <label class="col-md-3 col-3">Location</label>
+                            <div class="col-md-9 col-9">: Kemenkes Bootcamp & Fitness Center</div>
+                        </div>
+                        @if ($daftar?->count() == 0 && $totalPeserta != $jadwal->kuota)
+                        <form id="form" action="{{ route('jadwal.join', $jadwal->id_jadwal) }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="member_id" value="{{ Auth::user()->id }}">
+                            <input type="hidden" name="tanggal_latihan" value="{{ $jadwal->tanggal_kelas }}">
+                            <button type="submit" class="btn btn-primary btn-block" onclick="confirmSubmit(event)">
+                                JOIN
+                            </button>
+                        </form>
+                        @elseif ($totalPeserta == $jadwal->kuota)
+                        <a href="" class="btn btn-danger btn-block text-uppercase font-weight-bold disabled">Full</a>
+                        @else
+                        <a href="" class="btn btn-success btn-block text-uppercase font-weight-bold disabled">Registered</a>
+                        @endif
+
+                        <div class="section-title mb-2">
+                            <span>Members Joined</span>
+                        </div>
+
+                        @if ($totalPeserta == 0)
+                         <span class="text-white">No members have joined yet</span>
+                        @endif
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- ChoseUs Section End -->
+
+@section('js')
+<script>
+    function confirmSubmit(event) {
+        event.preventDefault();
+
+        const form = document.getElementById('form');
+
+        Swal.fire({
+            title: 'Join Class ?',
+            text: 'if you join the class and you don`t come as long 3 times, you can`t join the class again',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'Cancel',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+
+    }
+</script>
+
+
+@endsection
+@endsection

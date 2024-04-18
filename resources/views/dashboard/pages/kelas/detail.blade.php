@@ -1,0 +1,100 @@
+@extends('dashboard.layout.app')
+@section('content')
+
+<!-- ChoseUs Section Begin -->
+<section class="identity-section spad">
+    <div class="container">
+        <div class="row identity">
+            <div class="col-md-12 mx-auto">
+                <div class="row mt-5">
+                    <div class="col-6 text-left">
+                        <div class="section-title">
+                            <h4 class="text-main"><u>{{ $kelas->nama_kelas }}</u></h4>
+                        </div>
+                    </div>
+
+                    @if (Auth::user()->role_id == 2)
+                    <div class="col-6 text-right mt-1">
+                        <a href="{{ route('jadwal.create', $kelas->id_kelas) }}" class="btn btn-primary">
+                            <i class="fa fa-calendar"></i> Create Schedule
+                        </a>
+                    </div>
+                    @endif
+                </div>
+                @if ($message = Session::get('success'))
+                <div id="alert" class="alert bg-success">
+                    <div class="row">
+                        <p style="color:white;margin: auto;">{{ $message }}</p>
+                    </div>
+                </div>
+                <script>
+                    setTimeout(function() {
+                        document.getElementById('alert').style.display = 'none';
+                    }, 5000);
+                </script>
+                @elseif ($message = Session::get('failed'))
+                <div id="alert" class="alert bg-danger">
+                    <div class="row">
+                        <p style="color:white;margin: auto;">{{ $message }}</p>
+                    </div>
+                </div>
+                <script>
+                    setTimeout(function() {
+                        document.getElementById('alert').style.display = 'none';
+                    }, 5000);
+                </script>
+                @endif
+
+                <div class="section-body">
+                    <div class="information text-justify">
+                        <div class="section-title mb-0 mt-0"><span>Information</span></div>
+                        <p>Body Combat Class</p>
+                    </div>
+                    <div class="schedule my-5">
+                        <div class="section-title mb-2"><span>Schedule</span></div>
+                        @foreach ($kelas->jadwal->sortByDesc('tanggal_kelas') as $row)
+                        <div class="card my-2">
+                            <div class="card-body">
+                                <div class="row">
+                                    @php $tanggal = Carbon\Carbon::parse($row->tanggal_kelas); @endphp
+                                    <div class="col-md-8 col-8">
+                                        <h6><i class="fa fa-calendar"></i> {{ $tanggal->isoFormat('dddd') }}</h6>
+                                        <h6>{{ $tanggal->isoFormat('DD MMMM Y') }}</h6>
+                                        <h6>Pukul :
+                                            {{ Carbon\Carbon::parse($row->waktu_mulai)->isoFormat('HH.mm') }} s/d
+                                            {{ Carbon\Carbon::parse($row->waktu_selesai)->isoFormat('HH.mm') }}
+                                        </h6>
+                                        <h6>Kuota : 0 / {{ $row->kuota }}</h6>
+                                    </div>
+                                    @if (Auth::user()->role_id == 2)
+                                    <div class="col-md-4 col-4 text-center mt-2">
+                                        @if ($row->tanggal_kelas >= Carbon\Carbon::now())
+                                        <a href="{{ route('jadwal.edit', $row->id_jadwal) }}" class="btn btn-primary">
+                                            <i class="fa fa-edit"></i> Edit
+                                        </a>
+                                        @endif
+                                        <a href="{{ route('jadwal.edit', $row->id_jadwal) }}" class="btn btn-primary">
+                                            <i class="fa fa-info-circle"></i> Detail
+                                        </a>
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                        @if ($kelas->jadwal->count() == 0)
+                        <div class="text-white" style="height: 100px;">
+                            <p>Schedule not available</p>
+                            </p>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- ChoseUs Section End -->
+
+@endsection
