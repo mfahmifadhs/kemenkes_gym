@@ -20,12 +20,12 @@ class MemberController extends Controller
         $searchCol7 = '';
 
         $member = User::where('role_id', 4)->where('isVerify', 'true')->paginate(10);
-        $uker   = User::select('uker_id','nama_unit_kerja')->join('t_unit_kerja','id_unit_kerja','uker_id')
-                  ->groupBy('uker_id','nama_unit_kerja')
-                  ->orderBy('nama_unit_kerja', 'ASC')
-                  ->get();
+        $uker   = User::select('uker_id', 'nama_unit_kerja')->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
+            ->groupBy('uker_id', 'nama_unit_kerja')
+            ->orderBy('nama_unit_kerja', 'ASC')
+            ->get();
 
-        return view('admin-master.pages.member.show', compact('member','uker','searchCol1','searchCol2','searchUker','searchNama','searchNip','searchMail','searchCol7'));
+        return view('admin-master.pages.member.show', compact('member', 'uker', 'searchCol1', 'searchCol2', 'searchUker', 'searchNama', 'searchNip', 'searchMail', 'searchCol7'));
     }
 
     public function search(Request $request)
@@ -40,10 +40,10 @@ class MemberController extends Controller
         $searchMail = $request->get('searchMail'); // Email
         $searchCol7 = $request->get('col7'); // Telepon
         $data       = User::where('role_id', 4)->where('isVerify', 'true');
-        $uker       = User::select('uker_id','nama_unit_kerja')->join('t_unit_kerja','id_unit_kerja','uker_id')
-                      ->groupBy('uker_id','nama_unit_kerja')
-                      ->orderBy('nama_unit_kerja', 'ASC')
-                      ->get();
+        $uker       = User::select('uker_id', 'nama_unit_kerja')->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
+            ->groupBy('uker_id', 'nama_unit_kerja')
+            ->orderBy('nama_unit_kerja', 'ASC')
+            ->get();
 
         if ($searchCol1 || $searchCol2 || $searchUker || $searchNama || $searchNip || $searchMail || $searchCol7) {
             if ($searchCol1) {
@@ -56,7 +56,7 @@ class MemberController extends Controller
 
             if ($searchUker) {
                 $res = $data->where('nama_instansi', 'like', '%' . $searchUker . '%')
-                       ->join('t_unit_kerja', 'id_unit_kerja', 'uker_id');
+                    ->join('t_unit_kerja', 'id_unit_kerja', 'uker_id');
             }
 
             if ($searchNama) {
@@ -90,7 +90,7 @@ class MemberController extends Controller
             'searchCol7' => $searchCol7
         ]);
 
-        return view('admin-master.pages.member.show', compact('member','uker','searchCol1','searchCol2','searchUker','searchNama','searchNip','searchMail','searchCol7'));
+        return view('admin-master.pages.member.show', compact('member', 'uker', 'searchCol1', 'searchCol2', 'searchUker', 'searchNama', 'searchNip', 'searchMail', 'searchCol7'));
     }
 
     public function edit($id)
@@ -101,11 +101,11 @@ class MemberController extends Controller
 
     public function chartAll()
     {
-        $result = MinatKelas::orderBy('kelas_id')
-                ->join('t_kelas', 'id_kelas', 'kelas_id')
-                ->select('nama_kelas', DB::raw('COUNT(member_id) as total_member'))
-                ->groupBy('nama_kelas')
-                ->get();
+        $result = MinatKelas::join('t_kelas', 'id_kelas', 'kelas_id')
+            ->select('nama_kelas', 'kelas_id', DB::raw('COUNT(member_id) as total_member'))
+            ->groupBy('nama_kelas', 'kelas_id')
+            ->orderBy('kelas_id')
+            ->get();
 
         // Menampilkan hasil dalam format JSON
         return response()->json($result);
