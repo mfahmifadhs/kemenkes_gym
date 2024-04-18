@@ -305,9 +305,7 @@
                         },
                         formatter: function(value, ctx) {
                             var dataset = ctx.chart.data.datasets[ctx.datasetIndex];
-                            var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
-                                return previousValue + currentValue;
-                            });
+                            var total = '{{ $totalPeminatan }}'
                             var currentValue = dataset.data[ctx.dataIndex];
                             var percentage = Math.floor(((currentValue / total) * 100) + 0.5);
                             return ctx.chart.data.labels[ctx.dataIndex] + '\n' + percentage + '%';
