@@ -39,7 +39,7 @@ class MemberController extends Controller
         $searchNip  = $request->get('searchNip'); // NIP NIK
         $searchMail = $request->get('searchMail'); // Email
         $searchCol7 = $request->get('col7'); // Telepon
-        $data       = User::where('role_id', 4)->where('isVerify', 'true');
+        $data       = User::where('role_id', 4);
         $uker       = User::select('uker_id', 'nama_unit_kerja')->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
             ->groupBy('uker_id', 'nama_unit_kerja')
             ->orderBy('nama_unit_kerja', 'ASC')
