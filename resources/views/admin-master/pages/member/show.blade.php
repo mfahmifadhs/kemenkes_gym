@@ -136,7 +136,7 @@
                                         <tr>
                                             <td>{{ $member->firstItem() + $loop->index }}</td>
                                             <td>
-                                                <a href=""><i class="fas fa-eye"></i></a>
+                                                <a href="{{ route('member.detail', $row->id) }}"><i class="fas fa-eye"></i></a>
                                                 <a href=""><i class="fas fa-pencil mx-1"></i></a>
                                                 <a href=""><i class="fas fa-trash"></i></a>
                                             </td>

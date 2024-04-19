@@ -44,7 +44,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="text-white small">Institusi*</label>
-                                <select name="instansi" required>
+                                <select id="instansi" name="instansi" onchange="toggleRequired()">
                                     <option value="">-- Pilih Institusi --</option>
                                     <option value="pusat">Kemenkes Pusat</option>
                                     <option value="upt">UPT</option>
@@ -80,7 +80,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label class="text-white small">Nama UPT/Institusi*</label>
-                                    <input type="text" class="form-control" name="nama_instansi">
+                                    <input type="text" id="namaInstansi" class="form-control" name="nama_instansi">
                                 </div>
                             </div>
                         </div>
@@ -172,6 +172,26 @@
 
 @section('js')
 <script>
+    function toggleRequired() {
+        var instansi = document.getElementById('instansi').value;
+        var idUker  = document.getElementById('ukerSelect');
+        var idUmum = document.getElementById('namaInstansi');
+        console.log(idUmum)
+        if (instansi === 'pusat') {
+            idUker.setAttribute('required', 'required');
+        } else {
+            idUker.removeAttribute('required');
+        }
+
+        if (instansi === 'umum' || instansi === 'upt') {
+            idUmum.setAttribute('required', 'required');
+        } else {
+            idUmum.removeAttribute('required');
+        }
+    }
+</script>
+
+<script>
     $('#utamaSelect').change(function() {
         var selectedUtamaId = $(this).val();
 
@@ -228,7 +248,7 @@
                     },
                 })
 
-                form.submit();
+                // form.submit();
             }
         } else {
             Swal.fire({

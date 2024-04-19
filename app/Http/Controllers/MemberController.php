@@ -93,6 +93,12 @@ class MemberController extends Controller
         return view('admin-master.pages.member.show', compact('member', 'uker', 'searchCol1', 'searchCol2', 'searchUker', 'searchNama', 'searchNip', 'searchMail', 'searchCol7'));
     }
 
+    public function detail($id)
+    {
+        $member = User::where('id', $id)->first();
+        return view('admin-master.pages.member.detail', compact('member'));
+    }
+
     public function edit($id)
     {
         $member = User::where('member_id', $id)->first();
