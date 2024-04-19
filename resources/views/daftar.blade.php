@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-lg-12 mx-auto mt-5">
                 <div class="section-title contact-title text-center">
-                    <h2><u>Form Registration Member</u></h2>
+                    <h2><u>Registration Form</u></h2>
                 </div>
                 <div class="leave-comment">
                     @if ($message = Session::get('failed'))
@@ -89,7 +89,7 @@
 
                         <div class="row">
                             <div class="col-md-6 mt-2">
-                                <label class="text-white small">Gym program* <i class="small">(Max. 3 pilihan)</i> </label>
+                                <label class="text-white small">Program latihan* <i class="small">(Max. 3 pilihan)</i> </label>
                                 <select id="peminatan" name="peminatan[]" multiple required>
                                     <option value="">-- Pilih Peminatan Kelas --</option>
                                     @foreach ($kelas as $row)

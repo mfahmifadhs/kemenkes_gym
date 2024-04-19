@@ -166,8 +166,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <h2>{{ $totalPeminatan }} <small>class</small></h2>
-                    <h2>have been choiced!</h2>
+                    <h2>survey result</h2>
                 </div>
             </div>
         </div>
@@ -231,22 +230,24 @@
             <div class="col-md-4">
                 <div class="gt-text">
                     <i class="fa fa-map-marker"></i>
-                    <p>Jl. H. R. Rasuna Said No.Kav 4-9 Blok X-5, RT.1/RW.2, Kuningan, Kecamatan Setiabudi, Kota Jakarta Selatan,<br /> 12950</p>
+                    <p>
+                        P15 Gedung Sarana Penunjang <br>
+                        Jl. H. R. Rasuna Said No.Kav 4-9 Blok X-5, RT.1/RW.2, Kuningan, Kecamatan Setiabudi, Kota Jakarta Selatan,<br /> 12950
+                    </p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="gt-text">
                     <i class="fa fa-mobile"></i>
                     <ul>
-                        <li>(021) 5223017 </li>
-                        <li>081212958422</li>
+                        <li>0812-1112-1365 (Helpdesk)</li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="gt-text email">
                     <i class="fa fa-envelope"></i>
-                    <p>klinikkemenkes@gmail.com</p>
+                    <p>kemenkesbootcamp@gmail.com</p>
                 </div>
             </div>
         </div>
