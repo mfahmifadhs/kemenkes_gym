@@ -55610,3 +55610,8 @@ ul,
     background-color: red;
     /* Ubah warna latar belakang jika checkbox dicentang */
 }
+
+.table th,
+.table td {
+    white-space: nowrap;
+}
