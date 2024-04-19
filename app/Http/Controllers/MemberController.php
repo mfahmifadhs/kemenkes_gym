@@ -19,7 +19,7 @@ class MemberController extends Controller
         $searchMail = '';
         $searchCol7 = '';
 
-        $member = User::where('role_id', 4)->where('isVerify', 'true')->paginate(10);
+        $member = User::where('role_id', 4)->paginate(10);
         $uker   = User::select('uker_id', 'nama_unit_kerja')->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
             ->groupBy('uker_id', 'nama_unit_kerja')
             ->orderBy('nama_unit_kerja', 'ASC')
