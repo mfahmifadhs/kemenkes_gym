@@ -131,7 +131,7 @@ class AuthController extends Controller
         ];
 
         Mail::to($request->email)->send(new SendEmail($data));
-        return redirect()->route('login')->with('success', 'Registration Success!, Please check you`re email for Activation');
+        return redirect()->route('/')->with('success', 'Registration Success!, Please check you`re email for Activation');
     }
 
     public function aktivasi($token, $id)
