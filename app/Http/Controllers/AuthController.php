@@ -63,11 +63,17 @@ class AuthController extends Controller
 
     public function postDaftar(Request $request)
     {
-        $cekUser = User::where('username', $request->username)->count();
+        $cekUser   = User::where('username', $request->username)->count();
+        $cekEmail  = User::where('email', $request->email)->count();
+        $cekNipnik = User::where('nip_nik', $request->nipnik)->count();
 
-        // if ($cekUser == 1) {
-        //     return back()->with('failed', 'Username Sudah Terdaftar');
-        // }
+        if ($cekUser == 1) {
+            return back()->with('failed', 'Username Sudah Terdaftar');
+        } else if ($cekEmail == 1) {
+            return back()->with('failed', 'Email Sudah Terdaftar');
+        } else if ($cekNipnik == 1) {
+            return back()->with('failed', 'NIP/NIK Sudah Terdaftar');
+        }
 
         $tanggal_lahir    = Carbon::createFromFormat('Y-m-d', $request->tanggal_lahir);
         $tanggal_sekarang = Carbon::now();
