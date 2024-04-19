@@ -158,7 +158,7 @@ class AuthController extends Controller
         ]);
 
         session()->forget('success');
-        return redirect()->route('login')->with('success', 'Activation Success!');
+        return redirect()->route('/')->with('success', 'Activation Success! You Can Login Coming Soon');
 
     }
 

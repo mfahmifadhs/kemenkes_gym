@@ -43,7 +43,7 @@
             <ul>
                 <li><a href="{{ route('dashboard') }}"><i class="fa fa-home"></i> Home</a></li>
                 <li><a href="{{ route('dashboard') }}"><i class="fa fa-heartbeat"></i> Classes</a></li>
-                <li><a href="{{ route('dashboard') }}"><i class="fa fa-pie-chart"></i> Classes Choices</a></li>
+                <li><a href="{{ route('dashboard') }}"><i class="fa fa-pie-chart"></i> Survey Result</a></li>
                 <li>
                     <a href="{{ route('jadwal.show') }}"><i class="fa fa-calendar"></i> Schedule</a>
                 </li>
@@ -71,7 +71,7 @@
                         <ul>
                             <li><a href="{{ route('dashboard') }}">Home</a></li>
                             <li><a href="{{ route('dashboard') }}">Classes</a></li>
-                            <li><a href="{{ route('dashboard') }}">Classes Choices</a></li>
+                            <li><a href="{{ route('dashboard') }}">Survey Result</a></li>
                             <li><a href="{{ route('jadwal.show') }}">Schedule</a></li>
                         </ul>
                     </nav>

@@ -45,7 +45,7 @@
                 <li><a href="/">Home</a></li>
                 @if (!request()->is('registration') && !request()->is('login'))
                 <li><a href="#class">Classes</a></li>
-                <li><a href="#choices">Class Choices</a></li>
+                <li><a href="#survey">Survey Result</a></li>
                 <li><a href="#gallery">Gallery</a></li>
                 @endif
                 <!-- <li><a href="{{ route('login') }}">Login</a></li> -->
@@ -79,7 +79,7 @@
                             <li><a href="/">Home</a></li>
                             @if (!request()->is('registration') && !request()->is('login'))
                             <li><a href="#class">Classes</a></li>
-                            <li><a href="#choices">Class Choices</a></li>
+                            <li><a href="#survey">Survey Result</a></li>
                             <li><a href="#gallery">Gallery</a></li>
                             @endif
                         </ul>

@@ -55,7 +55,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <span>Why chose us?</span>
+                    <span>Why choose us?</span>
                     <h2>PUSH YOUR LIMITS FORWARD</h2>
                 </div>
             </div>
@@ -162,7 +162,7 @@
 <!-- ChoseUs Section End -->
 
 <section class="choseus-section spad">
-    <div id="choices" class="container">
+    <div id="survey" class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
