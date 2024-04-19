@@ -295,7 +295,7 @@
                                     var total = '{{ $totalPeminatan }}'; // Menghilangkan tanda kutip
                                     var percentage = (currentValue / total) * 100;
                                     return {
-                                        text: `${label} (${(currentValue / total * 100).toFixed(3)}%)`,
+                                        text: `${label} (${(currentValue / total * 100).toFixed(2)}%)`,
                                         fillStyle: dataset.backgroundColor[i] || '#fff',
                                         hidden: isNaN(dataset.data[i]) || dataset.data[i] === '',
                                         index: i
