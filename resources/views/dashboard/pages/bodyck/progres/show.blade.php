@@ -38,6 +38,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if ($bodyck->count() != 0)
                                 @foreach($bodyck as $row)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
@@ -68,6 +69,11 @@
                                     </td>
                                     @endforeach
                                 </tr>
+                                @else
+                                <tr>
+                                    <td colspan="16">data not available</td>
+                                </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -78,8 +84,12 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
+                                @if ($bodyck->count() == 0)
+                                data not available
+                                @endif
                                 <div class="chart">
                                     <canvas id="progressChart" style="height: 320px;"></canvas>
+
                                 </div>
                             </div>
                         </div>

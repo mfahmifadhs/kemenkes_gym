@@ -13,7 +13,7 @@
                         </div>
                     </div>
                     <div class="col-6 text-right mt-1">
-                        <a href="{{ route('jadwal.show') }}" class="btn btn-primary">
+                        <a href="{{ route('kelas.detail', $jadwal->kelas_id) }}" class="btn btn-primary">
                             <i class="fa fa-arrow-circle-left"></i> Back
                         </a>
                     </div>
@@ -64,15 +64,31 @@
                         @elseif ($totalPeserta == $jadwal->kuota)
                         <a href="" class="btn btn-danger btn-block text-uppercase font-weight-bold disabled">Full</a>
                         @else
-                        <a href="" class="btn btn-success btn-block text-uppercase font-weight-bold disabled">Registered</a>
+                        <a href="" class="btn btn-success btn-block text-uppercase font-weight-bold disabled">Joined</a>
                         @endif
 
                         <div class="section-title mb-2">
-                            <span>Members Joined</span>
+                            <span>Members Joined ({{ $totalPeserta }})</span>
                         </div>
 
                         @if ($totalPeserta == 0)
                          <span class="text-white">No members have joined yet</span>
+                        @else
+                        <div class="row">
+                            @foreach ($jadwal->peserta as $row)
+                            <div class="col-md-3 col-6">
+                                <div class="card text-center">
+                                    <div class="card-header">
+                                        <i class="fa fa-user-circle fa-3x"></i>
+                                    </div>
+                                    <div class="card-body">
+                                        <h6 class="small">{{ $row->created_at }}</h6>
+                                        <h6>{{ $row->member->nama }}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
                         @endif
 
 

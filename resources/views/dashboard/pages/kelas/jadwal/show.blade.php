@@ -19,12 +19,16 @@
                             <table class="table table-bordered" style="border-collapse: separate; border-spacing: 10px;">
                                 <tr>
                                     @foreach($range as $dateNumber)
-                                    @php $date = Carbon\Carbon::createFromFormat('d-m-Y', $dateNumber.'-'.$rangeAwal->month.'-'.$rangeAwal->year)->format('d-M-Y'); @endphp
+                                    @php
+                                        $date = Carbon\Carbon::createFromFormat('d-m-Y', $dateNumber.'-'.$rangeAwal->month.'-'.$rangeAwal->year)->format('d-M-Y');
+                                        $totalKelas = $jadwal->where('hari', $date)->count();
+                                    @endphp
                                     @if ($date == $today && $date >= $today)
                                     <td class="bg-white text-dark font-weight-bold text-center" style="font-size: 14px;">
                                         <h6 class="small text-uppercase">{{ $date }}</h6>
                                     </td>
                                     @else
+
                                     <td class="bg-main text-dark font-weight-bold text-center" style="font-size: 14px; cursor: pointer;" onclick="window.location='<?php echo route('jadwal.pilih', $date); ?>'">
                                         <h6 class="small text-uppercase">{{ $date }}</h6>
                                     </td>
@@ -35,7 +39,10 @@
                         </div>
                         @foreach ($jadwal as $row)
                         <div class="section-title">
-                            @php $totalPeserta = $row->peserta->where('tanggal_latihan', $row->tanggal_kelas)->count(); @endphp
+                            @php
+                                $totalPeserta = $row->peserta->where('tanggal_latihan', $row->tanggal_kelas)->count();
+                                $cekDaftar = $daftar->where('jadwal_id', $row->id_jadwal)->where('tanggal_latihan', $row->tanggal_kelas)->count();
+                            @endphp
                             <div class="card mt-2">
                                 <div class="card-body">
                                     <div class="row">
@@ -53,13 +60,17 @@
                                             <h6 class="small">Kuota : {{ $totalPeserta }} / {{ $row->kuota }}</h6>
                                         </div>
                                         <div class="col-md-3 col-3 text-center">
-                                            @if ($totalPeserta != $row->kuota)
+                                            @if ($cekDaftar == 0 && $totalPeserta != $row->kuota)
                                             <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-primary">
                                                 <i class="fa fa-hand-o-up"></i> JOIN
                                             </a>
-                                            @else
+                                            @elseif ($totalPeserta == $row->kuota)
                                             <a class="btn btn-primary text-white">
                                                 <i class="fa fa-exclamation-circle"></i> FULL
+                                            </a>
+                                            @else
+                                            <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-primary bg-success">
+                                                <i class="fa fa-check-circle"></i> JOINED
                                             </a>
                                             @endif
                                         </div>

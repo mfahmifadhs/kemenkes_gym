@@ -19,33 +19,33 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-6">
-                                <label class="text-white small">Full name*</label>
-                                <input type="text" class="form-control" name="nama" placeholder="Full name" required>
+                                <label class="text-white small">Nama lengkap*</label>
+                                <input type="text" class="form-control" name="nama" placeholder="Masukkan nama lengkap" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="text-white small">NIP/NIK*</label>
                                 <input type="text" class="form-control number" name="nipnik" placeholder="NIP/NIK" maxlength="20" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="text-white small">Gender*</label>
+                                <label class="text-white small">Jenis kelamin*</label>
                                 <select name="jkelamin" required>
-                                    <option value="">-- Select Gender --</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
+                                    <option value="">-- Pilih Jenis Kelamin --</option>
+                                    <option value="male">Laki-laki</option>
+                                    <option value="female">Perempuan</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label class="text-white small">Place of birth*</label>
+                                <label class="text-white small">Templat lahir*</label>
                                 <input type="text" class="form-control" name="tempat_lahir" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="text-white small">Date of birth*</label>
+                                <label class="text-white small">Tanggal lahir*</label>
                                 <input type="date" class="form-control" name="tanggal_lahir" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="text-white small">Institution*</label>
+                                <label class="text-white small">Institusi*</label>
                                 <select name="instansi" required>
-                                    <option value="">-- Select Institution --</option>
+                                    <option value="">-- Pilih Institusi --</option>
                                     <option value="pusat">Kemenkes Pusat</option>
                                     <option value="upt">UPT</option>
                                     <option value="umum">Umum</option>
@@ -79,7 +79,7 @@
                         <div id="umum" class="d-none">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label class="text-white small">UPT/Institution name*</label>
+                                    <label class="text-white small">Nama UPT/Institusi*</label>
                                     <input type="text" class="form-control" name="nama_instansi">
                                 </div>
                             </div>
@@ -88,8 +88,8 @@
                         <hr class="bg-white">
 
                         <div class="row">
-                            <div class="col-md-6">
-                                <label class="text-white small">Gym program* <i class="small">(Max. 3 selection)</i> </label>
+                            <div class="col-md-6 mt-2">
+                                <label class="text-white small">Gym program* <i class="small">(Max. 3 pilihan)</i> </label>
                                 <select id="peminatan" name="peminatan[]" multiple required>
                                     <option value="">-- Pilih Peminatan Kelas --</option>
                                     @foreach ($kelas as $row)
@@ -98,7 +98,7 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-6 mt-3">
+                            <div class="col-md-6 mt-2">
                                 <label class="text-white small">Target*</label>
                                 <select id="target" name="target[]" multiple required>
                                     <option value="">-- Pilih Target --</option>
@@ -113,11 +113,11 @@
 
                         <div class="row">
                             <div class="col-md-4">
-                                <label class="text-white small">Height* (cm)</label>
+                                <label class="text-white small">Tinggi* (cm)</label>
                                 <input type="number" class="form-control" id="tinggi" name="tinggi" required>
                             </div>
                             <div class="col-md-4">
-                                <label class="text-white small">Weight* (kg)</label>
+                                <label class="text-white small">Berat* (kg)</label>
                                 <input type="number" class="form-control" id="berat" name="berat" required>
                             </div>
                             <div class="col-md-4">
@@ -149,7 +149,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label class="text-white small mt-4">Confirmation Password*</label>
+                                <label class="text-white small mt-4">Konfirmasi Password*</label>
                                 <div class="input-group">
                                     <input type="password" class="form-control border-dark" id="conf-password" required>
                                     <div class="input-group-append border border-dark">

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Gym Template">
+    <meta name="description" content="Kemenkes Bootcamp">
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -43,9 +43,11 @@
         <nav class="canvas-menu mobile-menu">
             <ul>
                 <li><a href="/">Home</a></li>
+                @if (!request()->is('registration') && !request()->is('login'))
                 <li><a href="#class">Classes</a></li>
                 <li><a href="#choices">Class Choices</a></li>
                 <li><a href="#gallery">Gallery</a></li>
+                @endif
                 <li><a href="{{ route('login') }}">Login</a></li>
                 <li><a href="{{ route('daftar') }}">Register</a></li>
             </ul>
@@ -75,9 +77,11 @@
                     <nav class="nav-menu">
                         <ul>
                             <li><a href="/">Home</a></li>
+                            @if (!request()->is('registration') && !request()->is('login'))
                             <li><a href="#class">Classes</a></li>
                             <li><a href="#choices">Class Choices</a></li>
                             <li><a href="#gallery">Gallery</a></li>
+                            @endif
                         </ul>
                     </nav>
                 </div>
@@ -175,7 +179,7 @@
                         <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             Copyright &copy;<script>
                                 document.write(new Date().getFullYear());
-                            </script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                            </script> All rights reserved | This template is made by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                     </div>
                 </div>

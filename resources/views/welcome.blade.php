@@ -19,20 +19,20 @@
 <!-- Hero Section Begin -->
 <section class="hero-section">
     <div class="hs-slider owl-carousel">
-        <div class="hs-item set-bg" data-setbg="{{ asset('dist/img/hero-1.jpg') }}" style="background-color: rgba(0, 0, 0, 0.5);">
+        <div class="hs-item set-bg" data-setbg="{{ asset('dist/img/hero-2.jpg') }}">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 offset-lg-6">
                         <div class="hi-text">
                             <!-- <span>Shape your body</span> -->
-                            <h1>Push <strong>strong</strong> traning hard</h1>
+                            <h1>You're <strong>stronger</strong> than you think</h1>
                             <a href="{{ route('daftar') }}" class="primary-btn btn-normal">Join Now</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="hs-item set-bg" data-setbg="{{ asset('dist/img/hero-2.jpg') }}">
+        <div class="hs-item set-bg" data-setbg="{{ asset('dist/img/hero-1.jpg') }}" style="background-color: rgba(0, 0, 0, 0.5);">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 offset-lg-6">
@@ -166,8 +166,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <h2>{{ $totalPeminatan }} <small>class choiced</small></h2>
-                    <h2>has been choiced!</h2>
+                    <h2>{{ $totalPeminatan }} <small>class</small></h2>
+                    <h2>have been choiced!</h2>
                 </div>
             </div>
         </div>
@@ -272,7 +272,7 @@
                 labels: Survey,
                 datasets: [{
                     data: SurveyTotal,
-                    backgroundColor: ['#e91e63', '#00e676', '#ff5722', '#1e88e5', '#ffd600', '#00FFFF', '#8A2BE2'],
+                    backgroundColor: ['#e91e63', '#00e676', '#ff5722', '#1e88e5', '#ffd600', '#00FFFF', '#8A2BE2', '#DC143C', '#B8860B', '#FF1493', '#ADFF2F'],
                 }]
             };
 
@@ -285,7 +285,25 @@
                     labels: {
                         boxWidth: 20,
                         fontColor: '#fff',
-                        padding: 15
+                        padding: 15,
+                        generateLabels: function(chart) {
+                            var data = doughnutChartData;
+                            if (data.labels.length && data.datasets.length) {
+                                return data.labels.map(function(label, i) {
+                                    var dataset = data.datasets[0];
+                                    var currentValue = dataset.data[i];
+                                    var total = '{{ $totalPeminatan }}';
+                                    var percentage = Math.floor(((currentValue / total) * 100) + 0.5);
+                                    return {
+                                        text: label + ' (' + percentage + '%)',
+                                        fillStyle: dataset.backgroundColor[i] || '#fff',
+                                        hidden: isNaN(dataset.data[i]) || dataset.data[i] === '',
+                                        index: i
+                                    };
+                                });
+                            }
+                            return [];
+                        }
                     },
                 },
                 tooltips: {
@@ -308,7 +326,7 @@
                             var total = '{{ $totalPeminatan }}'
                             var currentValue = dataset.data[ctx.dataIndex];
                             var percentage = Math.floor(((currentValue / total) * 100) + 0.5);
-                            return ctx.chart.data.labels[ctx.dataIndex] + '\n' + percentage + '%';
+                            // return ctx.chart.data.labels[ctx.dataIndex] + '\n' + percentage + '%';
                         }
                     }
                 }

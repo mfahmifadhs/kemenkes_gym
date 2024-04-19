@@ -52,7 +52,12 @@
                     </div>
                     <div class="schedule my-5">
                         <div class="section-title mb-2"><span>Schedule</span></div>
-                        @foreach ($kelas->jadwal->sortByDesc('tanggal_kelas') as $row)
+                        @foreach ($kelas->jadwal->sortByDesc('tanggal_kelas')->where('tanggal_kelas', '>', Carbon\Carbon::now()) as $row)
+                        @php
+                            $totalPeserta = $row->peserta->where('tanggal_latihan', $row->tanggal_kelas)->count();
+                            $cekDaftar = $daftar->where('jadwal_id', $row->id_jadwal)->where('tanggal_latihan', $row->tanggal_kelas)->count();
+                        @endphp
+
                         <div class="card my-2">
                             <div class="card-body">
                                 <div class="row">
@@ -64,7 +69,7 @@
                                             {{ Carbon\Carbon::parse($row->waktu_mulai)->isoFormat('HH.mm') }} s/d
                                             {{ Carbon\Carbon::parse($row->waktu_selesai)->isoFormat('HH.mm') }}
                                         </h6>
-                                        <h6>Kuota : 0 / {{ $row->kuota }}</h6>
+                                        <h6>Kuota : {{ $totalPeserta }} / {{ $row->kuota }}</h6>
                                     </div>
                                     @if (Auth::user()->role_id == 2)
                                     <div class="col-md-4 col-4 text-center mt-2">
@@ -76,6 +81,25 @@
                                         <a href="{{ route('jadwal.edit', $row->id_jadwal) }}" class="btn btn-primary">
                                             <i class="fa fa-info-circle"></i> Detail
                                         </a>
+                                    </div>
+                                    @endif
+
+                                    @if(Auth::user()->role_id == 4)
+                                    <div class="col-md-4 col-4 text-center mt-2">
+
+                                        @if ($cekDaftar == 0 && $totalPeserta != $row->kuota)
+                                        <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-primary">
+                                            <i class="fa fa-hand-o-up"></i> JOIN
+                                        </a>
+                                        @elseif ($totalPeserta == $row->kuota)
+                                        <a class="btn btn-primary text-white">
+                                            <i class="fa fa-exclamation-circle"></i> FULL
+                                        </a>
+                                        @else
+                                        <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-primary bg-success">
+                                            <i class="fa fa-check-circle"></i> JOINED
+                                        </a>
+                                        @endif
                                     </div>
                                     @endif
                                 </div>

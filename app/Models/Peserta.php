@@ -28,6 +28,6 @@ class Peserta extends Model
     }
 
     public function member() {
-        return $this->belongsTo(User::class, 'member_id');
+        return $this->belongsTo(User::class, 'member_id')->orderBy('nama', 'ASC');
     }
 }

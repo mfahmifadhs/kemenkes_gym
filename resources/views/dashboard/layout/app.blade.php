@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Gym Template">
+    <meta name="description" content="Kemenkes Bootcamp">
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -42,12 +42,11 @@
         <nav class="canvas-menu mobile-menu">
             <ul>
                 <li><a href="{{ route('dashboard') }}"><i class="fa fa-home"></i> Home</a></li>
-                <li><a href=""><i class="fa fa-info-circle"></i> About Us</a></li>
                 <li><a href="{{ route('dashboard') }}"><i class="fa fa-heartbeat"></i> Classes</a></li>
+                <li><a href="{{ route('dashboard') }}"><i class="fa fa-pie-chart"></i> Classes Choices</a></li>
                 <li>
                     <a href="{{ route('jadwal.show') }}"><i class="fa fa-calendar"></i> Schedule</a>
                 </li>
-                <li><a href=""><i class="fa fa-users"></i> Our Team</a></li>
                 <li><a href="{{ route('login') }}"><i class="fa fa-user-circle"></i> Profile</a></li>
                 <li><a href="{{ route('logout') }}"><i class="fa fa-sign-out"></i> Sign Out</a></li>
             </ul>
@@ -71,10 +70,9 @@
                     <nav class="nav-menu">
                         <ul>
                             <li><a href="{{ route('dashboard') }}">Home</a></li>
-                            <li><a href="">About Us</a></li>
                             <li><a href="{{ route('dashboard') }}">Classes</a></li>
+                            <li><a href="{{ route('dashboard') }}">Classes Choices</a></li>
                             <li><a href="{{ route('jadwal.show') }}">Schedule</a></li>
-                            <li><a href="">Our Team</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -100,14 +98,18 @@
 
     @yield('content')
 
+    <button id="btnToTop" class="btn-to-top btn-lg" title="Home">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
     <!-- Footer Section Begin -->
     <section class="footer-section" style="margin-top: 26%;">
         <div class="container">
-            <div class="copyright-text text-center">
+            <div class="copyright-text">
                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;<script>
                         document.write(new Date().getFullYear());
-                    </script> Biro Umum
+                    </script> All rights reserved | This template is made by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
             </div>
         </div>

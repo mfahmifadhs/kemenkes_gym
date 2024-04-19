@@ -36,12 +36,13 @@ class JadwalController extends Controller
         $rangeAkhir = Carbon::createFromFormat('d-m-Y', $tglAkhir);
         $range      = range($rangeAwal->day, $rangeAkhir->day);
         $today      = $id;
-
-        $jadwal     = Jadwal::select(DB::raw("DATE_FORMAT(tanggal_kelas, '%a') as hari"), 't_jadwal.*')
+        $status = ''; // default status
+        $jadwal     = Jadwal::select(DB::raw("DATE_FORMAT(tanggal_kelas, '%d-%b-%Y') as hari"), 't_jadwal.*')
                         ->where(DB::raw("DATE_FORMAT(tanggal_kelas, '%d-%b-%Y')"), $id)
                         ->get();
 
-        return view('dashboard.pages.kelas.jadwal.show', compact('jadwal','range','rangeAwal','today'));
+        $daftar     = Peserta::where('member_id', Auth::user()->id)->first();
+        return view('dashboard.pages.kelas.jadwal.show', compact('jadwal','range','rangeAwal','today', 'daftar', 'status'));
     }
 
     public function create($id)

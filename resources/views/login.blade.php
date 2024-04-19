@@ -17,7 +17,7 @@
                     <script>
                         setTimeout(function() {
                             document.getElementById('alert').style.display = 'none';
-                        }, 5000);
+                        }, 10000);
                     </script>
                     @endif
                     @if ($message = Session::get('failed'))

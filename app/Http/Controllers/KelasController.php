@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Crypt;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Pegawai;
+use App\Models\Peserta;
 use App\Models\UnitKerja;
 use Hash;
 use Auth;
@@ -25,7 +26,8 @@ class KelasController extends Controller
 
     public function detail($id)
     {
-        $kelas = Kelas::where('id_kelas', $id)->first();
-        return view('dashboard.pages.kelas.detail', compact('id', 'kelas'));
+        $kelas  = Kelas::where('id_kelas', $id)->first();
+        $daftar = Peserta::where('member_id', Auth::user()->id)->first();
+        return view('dashboard.pages.kelas.detail', compact('id', 'kelas', 'daftar'));
     }
 }
