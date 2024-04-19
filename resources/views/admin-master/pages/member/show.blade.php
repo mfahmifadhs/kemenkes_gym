@@ -149,26 +149,27 @@
                                             <td>{{ $row->email }}</td>
                                             <td class="text-left">
                                                 @foreach($row->minatKelas as $subRow)
-                                                    {{ $loop->iteration }}. {{ ucwords(strtolower($subRow->kelas->nama_kelas)) }} <br>
+                                                {{ $loop->iteration }}. {{ ucwords(strtolower($subRow->kelas->nama_kelas)) }} <br>
                                                 @endforeach
                                             </td>
                                             <td class="text-left">
                                                 @foreach($row->minatTarget as $subRow)
-                                                    {{ $loop->iteration }}. {{ ucwords(strtolower($subRow->target->nama_target)) }} <br>
+                                                {{ $loop->iteration }}. {{ ucwords(strtolower($subRow->target->nama_target)) }} <br>
                                                 @endforeach
                                             </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <div class="float-left mt-4">
+                                    Total: {{ number_format($member->total(), 0, ',', '.') }}
+                                    Current page: {{ $member->count()}}
+                                </div>
+                                <div class="float-right mt-3">
+                                    {{ $member->appends(request()->query())->links('pagination::bootstrap-4') }}
+                                </div>
                             </form>
-                            <div class="float-left mt-4">
-                                Total: {{ number_format($member->total(), 0, ',', '.') }}
-                                Current page: {{ $member->count()}}
-                            </div>
-                            <div class="float-right mt-3">
-                                {{ $member->appends(request()->query())->links('pagination::bootstrap-4') }}
-                            </div>
+
 
                         </div>
                     </div>
