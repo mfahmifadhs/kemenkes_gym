@@ -33,10 +33,10 @@
                     <form action="{{ route('masuk') }}" method="POST">
                         @csrf
                         <label class="text-white small">Username</label>
-                        <input type="text" name="username" placeholder="Username">
+                        <input type="text" name="username" class="form-control bg-white" placeholder="Username">
                         <label class="text-white small">Password</label>
                         <div class="input-group">
-                            <input type="password" class="form-control rounded-0" id="password" name="password" placeholder="Password" required>
+                            <input type="password" class="form-control bg-white rounded-0" id="password" name="password" placeholder="Password" required>
                             <div class="input-group-append border border-dark">
                                 <span class="input-group-text h-100 rounded-0 bg-white">
                                     <i class="fa fa-eye" id="eye-icon-pass"></i>
