@@ -35,7 +35,7 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label class="text-white small">Templat lahir*</label>
+                                <label class="text-white small">Tempat lahir*</label>
                                 <input type="text" class="form-control" name="tempat_lahir" required>
                             </div>
                             <div class="col-md-6">
