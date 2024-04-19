@@ -256,6 +256,19 @@
 <!-- Get In Touch Section End -->
 
 @section('js')
+
+@if ($message = Session::get('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: '{{ $message }}',
+        timer: 5000, // Durasi popup (dalam milidetik)
+        showConfirmButton: false // Tombol OK tidak ditampilkan
+    });
+</script>
+@endif
+
 <script>
     var surveyUrl = "{{ route('member.chart') }}";
     var Survey = [];
