@@ -161,12 +161,14 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <div class="float-left mt-4">
-                                    Total: {{ number_format($member->total(), 0, ',', '.') }}
-                                    Current page: {{ $member->count()}}
-                                </div>
-                                <div class="float-right mt-3">
-                                    {{ $member->appends(request()->query())->links('pagination::bootstrap-4') }}
+                                <div class="row">
+                                    <div class="col-md-6 col-6 text-left">
+                                        Total: {{ number_format($member->total(), 0, ',', '.') }}
+                                        Current page: {{ $member->count()}}
+                                    </div>
+                                    <div class="col-md-6 col-6 text-right">
+                                        {{ $member->appends(request()->query())->links('pagination::bootstrap-4') }}
+                                    </div>
                                 </div>
                             </form>
 
