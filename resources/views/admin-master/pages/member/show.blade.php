@@ -162,12 +162,11 @@
                                     </tbody>
                                 </table>
                                 <div class="row">
-                                    <div class="col-md-6 col-6 text-left">
+                                    <div class="col-md-12 col-12">
                                         Total: {{ number_format($member->total(), 0, ',', '.') }}
                                         Current page: {{ $member->count()}}
-                                    </div>
-                                    <div class="col-md-6 col-6 text-right">
-                                        {{ $member->appends(request()->query())->links('pagination::bootstrap-4') }}
+
+                                        <div class="mt-2">{{ $member->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
                                     </div>
                                 </div>
                             </form>
