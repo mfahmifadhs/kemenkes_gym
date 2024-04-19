@@ -58,12 +58,12 @@
                     </div>
                     <div class="container menu-group">
                         <div class="row text-center flex-nowrap">
-                            @foreach ($kelas as $row)
+                            @foreach (Auth::user()->minatKelas as $row)
                             <div class="col-sm-2 col-3">
-                                <a href="{{ route('kelas.detail', $row->id_kelas) }}">
-                                    <img src="{{ asset('dist/img/class/'. $row->img_icon) }}" class="text-primary w-100 img-circle">
+                                <a href="{{ route('kelas.detail', $row->kelas_id) }}">
+                                    <img src="{{ asset('dist/img/class/'. $row->kelas->img_icon) }}" class="text-primary w-100 img-circle">
                                     <h6 class="title">
-                                        {{ $row->id_kelas != 10 ? $row->nama_kelas : 'LIIT' }}
+                                        {{ $row->kelas_id != 10 ? $row->kelas->nama_kelas : 'LIIT' }}
                                     </h6>
                                 </a>
                             </div>

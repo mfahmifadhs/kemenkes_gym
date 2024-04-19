@@ -105,7 +105,7 @@
     <!-- Footer Section Begin -->
     <section class="footer-section" style="margin-top: 26%;">
         <div class="container">
-            <div class="copyright-text">
+            <div class="copyright-text text-center">
                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;<script>
                         document.write(new Date().getFullYear());

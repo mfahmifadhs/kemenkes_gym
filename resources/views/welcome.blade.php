@@ -292,10 +292,10 @@
                                 return data.labels.map(function(label, i) {
                                     var dataset = data.datasets[0];
                                     var currentValue = dataset.data[i];
-                                    var total = '{{ $totalPeminatan }}';
-                                    var percentage = Math.floor(((currentValue / total) * 100) + 0.5);
+                                    var total = '{{ $totalPeminatan }}'; // Menghilangkan tanda kutip
+                                    var percentage = (currentValue / total) * 100;
                                     return {
-                                        text: label + ' (' + percentage + '%)',
+                                        text: `${label} (${(currentValue / total * 100).toFixed(2)}%)`,
                                         fillStyle: dataset.backgroundColor[i] || '#fff',
                                         hidden: isNaN(dataset.data[i]) || dataset.data[i] === '',
                                         index: i
