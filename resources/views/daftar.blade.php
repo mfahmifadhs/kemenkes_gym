@@ -248,7 +248,7 @@
                     },
                 })
 
-                // form.submit();
+                form.submit();
             }
         } else {
             Swal.fire({
