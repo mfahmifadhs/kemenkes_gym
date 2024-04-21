@@ -69,11 +69,11 @@
                                                 </div>
                                             </th>
                                             <th>
-                                                <select name="col2" class="form-control form-control-sm text-xs" onchange="this.form.submit()">
+                                                <select style="width: 18vh;" name="searchInst" class="form-control form-control-sm text-xs" onchange="this.form.submit()">
                                                     <option value="" class="text-center">Seluruh Instansi</option>
                                                     @php $instansi = ['pusat','upt','umum']; @endphp
                                                     @foreach ($instansi as $key => $val)
-                                                    <option value="{{ $val }}" <?php echo $searchCol2 == $val ? 'selected' : '' ?>>
+                                                    <option value="{{ $val }}" <?php echo $searchInst == $val ? 'selected' : '' ?>>
                                                         {{ strtoupper($val) }}
                                                     </option>
                                                     @endforeach

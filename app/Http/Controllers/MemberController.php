@@ -33,8 +33,9 @@ class MemberController extends Controller
         $res = '';
         $perPage    = $request->get('perPage', 10);
         $searchCol1 = $request->get('col1'); // Member ID
-        $searchCol2 = $request->get('col2'); // Tanggal
+        $searchInst = $request->get('searchInst'); // Tanggal
         $searchUker = $request->get('searchUker'); // Asal Unit Kerja
+        $searchInst = $request->get('searchInst'); // Asal Instansi
         $searchNama = $request->get('searchNama'); // Nama
         $searchNip  = $request->get('searchNip'); // NIP NIK
         $searchMail = $request->get('searchMail'); // Email
@@ -45,18 +46,20 @@ class MemberController extends Controller
             ->orderBy('nama_unit_kerja', 'ASC')
             ->get();
 
-        if ($searchCol1 || $searchCol2 || $searchUker || $searchNama || $searchNip || $searchMail || $searchCol7) {
+        if ($searchCol1 || $searchInst || $searchUker || $searchNama || $searchNip || $searchMail || $searchCol7) {
             if ($searchCol1) {
                 $res = $data->where('member_id', 'like', '%' . $searchCol1 . '%');
             }
 
-            if ($searchCol2) {
-                $res = $data->where('created_at', 'like', '%' . $searchCol2 . '%');
+            if ($searchInst) {
+                $res = $data->where('instansi', 'like', '%' . $searchInst . '%');
             }
 
             if ($searchUker) {
-                $res = $data->where('nama_instansi', 'like', '%' . $searchUker . '%')
-                    ->join('t_unit_kerja', 'id_unit_kerja', 'uker_id');
+                $res = $data->whereHas('uker', function ($query) use ($searchUker) {
+                    $query->where('nama_unit_kerja', 'like', '%' . $searchUker . '%');
+                })
+                    ->orWhere('nama_instansi', 'like', '%' . $searchUker . '%');
             }
 
             if ($searchNama) {
@@ -82,7 +85,7 @@ class MemberController extends Controller
 
         $member->appends([
             'searchCol1' => $searchCol1,
-            'searchCol2' => $searchCol2,
+            'searchInst' => $searchInst,
             'searchUker' => $searchUker,
             'searchNama' => $searchNama,
             'searchNip'  => $searchNip,
@@ -90,7 +93,7 @@ class MemberController extends Controller
             'searchCol7' => $searchCol7
         ]);
 
-        return view('admin-master.pages.member.show', compact('member', 'uker', 'searchCol1', 'searchCol2', 'searchUker', 'searchNama', 'searchNip', 'searchMail', 'searchCol7'));
+        return view('admin-master.pages.member.show', compact('member', 'uker', 'searchCol1', 'searchInst', 'searchUker', 'searchNama', 'searchNip', 'searchMail', 'searchCol7'));
     }
 
     public function detail($id)
