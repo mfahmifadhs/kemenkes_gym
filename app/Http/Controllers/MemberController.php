@@ -12,7 +12,7 @@ class MemberController extends Controller
     public function show()
     {
         $searchCol1 = '';
-        $searchCol2 = '';
+        $searchInst = '';
         $searchUker = '';
         $searchNama = '';
         $searchNip  = '';
@@ -25,7 +25,7 @@ class MemberController extends Controller
             ->orderBy('nama_unit_kerja', 'ASC')
             ->get();
 
-        return view('admin-master.pages.member.show', compact('member', 'uker', 'searchCol1', 'searchCol2', 'searchUker', 'searchNama', 'searchNip', 'searchMail', 'searchCol7'));
+        return view('admin-master.pages.member.show', compact('member', 'uker', 'searchCol1', 'searchInst', 'searchUker', 'searchNama', 'searchNip', 'searchMail', 'searchCol7'));
     }
 
     public function search(Request $request)
