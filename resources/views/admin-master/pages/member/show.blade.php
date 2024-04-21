@@ -177,7 +177,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div><br>
 </div>
 
 @section('js')
