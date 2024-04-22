@@ -15,7 +15,9 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-3 col-3 text-center">
-                                    <i class="fa fa-user-circle fa-5x"></i>
+                                    <a type="button" class="btn btn-default bg-main border border-dark px-2 py-0 pt-1" data-toggle="modal" data-target="#qrcode">
+                                        <i class="fa fa-qrcode fa-5x"></i>
+                                    </a>
                                 </div>
                                 <div class="col-md-6 col-6">
                                     <h5>{{ Auth::user()->nama }}</h5>
@@ -93,6 +95,34 @@
 
     </div>
 </section>
+
+<!-- Member Card -->
+<div class="modal fade" id="qrcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">SCAN HERE</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="bg-dark rounded">
+                    <h2 class="px-5 pt-5 pb-4 text-main text-center">MEMBER CARD</h2>
+                    <div class="text-center">
+                        {!! QrCode::merge(public_path('dist/img/logo.png'), 0.5, true)
+                        ->size(270)
+                        ->generate(Crypt::encryptString(Auth::user()->member_id)) !!}
+                    </div>
+                    <h6 class="px-5 pb-4 text-white text-xs text-center ml-1" style="letter-spacing: 7px;">
+                        {{ Auth::user()->member_id }}
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- ChoseUs Section End -->
 
 @endsection
