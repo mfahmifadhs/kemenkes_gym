@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
 use App\Models\MinatKelas;
+use App\Models\Target;
+use App\Models\UnitKerja;
+use App\Models\UnitUtama;
 use App\Models\User;
 use Illuminate\Http\Request;
 use DB;
+use Hash;
+use Carbon\Carbon;
 
 class MemberController extends Controller
 {
@@ -104,8 +110,47 @@ class MemberController extends Controller
 
     public function edit($id)
     {
-        $member = User::where('member_id', $id)->first();
-        return view('admin-master.pages.member.edit', compact('member'));
+        $member = User::where('id', $id)->first();
+        $utama  = UnitUtama::get();
+        $uker   = UnitKerja::get();
+        $kelas  = Kelas::get();
+        $target = Target::get();
+        return view('admin-master.pages.member.edit', compact('member', 'utama', 'uker', 'kelas', 'target'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $tanggal_lahir    = Carbon::createFromFormat('Y-m-d', $request->tanggal_lahir);
+        $tanggal_sekarang = Carbon::now();
+        $usia = $tanggal_lahir->diffInYears($tanggal_sekarang);
+
+        $totalUser = User::count();
+        $idUser    = $totalUser + 1;
+
+        User::where('id', $id)->update([
+            'role_id'        => $request->role ?? 4,
+            'uker_id'        => $request->instansi == 'pusat' ? $request->uker : null,
+            'nip_nik'        => $request->nipnik,
+            'nama'           => $request->nama,
+            'jenis_kelamin'  => $request->jkelamin,
+            'tempat_lahir'   => strtoupper($request->tempat_lahir),
+            'tanggal_lahir'  => $request->tanggal_lahir,
+            'usia'           => $usia,
+            'no_telp'        => $request->no_telp,
+            'instansi'       => $request->instansi,
+            'nama_instansi'  => $request->instansi != 'pusat' ? $request->nama_instansi : null,
+            'tinggi'         => $request->tinggi,
+            'berat'          => $request->berat
+        ]);
+
+        return redirect()->route('member.detail', $id)->with('success', 'Berhasil Menyimpan Perubahan');
+    }
+
+
+    public function delete($id)
+    {
+        $member = User::where('id', $id)->delete();
+        return redirect()->route('member')->with('success', 'Berhasil Menghapus Data');
     }
 
     public function chartAll()

@@ -24,4 +24,8 @@ class MinatKelas extends Model
     public function kelas() {
         return $this->belongsTo(Kelas::class, 'kelas_id');
     }
+
+    public function target() {
+        return $this->belongsTo(Target::class, 'target_id');
+    }
 }

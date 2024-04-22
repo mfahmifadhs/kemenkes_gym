@@ -42,7 +42,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <div class="collapse navbar-collapse order-3" id="navbarCollapse">
 
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav mt-1">
                         <li class="nav-item">
                             <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
                         </li>
@@ -90,7 +90,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <script>
             Swal.fire({
                 icon: 'success',
-                title: '{{ Session::get("success") }}',
+                title: 'Success',
+                text: '{{ Session::get("success") }}',
+                timer: 5000, // Durasi popup (dalam milidetik)
+                showConfirmButton: false // Tombol OK tidak ditampilkan
             });
         </script>
         @endif

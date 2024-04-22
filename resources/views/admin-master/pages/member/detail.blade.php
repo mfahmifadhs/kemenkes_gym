@@ -9,7 +9,9 @@
                     <h1 class="m-0"> Detail Member</small></h1>
                 </div>
                 <div class="col-sm-6 text-right">
-
+                    <a href="{{ route('member') }}" class="btn btn-default border-dark">
+                        <i class="fas fa-arrow-left"></i> Kembali
+                    </a>
                 </div>
             </div>
         </div>
@@ -92,6 +94,15 @@
                         </div>
                     </div>
                     <hr>
+                    <label class="text-secondary text-sm mb-0"><i>Informasi Target</i></label>
+                    <div class="row">
+                        @foreach ($member->minatTarget as $row)
+                        <div class="col-md-4 mt-2">
+                            <h6 class="text-sm">{{ $loop->iteration.'. '. ucwords(strtolower($row->target->nama_target)) }}</h6>
+                        </div>
+                        @endforeach
+                    </div>
+                    <hr>
                     <label class="text-secondary text-sm mb-0"><i>Peminatan Kelas</i></label>
                     <div class="row">
                         @foreach ($member->minatKelas as $row)
@@ -112,6 +123,11 @@
                             <h6 class="text-sm">{{ $member->password_teks }}</h6>
                         </div>
                     </div>
+                </div>
+                <div class="card-footer text-right">
+                    <a href="{{ route('member.edit', $member->id) }}" class="btn btn-warning">
+                        <i class="fas fa-pencil"></i> Edit Informasi
+                    </a>
                 </div>
             </div> <br>
         </div>
