@@ -138,7 +138,7 @@
                                             <td>
                                                 <a href="{{ route('member.detail', $row->id) }}"><i class="fas fa-eye"></i></a>
                                                 <a href="{{ route('member.edit', $row->id) }}"><i class="fas fa-pencil mx-1"></i></a>
-                                                <a href="{{ route('member.delete', $row->id) }}"><i class="fas fa-trash"></i></a>
+                                                <!-- <a href="{{ route('member.delete', $row->id) }}"><i class="fas fa-trash"></i></a> -->
                                             </td>
                                             <td>{{ $row->member_id }}</td>
                                             <td>{{ $row->created_at }}</td>
