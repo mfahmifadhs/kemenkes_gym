@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\MinatKelas;
+use App\Models\MinatTarget;
 use App\Models\Target;
 use App\Models\UnitKerja;
 use App\Models\UnitUtama;
@@ -120,30 +121,76 @@ class MemberController extends Controller
 
     public function update(Request $request, $id)
     {
-        $tanggal_lahir    = Carbon::createFromFormat('Y-m-d', $request->tanggal_lahir);
-        $tanggal_sekarang = Carbon::now();
-        $usia = $tanggal_lahir->diffInYears($tanggal_sekarang);
+        if (!$request->kelas && !$request->target) {
+            $tanggal_lahir    = Carbon::createFromFormat('Y-m-d', $request->tanggal_lahir);
+            $tanggal_sekarang = Carbon::now();
+            $usia = $tanggal_lahir->diffInYears($tanggal_sekarang);
 
-        $totalUser = User::count();
-        $idUser    = $totalUser + 1;
+            $totalUser = User::count();
+            $idUser    = $totalUser + 1;
 
-        User::where('id', $id)->update([
-            'role_id'        => $request->role ?? 4,
-            'uker_id'        => $request->instansi == 'pusat' ? $request->uker : null,
-            'nip_nik'        => $request->nipnik,
-            'nama'           => $request->nama,
-            'jenis_kelamin'  => $request->jkelamin,
-            'tempat_lahir'   => strtoupper($request->tempat_lahir),
-            'tanggal_lahir'  => $request->tanggal_lahir,
-            'usia'           => $usia,
-            'no_telp'        => $request->no_telp,
-            'instansi'       => $request->instansi,
-            'nama_instansi'  => $request->instansi != 'pusat' ? $request->nama_instansi : null,
-            'tinggi'         => $request->tinggi,
-            'berat'          => $request->berat
-        ]);
+            User::where('id', $id)->update([
+                'role_id'        => $request->role ?? 4,
+                'uker_id'        => $request->instansi == 'pusat' ? $request->uker : null,
+                'nip_nik'        => $request->nipnik,
+                'nama'           => $request->nama,
+                'jenis_kelamin'  => $request->jkelamin,
+                'tempat_lahir'   => strtoupper($request->tempat_lahir),
+                'tanggal_lahir'  => $request->tanggal_lahir,
+                'usia'           => $usia,
+                'no_telp'        => $request->no_telp,
+                'instansi'       => $request->instansi,
+                'nama_instansi'  => $request->instansi != 'pusat' ? $request->nama_instansi : null,
+                'tinggi'         => $request->tinggi,
+                'berat'          => $request->berat
+            ]);
 
-        return redirect()->route('member.detail', $id)->with('success', 'Berhasil Menyimpan Perubahan');
+            return redirect()->route('member.detail', $id)->with('success', 'Berhasil Menyimpan Perubahan');
+        }
+
+        // update kelas
+        if ($request->kelas == 'true') {
+            $kelasTerdaftar = MinatKelas::where('member_id', $id)->where('kelas_id', $request->kelas_update)->count();
+
+            if ($kelasTerdaftar == 1 && $request->kelas_update != null) {
+                return redirect()->route('member.edit', $id)->with('failed', 'Kelas sudah terdaftar');
+            } else {
+                if ($request->kelas_update_id != null) {
+                    MinatKelas::where('id_minat_kelas', $request->kelas_update_id)->update([
+                        'kelas_id' => $request->kelas_update
+                    ]);
+                } else {
+                    $kelasAdd = new MinatKelas();
+                    $kelasAdd->member_id = $id;
+                    $kelasAdd->kelas_id = $request->kelas_update;
+                    $kelasAdd->save();
+                }
+
+                return redirect()->route('member.edit', $id)->with('success', 'Berhasil Menyimpan Perubahan');
+            }
+        }
+
+        // update target
+        if ($request->target == 'true') {
+            $targetTerdaftar = MinatTarget::where('member_id', $id)->where('target_id', $request->target_update)->count();
+
+            if ($targetTerdaftar == 1 && $request->target_update != null) {
+                return redirect()->route('member.edit', $id)->with('failed', 'Target sudah terdaftar');
+            } else {
+                if ($request->target_update_id != null) {
+                    MinatTarget::where('id_minat_target', $request->target_update_id)->update([
+                        'target_id' => $request->target_update
+                    ]);
+                } else {
+                    $targetAdd = new MinatTarget();
+                    $targetAdd->member_id = $id;
+                    $targetAdd->target_id = $request->target_update;
+                    $targetAdd->save();
+                }
+
+                return redirect()->route('member.edit', $id)->with('success', 'Berhasil Menyimpan Perubahan');
+            }
+        }
     }
 
 

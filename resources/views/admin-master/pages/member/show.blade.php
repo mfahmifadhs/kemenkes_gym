@@ -149,12 +149,12 @@
                                             <td>{{ $row->email }}</td>
                                             <td class="text-left">
                                                 @foreach($row->minatKelas as $subRow)
-                                                {{ $loop->iteration }}. {{ ucwords(strtolower($subRow->kelas->nama_kelas)) }} <br>
+                                                {{ $loop->iteration }}. {{ ucwords(strtolower($subRow->kelas?->nama_kelas)) }} <br>
                                                 @endforeach
                                             </td>
                                             <td class="text-left">
                                                 @foreach($row->minatTarget as $subRow)
-                                                {{ $loop->iteration }}. {{ ucwords(strtolower($subRow->target->nama_target)) }} <br>
+                                                {{ $loop->iteration }}. {{ ucwords(strtolower($subRow->target?->nama_target)) }} <br>
                                                 @endforeach
                                             </td>
                                         </tr>

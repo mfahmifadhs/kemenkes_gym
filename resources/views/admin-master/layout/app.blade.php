@@ -111,7 +111,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <script>
             Swal.fire({
                 icon: 'error',
-                title: '{{ Session::get("failed") }}',
+                title: 'error',
+                text: '{{ Session::get("failed") }}',
+                timer: 2000, // Durasi popup (dalam milidetik)
+                showConfirmButton: false // Tombol OK tidak ditampilkan
             });
         </script>
         @endif

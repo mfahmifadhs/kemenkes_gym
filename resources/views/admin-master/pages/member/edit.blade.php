@@ -20,6 +20,65 @@
 
     <div class="content">
         <div class="container-fluid col-md-8">
+
+
+        <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="text-secondary text-sm mb-0">
+                                <i>Informasi Kelas</i> <br> <small>(auto simpan)</small>
+                            </label>
+                            @for ($i = 0; $i < 3; $i++)
+                            <form id="formKelas{{ $i }}" action="{{ route('member.update', $member->id) }}" method="POST">
+                                @csrf
+                                <div class="input-group mb-3 mt-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text border-dark">{{ $i+1 }}</span>
+                                    </div>
+                                    <input type="hidden" name="kelas" value="true">
+                                    <input type="hidden" name="kelas_update_id" value="{{ isset($member->minatKelas[$i]) ? $member->minatKelas[$i]->id_minat_kelas : '' }}">
+                                    <select name="kelas_update" class="form-control" onchange="submitKelas(<?php echo $i; ?>)">
+                                        <option value="">TIDAK MEMILIH KELAS</option>
+                                        @foreach ($kelas as $row)
+                                        <option value="{{ $row->id_kelas }}" {{ isset($member->minatKelas[$i]) && $member->minatKelas[$i]->kelas_id == $row->id_kelas ? 'selected' : '' }}>
+                                            {{ $row->nama_kelas }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </form>
+                            @endfor
+                        </div>
+                        <div class="col-md-6">
+                            <label class="text-secondary text-sm mb-0">
+                                <i>Informasi Target</i> <br> <small>(auto simpan)</small>
+                            </label>
+                            @for ($i = 0; $i < 3; $i++)
+                            <form id="formTarget{{ $i }}" action="{{ route('member.update', $member->id) }}" method="POST">
+                                @csrf
+                                <div class="input-group mb-3 mt-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text border-dark">{{ $i+1 }}</span>
+                                    </div>
+                                    <input type="hidden" name="target" value="true">
+                                    <input type="hidden" name="target_update_id" value="{{ isset($member->minatTarget[$i]) ? $member->minatTarget[$i]->id_minat_target : '' }}">
+                                    <select name="target_update" class="form-control" onchange="submitTarget(<?php echo $i; ?>)">
+                                        <option value="">TIDAK MEMILIH TARGET</option>
+                                        @foreach ($target as $row)
+                                        <option value="{{ $row->id_target }}" {{ isset($member->minatTarget[$i]) && $member->minatTarget[$i]->target_id == $row->id_target ? 'selected' : '' }}>
+                                            {{ $row->nama_target }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </form>
+                            @endfor
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="card">
                 <form id="form" action="{{ route('member.update', $member->id) }}" method="POST">
                     @csrf
@@ -123,64 +182,21 @@
                     </div>
                 </form>
             </div>
-
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="text-secondary text-sm mb-0"><i>Informasi Kelas</i></label>
-                            @for ($i = 1; $i <= 3; $i++)
-                            <div class="input-group mb-3 mt-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text border-dark">{{ $i }}</span>
-                                </div>
-                                <select name="" class="form-control" id="">
-                                    <option value="">-- Pilih Kelas -- </option>
-                                    @foreach ($kelas as $row)
-                                        <option value="{{ $row->id_kelas }}"
-                                            <?php echo isset($member->minatKelas[$i - 1]) && $member->minatKelas[$i - 1]->kelas_id == $row->id_kelas ? 'selected' : ''; ?>>
-                                            {{ $row->nama_kelas }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <div class="input-group-prepend">
-                                    <a href="" class="input-group-text border-dark bg-success"><i class="fas fa-save"></i></a>
-                                    <a href="" class="input-group-text border-dark bg-danger"><i class="fas fa-trash"></i></a>
-                                </div>
-                            </div>
-                            @endfor
-                        </div>
-                        <div class="col-md-6">
-                            <label class="text-secondary text-sm mb-0"><i>Informasi Target</i></label>
-                            @for ($i = 1; $i <= 3; $i++)
-                            <div class="input-group mb-3 mt-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text border-dark">{{ $i }}</span>
-                                </div>
-                                <select name="" class="form-control" id="">
-                                    <option value="">-- Pilih Target -- </option>
-                                    @foreach ($target as $row)
-                                        <option value="{{ $row->id_target }}"
-                                            <?php echo isset($member->minatTarget[$i - 1]) && $member->minatTarget[$i - 1]->target_id == $row->id_target ? 'selected' : ''; ?>>
-                                            {{ $row->nama_target }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <div class="input-group-prepend">
-                                    <a href="" class="input-group-text border-dark bg-success"><i class="fas fa-save"></i></a>
-                                    <a href="" class="input-group-text border-dark bg-danger"><i class="fas fa-trash"></i></a>
-                                </div>
-                            </div>
-                            @endfor
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div><br>
 </div>
 
 @section('js')
+<script>
+    function submitKelas(formIndex) {
+        document.getElementById('formKelas' + formIndex).submit()
+    }
+
+    function submitTarget(formIndex) {
+        document.getElementById('formTarget' + formIndex).submit()
+    }
+</script>
+
 <script>
     $(document).ready(function() {
         // Handle click event on clear button

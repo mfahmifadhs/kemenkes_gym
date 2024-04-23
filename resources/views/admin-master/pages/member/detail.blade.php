@@ -98,7 +98,7 @@
                     <div class="row">
                         @foreach ($member->minatTarget as $row)
                         <div class="col-md-4 mt-2">
-                            <h6 class="text-sm">{{ $loop->iteration.'. '. ucwords(strtolower($row->target->nama_target)) }}</h6>
+                            <h6 class="text-sm">{{ $loop->iteration.'. '. ucwords(strtolower($row->target?->nama_target)) }}</h6>
                         </div>
                         @endforeach
                     </div>
@@ -107,7 +107,7 @@
                     <div class="row">
                         @foreach ($member->minatKelas as $row)
                         <div class="col-md-4 mt-2">
-                            <h6 class="text-sm">{{ $loop->iteration.'. '.$row->kelas->nama_kelas }}</h6>
+                            <h6 class="text-sm">{{ $loop->iteration.'. '.$row->kelas?->nama_kelas }}</h6>
                         </div>
                         @endforeach
                     </div>
