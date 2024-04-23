@@ -115,7 +115,7 @@
 
                             <div class="col-md-6">
                                 <label class="col-form-label text-sm">No. Telepon</label>
-                                <input type="text" class="form-control number" name="no_telp" value="{{ $member->no_telp }}" required>
+                                <input type="text" class="form-control number" name="no_telp" value="{{ $member->no_telp }}">
                             </div>
 
                             <div class="col-md-6">
