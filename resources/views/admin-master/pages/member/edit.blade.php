@@ -20,17 +20,14 @@
 
     <div class="content">
         <div class="container-fluid col-md-8">
-
-
-        <div class="card">
+            <div class="card">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
                             <label class="text-secondary text-sm mb-0">
                                 <i>Informasi Kelas</i> <br> <small>(auto simpan)</small>
                             </label>
-                            @for ($i = 0; $i < 3; $i++)
-                            <form id="formKelas{{ $i }}" action="{{ route('member.update', $member->id) }}" method="POST">
+                            @for ($i = 0; $i < 3; $i++) <form id="formKelas{{ $i }}" action="{{ route('member.update', $member->id) }}" method="POST">
                                 @csrf
                                 <div class="input-group mb-3 mt-2">
                                     <div class="input-group-prepend">
@@ -47,15 +44,14 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </form>
-                            @endfor
+                                </form>
+                                @endfor
                         </div>
                         <div class="col-md-6">
                             <label class="text-secondary text-sm mb-0">
                                 <i>Informasi Target</i> <br> <small>(auto simpan)</small>
                             </label>
-                            @for ($i = 0; $i < 3; $i++)
-                            <form id="formTarget{{ $i }}" action="{{ route('member.update', $member->id) }}" method="POST">
+                            @for ($i = 0; $i < 3; $i++) <form id="formTarget{{ $i }}" action="{{ route('member.update', $member->id) }}" method="POST">
                                 @csrf
                                 <div class="input-group mb-3 mt-2">
                                     <div class="input-group-prepend">
@@ -72,8 +68,8 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </form>
-                            @endfor
+                                </form>
+                                @endfor
                         </div>
                     </div>
                 </div>

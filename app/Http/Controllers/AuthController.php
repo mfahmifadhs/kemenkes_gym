@@ -147,13 +147,14 @@ class AuthController extends Controller
             return redirect()->route('login')->with('failed', 'Token Expired');
         }
 
+        $user     = User::where('id', $id)->first();
         $format   = Carbon::now()->isoFormat('YYMMDDHHmmss');
         $total    = str_pad($id, 4, 0, STR_PAD_LEFT);
         $rand     = rand(111,999);
         $memberId = $format.$rand.$total;
 
         User::where('id', $id)->update([
-            'member_id'  => $memberId,
+            'member_id'  => $user->member_id ?? $memberId,
             'isVerify'   => 'true',
             'status'     => 'true',
             'created_at' => Carbon::now()

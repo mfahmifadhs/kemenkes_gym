@@ -8,11 +8,16 @@ use App\Models\MinatTarget;
 use App\Models\Target;
 use App\Models\UnitKerja;
 use App\Models\UnitUtama;
+use App\Models\LogMail;
+use App\Mail\SendEmail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use DB;
 use Hash;
+use Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class MemberController extends Controller
 {
@@ -191,6 +196,75 @@ class MemberController extends Controller
                 return redirect()->route('member.edit', $id)->with('success', 'Berhasil Menyimpan Perubahan');
             }
         }
+    }
+
+    public function editPassword($id)
+    {
+        $member = User::where('id', $id)->first();
+        return view('admin-master.pages.member.password', compact('member'));
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
+        User::where('id',$id)->update([
+            'password'       => Hash::make($request->password),
+            'password_teks'  => $request->password
+        ]);
+
+        if (Auth::user()->role_id != 4) {
+            return redirect()->route('member.detail', $id)->with('success', 'Berhasil Mengubah Password');
+        } else {
+            return redirect()->route('login')->with('success', 'Berhasil Memperbaharui Informasi');
+        }
+    }
+
+    public function editEmail($id)
+    {
+        $member = User::where('id', $id)->first();
+        return view('admin-master.pages.member.email', compact('member'));
+    }
+
+    public function updateEmail(Request $request, $id)
+    {
+        $emailTerdaftar = User::where('id', $id)->where('email', $request->email)->count();
+
+        if ($emailTerdaftar == 1) {
+            return redirect()->route('member.email', $id)->with('failed', 'Email sudah terdaftar');
+        }
+
+        if ($request->email) {
+            User::where('id',$id)->update([
+                'email' => $request->email
+            ]);
+        }
+
+        if (Auth::user()->role_id != 4) {
+            return redirect()->route('member.detail', $id)->with('success', 'Berhasil Mengubah Email');
+        } else {
+            return redirect()->route('login')->with('success', 'Berhasil Memperbaharui Informasi');
+        }
+    }
+
+    public function resendEmail($id)
+    {
+        $user = User::where('id', $id)->first();
+
+        $tokenMail = Str::random(32);
+        $logMail = new LogMail();
+        $logMail->user_id = $id;
+        $logMail->token   = $tokenMail;
+        $logMail->save();
+
+        $data = [
+            'token'    => $tokenMail,
+            'id'       => $id,
+            'nama'     => $user->nama,
+            'uker'     => $user->instansi == 'pusat' ? $user->nama_unit_kerja : $user->nama_instansi,
+            'username' => $user->username
+        ];
+
+        Mail::to($user->email)->send(new SendEmail($data));
+        return redirect()->route('member.email', $id)->with('success', 'Resend link Activation Success!');
     }
 
 

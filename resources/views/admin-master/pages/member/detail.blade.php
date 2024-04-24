@@ -125,8 +125,14 @@
                     </div>
                 </div>
                 <div class="card-footer text-right">
-                    <a href="{{ route('member.edit', $member->id) }}" class="btn btn-warning">
-                        <i class="fas fa-pencil"></i> Edit Informasi
+                    <a href="{{ route('member.email', $member->id) }}" class="btn btn-warning btn-sm">
+                        <i class="fas fa-envelope"></i> Ubah Email
+                    </a>
+                    <a href="{{ route('member.password', $member->id) }}" class="btn btn-warning btn-sm">
+                        <i class="fas fa-shield-halved"></i> Ubah Password
+                    </a>
+                    <a href="{{ route('member.edit', $member->id) }}" class="btn btn-warning btn-sm">
+                        <i class="fas fa-pencil"></i> Ubah Informasi
                     </a>
                 </div>
             </div> <br>
