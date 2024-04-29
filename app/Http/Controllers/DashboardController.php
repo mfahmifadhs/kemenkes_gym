@@ -17,7 +17,7 @@ class DashboardController extends Controller
     public function index()
     {
         $roleId = Auth::user()->role_id;
-        $kelas  = Kelas::orderBy('nama_kelas', 'ASC')->get();
+        $kelas  = Kelas::orderBy('nama_kelas', 'ASC')->where('status', 'true')->get();
         $totalPeminatan = MinatKelas::count();
         $totalMember    = User::where('role_id', 4)->count();
         $totalUtama     = User::where('role_id', 4)

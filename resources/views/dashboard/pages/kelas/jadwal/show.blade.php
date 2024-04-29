@@ -20,17 +20,16 @@
                                 <tr>
                                     @foreach($range as $dateNumber)
                                     @php
-                                        $date = Carbon\Carbon::createFromFormat('d-m-Y', $dateNumber.'-'.$rangeAwal->month.'-'.$rangeAwal->year)->format('d-M-Y');
-                                        $totalKelas = $jadwal->where('hari', $date)->count();
+                                    $totalKelas = $jadwal->where('hari', $dateNumber)->count();
                                     @endphp
-                                    @if ($date == $today && $date >= $today)
+                                    @if ($dateNumber == $today && $dateNumber >= $today)
                                     <td class="bg-white text-dark font-weight-bold text-center" style="font-size: 14px;">
-                                        <h6 class="small text-uppercase">{{ $date }}</h6>
+                                        <h6 class="small text-uppercase">{{ $dateNumber }}</h6>
                                     </td>
                                     @else
 
-                                    <td class="bg-main text-dark font-weight-bold text-center" style="font-size: 14px; cursor: pointer;" onclick="window.location='<?php echo route('jadwal.pilih', $date); ?>'">
-                                        <h6 class="small text-uppercase">{{ $date }}</h6>
+                                    <td class="bg-main text-dark font-weight-bold text-center" style="font-size: 14px; cursor: pointer;" onclick="window.location='<?php echo route('jadwal.pilih', $dateNumber); ?>'">
+                                        <h6 class="small text-uppercase">{{ $dateNumber }}</h6>
                                     </td>
                                     @endif
                                     @endforeach
@@ -40,8 +39,16 @@
                         @foreach ($jadwal as $row)
                         <div class="section-title">
                             @php
-                                $totalPeserta = $row->peserta->where('tanggal_latihan', $row->tanggal_kelas)->count();
-                                $cekDaftar = $daftar->where('jadwal_id', $row->id_jadwal)->where('tanggal_latihan', $row->tanggal_kelas)->count();
+                            $totalPeserta = 0;
+                            $cekDaftar = 0;
+
+                            if ($row->peserta) {
+                            $totalPeserta = $row->peserta->where('tanggal_latihan', $row->tanggal_kelas)->count();
+                            }
+
+                            if ($daftar) {
+                            $cekDaftar = $daftar->where('jadwal_id', $row->id_jadwal)->where('tanggal_latihan', $row->tanggal_kelas)->count();
+                            }
                             @endphp
                             <div class="card mt-2">
                                 <div class="card-body">

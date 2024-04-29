@@ -60,12 +60,12 @@
                     </div>
                     <div class="container menu-group">
                         <div class="row text-center flex-nowrap">
-                            @foreach (Auth::user()->minatKelas as $row)
-                            <div class="col-sm-2 col-3">
-                                <a href="{{ route('kelas.detail', $row->kelas_id) }}">
-                                    <img src="{{ asset('dist/img/class/'. $row->kelas->img_icon) }}" class="text-primary w-100 img-circle">
+                            @foreach ($kelas as $row)
+                            <div class="col-sm-2 col-4">
+                                <a href="{{ route('kelas.detail', $row->id_kelas) }}">
+                                    <img src="{{ asset('dist/img/class/'. $row->img_icon) }}" class="text-primary img-circle">
                                     <h6 class="title">
-                                        {{ $row->kelas_id != 10 ? $row->kelas->nama_kelas : 'LIIT' }}
+                                        {{ $row->id_kelas != 10 ? $row->nama_kelas : 'LIIT' }}
                                     </h6>
                                 </a>
                             </div>
@@ -114,7 +114,7 @@
                         ->size(270)
                         ->generate(Crypt::encryptString(Auth::user()->member_id)) !!}
                     </div>
-                    <h6 class="px-5 pb-4 text-white text-xs text-center ml-1" style="letter-spacing: 7px;">
+                    <h6 class="px-5 pb-4 text-white text-xs text-center" style="letter-spacing: 7px;">
                         {{ Auth::user()->member_id }}
                     </h6>
                 </div>

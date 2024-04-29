@@ -42,8 +42,8 @@
         <nav class="canvas-menu mobile-menu">
             <ul>
                 <li><a href="{{ route('dashboard') }}"><i class="fa fa-home"></i> Home</a></li>
-                <li><a href="{{ route('dashboard') }}"><i class="fa fa-heartbeat"></i> Classes</a></li>
-                <li><a href="{{ route('dashboard') }}"><i class="fa fa-pie-chart"></i> Survey Result</a></li>
+                <!-- <li><a href="{{ route('dashboard') }}"><i class="fa fa-heartbeat"></i> Classes</a></li> -->
+                <!-- <li><a href="{{ route('dashboard') }}"><i class="fa fa-pie-chart"></i> Survey Result</a></li> -->
                 <li>
                     <a href="{{ route('jadwal.show') }}"><i class="fa fa-calendar"></i> Schedule</a>
                 </li>
@@ -70,8 +70,8 @@
                     <nav class="nav-menu">
                         <ul>
                             <li><a href="{{ route('dashboard') }}">Home</a></li>
-                            <li><a href="{{ route('dashboard') }}">Classes</a></li>
-                            <li><a href="{{ route('dashboard') }}">Survey Result</a></li>
+                            <!-- <li><a href="{{ route('dashboard') }}">Classes</a></li> -->
+                            <!-- <li><a href="{{ route('dashboard') }}">Survey Result</a></li> -->
                             <li><a href="{{ route('jadwal.show') }}">Schedule</a></li>
                         </ul>
                     </nav>

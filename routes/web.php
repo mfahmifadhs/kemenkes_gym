@@ -56,10 +56,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('member/detail/{id}', [MemberController::class, 'detail'])->name('member.detail');
     Route::get('member/delete/{id}', [MemberController::class, 'delete'])->name('member.delete');
+    Route::get('member/delete-minat/{id}', [MemberController::class, 'deleteMinat'])->name('member.deleteMinat');
+    Route::get('member/resend/email/{id}', [MemberController::class, 'resendEmail'])->name('member.resendMail');
+
     Route::post('member/update/{id}', [MemberController::class, 'update'])->name('member.update');
     Route::post('member/update/password/{id}', [MemberController::class, 'updatePassword'])->name('member.updatePassword');
     Route::post('member/update/email/{id}', [MemberController::class, 'updateEmail'])->name('member.updateEmail');
-    Route::get('member/resend/email/{id}', [MemberController::class, 'resendEmail'])->name('member.resendMail');
 
     Route::get('user', [UserController::class, 'show'])->name('user');
     Route::get('user/create', [UserController::class, 'create'])->name('user.create');

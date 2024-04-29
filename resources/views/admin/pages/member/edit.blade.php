@@ -256,7 +256,7 @@
         var instansi = document.getElementById('instansi').value;
         var idUker = document.getElementById('ukerSelect');
         var idUmum = document.getElementById('namaInstansi');
-        console.log(idUmum)
+
         if (instansi === 'pusat') {
             idUker.setAttribute('required', 'required');
         } else {

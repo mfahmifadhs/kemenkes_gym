@@ -31,16 +31,16 @@
                                     <input type="date" class="form-control" name="tanggal" value="{{ $jadwal->tanggal_kelas }}" min="{{ date('Y-m-d') }}">
                                 </div>
                                 <div class="form-group col-md-6 col-6">
+                                    <label class="text-white small">Kuota*</label>
+                                    <input type="text" class="form-control number" name="kuota" value="{{ $jadwal->kuota }}">
+                                </div>
+                                <div class="form-group col-md-6 col-6">
                                     <label class="text-white small">Start Time*</label>
                                     <input type="time" class="form-control" name="waktu_mulai" value="{{ $jadwal->waktu_mulai }}">
                                 </div>
                                 <div class="form-group col-md-6 col-6">
                                     <label class="text-white small">Finish Time*</label>
                                     <input type="time" class="form-control" name="waktu_selesai" value="{{ $jadwal->waktu_selesai }}">
-                                </div>
-                                <div class="form-group col-md-6 col-6">
-                                    <label class="text-white small">Kuota*</label>
-                                    <input type="text" class="form-control number" name="kuota" value="{{ $jadwal->kuota }}">
                                 </div>
                                 <div class="form-group col-md-6 col-6">
                                     <label class="text-white small">Personal Trainer Name</label>

@@ -82,17 +82,15 @@
                                     <th>Unit Kerja/UPT/Umum</th>
                                     <th>Nama</th>
                                     <th>Waktu Datang</th>
-                                    <th>Pelatih</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($jadwal->peserta as $row)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $row->member->uker->nama_unit_kerja }}</td>
-                                    <td>{{ $row->member->nama }}</td>
+                                    <td class="text-left">{{ $row->member->uker->nama_unit_kerja }}</td>
+                                    <td class="text-left">{{ $row->member->nama }}</td>
                                     <td>{{ $row->kehadiran }}</td>
-                                    <td></td>
                                 </tr>
                                 @endforeach
                             </tbody>

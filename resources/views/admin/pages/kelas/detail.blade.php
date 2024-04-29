@@ -65,10 +65,14 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
+                        <a href="{{ route('jadwal.create', $kelas->id_kelas) }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-plus-circle"></i> Tambah Kelas
+                        </a>
                         <table id="table-history" class="table table-bordered text-xs text-center">
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Aksi</th>
                                     <th>Tanggal Kelas</th>
                                     <th>Waktu</th>
                                     <th>Kuota</th>
@@ -79,10 +83,58 @@
                                 @foreach ($kelas->jadwal->where('tanggal_kelas', '>', \Carbon\Carbon::now()) as $row)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        <a href="{{ route('jadwal.detail', $row->id_jadwal) }}"><i class="fas fa-eye mx-1"></i></a>
+                                        <a href="{{ route('jadwal.edit', $row->id_jadwal) }}"><i class="fas fa-pencil mx-1"></i></a>
+                                    </td>
                                     <td>{{ $row->tanggal_kelas }}</td>
                                     <td>{{ Carbon\Carbon::parse($row->waktu_mulai)->isoFormat('HH.mm').' - '.Carbon\Carbon::parse($row->waktu_selesai)->isoFormat('HH.mm') }}</td>
                                     <td>{{ $row->peserta->where('tanggal_latihan', $row->tanggal_kelas)->count() .' / '. $row->kuota }}</td>
                                     <td>{{ $row->nama_pelatih }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <label class="card-title text-sm mt-1">
+                        <i class="fas fa-users"></i> Peminat Kelas
+                    </label>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="table-member" class="table table-bordered text-xs text-center">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Aksi</th>
+                                    <th>Member ID</th>
+                                    <th>Nama</th>
+                                    <th>Unit kerja</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($kelas->minat as $row)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        <a href="{{ route('member.detail', $row->member_id) }}"><i class="fas fa-eye mx-1"></i></a>
+                                        <a href="{{ route('member.deleteMinat', $row->id_minat_kelas) }}" onclick="confirmRemove(event, `{{ route('member.deleteMinat', $row->id_minat_kelas) }}`)">
+                                            <i class="fas fa-trash mx-1"></i>
+                                        </a>
+                                    </td>
+                                    <td>{{ $row->member?->member_id }}</td>
+                                    <td class="text-left">{{ $row->member?->nama }}</td>
+                                    <td class="text-left">{{ $row->member->uker?->nama_unit_kerja ?? $row->member->nama_instansi }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -158,7 +210,33 @@
             "paging": false,
             "searching": false
         })
+
+        $("#table-member").DataTable({
+            "responsive": false,
+            "lengthChange": true,
+            "autoWidth": true,
+            "info": false,
+            "paging": false,
+            "searching": false
+        })
     })
+
+    function confirmRemove(event, url) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: 'Hapus ?',
+            text: 'Hapus peserta peminatan',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
+    }
 </script>
 @endsection
 @endsection

@@ -25,6 +25,10 @@ class MinatKelas extends Model
         return $this->belongsTo(Kelas::class, 'kelas_id');
     }
 
+    public function member() {
+        return $this->belongsTo(User::class, 'member_id');
+    }
+
     public function target() {
         return $this->belongsTo(Target::class, 'target_id');
     }

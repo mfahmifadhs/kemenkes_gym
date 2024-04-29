@@ -298,6 +298,12 @@ class MemberController extends Controller
         return redirect()->route('member')->with('success', 'Berhasil Menghapus Data');
     }
 
+    public function deleteMinat($id)
+    {
+        MinatKelas::where('id_minat_kelas', $id)->delete();
+        return back()->with('success', 'Berhasil Menghapus Data');
+    }
+
     public function chartAll()
     {
         $result = MinatKelas::join('t_kelas', 'id_kelas', 'kelas_id')

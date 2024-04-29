@@ -14,17 +14,25 @@ class JadwalController extends Controller
 {
     public function show()
     {
-        $tglAwal    = Carbon::now()->format('d-m-Y');
-        $tglAkhir   = Carbon::now()->endOfMonth()->format('d-m-Y');
-        $rangeAwal  = Carbon::createFromFormat('d-m-Y', $tglAwal);
-        $rangeAkhir = Carbon::createFromFormat('d-m-Y', $tglAkhir);
-        $range      = range($rangeAwal->day, $rangeAkhir->day);
+        $tglAwal    = Carbon::now();
+        $tglAkhir   = Carbon::now()->endOfMonth();
+        $tglAwalBulanBerikutnya = $tglAkhir->copy()->addDay();
+        $tglAkhirBulanBerikutnya = $tglAkhir->copy()->addMonth()->endOfMonth();
+
+        $range = collect(Carbon::parse($tglAwal)->range($tglAkhirBulanBerikutnya))->map(function ($date) {
+            return $date->format('d-M-Y');
+        });
+
+        $rangeAwal  = Carbon::createFromFormat('d-m-Y', Carbon::now()->format('d-m-Y'));
+        // $rangeAkhir = Carbon::createFromFormat('d-m-Y', Carbon::now()->endOfMonth()->format('d-m-Y'));
+        // $ranges     = range($rangeAwal->day, $rangeAkhir->day);
         $today      = Carbon::now()->format('d-M-Y');
 
         $jadwal     = Jadwal::select(DB::raw("DATE_FORMAT(tanggal_kelas, '%a') as hari"), 't_jadwal.*')
                         ->where(DB::raw("DATE_FORMAT(tanggal_kelas, '%d-%b-%Y')"), $today)
                         ->get();
 
+        // dd($ranges);
         return view('dashboard.pages.kelas.jadwal.show', compact('jadwal','range','rangeAwal','today'));
     }
 
@@ -41,11 +49,18 @@ class JadwalController extends Controller
 
     public function filter($id)
     {
-        $tglAwal    = Carbon::now()->format('d-m-Y');
-        $tglAkhir   = Carbon::now()->endOfMonth()->format('d-m-Y');
-        $rangeAwal  = Carbon::createFromFormat('d-m-Y', $tglAwal);
-        $rangeAkhir = Carbon::createFromFormat('d-m-Y', $tglAkhir);
-        $range      = range($rangeAwal->day, $rangeAkhir->day);
+        $tglAwal    = Carbon::now();
+        $tglAkhir   = Carbon::now()->endOfMonth();
+        $tglAwalBulanBerikutnya = $tglAkhir->copy()->addDay();
+        $tglAkhirBulanBerikutnya = $tglAkhir->copy()->addMonth()->endOfMonth();
+
+        $range = collect(Carbon::parse($tglAwal)->range($tglAkhirBulanBerikutnya))->map(function ($date) {
+            return $date->format('d-M-Y');
+        });
+
+        $rangeAwal  = Carbon::createFromFormat('d-m-Y', Carbon::now()->format('d-m-Y'));
+        // $rangeAkhir = Carbon::createFromFormat('d-m-Y', Carbon::now()->endOfMonth()->format('d-m-Y'));
+        // $ranges     = range($rangeAwal->day, $rangeAkhir->day);
         $today      = $id;
         $status = ''; // default status
         $jadwal     = Jadwal::select(DB::raw("DATE_FORMAT(tanggal_kelas, '%d-%b-%Y') as hari"), 't_jadwal.*')
@@ -59,7 +74,12 @@ class JadwalController extends Controller
     public function create($id)
     {
         $kelas = Kelas::where('id_kelas', $id)->first();
-        return view('dashboard.pages.kelas.jadwal.create', compact('kelas'));
+
+        if (Auth::user()->role_id == 1) {
+            return view('admin.pages.jadwal.create', compact('kelas'));
+        } else {
+            return view('dashboard.pages.kelas.jadwal.create', compact('kelas'));
+        }
     }
 
     public function store(Request $request)
@@ -78,23 +98,29 @@ class JadwalController extends Controller
         $tambah->kuota          = $request->kuota;
         $tambah->nama_pelatih   = $request->nama_pelatih;
         $tambah->save();
+
         return redirect()->route('kelas.detail', $request->kelas_id)->with('success', 'Created Successfully!');
     }
 
     public function edit($id)
     {
         $jadwal = Jadwal::where('id_jadwal', $id)->first();
-        return view('dashboard.pages.kelas.jadwal.edit', compact('jadwal'));
+
+        if (Auth::user()->role_id == 1) {
+            return view('admin.pages.jadwal.edit', compact('jadwal'));
+        } else {
+            return view('dashboard.pages.kelas.jadwal.edit', compact('jadwal'));
+        }
     }
 
     public function update(Request $request, $id)
     {
-        $hari   = Carbon::parse($request->tanggal)->format('D');
-        $cekHari = Jadwal::where('kelas_id', $request->kelas_id)->where(DB::raw("DATE_FORMAT(tanggal_kelas, '%a')"), '!=', $hari)->count();
+        // $hari   = Carbon::parse($request->tanggal)->format('D');
+        // $cekHari = Jadwal::where('kelas_id', $request->kelas_id)->where(DB::raw("DATE_FORMAT(tanggal_kelas, '%a')"), '!=', $hari)->count();
 
-        if ($cekHari != 0) {
-            return redirect()->route('kelas.detail', $request->kelas_id)->with('failed', 'Please Choose Date with the same Days Name');
-        }
+        // if ($cekHari != 0) {
+        //     return redirect()->route('kelas.detail', $request->kelas_id)->with('failed', 'Please Choose Date with the same Days Name');
+        // }
 
         Jadwal::where('id_jadwal', $id)->update([
             'kelas_id'      => $request->kelas_id,
