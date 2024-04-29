@@ -52,17 +52,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li class="nav-item">
                             <a href="{{ route('member') }}" class="nav-link">Members</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('user') }}" class="nav-link">Users</a>
-                        </li>
                         <li class="nav-item dropdown">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Profile</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                                 <li>
-                                    <a href="#" class="dropdown-item"> <i class="fa fa-user-circle"></i> Profile</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="dropdown-item"> <i class="fa fa-info-circle"></i> About us</a>
+                                    <a href="{{ route('member.detail', Auth::user()->id) }}" class="dropdown-item">
+                                        <i class="fa fa-user-circle"></i> &nbsp; Profile
+                                    </a>
+                                    <a href="{{ route('user') }}" class="dropdown-item">
+                                        <i class="fa fa-users"></i> &nbsp;Pengguna
+                                    </a>
                                 </li>
                                 <li class="dropdown-divider"></li>
                                 <li>
@@ -162,7 +161,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('dist/admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
     <script src="{{ asset('dist/admin/plugins/select2/js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('dist/admin/plugins/chart.js/Chart.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/0.7.0/chartjs-plugin-datalabels.min.js"></script>
 
     @yield('js')
 
@@ -178,7 +178,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 currentdate.getSeconds()
 
             $("#table").DataTable({
-                "responsive": true,
+                "responsive": false,
                 "lengthChange": true,
                 "autoWidth": true,
                 "info": true,

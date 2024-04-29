@@ -28,6 +28,17 @@ class JadwalController extends Controller
         return view('dashboard.pages.kelas.jadwal.show', compact('jadwal','range','rangeAwal','today'));
     }
 
+    public function detail($id)
+    {
+        $jadwal = Jadwal::where('id_jadwal', $id)->first();
+
+        if (Auth::user()->role_id == 1) {
+            return view('admin.pages.jadwal.detail', compact('jadwal'));
+        } else {
+            return view('dashboard.pages.kelas.show', compact('jadwal'));
+        }
+    }
+
     public function filter($id)
     {
         $tglAwal    = Carbon::now()->format('d-m-Y');

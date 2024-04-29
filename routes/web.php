@@ -49,6 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('member', [MemberController::class, 'show'])->name('member');
     Route::get('member/search', [MemberController::class, 'search'])->name('member.search');
+    Route::get('member/search/{var}/{id}', [MemberController::class, 'searchBy'])->name('member.searchBy');
     Route::get('member/edit/{id}', [MemberController::class, 'edit'])->name('member.edit');
     Route::get('member/password/{id}', [MemberController::class, 'editPassword'])->name('member.password');
     Route::get('member/email/{id}', [MemberController::class, 'editEmail'])->name('member.email');
@@ -69,7 +70,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('class', [KelasController::class, 'show'])->name('kelas');
     Route::get('class/detail/{id}', [KelasController::class, 'detail'])->name('kelas.detail');
 
+
+    // Kelas Admin
+    Route::get('class/edit/{id}', [KelasController::class, 'edit'])->name('kelas.edit');
+    Route::post('class/update/{id}', [KelasController::class, 'update'])->name('kelas.update');
+
+    // Jadwal Kelas Member
     Route::get('class/schedule', [JadwalController::class, 'show'])->name('jadwal.show');
+    Route::get('class/schedule/detail/{id}', [JadwalController::class, 'detail'])->name('jadwal.detail');
     Route::get('class/schedule/cari/{id}', [JadwalController::class, 'filter'])->name('jadwal.pilih');
     Route::get('class/schedule/join/{id}', [JadwalController::class, 'join'])->name('jadwal.join');
     Route::get('class/create/schedule/{id}', [JadwalController::class, 'create'])->name('jadwal.create');

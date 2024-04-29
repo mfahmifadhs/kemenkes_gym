@@ -18,7 +18,9 @@ class Kelas extends Model
     protected $fillable = [
         'id_kelas',
         'nama_kelas',
-        'coach_id'
+        'deskripsi',
+        'coach_id',
+        'status'
     ];
 
     public function jadwal() {

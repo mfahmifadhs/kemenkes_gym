@@ -1,4 +1,4 @@
-@extends('admin-master.layout.app')
+@extends('admin.layout.app')
 @section('content')
 
 <div class="content-wrapper">
@@ -79,7 +79,11 @@
                         <div class="col-md-3 mt-2">
                             <label class="mb-0 text-sm">BMI</label>
                             <h6 class="text-sm">
-                                @php $bmi = number_format($member->berat / (($member->tinggi / 100) ** 2), 2); @endphp
+                                @php
+                                if ($member->berat && $member->tinggi) {
+                                    $bmi = number_format($member->berat / (($member->tinggi / 100) ** 2), 2);
+                                } else { $bmi = 0; }
+                                @endphp
                                 {{ $bmi }}
                             </h6>
                         </div>

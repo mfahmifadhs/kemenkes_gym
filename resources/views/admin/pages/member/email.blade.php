@@ -1,4 +1,4 @@
-@extends('admin-master.layout.app')
+@extends('admin.layout.app')
 @section('content')
 
 <div class="content-wrapper">
@@ -6,7 +6,7 @@
         <div class="container-fluid col-md-5">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0"> Ubah Password</small></h1>
+                    <h1 class="m-0"> Ubah Email</small></h1>
                 </div>
                 <div class="col-sm-6 text-right">
                     <a href="{{ route('member.detail', $member->id) }}" class="btn btn-default border-dark">
@@ -20,43 +20,17 @@
     <div class="content">
         <div class="container-fluid col-md-5">
             <div class="card">
-                <form id="form" action="{{ route('member.updatePassword', $member->id) }}" method="POST">
+                <form id="form" action="{{ route('member.updateEmail', $member->id) }}" method="POST">
                     @csrf
                     <div class="card-body">
                         <div class="form-group row">
-                            <label class="col-md-4 col-form-label">Password Lama</label>
-                            <div class="col-md-8">
+                            <label class="col-md-2 col-form-label">Email</label>
+                            <div class="col-md-10">
                                 <div class="input-group">
-                                    <input type="password" class="form-control" id="old-password" placeholder="Masukkan Password">
+                                    <input type="email" class="form-control" placeholder="{{ $member->email }}">
                                     <div class="input-group-append">
                                         <span class="input-group-text border-secondary">
-                                            <i class="fa fa-eye-slash" id="eye-icon-old"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label">Password Baru</label>
-                            <div class="col-md-8">
-                                <div class="input-group">
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan Password">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text border-secondary">
-                                            <i class="fa fa-eye-slash" id="eye-icon-pass"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label">Konfirmasi Password</label>
-                            <div class="col-md-8">
-                                <div class="input-group">
-                                    <input type="password" class="form-control" id="conf-password" placeholder="Konfirmasi Password">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text border-secondary">
-                                            <i class="fa fa-eye-slash" id="eye-icon-conf"></i>
+                                            <i class="fa fa-envelope" id="eye-icon-old"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -64,7 +38,10 @@
                         </div>
                     </div>
                     <div class="card-footer text-right">
-                        <button type="submit" class="btn btn-success btn-sm" onclick="confirmSubmit(event)">
+                        <a href="{{ route('member.resendMail', $member->id) }}" onclick="confirmSend(event)" class="btn btn-primary">
+                            Kirim link aktivasi
+                        </a>
+                        <button type="submit" class="btn btn-success" onclick="confirmSubmit(event)">
                             <i class="fas fa-save"></i> Simpan
                         </button>
                     </div>
@@ -165,6 +142,25 @@
                 form.submit();
             }
         });
+
+    }
+</script>
+
+<script>
+    function confirmSend(event) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: "Mengirim...",
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            willOpen: () => {
+                Swal.showLoading();
+            },
+        })
+
+        window.location.href = event.target.href;
 
     }
 </script>

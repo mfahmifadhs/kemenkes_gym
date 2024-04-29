@@ -37,7 +37,7 @@ class MemberController extends Controller
             ->orderBy('nama_unit_kerja', 'ASC')
             ->get();
 
-        return view('admin-master.pages.member.show', compact('member', 'uker', 'searchCol1', 'searchInst', 'searchUker', 'searchNama', 'searchNip', 'searchMail', 'searchCol7'));
+        return view('admin.pages.member.show', compact('member', 'uker', 'searchCol1', 'searchInst', 'searchUker', 'searchNama', 'searchNip', 'searchMail', 'searchCol7'));
     }
 
     public function search(Request $request)
@@ -105,13 +105,37 @@ class MemberController extends Controller
             'searchCol7' => $searchCol7
         ]);
 
-        return view('admin-master.pages.member.show', compact('member', 'uker', 'searchCol1', 'searchInst', 'searchUker', 'searchNama', 'searchNip', 'searchMail', 'searchCol7'));
+        return view('admin.pages.member.show', compact('member', 'uker', 'searchCol1', 'searchInst', 'searchUker', 'searchNama', 'searchNip', 'searchMail', 'searchCol7'));
+    }
+
+    public function searchBy($var, $id)
+    {
+        $searchCol1 = '';
+        $searchInst = '';
+        $searchUker = '';
+        $searchNama = '';
+        $searchNip  = '';
+        $searchMail = '';
+        $searchCol7 = '';
+
+        $uker   = User::select('uker_id', 'nama_unit_kerja')->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
+            ->groupBy('uker_id', 'nama_unit_kerja')
+            ->orderBy('nama_unit_kerja', 'ASC')
+            ->get();
+        $data   = User::where('role_id', 4)->join('t_unit_kerja','id_unit_kerja','uker_id');
+
+        if ($var == 'utama') {
+            $member = $data->where('unit_utama_id', $id)->paginate('10');
+        }
+
+        return view('admin.pages.member.show', compact('member', 'uker', 'searchCol1', 'searchInst', 'searchUker', 'searchNama', 'searchNip', 'searchMail', 'searchCol7'));
+
     }
 
     public function detail($id)
     {
         $member = User::where('id', $id)->first();
-        return view('admin-master.pages.member.detail', compact('member'));
+        return view('admin.pages.member.detail', compact('member'));
     }
 
     public function edit($id)
@@ -121,7 +145,7 @@ class MemberController extends Controller
         $uker   = UnitKerja::get();
         $kelas  = Kelas::get();
         $target = Target::get();
-        return view('admin-master.pages.member.edit', compact('member', 'utama', 'uker', 'kelas', 'target'));
+        return view('admin.pages.member.edit', compact('member', 'utama', 'uker', 'kelas', 'target'));
     }
 
     public function update(Request $request, $id)
@@ -201,7 +225,7 @@ class MemberController extends Controller
     public function editPassword($id)
     {
         $member = User::where('id', $id)->first();
-        return view('admin-master.pages.member.password', compact('member'));
+        return view('admin.pages.member.password', compact('member'));
     }
 
     public function updatePassword(Request $request, $id)
@@ -221,7 +245,7 @@ class MemberController extends Controller
     public function editEmail($id)
     {
         $member = User::where('id', $id)->first();
-        return view('admin-master.pages.member.email', compact('member'));
+        return view('admin.pages.member.email', compact('member'));
     }
 
     public function updateEmail(Request $request, $id)

@@ -20,7 +20,7 @@ class UserController extends Controller
     public function show()
     {
         $user = User::orderBy('role_id', 'ASC')->get();
-        return view('admin-master.pages.user.show', compact('user'));
+        return view('admin.pages.user.show', compact('user'));
     }
 
     public function time()
@@ -33,7 +33,7 @@ class UserController extends Controller
     {
         $role = Role::where('role_id', '!=', 4)->get();
         $uker = UnitKerja::get();
-        return view('admin-master.pages.user.create', compact('role', 'uker'));
+        return view('admin.pages.user.create', compact('role', 'uker'));
     }
 
     public function detail($id)
@@ -70,7 +70,7 @@ class UserController extends Controller
         $role = Role::get();
         $uker = UnitKerja::get();
 
-        return view('admin-master.pages.user.edit', compact('id', 'user', 'role', 'uker'));
+        return view('admin.pages.user.edit', compact('id', 'user', 'role', 'uker'));
     }
 
     public function update(Request $request, $id)
