@@ -35,7 +35,7 @@
                         <label class="text-white h4 mb-0">Email</label><br>
                         <small class="text-white mt-0">Please enter the email you used during registration.</small>
                         <input type="email" name="email" class="form-control bg-white" placeholder="Email">
-                        <button type="submit" class=""><i class="fa fa-paper-plane"></i> Send</button>
+                        <button type="submit" class="" onclick="confirm(event)"><i class="fa fa-paper-plane"></i> Send</button>
                         <small class="text-white">
                             If you're Account is <b>Active</b>, Please <a href="{{ route('login') }}"><u>Click Here</u></a>
                         </small>
