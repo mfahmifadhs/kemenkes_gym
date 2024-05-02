@@ -20,7 +20,7 @@
                                     </a> -->
                                     <i class="fa fa-user-circle fa-4x text-main px-2 py-0 pt-1"></i>
                                 </div>
-                                <div class="col-md-6 col-6">
+                                <div class="col-md-6 col-12">
                                     <h5>{{ Auth::user()->nama }}</h5>
                                     <h5>{{ Auth::user()->uker->nama_unit_kerja }}</h5>
                                 </div>
