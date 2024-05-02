@@ -165,9 +165,40 @@ class AuthController extends Controller
         ]);
 
         session()->forget('success');
-        return redirect()->route('/')->with('success', 'Activation Success! You Can Login Coming Soon');
+        return redirect()->route('login')->with('success', 'Activation Success!');
 
     }
+
+    public function resendActivation(Request $request)
+    {
+        $user = User::where('email', $request->email)->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')->first();
+
+        if (!$user) {
+            return back()->with('failed', 'Account not found!');
+        }
+
+        if ($user->member_id != null) {
+            return back()->with('failed', 'You`re Account is Active!');
+        }
+
+        $tokenMail = Str::random(32);
+        $logMail = new LogMail();
+        $logMail->user_id = $user->id;
+        $logMail->token   = $tokenMail;
+        $logMail->save();
+
+        $data = [
+            'token'    => $tokenMail,
+            'id'       => $user->id,
+            'nama'     => $user->nama,
+            'uker'     => $user->instansi == 'pusat' ? $user->nama_unit_kerja : $user->nama_instansi,
+            'username' => $user->username
+        ];
+
+        Mail::to($user->email)->send(new SendEmail($data));
+        return redirect()->route('login')->with('success', 'Resend link Activation Success!');
+    }
+
 
     public function keluar()
     {

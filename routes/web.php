@@ -33,6 +33,12 @@ Route::get('/login', function () {
     return view('login');
 })->name('login');
 
+Route::get('/activation', function () {
+    return view('activation');
+})->name('activation.show');
+
+Route::post('activation/post', [AuthController::class, 'resendActivation'])->name('activation.post');
+
 Route::get('uker/select/{id}', [UkerController::class, 'selectUker']);
 Route::get('registration', [AuthController::class, 'daftar'])->name('daftar');
 Route::get('aktivation/{token}/{id}', [AuthController::class, 'aktivasi'])->name('aktivasi');

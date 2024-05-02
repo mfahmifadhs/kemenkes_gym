@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-lg-6 mx-auto mt-5">
                 <div class="section-title contact-title text-center">
-                    <h2><u>LOGIN</u></h2>
+                    <h2><u>Activation</u></h2>
                 </div>
                 <div class="leave-comment">
                     @if ($message = Session::get('success'))
@@ -30,22 +30,14 @@
                         }, 5000);
                     </script>
                     @endif
-                    <form action="{{ route('masuk') }}" method="POST">
+                    <form id="form-mail" action="{{ route('activation.post') }}" method="POST">
                         @csrf
-                        <label class="text-white small">Username</label>
-                        <input type="text" name="username" class="form-control bg-white" placeholder="Username">
-                        <label class="text-white small">Password</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control bg-white rounded-0" id="password" name="password" placeholder="Password" required>
-                            <div class="input-group-append border border-dark">
-                                <span class="input-group-text h-100 rounded-0 bg-white">
-                                    <i class="fa fa-eye" id="eye-icon-pass"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <button type="submit" class="mt-4">Login</button>
+                        <label class="text-white h4 mb-0">Email</label><br>
+                        <small class="text-white mt-0">Please enter the email you used during registration.</small>
+                        <input type="email" name="email" class="form-control bg-white" placeholder="Email">
+                        <button type="submit" class=""><i class="fa fa-paper-plane"></i> Send</button>
                         <small class="text-white">
-                            If you're Account is not <b>Active</b>, Please <a href="{{ route('activation.show') }}"><u>Click Here</u></a>
+                            If you're Account is <b>Active</b>, Please <a href="{{ route('login') }}"><u>Click Here</u></a>
                         </small>
                     </form>
                 </div>
@@ -55,4 +47,24 @@
 </section>
 <!-- Contact Section End -->
 
+@section('js')
+<script>
+    function confirm(event) {
+        event.preventDefault();
+        const form = document.getElementById('form-mail');
+        Swal.fire({
+            title: "Sending...",
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            willOpen: () => {
+                Swal.showLoading();
+            },
+        })
+
+        form.submit();
+    }
+</script>
+
+@endsection
 @endsection

@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('dist/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('dist/css/main.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('dist/css/select2.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
@@ -43,7 +44,7 @@
         <nav class="canvas-menu mobile-menu">
             <ul>
                 <li><a href="/">Home</a></li>
-                @if (!request()->is('registration') && !request()->is('login'))
+                @if (!request()->is('registration') && !request()->is('login') && !request()->is('activation'))
                 <li><a href="#class">Classes</a></li>
                 <li><a href="#survey">Survey Result</a></li>
                 <li><a href="#gallery">Gallery</a></li>
@@ -77,7 +78,7 @@
                     <nav class="nav-menu">
                         <ul>
                             <li><a href="/">Home</a></li>
-                            @if (!request()->is('registration') && !request()->is('login'))
+                            @if (!request()->is('registration') && !request()->is('login') && !request()->is('activation'))
                             <li><a href="#class">Classes</a></li>
                             <li><a href="#survey">Survey Result</a></li>
                             <li><a href="#gallery">Gallery</a></li>
@@ -199,8 +200,8 @@
     <script src="{{ asset('dist/js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('dist/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('dist/js/main.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
     <script src="{{ asset('dist/js/select2.full.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/0.7.0/chartjs-plugin-datalabels.min.js"></script>
@@ -253,8 +254,6 @@
                 }
                 return true;
             });
-
-
         });
     </script>
 

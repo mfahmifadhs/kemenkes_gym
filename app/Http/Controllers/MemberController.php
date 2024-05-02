@@ -294,7 +294,7 @@ class MemberController extends Controller
 
     public function resendEmail($id)
     {
-        $user = User::where('id', $id)->first();
+        $user = User::where('id', $id)->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')->first();
 
         $tokenMail = Str::random(32);
         $logMail = new LogMail();
