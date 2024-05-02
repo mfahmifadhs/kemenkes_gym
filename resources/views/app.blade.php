@@ -49,7 +49,7 @@
                 <li><a href="#survey">Survey Result</a></li>
                 <li><a href="#gallery">Gallery</a></li>
                 @endif
-                <!-- <li><a href="{{ route('login') }}">Login</a></li> -->
+                <li><a href="{{ route('login') }}">Login</a></li>
                 <li><a href="{{ route('daftar') }}">Register</a></li>
             </ul>
         </nav>
@@ -92,9 +92,9 @@
                             <li class="{{ request()->routeIs('daftar') ? 'active' : '' }}">
                                 <a href="{{ route('daftar') }}">Register</a>
                             </li>
-                            <!-- <li class="{{ request()->routeIs('login') ? 'active' : '' }}">
+                            <li class="{{ request()->routeIs('login') ? 'active' : '' }}">
                                 <a href="{{ route('login') }}">Login</a>
-                            </li> -->
+                            </li>
                         </ul>
                     </nav>
                 </div>
