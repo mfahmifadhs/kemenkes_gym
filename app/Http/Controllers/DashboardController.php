@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absensi;
+use App\Models\Jadwal;
 use App\Models\Kelas;
 use App\Models\MinatKelas;
 use App\Models\Pengajuan;
@@ -18,6 +20,9 @@ class DashboardController extends Controller
     {
         $roleId = Auth::user()->role_id;
         $kelas  = Kelas::orderBy('nama_kelas', 'ASC')->where('status', 'true')->get();
+        $jadwal = Jadwal::where('tanggal_kelas', '>', Carbon::now())->get();
+        $absen  = Absensi::where('tanggal', Carbon::now()->format('Y-m-d'))->get();
+
         $totalPeminatan = MinatKelas::count();
         $totalMember    = User::where('role_id', 4)->count();
         $totalUtama     = User::where('role_id', 4)
@@ -43,7 +48,7 @@ class DashboardController extends Controller
             $role = 'admin';
         }
 
-        return view('dashboard.' . $role, compact('kelas'));
+        return view('dashboard.' . $role, compact('kelas','absen','jadwal','totalMember','totalPeminatan'));
 
     }
 

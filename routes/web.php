@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AbsenController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BodyckController;
 use App\Http\Controllers\ClassController;
@@ -44,48 +46,25 @@ Route::post('login', [AuthController::class, 'postLogin'])->name('masuk');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('waktu', [DashboardController::class, 'time'])->name('dashboard.time');
-
     Route::get('profile/{id}', [UserController::class, 'detail'])->name('profile');
 
-    Route::get('member', [MemberController::class, 'show'])->name('member');
-    Route::get('member/search', [MemberController::class, 'search'])->name('member.search');
-    Route::get('member/search/{var}/{id}', [MemberController::class, 'searchBy'])->name('member.searchBy');
     Route::get('member/edit/{id}', [MemberController::class, 'edit'])->name('member.edit');
     Route::get('member/password/{id}', [MemberController::class, 'editPassword'])->name('member.password');
     Route::get('member/email/{id}', [MemberController::class, 'editEmail'])->name('member.email');
-
     Route::get('member/detail/{id}', [MemberController::class, 'detail'])->name('member.detail');
-    Route::get('member/delete/{id}', [MemberController::class, 'delete'])->name('member.delete');
-    Route::get('member/delete-minat/{id}', [MemberController::class, 'deleteMinat'])->name('member.deleteMinat');
     Route::get('member/resend/email/{id}', [MemberController::class, 'resendEmail'])->name('member.resendMail');
-
     Route::post('member/update/{id}', [MemberController::class, 'update'])->name('member.update');
     Route::post('member/update/password/{id}', [MemberController::class, 'updatePassword'])->name('member.updatePassword');
     Route::post('member/update/email/{id}', [MemberController::class, 'updateEmail'])->name('member.updateEmail');
 
-    Route::get('user', [UserController::class, 'show'])->name('user');
-    Route::get('user/create', [UserController::class, 'create'])->name('user.create');
-    Route::get('user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
-    Route::post('user/store', [UserController::class, 'store'])->name('user.store');
-    Route::post('user/update/{id}', [UserController::class, 'update'])->name('user.update');
-
     Route::get('class', [KelasController::class, 'show'])->name('kelas');
     Route::get('class/detail/{id}', [KelasController::class, 'detail'])->name('kelas.detail');
-
-
-    // Kelas Admin
-    Route::get('class/edit/{id}', [KelasController::class, 'edit'])->name('kelas.edit');
-    Route::post('class/update/{id}', [KelasController::class, 'update'])->name('kelas.update');
 
     // Jadwal Kelas Member
     Route::get('class/schedule', [JadwalController::class, 'show'])->name('jadwal.show');
     Route::get('class/schedule/detail/{id}', [JadwalController::class, 'detail'])->name('jadwal.detail');
     Route::get('class/schedule/cari/{id}', [JadwalController::class, 'filter'])->name('jadwal.pilih');
     Route::get('class/schedule/join/{id}', [JadwalController::class, 'join'])->name('jadwal.join');
-    Route::get('class/create/schedule/{id}', [JadwalController::class, 'create'])->name('jadwal.create');
-    Route::get('class/edit/schedule/{id}', [JadwalController::class, 'edit'])->name('jadwal.edit');
-    Route::post('class/store/schedule', [JadwalController::class, 'store'])->name('jadwal.store');
-    Route::post('class/update/schedule/{id}', [JadwalController::class, 'update'])->name('jadwal.update');
     Route::post('class/schedule/join/{id}', [JadwalController::class, 'join'])->name('jadwal.join');
 
     Route::get('bodyck', [BodyckController::class, 'show'])->name('bodyck');
@@ -95,8 +74,35 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('bodyck/store', [BodyckController::class, 'create'])->name('bodyck.store');
     Route::post('bodyck/update/{id}', [BodyckController::class, 'edit'])->name('bodyck.update');
 
-
     Route::get('progress', [ProgresController::class, 'show'])->name('progres');
     Route::get('progress/chart', [ProgresController::class, 'chart'])->name('progres.chart');
+
+
+    Route::group(['middleware' => ['access:admin']], function () {
+        Route::get('member', [MemberController::class, 'show'])->name('member');
+        Route::get('member/search', [MemberController::class, 'search'])->name('member.search');
+        Route::get('member/search/{var}/{id}', [MemberController::class, 'searchBy'])->name('member.searchBy');
+        Route::get('member/delete/{id}', [MemberController::class, 'delete'])->name('member.delete');
+        Route::get('member/delete-minat/{id}', [MemberController::class, 'deleteMinat'])->name('member.deleteMinat');
+
+        Route::get('user', [UserController::class, 'show'])->name('user');
+        Route::get('user/create', [UserController::class, 'create'])->name('user.create');
+        Route::get('user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+        Route::post('user/store', [UserController::class, 'store'])->name('user.store');
+        Route::post('user/update/{id}', [UserController::class, 'update'])->name('user.update');
+
+        // Kelas
+        Route::get('class/edit/{id}', [KelasController::class, 'edit'])->name('kelas.edit');
+        Route::post('class/update/{id}', [KelasController::class, 'update'])->name('kelas.update');
+
+        // Jadwal
+        Route::get('class/create/schedule/{id}', [JadwalController::class, 'create'])->name('jadwal.create');
+        Route::get('class/edit/schedule/{id}', [JadwalController::class, 'edit'])->name('jadwal.edit');
+        Route::post('class/store/schedule', [JadwalController::class, 'store'])->name('jadwal.store');
+        Route::post('class/update/schedule/{id}', [JadwalController::class, 'update'])->name('jadwal.update');
+
+
+        Route::get('Attendance', [AbsenController::class, 'show'])->name('attendance');
+    });
 
 });

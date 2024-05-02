@@ -32,8 +32,8 @@ class JadwalController extends Controller
                         ->where(DB::raw("DATE_FORMAT(tanggal_kelas, '%d-%b-%Y')"), $today)
                         ->get();
 
-        // dd($ranges);
-        return view('dashboard.pages.kelas.jadwal.show', compact('jadwal','range','rangeAwal','today'));
+        $daftar     = Peserta::where('member_id', Auth::user()->id)->first();
+        return view('dashboard.pages.kelas.jadwal.show', compact('jadwal','range','rangeAwal','today','daftar'));
     }
 
     public function detail($id)

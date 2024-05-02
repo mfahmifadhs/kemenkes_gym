@@ -38,10 +38,10 @@ class UserController extends Controller
 
     public function detail($id)
     {
-        $user    = User::where('id', $id)->first();
+        $member  = User::where('id', $id)->first();
         $role    = Role::get();
 
-        return view('dashboard.pages.user.detail', compact('id', 'user', 'role'));
+        return view('dashboard.pages.user.detail', compact('id', 'member', 'role'));
     }
 
     public function store(Request $request)

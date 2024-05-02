@@ -145,7 +145,13 @@ class MemberController extends Controller
         $uker   = UnitKerja::get();
         $kelas  = Kelas::get();
         $target = Target::get();
-        return view('admin.pages.member.edit', compact('member', 'utama', 'uker', 'kelas', 'target'));
+
+        if (Auth::user()->role_id == 1) {
+            return view('admin.pages.member.edit', compact('member', 'utama', 'uker', 'kelas', 'target'));
+        } else {
+            return view('dashboard.pages.user.edit', compact('member', 'utama', 'uker', 'kelas', 'target'));
+        }
+
     }
 
     public function update(Request $request, $id)
@@ -174,7 +180,13 @@ class MemberController extends Controller
                 'berat'          => $request->berat
             ]);
 
-            return redirect()->route('member.detail', $id)->with('success', 'Berhasil Menyimpan Perubahan');
+
+            if (Auth::user()->role_id == 1) {
+                return redirect()->route('member.detail', $id)->with('success', 'Berhasil Menyimpan Perubahan');
+            } else {
+                return redirect()->route('profile', $id)->with('success', 'Berhasil Menyimpan Perubahan');
+            }
+
         }
 
         // update kelas
@@ -225,7 +237,13 @@ class MemberController extends Controller
     public function editPassword($id)
     {
         $member = User::where('id', $id)->first();
-        return view('admin.pages.member.password', compact('member'));
+
+
+        if (Auth::user()->role_id == 1) {
+            return view('admin.pages.member.password', compact('member'));
+        } else {
+            return view('dashboard.pages.user.password', compact('member'));
+        }
     }
 
     public function updatePassword(Request $request, $id)
@@ -235,17 +253,22 @@ class MemberController extends Controller
             'password_teks'  => $request->password
         ]);
 
-        if (Auth::user()->role_id != 4) {
-            return redirect()->route('member.detail', $id)->with('success', 'Berhasil Mengubah Password');
+        if (Auth::user()->role_id == 1) {
+            return redirect()->route('member.detail', $id)->with('success', 'Update Password Successfully');
         } else {
-            return redirect()->route('login')->with('success', 'Berhasil Memperbaharui Informasi');
+            return redirect()->route('login')->with('success', 'Update Password Successfully');
         }
     }
 
     public function editEmail($id)
     {
         $member = User::where('id', $id)->first();
-        return view('admin.pages.member.email', compact('member'));
+
+        if (Auth::user()->role_id == 1) {
+            return view('admin.pages.member.email', compact('member'));
+        } else {
+            return view('dashboard.pages.user.email', compact('member'));
+        }
     }
 
     public function updateEmail(Request $request, $id)
@@ -262,10 +285,10 @@ class MemberController extends Controller
             ]);
         }
 
-        if (Auth::user()->role_id != 4) {
+        if (Auth::user()->role_id == 1) {
             return redirect()->route('member.detail', $id)->with('success', 'Berhasil Mengubah Email');
         } else {
-            return redirect()->route('login')->with('success', 'Berhasil Memperbaharui Informasi');
+            return redirect()->route('profile', $id)->with('success', 'Update Success');
         }
     }
 

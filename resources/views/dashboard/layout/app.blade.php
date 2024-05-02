@@ -47,7 +47,7 @@
                 <li>
                     <a href="{{ route('jadwal.show') }}"><i class="fa fa-calendar"></i> Schedule</a>
                 </li>
-                <li><a href="{{ route('login') }}"><i class="fa fa-user-circle"></i> Profile</a></li>
+                <li><a href="{{ route('profile', Auth::user()->id) }}"><i class="fa fa-user-circle"></i> Profile</a></li>
                 <li><a href="{{ route('logout') }}"><i class="fa fa-sign-out"></i> Sign Out</a></li>
             </ul>
         </nav>
@@ -96,6 +96,18 @@
     </header>
     <!-- Header End -->
 
+    @if (Session::has('failed'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'error',
+            text: '{{ Session::get("failed") }}',
+            timer: 2000, // Durasi popup (dalam milidetik)
+            showConfirmButton: false // Tombol OK tidak ditampilkan
+        });
+    </script>
+    @endif
+
     @yield('content')
 
     <button id="btnToTop" class="btn-to-top btn-lg" title="Home">
@@ -138,7 +150,9 @@
     <script src="{{ asset('dist/js/main.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
     <script src="{{ asset('dist/js/select2.full.js') }}"></script>
-    <script src="{{ asset('dist/admin/plugins/chart.js/Chart.min.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/0.7.0/chartjs-plugin-datalabels.min.js"></script>
 
     @yield('js')
 
@@ -152,44 +166,6 @@
 
                 $(this).val(formattedValue);
             });
-        });
-        // Password
-        $(document).ready(function() {
-            $("#eye-icon-pass").click(function() {
-                var password = $("#password");
-                var icon = $("#eye-icon-pass");
-                if (password.attr("type") == "password") {
-                    password.attr("type", "text");
-                    icon.removeClass("fa fa-eye").addClass("fa fa-eye-slash");
-                } else {
-                    password.attr("type", "password");
-                    icon.removeClass("fa fa-eye-slash").addClass("fa fa-eye");
-                }
-            });
-
-            $("#eye-conf-pass").click(function() {
-                var password = $("#conf-password");
-                var icon = $("#eye-conf-pass");
-                if (password.attr("type") == "password") {
-                    password.attr("type", "text");
-                    icon.removeClass("fa fa-eye").addClass("fa fa-eye-slash");
-                } else {
-                    password.attr("type", "password");
-                    icon.removeClass("fa fa-eye-slash").addClass("fa fa-eye");
-                }
-            });
-
-            $("#form-daftar").submit(function() {
-                var password = $("#password").val();
-                var conf_password = $("#conf-password").val();
-                if (password != conf_password) {
-                    alert("Konfirmasi password tidak sama!");
-                    return false;
-                }
-                return true;
-            });
-
-
         });
     </script>
 

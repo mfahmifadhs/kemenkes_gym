@@ -54,8 +54,16 @@
                         <div class="section-title mb-2"><span>Schedule</span></div>
                         @foreach ($kelas->jadwal->sortByDesc('tanggal_kelas')->where('tanggal_kelas', '>', Carbon\Carbon::now()) as $row)
                         @php
-                            $totalPeserta = $row->peserta->where('tanggal_latihan', $row->tanggal_kelas)->count();
-                            $cekDaftar = $daftar->where('jadwal_id', $row->id_jadwal)->where('tanggal_latihan', $row->tanggal_kelas)->count();
+                        $totalPeserta = 0;
+                        $cekDaftar = 0;
+
+                        if ($row->peserta) {
+                        $totalPeserta = $row->peserta->where('tanggal_latihan', $row->tanggal_kelas)->count();
+                        }
+
+                        if ($daftar) {
+                        $cekDaftar = $daftar->where('jadwal_id', $row->id_jadwal)->where('tanggal_latihan', $row->tanggal_kelas)->count();
+                        }
                         @endphp
 
                         <div class="card my-2">

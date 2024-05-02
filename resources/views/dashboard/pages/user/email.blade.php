@@ -1,55 +1,75 @@
-@extends('admin.layout.app')
+@extends('dashboard.layout.app')
 @section('content')
 
-<div class="content-wrapper">
-    <div class="content-header">
-        <div class="container-fluid col-md-5">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0"> Ubah Email</small></h1>
+<!-- ChoseUs Section Begin -->
+<section class="identity-section spad">
+    <div class="container">
+        <div class="row identity">
+            <div class="col-md-7 mx-auto">
+                <div class="row">
+                    <div class="col-6 text-left">
+                        <div class="section-title">
+                            <h4 class="text-main"><u>PROFILE</u></h4>
+                        </div>
+                    </div>
+                    <div class="col-6 text-right mt-1">
+                        <a href="{{ route('profile', $member->id) }}" class="btn btn-primary">
+                            <i class="fa fa-arrow-circle-left"></i> Back
+                        </a>
+                    </div>
                 </div>
-                <div class="col-sm-6 text-right">
-                    <a href="{{ route('member.detail', $member->id) }}" class="btn btn-default border-dark">
-                        <i class="fas fa-arrow-left"></i> Kembali
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="content">
-        <div class="container-fluid col-md-5">
-            <div class="card">
-                <form id="form" action="{{ route('member.updateEmail', $member->id) }}" method="POST">
-                    @csrf
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <label class="col-md-2 col-form-label">Email</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <input type="email" class="form-control" name="email" placeholder="{{ $member->email }}">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text border-secondary">
-                                            <i class="fa fa-envelope" id="eye-icon-old"></i>
-                                        </span>
+                @if ($message = Session::get('success'))
+                <div id="alert" class="alert bg-success">
+                    <div class="row">
+                        <p style="color:white;margin: auto;">{{ $message }}</p>
+                    </div>
+                </div>
+                <script>
+                    setTimeout(function() {
+                        document.getElementById('alert').style.display = 'none';
+                    }, 5000);
+                </script>
+                @endif
+
+                <div class="section-body mb-5">
+                    <div class="card">
+                        <form id="form" action="{{ route('member.updateEmail', $member->id) }}" method="POST">
+                            @csrf
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label class="col-md-2 col-form-label">Email</label>
+                                    <div class="col-md-10">
+                                        <div class="input-group">
+                                            <input type="email" name="email" class="form-control" placeholder="{{ $member->email }}">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text border-secondary">
+                                                    <i class="fa fa-envelope" id="eye-icon-old"></i>
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="card-footer text-right">
-                        <a href="{{ route('member.resendMail', $member->id) }}" onclick="confirmSend(event)" class="btn btn-primary">
-                            Kirim link aktivasi
-                        </a>
-                        <button type="submit" class="btn btn-success" onclick="confirmSubmit(event)">
-                            <i class="fas fa-save"></i> Simpan
-                        </button>
-                    </div>
-                </form>
-            </div> <br>
+                            <div class="card-footer text-right">
+                                @if (!Auth::user()->member_id)
+                                <a href="{{ route('member.resendMail', $member->id) }}" onclick="confirmSend(event)" class="btn btn-primary">
+                                    <i class="fa fa-paper-plane"></i> Send Link Activation
+                                </a>
+                                @endif
+                                <button type="submit" class="btn btn-primary" onclick="confirmSubmit(event)">
+                                    <i class="fa fa-save"></i> Save
+                                </button>
+                            </div>
+                        </form>
+                    </div><br>
+                </div>
+            </div>
         </div>
+
     </div>
-</div>
+</section>
+<!-- ChoseUs Section End -->
 
 @section('js')
 <script>
@@ -131,12 +151,12 @@
         }
 
         Swal.fire({
-            title: 'Simpan perubahan',
+            title: 'Save',
             text: '',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Ya',
-            cancelButtonText: 'Batal',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'Cancel',
         }).then((result) => {
             if (result.isConfirmed) {
                 form.submit();
@@ -151,7 +171,7 @@
         event.preventDefault();
 
         Swal.fire({
-            title: "Mengirim...",
+            title: "Sending...",
             showConfirmButton: false,
             allowOutsideClick: false,
             allowEscapeKey: false,
