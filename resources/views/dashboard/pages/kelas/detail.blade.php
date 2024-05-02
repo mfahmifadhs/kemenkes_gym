@@ -52,7 +52,7 @@
                     </div>
                     <div class="schedule my-5">
                         <div class="section-title mb-2"><span>Schedule</span></div>
-                        @foreach ($kelas->jadwal->sortByDesc('tanggal_kelas')->where('tanggal_kelas', '>', Carbon\Carbon::now()) as $row)
+                        @foreach ($kelas->jadwal->sortByDesc('tanggal_kelas')->where('tanggal_kelas', '>=', \Carbon\Carbon::now()->format('Y-m-d')) as $row)
                         @php
                         $totalPeserta = 0;
                         $cekDaftar = 0;

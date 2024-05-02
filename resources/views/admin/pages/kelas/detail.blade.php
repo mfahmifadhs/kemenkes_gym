@@ -80,7 +80,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($kelas->jadwal->where('tanggal_kelas', '>', \Carbon\Carbon::now()) as $row)
+                                @foreach ($kelas->jadwal->sortByDesc('tanggal_kelas')->where('tanggal_kelas', '>=', \Carbon\Carbon::now()->format('Y-m-d')) as $row)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>

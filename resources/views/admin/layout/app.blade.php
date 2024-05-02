@@ -24,7 +24,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('dist/admin/plugins/select2/css/select2.min.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     @yield('css')
 
@@ -163,6 +162,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('dist/admin/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('dist/admin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('dist/admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 
     <script src="{{ asset('dist/admin/plugins/select2/js/select2.full.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
