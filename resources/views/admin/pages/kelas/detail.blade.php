@@ -213,11 +213,11 @@
 
         $("#table-member").DataTable({
             "responsive": false,
-            "lengthChange": true,
+            "lengthChange": false,
             "autoWidth": true,
-            "info": false,
-            "paging": false,
-            "searching": false
+            "info": true,
+            "paging": true,
+            "searching": true
         })
     })
 
