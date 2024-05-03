@@ -148,7 +148,9 @@
     <script src="{{ asset('dist/js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('dist/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('dist/js/main.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+
+    <script src="{{ asset('dist/js/sweetalert2.all.min.js') }}"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script> -->
     <script src="{{ asset('dist/js/select2.full.js') }}"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>

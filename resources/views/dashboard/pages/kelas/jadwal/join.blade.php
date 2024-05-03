@@ -57,7 +57,7 @@
                             @csrf
                             <input type="hidden" name="member_id" value="{{ Auth::user()->id }}">
                             <input type="hidden" name="tanggal_latihan" value="{{ $jadwal->tanggal_kelas }}">
-                            <button type="submit" class="btn btn-primary btn-block">
+                            <button type="submit" class="btn btn-primary btn-block" onclick="confirmSubmit(event)">
                                 JOIN
                             </button>
                         </form>

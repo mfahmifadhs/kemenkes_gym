@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="{{ asset('dist/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('dist/css/main.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('dist/css/select2.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
@@ -201,7 +200,8 @@
     <script src="{{ asset('dist/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('dist/js/main.js') }}"></script>
     <script src="{{ asset('dist/js/select2.full.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+    <script src="{{ asset('dist/js/sweetalert2.all.min.js') }}"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/0.7.0/chartjs-plugin-datalabels.min.js"></script>
