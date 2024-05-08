@@ -42,6 +42,7 @@
 
 <audio id="sound-datang" src="{{ asset('dist/sound/sound-datang.mp3') }}" preload="auto"></audio>
 <audio id="sound-gagal" src="{{ asset('dist/sound/sound-gagal.mp3') }}" preload="auto"></audio>
+<audio id="sound-thanks" src="{{ asset('dist/sound/sound-thanks.mp3') }}" preload="auto"></audio>
 
 @section('js')
 <script>
@@ -67,6 +68,17 @@
                         }).then((result) => {
                             // Callback ini akan dipanggil setelah popup Swal ditutup
                             // Memuat ulang halaman
+                            location.reload();
+                        });
+                    } else if (response.thanks) {
+                        document.getElementById('sound-thanks').play();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Terima Kasih',
+                            text: 'Sampai Jumpa',
+                            timer: 3500,
+                            showConfirmButton: false
+                        }).then((result) => {
                             location.reload();
                         });
                     } else {

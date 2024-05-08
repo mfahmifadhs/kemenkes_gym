@@ -35,15 +35,27 @@ class AbsenController extends Controller
 
     public function store(Request $request, $id)
     {
-        $user = User::where('member_id', $id)->first();
+        $user  = User::where('member_id', $id)->first();
+        $absen = Absensi::where('user_id', $user->id)->where('waktu_keluar', null)->first();
 
-        $tambah = new Absensi();
-        $tambah->user_id = $user->id;
-        $tambah->tanggal = Carbon::now();
-        $tambah->waktu_masuk = Carbon::now();
-        $tambah->created_at  = Carbon::now();
-        $tambah->save();
+        if ($absen->count() == 1) {
+            Absensi::where('id_absensi', $absen->id_absensi)->update([
+                'waktu_keluar' => Carbon::now()
+            ]);
+
+
+            return response()->json(['thanks' => true]);
+        } else {
+            $tambah = new Absensi();
+            $tambah->user_id = $user->id;
+            $tambah->tanggal = Carbon::now();
+            $tambah->waktu_masuk = Carbon::now();
+            $tambah->created_at  = Carbon::now();
+            $tambah->save();
+
 
         return response()->json(['success' => true]);
+        }
+
     }
 }
