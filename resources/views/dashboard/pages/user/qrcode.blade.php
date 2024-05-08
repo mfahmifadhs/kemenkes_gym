@@ -12,7 +12,7 @@
                     <h2 class="text-main my-5 text-center">MEMBER CARD</h2>
                     <div class="card">
                         <div class="card-body text-center border">
-                            {!! QrCode::size(350)
+                            {!! QrCode::size(320)
                             ->generate(Auth::user()->member_id) !!}
                         </div>
                     </div>
