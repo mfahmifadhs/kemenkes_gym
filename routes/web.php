@@ -37,6 +37,13 @@ Route::get('/activation', function () {
     return view('activation');
 })->name('activation.show');
 
+Route::get('/Attendance', function () {
+    return view('absensi');
+})->name('attendance.show');
+
+
+Route::post('absensi/post/{id}', [AbsenController::class, 'store']);
+
 Route::post('activation/post', [AuthController::class, 'resendActivation'])->name('activation.post');
 
 Route::get('uker/select/{id}', [UkerController::class, 'selectUker']);
@@ -106,9 +113,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('class/edit/schedule/{id}', [JadwalController::class, 'edit'])->name('jadwal.edit');
         Route::post('class/store/schedule', [JadwalController::class, 'store'])->name('jadwal.store');
         Route::post('class/update/schedule/{id}', [JadwalController::class, 'update'])->name('jadwal.update');
-
-
-        Route::get('Attendance', [AbsenController::class, 'show'])->name('attendance');
     });
 
 });

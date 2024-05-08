@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absensi;
+use App\Models\User;
 use Carbon\Carbon;
 use DB;
 use Auth;
+use Illuminate\Http\Request;
 
 class AbsenController extends Controller
 {
@@ -29,6 +31,19 @@ class AbsenController extends Controller
             $absen = $query->paginate(10);
             return view('admin.pages.absen.show', compact('absen','colDate','colMonth','colYear','colUtama','colUker'));
         }
+    }
 
+    public function store(Request $request, $id)
+    {
+        $user = User::where('member_id', $id)->first();
+
+        $tambah = new Absensi();
+        $tambah->user_id = $user->id;
+        $tambah->tanggal = Carbon::now();
+        $tambah->waktu_masuk = Carbon::now();
+        $tambah->created_at  = Carbon::now();
+        $tambah->save();
+
+        return response()->json(['success' => true]);
     }
 }

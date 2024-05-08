@@ -15,10 +15,10 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-3 col-3 text-center">
-                                    <!-- <a type="button" class="btn btn-default bg-main border border-dark px-2 py-0 pt-1" data-toggle="modal" data-target="#qrcode">
+                                    <a type="button" class="btn btn-default bg-main border border-dark px-2 py-0 pt-1" data-toggle="modal" data-target="#qrcode">
                                         <i class="fa fa-qrcode fa-5x"></i>
-                                    </a> -->
-                                    <i class="fa fa-user-circle fa-4x text-main px-2 py-0 pt-1"></i>
+                                    </a>
+                                    <!-- <i class="fa fa-user-circle fa-4x text-main px-2 py-0 pt-1"></i> -->
                                 </div>
                                 <div class="col-md-6 col-9">
                                     <h5>{{ Auth::user()->nama }}</h5>
@@ -109,15 +109,15 @@
             </div>
             <div class="modal-body">
                 <div class="bg-dark rounded">
-                    <h2 class="px-5 pt-5 pb-4 text-main text-center">MEMBER CARD</h2>
-                    <div class="text-center">
+                    <h4 class="px-5 pt-5 pb-4 text-main text-xs text-center">MEMBER CARD</h4>
+                    <div class="text-center pb-4">
                         {!! QrCode::merge(public_path('dist/img/logo.png'), 0.5, true)
                         ->size(270)
-                        ->generate(Crypt::encryptString(Auth::user()->member_id)) !!}
+                        ->generate(Auth::user()->member_id) !!}
                     </div>
-                    <h6 class="px-5 pb-4 text-white text-xs text-center" style="letter-spacing: 7px;">
+                    <!-- <h6 class="px-5 pb-4 text-white text-xs text-center" style="letter-spacing: 7px;">
                         {{ Auth::user()->member_id }}
-                    </h6>
+                    </h6> -->
                 </div>
             </div>
         </div>
