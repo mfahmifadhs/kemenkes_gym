@@ -9,11 +9,12 @@
 
                 <div class="section-body">
 
-                    <h3 class="text-main text-center mt-5">MEMBER CARD</h3>
-                    <div class="my-4 text-center border border-white">
-                    {!! QrCode::merge(public_path('dist/img/logo.png'), 0.5, true)
-                    ->size(350)
-                    ->generate(Auth::user()->member_id) !!}
+                    <h2 class="text-main my-5 text-center">MEMBER CARD</h2>
+                    <div class="card">
+                        <div class="card-body text-center border">
+                            {!! QrCode::size(350)
+                            ->generate(Auth::user()->member_id) !!}
+                        </div>
                     </div>
                 </div>
             </div>
