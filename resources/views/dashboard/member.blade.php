@@ -16,7 +16,7 @@
                             <div class="row">
                                 <div class="col-md-3 col-3 text-center">
                                     <a type="button" href="{{ route('member.qrcode') }}" class="btn btn-default bg-main border border-dark px-2 py-0 pt-1">
-                                        <i class="fa fa-qrcode fa-5x text-black"></i>
+                                        <i class="fa fa-qrcode fa-5x text-dark"></i>
                                     </a>
                                     <!-- <a type="button" class="btn btn-default bg-main border border-dark px-2 py-0 pt-1" data-toggle="modal" data-target="#qrcode">
                                         <i class="fa fa-qrcode fa-5x"></i>
