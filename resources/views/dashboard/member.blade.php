@@ -15,9 +15,12 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-3 col-3 text-center">
-                                    <a type="button" class="btn btn-default bg-main border border-dark px-2 py-0 pt-1" data-toggle="modal" data-target="#qrcode">
-                                        <i class="fa fa-qrcode fa-5x"></i>
+                                    <a type="button" href="{{ route('member.qrcode') }}" class="btn btn-default bg-main border border-dark px-2 py-0 pt-1">
+                                        <i class="fa fa-qrcode fa-5x text-black"></i>
                                     </a>
+                                    <!-- <a type="button" class="btn btn-default bg-main border border-dark px-2 py-0 pt-1" data-toggle="modal" data-target="#qrcode">
+                                        <i class="fa fa-qrcode fa-5x"></i>
+                                    </a> -->
                                     <!-- <i class="fa fa-user-circle fa-4x text-main px-2 py-0 pt-1"></i> -->
                                 </div>
                                 <div class="col-md-6 col-9">

@@ -61,6 +61,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('waktu', [DashboardController::class, 'time'])->name('dashboard.time');
     Route::get('profile/{id}', [UserController::class, 'detail'])->name('profile');
 
+
+    Route::get('/member/qrcode', function () {
+        return view('dashboard.pages.user.qrcode');
+    })->name('member.qrcode');
+
     Route::get('member/edit/{id}', [MemberController::class, 'edit'])->name('member.edit');
     Route::get('member/password/{id}', [MemberController::class, 'editPassword'])->name('member.password');
     Route::get('member/email/{id}', [MemberController::class, 'editEmail'])->name('member.email');
@@ -114,5 +119,4 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('class/store/schedule', [JadwalController::class, 'store'])->name('jadwal.store');
         Route::post('class/update/schedule/{id}', [JadwalController::class, 'update'])->name('jadwal.update');
     });
-
 });
