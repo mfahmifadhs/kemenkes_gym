@@ -46,7 +46,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('attendance') }}" class="nav-link">Attendance</a>
+                            <a href="{{ route('attendance.show') }}" class="nav-link">Attendance</a>
                         </li>
                         </li>
                         <li class="nav-item">

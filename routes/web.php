@@ -118,5 +118,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('class/edit/schedule/{id}', [JadwalController::class, 'edit'])->name('jadwal.edit');
         Route::post('class/store/schedule', [JadwalController::class, 'store'])->name('jadwal.store');
         Route::post('class/update/schedule/{id}', [JadwalController::class, 'update'])->name('jadwal.update');
+
+        Route::get('Attendance/list', [AbsenController::class, 'show'])->name('attendance.show');
     });
 });
