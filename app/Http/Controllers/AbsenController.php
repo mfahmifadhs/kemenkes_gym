@@ -38,7 +38,7 @@ class AbsenController extends Controller
         $user  = User::where('member_id', $id)->first();
         $absen = Absensi::where('user_id', $user->id)->where('waktu_keluar', null)->first();
 
-        if ($absen->count() == 1) {
+        if ($absen) {
             Absensi::where('id_absensi', $absen->id_absensi)->update([
                 'waktu_keluar' => Carbon::now()
             ]);
