@@ -25,4 +25,8 @@ class BodyckParam extends Model
     public function kelas() {
         return $this->belongsTo(Kelas::class, 'kelas_id');
     }
+
+    public function detail() {
+        return $this->hasMany(BodyckDetail::class, 'param_id');
+    }
 }

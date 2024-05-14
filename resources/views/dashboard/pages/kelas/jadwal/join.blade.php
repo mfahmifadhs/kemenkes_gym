@@ -109,8 +109,8 @@
         const form = document.getElementById('form');
 
         Swal.fire({
-            title: 'Join Class ?',
-            text: 'if you join the class and you don`t come as long 3 times, you can`t join the class again',
+            title: 'Ikut Kelas?',
+            text: 'Peserta yang sudah daftar kelas agar WAJIB HADIR, jika tidak hadir maka akan dikenakan penalti, yaitu tidak boleh mengikuti kelas selama 1 minggu.',
             icon: 'question',
             showCancelButton: true,
             confirmButtonText: 'Yes',

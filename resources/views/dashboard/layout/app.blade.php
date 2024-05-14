@@ -47,6 +47,8 @@
                 <li>
                     <a href="{{ route('jadwal.show') }}"><i class="fa fa-calendar"></i> Schedule</a>
                 </li>
+
+                <li><a href="{{ route('leaderboard') }}"><i class="fa fa-user-circle"></i> Leaderboard</a></li>
                 <li><a href="{{ route('profile', Auth::user()->id) }}"><i class="fa fa-user-circle"></i> Profile</a></li>
                 <li><a href="{{ route('logout') }}"><i class="fa fa-sign-out"></i> Sign Out</a></li>
             </ul>
@@ -69,10 +71,17 @@
                 <div class="col-lg-6">
                     <nav class="nav-menu">
                         <ul>
-                            <li><a href="{{ route('dashboard') }}">Home</a></li>
+                            <li class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                                <a href="{{ route('dashboard') }}">Home</a>
+                            </li>
                             <!-- <li><a href="{{ route('dashboard') }}">Classes</a></li> -->
                             <!-- <li><a href="{{ route('dashboard') }}">Survey Result</a></li> -->
-                            <li><a href="{{ route('jadwal.show') }}">Schedule</a></li>
+                            <li class="{{ request()->routeIs('jadwal.show') ? 'active' : '' }}">
+                                <a href="{{ route('jadwal.show') }}">Schedule</a>
+                            </li>
+                            <li class="{{ request()->routeIs('leaderboard') ? 'active' : '' }}">
+                                <a href="{{ route('leaderboard') }}">Leaderboard</a>
+                            </li>
                         </ul>
                     </nav>
                 </div>

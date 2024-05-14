@@ -46,6 +46,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
                         </li>
 
+                        <li class="nav-item {{ request()->routeIs('leaderboard') ? 'active' : '' }}">
+                            <a href="{{ route('leaderboard') }}" class="nav-link">Leaderboard</a>
+                        </li>
+
                         <li class="nav-item dropdown">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Attendance</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">

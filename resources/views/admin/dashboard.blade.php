@@ -42,7 +42,7 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header">
-                                <i class="fas fa-users text-success"></i> Total Peserta : <b>{{ $totalMember }}</b>
+                                <i class="fas fa-users"></i> Total Peserta : <b>{{ $totalMember }}</b>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                         <i class="fas fa-minus"></i>

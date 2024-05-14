@@ -54,4 +54,8 @@ class User extends Authenticatable
     public function minatTarget() {
         return $this->hasMany(MinatTarget::class, 'member_id');
     }
+
+    public function bodyCk() {
+        return $this->hasMany(Bodyck::class, 'member_id');
+    }
 }

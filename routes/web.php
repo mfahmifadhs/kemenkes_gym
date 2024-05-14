@@ -15,6 +15,7 @@ use App\Http\Controllers\UkerController;
 use App\Http\Controllers\UserController;
 use App\Models\Kelas;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,7 @@ Route::post('login', [AuthController::class, 'postLogin'])->name('masuk');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('leaderboard', [DashboardController::class, 'leaderboard'])->name('leaderboard');
     Route::get('waktu', [DashboardController::class, 'time'])->name('dashboard.time');
     Route::get('profile/{id}', [UserController::class, 'detail'])->name('profile');
 
