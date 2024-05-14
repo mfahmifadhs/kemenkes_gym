@@ -42,17 +42,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="collapse navbar-collapse order-3" id="navbarCollapse">
 
                     <ul class="navbar-nav mt-1">
-                        <li class="nav-item">
+                        <li class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                             <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('attendance.show') }}" class="nav-link">Attendance</a>
+
+                        <li class="nav-item dropdown">
+                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Attendance</a>
+                            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                                <li>
+                                    <a href="{{ route('absen.show') }}" class="dropdown-item">
+                                        <i class="fa fa-table"></i> List
+                                    </a>
+                                    <a href="{{ route('absen.report') }}" class="dropdown-item">
+                                        <i class="fa fa-pie-chart"></i> Report
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{ request()->routeIs('kelas') ? 'active' : '' }}">
                             <a href="{{ route('kelas') }}" class="nav-link">Class</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{ request()->routeIs('member') ? 'active' : '' }}">
                             <a href="{{ route('member') }}" class="nav-link">Members</a>
                         </li>
                         <li class="nav-item dropdown">

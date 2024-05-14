@@ -50,11 +50,15 @@
                         </div>
                         <div class="col-md-6 mt-2">
                             <label class="mb-0 text-sm">Jenis Kelamin</label>
+                            @if ($member->jenis_kelamin)
                             <h6 class="text-sm">{{ $member->jenis_kelamin == 'male' ? 'Laki-laki' : 'Perempuan' }}</h6>
+                            @else <h6>-</h6> @endif
                         </div>
                         <div class="col-md-6 mt-2">
                             <label class="mb-0 text-sm">Tempat/Tanggal Lahir</label>
+                            @if ($member->tempat_lahir && $member->tanggal_lahir)
                             <h6 class="text-sm text-uppercase">{{ $member->tempat_lahir }}/{{ \Carbon\Carbon::parse($member->tanggal_lahir)->isoFormat('DD-MM-Y') }}</h6>
+                            @else <h6>-</h6> @endif
                         </div>
                         <div class="col-md-6 mt-2">
                             <label class="mb-0 text-sm">No. Telepon</label>

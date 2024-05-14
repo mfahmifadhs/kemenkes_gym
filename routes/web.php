@@ -119,6 +119,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('class/store/schedule', [JadwalController::class, 'store'])->name('jadwal.store');
         Route::post('class/update/schedule/{id}', [JadwalController::class, 'update'])->name('jadwal.update');
 
-        Route::get('Attendance/list', [AbsenController::class, 'show'])->name('attendance.show');
+        Route::get('absen/list', [AbsenController::class, 'show'])->name('absen.show');
+        Route::get('absen/report', [AbsenController::class, 'report'])->name('absen.report');
+        Route::get('absen/chart', [AbsenController::class, 'chart'])->name('absen.chart');
+        Route::get('absen/filter', [AbsenController::class, 'filter'])->name('absen.filter');
+        Route::get('absen/delete/{id}', [AbsenController::class, 'delete'])->name('absen.delete');
+        Route::post('absen/edit/{id}', [AbsenController::class, 'update'])->name('absen.update');
     });
 });
