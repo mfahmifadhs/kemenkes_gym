@@ -83,7 +83,7 @@
                                                 @endforeach
                                             </select>
 
-                                            <select name="bulan" class="form-control form-control-sm border-dark rounded ml-2 mt-1 w-auto text-center" onchange="this.form.submit()">
+                                            <select name="bulan" class="form-control form-control-sm border-dark rounded ml-2 mt-2 w-auto text-center" onchange="this.form.submit()">
                                                 <option value="">seluruh bulan</option>
                                                 @foreach(range(1, 12) as $monthNumber)
                                                 @php $rowBulan = Carbon\Carbon::create()->month($monthNumber); @endphp
@@ -93,7 +93,7 @@
                                                 @endforeach
                                             </select>
 
-                                            <select name="tahun" class="form-control form-control-sm border-dark rounded ml-2 mt-1 w-auto text-center" onchange="this.form.submit()">
+                                            <select name="tahun" class="form-control form-control-sm border-dark rounded ml-2 mt-2 w-auto text-center" onchange="this.form.submit()">
                                                 <option value="">seluruh tahun</option>
                                                 @foreach(range(2024, 2030) as $yearNumber)
                                                 @php $rowTahun = Carbon\Carbon::create()->year($yearNumber); @endphp
