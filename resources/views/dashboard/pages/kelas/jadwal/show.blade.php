@@ -67,13 +67,17 @@
                                             <h6 class="small">Kuota : {{ $totalPeserta }} / {{ $row->kuota }}</h6>
                                         </div>
                                         <div class="col-md-3 col-3 text-center">
-                                            @if ($cekDaftar == 0 && $totalPeserta != $row->kuota)
+                                            @if ($cekDaftar == 0 && $totalPeserta != $row->kuota && Auth::user()->classActive->count() == 0)
                                             <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-primary">
                                                 <i class="fa fa-hand-o-up"></i> JOIN
                                             </a>
                                             @elseif ($totalPeserta == $row->kuota)
                                             <a class="btn btn-primary text-white">
                                                 <i class="fa fa-exclamation-circle"></i> FULL
+                                            </a>
+                                            @elseif (Auth::user()->classActive->count() > 0)
+                                            <a class="btn btn-primary bg-danger text-white">
+                                                <i class="fa fa-exclamation-circle"></i> JOINED
                                             </a>
                                             @else
                                             <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-primary bg-success">

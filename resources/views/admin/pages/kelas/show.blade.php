@@ -28,9 +28,9 @@
                                         <th style="width: 0%;">NO</th>
                                         <th style="width: 10%;">AKSI</th>
                                         <th>NAMA KELAS</th>
-                                        <th>DESKRIPSI</th>
                                         <th style="width: 15%;">TOTAL KELAS</th>
                                         <th style="width: 15%;">TOTAL KELAS AKTIF</th>
+                                        <th>DESKRIPSI</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -47,11 +47,11 @@
                                             <a href="{{ route('kelas.edit', $row->id_kelas) }}"><i class="fas fa-pencil mx-1"></i></a>
                                         </td>
                                         <td class="text-left">{{ $row->nama_kelas }}</td>
+                                        <td>{{ $row->jadwal->count() }}</td>
+                                        <td>{{ $row->jadwal->where('tanggal_kelas', '>', \Carbon\Carbon::now())->count() }}</td>
                                         <td class="text-left">
                                             <div style="width: 10%;">{{ $row->deskripsi }}</div>
                                         </td>
-                                        <td>{{ $row->jadwal->count() }}</td>
-                                        <td>{{ $row->jadwal->where('tanggal_kelas', '>', \Carbon\Carbon::now())->count() }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

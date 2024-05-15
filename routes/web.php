@@ -99,6 +99,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::group(['middleware' => ['access:admin']], function () {
+        Route::get('kelas/kehadiran/{id}', [JadwalController::class, 'attendance'])->name('kelas.attendance');
+
         Route::get('member', [MemberController::class, 'show'])->name('member');
         Route::get('member/search', [MemberController::class, 'search'])->name('member.search');
         Route::get('member/search/{var}/{id}', [MemberController::class, 'searchBy'])->name('member.searchBy');

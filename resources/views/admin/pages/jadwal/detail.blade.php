@@ -81,7 +81,7 @@
                                     <th>No</th>
                                     <th>Unit Kerja/UPT/Umum</th>
                                     <th>Nama</th>
-                                    <th>Waktu Datang</th>
+                                    <th>Kehadiran</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -90,7 +90,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td class="text-left">{{ $row->member->uker->nama_unit_kerja }}</td>
                                     <td class="text-left">{{ $row->member->nama }}</td>
-                                    <td>{{ $row->kehadiran }}</td>
+                                    <td>{{ $row->kehadiran == 'true' ? 'Hadir' : '' }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

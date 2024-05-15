@@ -43,7 +43,7 @@ class JadwalController extends Controller
         if (Auth::user()->role_id == 1) {
             return view('admin.pages.jadwal.detail', compact('jadwal'));
         } else {
-            return view('dashboard.pages.kelas.show', compact('jadwal'));
+            return view('dashboard.pages.kelas.jadwal.detail', compact('jadwal'));
         }
     }
 
@@ -152,5 +152,21 @@ class JadwalController extends Controller
         $tambah->save();
 
         return redirect()->route('jadwal.join', $id)->with('success', 'Success Register!');
+    }
+
+    public function attendance(Request $request, $id)
+    {
+        $peserta = $request->get('peserta');
+
+        foreach ($peserta as $i => $id_peserta) {
+            $kehadiran = $request->get('kehadiran');
+            if ($kehadiran[$i] == 'true') {
+                Peserta::where('id_peserta', $id_peserta)->update([
+                    'kehadiran' => 'true'
+                ]);
+            }
+        }
+
+        return redirect()->route('jadwal.detail', $id)->with('success', 'Berhasil Melakukan Absensi!');
     }
 }

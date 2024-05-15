@@ -80,13 +80,13 @@
                                         <h6>Kuota : {{ $totalPeserta }} / {{ $row->kuota }}</h6>
                                     </div>
                                     @if (Auth::user()->role_id == 2)
-                                    <div class="col-md-4 col-4 text-center mt-2">
+                                    <div class="col-md-4 col-4 mt-2">
                                         @if ($row->tanggal_kelas >= Carbon\Carbon::now())
-                                        <a href="{{ route('jadwal.edit', $row->id_jadwal) }}" class="btn btn-primary">
+                                        <a href="{{ route('jadwal.edit', $row->id_jadwal) }}" class="btn btn-primary mt-1">
                                             <i class="fa fa-edit"></i> Edit
                                         </a>
                                         @endif
-                                        <a href="{{ route('jadwal.edit', $row->id_jadwal) }}" class="btn btn-primary">
+                                        <a href="{{ route('jadwal.detail', $row->id_jadwal) }}" class="btn btn-primary mt-1">
                                             <i class="fa fa-info-circle"></i> Detail
                                         </a>
                                     </div>

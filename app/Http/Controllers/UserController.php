@@ -31,7 +31,7 @@ class UserController extends Controller
 
     public function create()
     {
-        $role = Role::where('role_id', '!=', 4)->get();
+        $role = Role::where('id_role', '!=', 4)->get();
         $uker = UnitKerja::get();
         return view('admin.pages.user.create', compact('role', 'uker'));
     }

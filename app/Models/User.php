@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -57,5 +58,9 @@ class User extends Authenticatable
 
     public function bodyCk() {
         return $this->hasMany(Bodyck::class, 'member_id');
+    }
+
+    public function classActive() {
+        return $this->hasMany(Peserta::class, 'member_id')->where('kehadiran', null)->where('tanggal_latihan', Carbon::now()->format('Y-m-d'));
     }
 }
