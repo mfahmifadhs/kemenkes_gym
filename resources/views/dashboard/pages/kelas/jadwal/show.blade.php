@@ -57,7 +57,7 @@
                                             <img src="{{ asset('dist/img/class/'. $row->kelas->img_icon) }}" width="50">
                                         </div>
                                         @php $tanggal = Carbon\Carbon::parse($row->tanggal_kelas); @endphp
-                                        <div class="col-md-6 col-6">
+                                        <div class="col-md-6 col-7">
                                             <h6 class="font-weight-bold">{{ $row->kelas->nama_kelas }}</h6>
                                             <h6 class="small">{{ $tanggal->isoFormat('DD MMMM Y') }}</h6>
                                             <h6 class="small">Pukul :
@@ -65,9 +65,18 @@
                                                 {{ Carbon\Carbon::parse($row->waktu_selesai)->isoFormat('HH.mm') }}
                                             </h6>
                                             <h6 class="small">Kuota : {{ $totalPeserta }} / {{ $row->kuota }}</h6>
+                                            <!-- Sudah daftar di kelas ini -->
+                                            @if (Auth::user()->classActive->where('jadwal_id', $row->id_jadwal)->count() > 0)
+                                            <h6 class="text-success" style="font-size: 11px;">You're already enrolled.</h6>
+                                            @endif
+
+                                            <!-- Sudah daftar kelas lain di tanggal yang sama -->
+                                            @if (Auth::user()->classActive->where('tanggal_latihan', $row->tanggal_kelas)->count() > 0 && Auth::user()->classActive->where('jadwal_id', $row->id_jadwal)->count() == 0)
+                                            <h6 class="text-danger" style="font-size: 11px;">You're already enrolled in another class.</h6>
+                                            @endif
                                         </div>
-                                        <div class="col-md-3 col-3 text-center">
-                                            @if ($cekDaftar == 0 && $totalPeserta != $row->kuota && Auth::user()->classActive->count() == 0)
+                                        <div class="col-md-3 col-2 text-center">
+                                            @if ($cekDaftar == 0 && $totalPeserta != $row->kuota && Auth::user()->classActive->where('tanggal_latihan', $row->tanggal_kelas)->count() == 0)
                                             <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-primary">
                                                 <i class="fa fa-hand-o-up"></i> JOIN
                                             </a>
@@ -75,13 +84,9 @@
                                             <a class="btn btn-primary text-white">
                                                 <i class="fa fa-exclamation-circle"></i> FULL
                                             </a>
-                                            @elseif (Auth::user()->classActive->count() > 0)
-                                            <a class="btn btn-primary bg-danger text-white">
-                                                <i class="fa fa-exclamation-circle"></i> JOINED
-                                            </a>
                                             @else
-                                            <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-primary bg-success">
-                                                <i class="fa fa-check-circle"></i> JOINED
+                                            <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-primary">
+                                                <i class="fa fa-info-circle"></i>
                                             </a>
                                             @endif
                                         </div>

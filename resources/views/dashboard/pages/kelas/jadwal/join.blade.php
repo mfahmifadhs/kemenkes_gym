@@ -37,7 +37,9 @@
                         <div class="section-title mb-2">
                             <span>Join Class</span>
                         </div>
-                        @php $totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kelas)->count(); @endphp
+                        @php
+                            $totalPeserta    = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kelas)->count();
+                        @endphp
                         <div class="row text-white mb-2">
                             <label class="col-md-3 col-3">Class</label>
                             <div class="col-md-9 col-9">: {{ $jadwal->kelas->nama_kelas }}</div>
@@ -52,7 +54,7 @@
                             <label class="col-md-3 col-3">Location</label>
                             <div class="col-md-9 col-9">: Kemenkes Bootcamp & Fitness Center</div>
                         </div>
-                        @if ($daftar?->count() == 0 && $totalPeserta != $jadwal->kuota)
+                        @if ($daftar?->count() == 0 && $totalPeserta != $jadwal->kuota && Auth::user()->classActive->where('tanggal_latihan', $jadwal->tanggal_kelas)->count() == 0)
                         <form id="form" action="{{ route('jadwal.join', $jadwal->id_jadwal) }}" method="POST">
                             @csrf
                             <input type="hidden" name="member_id" value="{{ Auth::user()->id }}">
@@ -62,9 +64,11 @@
                             </button>
                         </form>
                         @elseif ($totalPeserta == $jadwal->kuota)
-                        <a href="" class="btn btn-danger btn-block text-uppercase font-weight-bold disabled">Full</a>
+                        <a href="" class="btn btn-danger btn-block text-uppercase font-weight-bold disabled">Penuh</a>
+                        @elseif (Auth::user()->classActive->where('tanggal_latihan', $jadwal->tanggal_kelas)->count() > 0 && Auth::user()->classActive->where('jadwal_id', $jadwal->id_jadwal)->count() == 0)
+                        <a href="" class="btn btn-warning btn-block font-weight-bold disabled">You're already enrolled in another class</a>
                         @else
-                        <a href="" class="btn btn-success btn-block text-uppercase font-weight-bold disabled">Joined</a>
+                        <a href="" class="btn btn-success btn-block font-weight-bold disabled">You're already enrolled.</a>
                         @endif
 
                         <div class="section-title mb-2">

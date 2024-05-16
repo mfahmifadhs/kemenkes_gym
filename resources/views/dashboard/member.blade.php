@@ -60,7 +60,7 @@
 
                 <div class="section-menu my-5">
                     <div class="section-title mb-2">
-                        <span>Class</span>
+                        <h6 class="text-main mb-0 mt-0">Daftar Kelas</h6>
                     </div>
                     <div class="container menu-group">
                         <div class="row text-center flex-nowrap">
@@ -75,6 +75,27 @@
                             </div>
                             @endforeach
                         </div>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <h6 class="text-main mb-3 mt-0">Kelas Diikuti</h6>
+                        </div>
+                        @foreach (Auth::user()->classActive as $row)
+                        <div class="col-md-3">
+                            <a href="{{ route('jadwal.join', $row->jadwal_id) }}">
+                                <div class="card">
+                                    <div class="card-body text-dark font-weight-bold p-2 small">
+                                        {{ $row->jadwal->tanggal_kelas }} <br>
+                                        {{ $row->jadwal->kelas->nama_kelas }} <br>
+                                        {{ \Carbon\Carbon::parse($row->jadwal->waktu_mulai)->format('H:m') }} - {{ \Carbon\Carbon::parse($row->jadwal->waktu_selesai)->format('H:m') }} <br>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        @endforeach
                     </div>
                 </div>
 

@@ -61,6 +61,6 @@ class User extends Authenticatable
     }
 
     public function classActive() {
-        return $this->hasMany(Peserta::class, 'member_id')->where('kehadiran', null)->where('tanggal_latihan', Carbon::now()->format('Y-m-d'));
+        return $this->hasMany(Peserta::class, 'member_id')->where('kehadiran', null);
     }
 }

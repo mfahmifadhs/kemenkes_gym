@@ -90,7 +90,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Jadwal Kelas Member
     Route::get('class/schedule', [JadwalController::class, 'show'])->name('jadwal.show');
-    Route::get('class/schedule/detail/{id}', [JadwalController::class, 'detail'])->name('jadwal.detail');
     Route::get('class/schedule/cari/{id}', [JadwalController::class, 'filter'])->name('jadwal.pilih');
     Route::get('class/schedule/join/{id}', [JadwalController::class, 'join'])->name('jadwal.join');
     Route::post('class/schedule/join/{id}', [JadwalController::class, 'join'])->name('jadwal.join');
@@ -108,6 +107,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => ['access:admin']], function () {
         Route::get('kelas/kehadiran/{id}', [JadwalController::class, 'attendance'])->name('kelas.attendance');
+        Route::get('class/schedule/detail/{id}', [JadwalController::class, 'detail'])->name('jadwal.detail');
 
         Route::get('member', [MemberController::class, 'show'])->name('member');
         Route::get('member/search', [MemberController::class, 'search'])->name('member.search');
