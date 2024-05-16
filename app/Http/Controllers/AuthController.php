@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ForgotPassword;
 use App\Models\UnitKerja;
 use App\Models\UnitUtama;
 use Illuminate\Http\Request;
@@ -79,7 +80,7 @@ class AuthController extends Controller
         $tanggal_sekarang = Carbon::now();
         $usia = $tanggal_lahir->diffInYears($tanggal_sekarang);
 
-        $totalUser = User::count();
+        $totalUser = User::withTrashed()->count();
         $idUser    = $totalUser + 1;
 
         $tambah = new User();
@@ -137,7 +138,7 @@ class AuthController extends Controller
         ];
 
         Mail::to($request->email)->send(new SendEmail($data));
-        return redirect()->route('/')->with('success', 'Registration Success!, Please check you`re email for Activation');
+        return redirect()->route('login')->with('success', 'Registration Success!, Please check you`re email for Activation');
     }
 
     public function aktivasi($token, $id)
@@ -197,6 +198,33 @@ class AuthController extends Controller
 
         Mail::to($user->email)->send(new SendEmail($data));
         return redirect()->route('login')->with('success', 'Resend link Activation Success!');
+    }
+
+    public function sentMailResetPass(Request $request)
+    {
+        $user = User::where('email', $request->get('email'))->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')->first();
+
+        if (!$user) {
+            return back()->with('failed', 'Email belum terdaftar');
+        }
+
+        $tokenMail = Str::random(32);
+        $data = [
+            'token'    => $tokenMail,
+            'id'       => $user->id,
+            'nama'     => $user->nama,
+            'uker'     => $user->instansi == 'pusat' ? $user->nama_unit_kerja : $user->nama_instansi,
+            'username' => $user->username,
+            'password' => $user->password_teks
+        ];
+
+        Mail::to($user->email)->send(new ForgotPassword($data));
+        return redirect()->route('login')->with('success', 'Berhasil mengirim link reset password');
+    }
+
+    public function showResetPass($token, $id)
+    {
+        dd($id);
     }
 
 

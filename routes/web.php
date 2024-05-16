@@ -38,6 +38,10 @@ Route::get('/activation', function () {
     return view('activation');
 })->name('activation.show');
 
+Route::get('/mail/reset/password', function () {
+    return view('forgot-password.link');
+})->name('mailResetPass.show');
+
 Route::get('/Attendance', function () {
     return view('absensi');
 })->name('attendance.show');
@@ -47,6 +51,9 @@ Route::post('absensi/post/{id}', [AbsenController::class, 'store']);
 
 Route::post('activation/post', [AuthController::class, 'resendActivation'])->name('activation.post');
 
+Route::get('reset/password/post', [AuthController::class, 'sentMailResetPass'])->name('resetPass.post');
+Route::get('reset/password/{token}/{id}', [AuthController::class, 'showResetPass'])->name('resetPass.show');
+
 Route::get('uker/select/{id}', [UkerController::class, 'selectUker']);
 Route::get('registration', [AuthController::class, 'daftar'])->name('daftar');
 Route::get('aktivation/{token}/{id}', [AuthController::class, 'aktivasi'])->name('aktivasi');
@@ -55,6 +62,7 @@ Route::get('logout', [AuthController::class, 'keluar'])->name('logout');
 
 Route::post('registration', [AuthController::class, 'postDaftar'])->name('daftar');
 Route::post('login', [AuthController::class, 'postLogin'])->name('masuk');
+
 
 
 Route::group(['middleware' => 'auth'], function () {

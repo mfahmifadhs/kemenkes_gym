@@ -77,7 +77,7 @@
                     <nav class="nav-menu">
                         <ul>
                             <li><a href="/">Home</a></li>
-                            @if (!request()->is('registration') && !request()->is('login') && !request()->is('activation'))
+                            @if (!request()->is('registration') && !request()->is('login') && !request()->is('activation') && !request()->is('mail/reset/password'))
                             <li><a href="#class">Classes</a></li>
                             <li><a href="#survey">Survey Result</a></li>
                             <li><a href="#gallery">Gallery</a></li>

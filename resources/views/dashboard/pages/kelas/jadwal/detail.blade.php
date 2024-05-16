@@ -12,6 +12,11 @@
                             <h4 class="text-main"><u>{{ $jadwal->kelas->nama_kelas }}</u></h4>
                         </div>
                     </div>
+                    <div class="col-6 text-right mt-1">
+                        <a href="{{ route('kelas.detail', $jadwal->kelas_id) }}" class="btn btn-primary">
+                            <i class="fa fa-arrow-circle-left"></i> Back
+                        </a>
+                    </div>
                 </div>
                 @if ($message = Session::get('success'))
                 <div id="alert" class="alert bg-success">
