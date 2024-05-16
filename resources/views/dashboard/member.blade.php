@@ -12,7 +12,7 @@
 
                 <div class="section-body">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body p-2">
                             <div class="row">
                                 <div class="col-md-3 col-3 text-center">
                                     <a type="button" href="{{ route('member.qrcode') }}" class="btn btn-default bg-main border border-dark px-2 py-0 pt-1">
@@ -24,8 +24,8 @@
                                     <!-- <i class="fa fa-user-circle fa-4x text-main px-2 py-0 pt-1"></i> -->
                                 </div>
                                 <div class="col-md-6 col-9">
-                                    <h5>{{ Auth::user()->nama }}</h5>
-                                    <h5>{{ Auth::user()->uker->nama_unit_kerja }}</h5>
+                                    <h5 class="ml-3">{{ Auth::user()->nama }}</h5>
+                                    <h5 class="ml-3">{{ Auth::user()->uker->nama_unit_kerja }}</h5>
                                 </div>
                                 <div class="col-md-3 col-3 text-center">
                                     <!-- <a class="btn">
@@ -83,8 +83,8 @@
                         <div class="col-md-12">
                             <h6 class="text-main mb-3 mt-0">Kelas Diikuti</h6>
                         </div>
-                        @foreach (Auth::user()->classActive as $row)
-                        <div class="col-md-3">
+                        @foreach (Auth::user()->classActive->where('tanggal_latihan', '>', \Carbon\Carbon::now()) as $row)
+                        <div class="col-md-3 form-group">
                             <a href="{{ route('jadwal.join', $row->jadwal_id) }}">
                                 <div class="card">
                                     <div class="card-body text-dark font-weight-bold p-2 small">
