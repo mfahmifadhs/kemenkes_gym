@@ -16,7 +16,7 @@
                                 <img src="{{ asset($tempImagePath) }}" alt="QR Code">
                             </div>
                             <div class="bg-main p-1 mt-3 text-center text-white" style="border-radius: 10px;">
-                                <div style="letter-spacing: 3px;">{{ Auth::user()->member_id }}</div>
+                                <div>{{ Auth::user()->member_id }}</div>
                             </div>
                         </div>
                     </div>
