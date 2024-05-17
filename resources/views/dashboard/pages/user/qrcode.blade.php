@@ -12,7 +12,7 @@
                     <h2 class="text-main mt-4 mb-3 text-center">MEMBER CARD</h2>
                     <div class="qrcode">
                         <div class="bg-dark p-4 rounded">
-                            <div class="bg-white p-1">
+                            <div class="bg-white p-1 text-center">
                                 <img src="{{ asset($tempImagePath) }}" alt="QR Code">
                             </div>
                             <div class="bg-main p-1 mt-3 text-center text-white" style="border-radius: 10px;">
