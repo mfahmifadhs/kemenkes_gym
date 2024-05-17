@@ -219,7 +219,7 @@ class AuthController extends Controller
         ];
 
         Mail::to($user->email)->send(new ForgotPassword($data));
-        return redirect()->route('login')->with('success', 'Berhasil mengirim link reset password');
+        return redirect()->route('login')->with('success', 'Forgot password link sent successfully!');
     }
 
     public function showResetPass($token, $id)
