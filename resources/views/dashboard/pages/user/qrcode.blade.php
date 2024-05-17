@@ -13,7 +13,7 @@
                     <div class="qrcode">
                         <div class="bg-dark p-4 rounded">
                             <div class="text-center">
-                                <img src="{{ asset($tempImagePath) }}" alt="QR Code">
+                                <img class="bg-white p-2" src="{{ asset($tempImagePath) }}" alt="QR Code">
                             </div>
                             <div class="bg-main p-1 mt-3 text-center text-white" style="border-radius: 10px;">
                                 <div>{{ Auth::user()->member_id }}</div>
