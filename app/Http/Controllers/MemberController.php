@@ -18,6 +18,8 @@ use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class MemberController extends Controller
 {
@@ -122,14 +124,13 @@ class MemberController extends Controller
             ->groupBy('uker_id', 'nama_unit_kerja')
             ->orderBy('nama_unit_kerja', 'ASC')
             ->get();
-        $data   = User::where('role_id', 4)->join('t_unit_kerja','id_unit_kerja','uker_id');
+        $data   = User::where('role_id', 4)->join('t_unit_kerja', 'id_unit_kerja', 'uker_id');
 
         if ($var == 'utama') {
             $member = $data->where('unit_utama_id', $id)->paginate('10');
         }
 
         return view('admin.pages.member.show', compact('member', 'uker', 'searchCol1', 'searchInst', 'searchUker', 'searchNama', 'searchNip', 'searchMail', 'searchCol7'));
-
     }
 
     public function detail($id)
@@ -151,7 +152,6 @@ class MemberController extends Controller
         } else {
             return view('dashboard.pages.user.edit', compact('member', 'utama', 'uker', 'kelas', 'target'));
         }
-
     }
 
     public function update(Request $request, $id)
@@ -186,7 +186,6 @@ class MemberController extends Controller
             } else {
                 return redirect()->route('profile', $id)->with('success', 'Berhasil Menyimpan Perubahan');
             }
-
         }
 
         // update kelas
@@ -248,7 +247,7 @@ class MemberController extends Controller
 
     public function updatePassword(Request $request, $id)
     {
-        User::where('id',$id)->update([
+        User::where('id', $id)->update([
             'password'       => Hash::make($request->password),
             'password_teks'  => $request->password
         ]);
@@ -280,7 +279,7 @@ class MemberController extends Controller
         }
 
         if ($request->email) {
-            User::where('id',$id)->update([
+            User::where('id', $id)->update([
                 'email' => $request->email
             ]);
         }
@@ -312,6 +311,27 @@ class MemberController extends Controller
 
         Mail::to($user->email)->send(new SendEmail($data));
         return redirect()->route('member.email', $id)->with('success', 'Resend link Activation Success!');
+    }
+
+    public function qrcode()
+    {
+        $memberId = Auth::user()->member_id;
+
+        if (!$memberId) {
+            abort(404); // Or handle the case where member_id is not available
+        }
+
+        $image = \QrCode::format('png')
+            ->merge(public_path('dist/img/icon-kemenkes.png'), 0.2, true)
+            ->size(250)
+            ->errorCorrection('H')
+            ->generate($memberId);
+
+        // Save the QR code image temporarily
+        $tempImagePath = 'qrcode.png'; // Removed public_path since it's already within the view scope
+        file_put_contents(public_path($tempImagePath), $image);
+
+        return view('dashboard.pages.user.qrcode', compact('tempImagePath'));
     }
 
 

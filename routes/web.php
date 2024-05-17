@@ -71,10 +71,22 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('waktu', [DashboardController::class, 'time'])->name('dashboard.time');
     Route::get('profile/{id}', [UserController::class, 'detail'])->name('profile');
 
+    Route::get('member/qrcode', [MemberController::class, 'qrcode'])->name('member.qrcode');
 
-    Route::get('/member/qrcode', function () {
-        return view('dashboard.pages.user.qrcode');
-    })->name('member.qrcode');
+    // Route::get('/member/qrcode', function () {
+    //     return view('dashboard.pages.user.qrcode');
+    // })->name('member.qrcode');
+
+//     Route::get('/member/qrcode', function () {
+
+//         $image = QrCode::format('png')
+//                          ->merge(public_path('dist/img/icon-kemenkes.png'), 0.5, true)
+//                          ->size(250)
+//                          ->errorCorrection('H')
+//                          ->generate(Auth::user()->member_id);
+
+//         return response($image)->header('Content-type','image/png');
+// })->name('member.qrcode');
 
     Route::get('member/edit/{id}', [MemberController::class, 'edit'])->name('member.edit');
     Route::get('member/password/{id}', [MemberController::class, 'editPassword'])->name('member.password');

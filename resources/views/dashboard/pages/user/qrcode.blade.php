@@ -9,13 +9,21 @@
 
                 <div class="section-body">
 
-                    <h2 class="text-main my-5 text-center">MEMBER CARD</h2>
-                    <div class="card">
-                        <div class="card-body text-center border">
-                            {!! QrCode::size(250)
-                            ->generate(Auth::user()->member_id) !!}
+                    <h2 class="text-main mt-4 mb-3 text-center">MEMBER CARD</h2>
+                    <div class="qrcode">
+                        <div class="bg-dark p-4 rounded">
+                            <div class="bg-white p-1">
+                                <img src="{{ asset($tempImagePath) }}" alt="QR Code">
+                            </div>
+                            <div class="bg-main p-1 mt-3 text-center text-white" style="border-radius: 10px;">
+                                <div style="letter-spacing: 3px;">{{ Auth::user()->member_id }}</div>
+                            </div>
                         </div>
                     </div>
+                    <!-- <div class="card">
+                        <div class="card-body text-center border">
+                        </div>
+                    </div> -->
                 </div>
             </div>
         </div>

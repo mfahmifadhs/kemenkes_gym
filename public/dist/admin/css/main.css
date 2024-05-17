@@ -3515,3 +3515,9 @@ ol {
 .btn-to-top:hover {
     background-color: #e48444;
 }
+
+.qrcode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
