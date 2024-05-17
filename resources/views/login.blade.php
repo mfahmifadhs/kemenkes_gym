@@ -45,10 +45,10 @@
                         </div>
                         <button type="submit" class="mt-4">Login</button>
                         <small class="text-white">
-                            Akun <b>Tidak Aktif</b> ? Klik <a href="{{ route('activation.show') }}"><u>Disini</u></a>
+                            If your Account <b>Isn't Active</b>, Please <a href="{{ route('activation.show') }}"><u>Click Here</u></a>
                         </small><br>
                         <small class="text-white">
-                            Lupa Password ? Klik <a href="{{ route('mailResetPass.show') }}"><u>Disini</u></a>
+                            Forgot Password ? Please <a href="{{ route('mailResetPass.show') }}"><u>Click Here</u></a>
                         </small>
                     </form>
                 </div>

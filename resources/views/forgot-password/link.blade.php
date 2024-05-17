@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-lg-6 mx-auto mt-5">
                 <div class="section-title contact-title text-center">
-                    <h2><u>Lupa Password</u></h2>
+                    <h2><u>Forgot Password</u></h2>
                 </div>
                 <div class="leave-comment">
                     @if ($message = Session::get('success'))
