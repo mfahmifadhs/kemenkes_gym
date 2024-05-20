@@ -85,6 +85,10 @@
                                                         <a class="btn btn-primary text-white">
                                                             <i class="fa fa-exclamation-circle"></i> FULL
                                                         </a>
+                                                        @elseif (Auth::user()->role_id == 2)
+                                                        <a href="{{ route('jadwal.detail', $row->id_jadwal) }}" class="btn btn-sm bg-main text-white mt-3">
+                                                            <small><i class="fa fa-info-circle"></i> Detail</small>
+                                                        </a>
                                                         @else
                                                         <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-sm bg-main text-white mt-3">
                                                             <small><i class="fa fa-info-circle"></i> Detail</small>
