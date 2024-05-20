@@ -139,10 +139,10 @@
                                     <h6 class="mb-0 text-sm">Username</h6>
                                     <label class="text-sm">{{ $member->username }}</label>
                                 </div>
-                                <div class="col-md-6 col-6 mt-2">
+                                <!-- <div class="col-md-6 col-6 mt-2">
                                     <h6 class="mb-0 text-sm">Password</h6>
                                     <label class="text-sm">{{ $member->password_teks }}</label>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
