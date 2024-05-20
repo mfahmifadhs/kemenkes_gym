@@ -66,8 +66,8 @@ class DashboardController extends Controller
         $bodyCkDetails = BodyckDetail::where('param_id', $paramId)
             ->join('t_bodyck', 'id_bodyck', 'bodyck_id')
             ->join('users', 'id', 't_bodyck.member_id')
-            ->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
-            ->get(['t_bodyck.member_id', 't_bodyck_detail.nilai', 'users.nama', 't_unit_kerja.nama_unit_kerja', 't_bodyck_detail.id_detail'])
+            ->leftJoin('t_unit_kerja', 'id_unit_kerja', 'uker_id')
+            ->get(['t_bodyck.member_id', 't_bodyck_detail.nilai', 'users.nama', 'users.instansi', 'users.nama_instansi', 't_unit_kerja.nama_unit_kerja', 't_bodyck_detail.id_detail'])
             ->groupBy('member_id');
 
         $results = [];
@@ -80,11 +80,12 @@ class DashboardController extends Controller
             $member = $details->first();
 
             $progress = $resProgress < 0 ? '+' . abs($resProgress) : '-' . (string)$resProgress;
+            $uker = $member->instansi === 'pusat' ? $member->nama_unit_kerja : $member->nama_instansi;
 
             if ($progress != 0) {
                 $results[$member_id] = [
                     'nama' => $member->nama,
-                    'uker' => $member->nama_unit_kerja,
+                    'uker' => $uker,
                     'progress' => $progress
                 ];
             }

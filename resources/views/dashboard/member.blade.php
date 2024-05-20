@@ -25,7 +25,7 @@
                                 </div>
                                 <div class="col-md-6 col-9">
                                     <h5 class="ml-3">{{ Auth::user()->nama }}</h5>
-                                    <h5 class="ml-3">{{ Auth::user()->uker->nama_unit_kerja }}</h5>
+                                    <h5 class="ml-3">{{ Auth::user()->insntansi != 'pusat' ? Auth::user()->nama_instansi : Auth::user()->uker->nama_unit_kerja }}</h5>
                                 </div>
                                 <div class="col-md-3 col-3 text-center">
                                     <!-- <a class="btn">
