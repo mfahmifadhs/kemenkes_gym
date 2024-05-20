@@ -98,7 +98,7 @@
                                                     <small><i class="fa fa-edit"></i> Edit</small>
                                                 </a>
                                                 @endif
-                                                <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-sm bg-main text-white mt-1">
+                                                <a href="{{ route('jadwal.detail', $row->id_jadwal) }}" class="btn btn-sm bg-main text-white mt-1">
                                                     <small><i class="fa fa-info-circle"></i> Detail</small>
                                                 </a>
                                             </div>
