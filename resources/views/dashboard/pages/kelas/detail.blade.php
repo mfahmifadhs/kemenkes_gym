@@ -48,72 +48,86 @@
                 <div class="section-body">
                     <div class="information text-justify">
                         <div class="section-title mb-0 mt-0"><span>Information</span></div>
-                        <p>Body Combat Class</p>
+                        <p>{{ ucwords(strtolower($kelas->nama_kelas)) }} Class</p>
                     </div>
                     <div class="schedule my-5">
-                        <div class="section-title mb-2"><span>Schedule</span></div>
-                        @foreach ($kelas->jadwal->sortByDesc('tanggal_kelas')->where('tanggal_kelas', '>=', \Carbon\Carbon::now()->format('Y-m-d')) as $row)
-                        @php
-                        $totalPeserta = 0;
-                        $cekDaftar = 0;
+                        <div class="section-title mb-2">
+                            <span>Schedule</span>
+                        </div>
 
-                        if ($row->peserta) {
-                        $totalPeserta = $row->peserta->where('tanggal_latihan', $row->tanggal_kelas)->count();
-                        }
+                        <div class="row">
+                            @foreach ($kelas->jadwal->sortByDesc('tanggal_kelas')->where('tanggal_kelas', '>=', \Carbon\Carbon::now()->format('Y-m-d')) as $row)
+                            @php
+                            $totalPeserta = 0;
+                            $cekDaftar = 0;
 
-                        if ($daftar) {
-                        $cekDaftar = $daftar->where('jadwal_id', $row->id_jadwal)->where('tanggal_latihan', $row->tanggal_kelas)->count();
-                        }
-                        @endphp
+                            if ($row->peserta) {
+                            $totalPeserta = $row->peserta->where('tanggal_latihan', $row->tanggal_kelas)->count();
+                            }
 
-                        <div class="card my-2">
-                            <div class="card-body">
-                                <div class="row">
-                                    @php $tanggal = Carbon\Carbon::parse($row->tanggal_kelas); @endphp
-                                    <div class="col-md-8 col-8">
-                                        <h6><i class="fa fa-calendar"></i> {{ $tanggal->isoFormat('dddd') }}</h6>
-                                        <h6>{{ $tanggal->isoFormat('DD MMMM Y') }}</h6>
-                                        <h6>Pukul :
-                                            {{ Carbon\Carbon::parse($row->waktu_mulai)->isoFormat('HH.mm') }} s/d
-                                            {{ Carbon\Carbon::parse($row->waktu_selesai)->isoFormat('HH.mm') }}
-                                        </h6>
-                                        <h6>Kuota : {{ $totalPeserta }} / {{ $row->kuota }}</h6>
+                            if ($daftar) {
+                            $cekDaftar = $daftar->where('jadwal_id', $row->id_jadwal)->where('tanggal_latihan', $row->tanggal_kelas)->count();
+                            }
+                            @endphp
+                            <div class="col-md-4 col-12">
+                                <div class="card my-2">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            @php $tanggal = Carbon\Carbon::parse($row->tanggal_kelas); @endphp
+                                            <div class="col-md-6 col-8">
+                                                <h6><i class="fa fa-calendar"></i> {{ $tanggal->isoFormat('dddd') }}</h6>
+                                                <h6>{{ $tanggal->isoFormat('DD MMMM Y') }}</h6>
+                                                <h6>Pukul :
+                                                    {{ Carbon\Carbon::parse($row->waktu_mulai)->isoFormat('HH.mm') }} s/d
+                                                    {{ Carbon\Carbon::parse($row->waktu_selesai)->isoFormat('HH.mm') }}
+                                                </h6>
+                                                <h6>Kuota : {{ $totalPeserta }} / {{ $row->kuota }}</h6>
+
+                                                @if (Auth::user()->classActive->where('jadwal_id', $row->id_jadwal)->count() > 0)
+                                                <h6 class="text-success" style="font-size: 11px;">You're already enrolled.</h6>
+                                                @endif
+
+                                                @if (Auth::user()->classActive->where('tanggal_latihan', $row->tanggal_kelas)->count() > 0 && Auth::user()->classActive->where('jadwal_id', $row->id_jadwal)->count() == 0)
+                                                <h6 class="text-danger" style="font-size: 11px;">You're already enrolled in another class.</h6>
+                                                @endif
+                                            </div>
+                                            @if (Auth::user()->role_id == 2)
+                                            <div class="col-md-6 text-right my-auto col-4 mt-2">
+                                                @if ($row->tanggal_kelas >= Carbon\Carbon::now())
+                                                <a href="{{ route('jadwal.edit', $row->id_jadwal) }}" class="btn btn-sm bg-main text-white mt-1">
+                                                    <small><i class="fa fa-edit"></i> Edit</small>
+                                                </a>
+                                                @endif
+                                                <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-sm bg-main text-white mt-1">
+                                                    <small><i class="fa fa-info-circle"></i> Detail</small>
+                                                </a>
+                                            </div>
+                                            @endif
+
+                                            @if(Auth::user()->role_id == 4)
+                                            <div class="col-md-4 col-4 text-center mt-2">
+
+                                                @if ($cekDaftar == 0 && $totalPeserta != $row->kuota && Auth::user()->classActive->where('tanggal_latihan', $row->tanggal_kelas)->count() == 0)
+                                                <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-primary">
+                                                    <i class="fa fa-hand-o-up"></i> Join
+                                                </a>
+                                                @elseif ($totalPeserta == $row->kuota)
+                                                <a class="btn btn-primary text-white">
+                                                    <i class="fa fa-exclamation-circle"></i> Full
+                                                </a>
+                                                @else
+                                                <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-sm bg-main text-white mt-3">
+                                                    <small><i class="fa fa-info-circle"></i> Detail</small>
+                                                </a>
+                                                @endif
+                                            </div>
+                                            @endif
+                                        </div>
                                     </div>
-                                    @if (Auth::user()->role_id == 2)
-                                    <div class="col-md-4 col-4 mt-2">
-                                        @if ($row->tanggal_kelas >= Carbon\Carbon::now())
-                                        <a href="{{ route('jadwal.edit', $row->id_jadwal) }}" class="btn btn-primary mt-1">
-                                            <i class="fa fa-edit"></i> Edit
-                                        </a>
-                                        @endif
-                                        <a href="{{ route('jadwal.detail', $row->id_jadwal) }}" class="btn btn-primary mt-1">
-                                            <i class="fa fa-info-circle"></i> Detail
-                                        </a>
-                                    </div>
-                                    @endif
-
-                                    @if(Auth::user()->role_id == 4)
-                                    <div class="col-md-4 col-4 text-center mt-2">
-
-                                        @if ($cekDaftar == 0 && $totalPeserta != $row->kuota && Auth::user()->classActive->where('tanggal_latihan', $row->tanggal_kelas)->count() == 0)
-                                        <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-primary">
-                                            <i class="fa fa-hand-o-up"></i> JOIN
-                                        </a>
-                                        @elseif ($totalPeserta == $row->kuota)
-                                        <a class="btn btn-primary text-white">
-                                            <i class="fa fa-exclamation-circle"></i> FULL
-                                        </a>
-                                        @else
-                                        <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-primary bg-success">
-                                            <i class="fa fa-check-circle"></i> JOINED
-                                        </a>
-                                        @endif
-                                    </div>
-                                    @endif
                                 </div>
                             </div>
+                            @endforeach
                         </div>
-                        @endforeach
                         @if ($kelas->jadwal->count() == 0)
                         <div class="text-white" style="height: 100px;">
                             <p>Schedule not available</p>

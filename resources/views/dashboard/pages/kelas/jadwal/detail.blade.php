@@ -71,9 +71,9 @@
                                         <input type="checkbox" class="confirm-check mt-2" style="scale: 2;" name="kehadiran[]" value="true" onclick="updateCheckbox(this)">
                                         @endif
                                     </td>
-                                    <td class="small">
+                                    <td class="small text-capitalize">
                                         {{ $row->member->nama }} <br>
-                                        {{ ucwords($row->member->uker->nama_unit_kerja) }}
+                                        {{ $row->member->instansi != 'pusat' ? $row->member->nama_instansi : $row->member->uker->nama_unit_kerja }}
                                     </td>
                                 </tr>
                                 @endforeach

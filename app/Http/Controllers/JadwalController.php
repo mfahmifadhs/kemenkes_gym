@@ -151,7 +151,7 @@ class JadwalController extends Controller
         $tambah->tanggal_latihan = $request->tanggal_latihan;
         $tambah->save();
 
-        return redirect()->route('jadwal.join', $id)->with('success', 'Success Register!');
+        return redirect()->route('jadwal.join', $id)->with('success', 'Success Enroll!');
     }
 
     public function attendance(Request $request, $id)
