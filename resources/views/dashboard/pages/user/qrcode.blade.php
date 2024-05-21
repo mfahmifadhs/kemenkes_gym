@@ -17,7 +17,7 @@
                 </div>
                 <div class="section-body">
 
-                    <h2 class="text-main mt-4 mb-3 text-center">MEMBER CARD</h2>
+                    <h2 class="text-main mb-3 text-center">MEMBER CARD</h2>
                     <div class="qrcode">
                         <div class="bg-dark p-4 rounded">
                             <div class="text-center">
