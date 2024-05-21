@@ -6,7 +6,9 @@
     <div class="container">
         <div class="row identity">
             <div class="col-md-5 mx-auto">
-
+                <a href="{{ url()->previous() }}" class="btn btn-primary">
+                    <i class="fa fa-arrow-circle-left"></i> Back
+                </a>
                 <div class="section-body">
 
                     <h2 class="text-main mt-4 mb-3 text-center">MEMBER CARD</h2>
