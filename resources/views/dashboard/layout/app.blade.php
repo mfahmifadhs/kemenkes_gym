@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="{{ asset('dist/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('dist/admin/css/main.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('dist/css/select2.css') }}">
-
     @yield('css')
 </head>
 
@@ -104,6 +103,18 @@
         </div>
     </header>
     <!-- Header End -->
+
+    @if (Session::has('success'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'error',
+            text: '{{ Session::get("success") }}',
+            timer: 2000, // Durasi popup (dalam milidetik)
+            showConfirmButton: false // Tombol OK tidak ditampilkan
+        });
+    </script>
+    @endif
 
     @if (Session::has('failed'))
     <script>

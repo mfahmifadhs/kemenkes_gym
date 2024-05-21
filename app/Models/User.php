@@ -40,6 +40,10 @@ class User extends Authenticatable
         'foto'
     ];
 
+    public function absen() {
+        return $this->hasMany(Absensi::class, 'user_id');
+    }
+
     public function role() {
         return $this->belongsTo(Role::class, 'role_id');
     }

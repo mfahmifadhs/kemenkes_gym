@@ -98,12 +98,12 @@ class AbsenController extends Controller
         $absen = Absensi::where('user_id', $user->id)->where('waktu_keluar', null)->first();
 
         if ($absen) {
-            Absensi::where('id_absensi', $absen->id_absensi)->update([
-                'waktu_keluar' => Carbon::now()
-            ]);
+            // Absensi::where('id_absensi', $absen->id_absensi)->update([
+            //     'waktu_keluar' => Carbon::now()
+            // ]);
 
 
-            return response()->json(['thanks' => true]);
+            return response()->json(['hadir' => true]);
         } else {
             $tambah = new Absensi();
             $tambah->user_id = $user->id;
@@ -146,6 +146,28 @@ class AbsenController extends Controller
             ->get();
 
         return view('admin.pages.absen.report', compact('listTopMember'));
+    }
+
+    public function checkout($id)
+    {
+        $absen = Absensi::where('user_id', $id)->where('waktu_keluar', null)->first();
+
+        Absensi::where('id_absensi', $absen->id_absensi)->update([
+            'waktu_keluar' => Carbon::now()
+        ]);
+
+
+        return redirect()->route('survey.show', $absen->id_absensi)->with('success', 'Terima kasih');
+    }
+
+    public function survey(Request $request, $id)
+    {
+        Absensi::where('id_absensi', $id)->update([
+            'kepuasan'      => $request->result,
+            'masukan'       => $request->masukan
+        ]);
+
+        return redirect()->route('dashboard')->with('success', 'Terima kasih');
     }
 
     public function chart()

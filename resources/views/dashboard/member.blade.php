@@ -14,24 +14,26 @@
                     <div class="card">
                         <div class="card-body p-2">
                             <div class="row">
-                                <div class="col-md-3 col-3 text-center">
+                                <div class="col-md-3 col-2 text-center">
                                     <a type="button" href="{{ route('member.qrcode') }}" class="btn btn-default bg-main border border-dark px-2 py-0 pt-1">
-                                        <i class="fa fa-qrcode fa-5x text-dark"></i>
+                                        <i class="fa fa-qrcode fa-4x text-dark"></i>
                                     </a>
                                     <!-- <a type="button" class="btn btn-default bg-main border border-dark px-2 py-0 pt-1" data-toggle="modal" data-target="#qrcode">
                                         <i class="fa fa-qrcode fa-5x"></i>
                                     </a> -->
                                     <!-- <i class="fa fa-user-circle fa-4x text-main px-2 py-0 pt-1"></i> -->
                                 </div>
-                                <div class="col-md-6 col-9">
-                                    <h5 class="ml-3">{{ Auth::user()->nama }}</h5>
-                                    <h5 class="ml-3">{{ Auth::user()->insntansi != 'pusat' ? Auth::user()->nama_instansi : Auth::user()->uker->nama_unit_kerja }}</h5>
+                                <div class="col-md-6 col-6">
+                                    <h6 class="ml-3">{{ Auth::user()->nama }}</h6>
+                                    <h6 class="ml-3">{{ Auth::user()->instansi != 'pusat' ? Auth::user()->nama_instansi : Auth::user()->uker->nama_unit_kerja }}</h6>
                                 </div>
-                                <div class="col-md-3 col-3 text-center">
-                                    <!-- <a class="btn">
-                                        {!! QrCode::size(120)->generate('abc') !!}
-                                    </a> -->
+                                @if(Auth::user()->absen->where('waktu_keluar', null)->count() != 0)
+                                <div class="col-md-3 col-4 text-center my-auto">
+                                    <a href="" class="btn btn-sm bg-main text-white mt-1" onclick="confirm(event, `{{ route('absen.checkout', Auth::user()->id) }}`)">
+                                        <small><i class="fa fa-sign-out"></i> Check out</small>
+                                    </a>
                                 </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -147,7 +149,27 @@
         </div>
     </div>
 </div>
-
 <!-- ChoseUs Section End -->
+
+@section('js')
+<script>
+    function confirm(event, url) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: 'Selesai Latihan',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'Cancel',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
+
+    }
+</script>
+@endsection
 
 @endsection

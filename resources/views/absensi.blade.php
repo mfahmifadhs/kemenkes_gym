@@ -43,6 +43,7 @@
 <audio id="sound-datang" src="{{ asset('dist/sound/sound-datang.mp3') }}" preload="auto"></audio>
 <audio id="sound-gagal" src="{{ asset('dist/sound/sound-gagal.mp3') }}" preload="auto"></audio>
 <audio id="sound-thanks" src="{{ asset('dist/sound/sound-thanks.mp3') }}" preload="auto"></audio>
+<audio id="sound-hadir" src="{{ asset('dist/sound/sound-hadir.mp3') }}" preload="auto"></audio>
 
 @section('js')
 <script>
@@ -76,6 +77,17 @@
                             icon: 'success',
                             title: 'Terima Kasih',
                             text: 'Sampai Jumpa',
+                            timer: 3500,
+                            showConfirmButton: false
+                        }).then((result) => {
+                            location.reload();
+                        });
+                    } else if (response.hadir) {
+                        document.getElementById('sound-hadir').play();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: 'Sudah melakukan rekam kehadiran',
                             timer: 3500,
                             showConfirmButton: false
                         }).then((result) => {

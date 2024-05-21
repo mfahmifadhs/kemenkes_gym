@@ -71,6 +71,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('waktu', [DashboardController::class, 'time'])->name('dashboard.time');
     Route::get('profile/{id}', [UserController::class, 'detail'])->name('profile');
 
+    Route::get('absen/checkout/{id}', [AbsenController::class, 'checkout'])->name('absen.checkout');
+
+    Route::get('/absen/checkout/survey/{id}', function ($id) {
+        return view('dashboard.survey', ['id' => $id]);
+    })->name('survey.show');
+
+    Route::post('absen/checkout/survey/{id}', [AbsenController::class, 'survey'])->name('survey.post');
+
     Route::get('member/qrcode', [MemberController::class, 'qrcode'])->name('member.qrcode');
 
     // Route::get('/member/qrcode', function () {
@@ -115,7 +123,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('progress', [ProgresController::class, 'show'])->name('progres');
     Route::get('progress/chart', [ProgresController::class, 'chart'])->name('progres.chart');
-
 
     Route::group(['middleware' => ['access:admin']], function () {
         Route::get('kelas/kehadiran/{id}', [JadwalController::class, 'attendance'])->name('kelas.attendance');

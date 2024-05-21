@@ -19,7 +19,9 @@ class Absensi extends Model
         'user_id',
         'tanggal',
         'waktu_masuk',
-        'waktu_keluar'
+        'waktu_keluar',
+        'kepuasan',
+        'masukan'
     ];
 
     public function member() {
