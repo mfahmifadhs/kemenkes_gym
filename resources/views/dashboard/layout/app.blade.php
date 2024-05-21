@@ -107,8 +107,8 @@
     @if (Session::has('success'))
     <script>
         Swal.fire({
-            icon: 'error',
-            title: 'error',
+            icon: 'success',
+            title: 'Success',
             text: '{{ Session::get("success") }}',
             timer: 2000, // Durasi popup (dalam milidetik)
             showConfirmButton: false // Tombol OK tidak ditampilkan

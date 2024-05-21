@@ -140,9 +140,6 @@ class JadwalController extends Controller
     {
 
         if ($request->all() == []) {
-            $checkAbsen = $this->checkAbsen();
-            // dd($checkAbsen);
-
             $jadwal  = Jadwal::where('id_jadwal', $id)->first();
             $daftar  = Peserta::where('member_id', Auth::user()->id)->where('jadwal_id', $id)->where('tanggal_latihan', $jadwal->tanggal_kelas)->first();
             return view('dashboard.pages.kelas.jadwal.join', compact('jadwal', 'daftar'));
@@ -191,34 +188,5 @@ class JadwalController extends Controller
         }
 
         return redirect()->route('jadwal.detail', $id)->with('success', 'Berhasil Melakukan Absensi!');
-    }
-
-    public function checkAbsen()
-    {
-        $user = Auth::user()->id;
-        $role = Auth::user()->role_id;
-        $today = Carbon::today();
-        $absenFalse = Peserta::where('member_id', $user)->where('kehadiran', 'false')->count();
-
-        $penalty = Penalty::where('user_id', $user)
-            ->where('tgl_akhir_penalty', '>=', $today)
-            ->first();
-
-        if ($penalty) {
-            return response()->json(['message' => 'Anda dalam masa penalti dan tidak dapat mengikuti kelas selama 7 hari.'], 403);
-        }
-
-        if ($absenFalse != 0) {
-            $penaltyEndDate = $today->copy()->addDays(7);
-
-            // Buat penalti baru
-            Penalty::create([
-                'user_id' => $user,
-                'tgl_awal_penalty' => $today,
-                'tgl_akhir_penalty' => $penaltyEndDate,
-            ]);
-        }
-
-        return $absenFalse;
     }
 }

@@ -157,7 +157,7 @@ class AbsenController extends Controller
         ]);
 
 
-        return redirect()->route('survey.show', $absen->id_absensi)->with('success', 'Terima kasih');
+        return redirect()->route('survey.show', $absen->id_absensi)->with('success', 'Thank You!');
     }
 
     public function survey(Request $request, $id)
