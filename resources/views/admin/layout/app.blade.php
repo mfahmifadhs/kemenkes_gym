@@ -206,6 +206,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 "paging": true,
                 "searching": true
             })
+
+            $("#table-sort-1").DataTable({
+                "responsive": false,
+                "lengthChange": false,
+                "autoWidth": false,
+                "info": false,
+                "paging": false,
+                "searching": false
+            })
+
+            $("#table-sort-2").DataTable({
+                "responsive": false,
+                "lengthChange": false,
+                "autoWidth": false,
+                "info": false,
+                "paging": false,
+                "searching": false
+            })
         })
 
         $(document).ready(function() {

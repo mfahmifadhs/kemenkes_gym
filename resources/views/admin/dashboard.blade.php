@@ -52,7 +52,7 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <i class="fas fa-table"></i> Total Member Unit Utama
-                                    <table class="table table-bordered text-sm mt-2">
+                                    <table id="table-sort-1" class="table table-bordered text-sm mt-2">
                                         <thead>
                                             <tr class="text-center">
                                                 <th>No</th>
@@ -80,7 +80,7 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <i class="fas fa-table"></i> Total Pemilihan Minat Kelas
-                                    <table class="table table-bordered text-sm mt-2">
+                                    <table id="table-sort-2" class="table table-bordered text-sm mt-2">
                                         <thead>
                                             <tr class="text-center">
                                                 <th>No</th>
