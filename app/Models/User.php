@@ -67,4 +67,8 @@ class User extends Authenticatable
     public function classActive() {
         return $this->hasMany(Peserta::class, 'member_id')->where('kehadiran', null);
     }
+
+    public function penalty() {
+        return $this->hasMany(Penalty::class, 'user_id');
+    }
 }

@@ -44,7 +44,7 @@
 
                 <div class="section-body">
                     <div class="information text-justify">
-                        <div class="section-title mb-0 mt-0"><span>Jadwal Latihan</span></div>
+                        <h6 class="mb-2 text-main">Jadwal Latihan</h6>
                         <p>
                             {{ $jadwal->tanggal_kelas }}
                             {{ \Carbon\Carbon::parse($jadwal->waktu_mulai)->format('H:i') }} WIB -
@@ -55,31 +55,35 @@
                         @csrf
                         <div class="schedule my-5">
                             <div class="section-title">
-                                <h6 class="float-left mb-2 text-main">Peserta Latihan</h6>
+                                <h6 class="float-left mb-2 text-main">Peserta</h6>
                                 <h6 class="float-right mb-2 text-main">Total Peserta : {{ $jadwal->peserta->count() }}</h6>
                             </div>
                             <table class="table text-white">
                                 @foreach($jadwal->peserta as $i => $row)
-                                <tr onclick="toggleCheckbox(this)">
+                                <tr>
                                     <td style="width: 5%;" class="text-center align-middle">{{ $loop->iteration }}</td>
                                     <td style="width: 5%;" class="text-center align-middle">
-                                        @if ($row->kehadiran == 'true')
-                                        <i class="fa fa-check-square text-success" style="scale: 1.7;"></i>
-                                        @else
                                         <input type="hidden" name="peserta[]" value="{{ $row->id_peserta }}">
-                                        <input type="hidden" value="false" name="kehadiran[]">
-                                        <input type="checkbox" class="confirm-check mt-2" style="scale: 2;" name="kehadiran[]" value="true" onclick="updateCheckbox(this)">
-                                        @endif
+                                        <input type="hidden" value="false" name="kehadiran[]" <?php echo $row->kehadiran == 'hadir' ? 'disabled' : ''; ?>>
+                                        <input type="checkbox" class="confirm-check mt-2" style="scale: 2;" name="kehadiran[]" value="true" onclick="updateCheckbox(this)" <?php echo $row->kehadiran == 'hadir' ? 'checked' : ''; ?>>
                                     </td>
                                     <td class="small text-capitalize">
                                         {{ $row->member->nama }} <br>
                                         {{ $row->member->instansi != 'pusat' ? $row->member->nama_instansi : $row->member->uker->nama_unit_kerja }}
                                     </td>
+                                    <td style="width: 30%;">
+                                        <select class="form-control form-control-sm text-center" name="status[]" id="">
+                                            <option value="hadir" <?php echo $row->kehadiran == 'hadir' ? 'selected' : ''; ?>>Hadir</option>
+                                            <option value="alpha" <?php echo $row->kehadiran == 'alpha' ? 'selected' : ''; ?>>Alpha</option>
+                                            <option value="izin" <?php echo $row->kehadiran == 'izin' ? 'selected' : ''; ?>>Izin</option>
+                                            <option value="sakit" <?php echo $row->kehadiran == 'sakit' ? 'selected' : ''; ?>>Sakit</option>
+                                        </select>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </table>
 
-                            @if($jadwal->peserta->where('kehadiran', null)->count() != 0)
+                            @if ($jadwal->peserta->count())
                             <div class="text-right">
                                 <button type="submit" class="btn btn-primary" onclick="confirmSubmit(event)">Submit</button>
                             </div>
@@ -119,7 +123,7 @@
         const form = document.getElementById('form');
 
         Swal.fire({
-            title: 'Selesai?',
+            title: 'Selesai',
             text: 'Selesai melakukan absensi',
             icon: 'question',
             showCancelButton: true,

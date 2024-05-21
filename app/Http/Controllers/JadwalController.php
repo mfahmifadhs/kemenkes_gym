@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absensi;
 use App\Models\Jadwal;
 use App\Models\Kelas;
+use App\Models\Penalty;
 use App\Models\Peserta;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -29,11 +31,11 @@ class JadwalController extends Controller
         $today      = Carbon::now()->format('d-M-Y');
 
         $jadwal     = Jadwal::select(DB::raw("DATE_FORMAT(tanggal_kelas, '%a') as hari"), 't_jadwal.*')
-                        ->where(DB::raw("DATE_FORMAT(tanggal_kelas, '%d-%b-%Y')"), $today)
-                        ->get();
+            ->where(DB::raw("DATE_FORMAT(tanggal_kelas, '%d-%b-%Y')"), $today)
+            ->get();
 
         $daftar     = Peserta::where('member_id', Auth::user()->id)->first();
-        return view('dashboard.pages.kelas.jadwal.show', compact('jadwal','range','rangeAwal','today','daftar'));
+        return view('dashboard.pages.kelas.jadwal.show', compact('jadwal', 'range', 'rangeAwal', 'today', 'daftar'));
     }
 
     public function detail($id)
@@ -64,11 +66,11 @@ class JadwalController extends Controller
         $today      = $id;
         $status = ''; // default status
         $jadwal     = Jadwal::select(DB::raw("DATE_FORMAT(tanggal_kelas, '%d-%b-%Y') as hari"), 't_jadwal.*')
-                        ->where(DB::raw("DATE_FORMAT(tanggal_kelas, '%d-%b-%Y')"), $id)
-                        ->get();
+            ->where(DB::raw("DATE_FORMAT(tanggal_kelas, '%d-%b-%Y')"), $id)
+            ->get();
 
         $daftar     = Peserta::where('member_id', Auth::user()->id)->first();
-        return view('dashboard.pages.kelas.jadwal.show', compact('jadwal','range','rangeAwal','today', 'daftar', 'status'));
+        return view('dashboard.pages.kelas.jadwal.show', compact('jadwal', 'range', 'rangeAwal', 'today', 'daftar', 'status'));
     }
 
     public function create($id)
@@ -138,9 +140,12 @@ class JadwalController extends Controller
     {
 
         if ($request->all() == []) {
+            $checkAbsen = $this->checkAbsen();
+            // dd($checkAbsen);
+
             $jadwal  = Jadwal::where('id_jadwal', $id)->first();
             $daftar  = Peserta::where('member_id', Auth::user()->id)->where('jadwal_id', $id)->where('tanggal_latihan', $jadwal->tanggal_kelas)->first();
-            return view('dashboard.pages.kelas.jadwal.join', compact('jadwal','daftar'));
+            return view('dashboard.pages.kelas.jadwal.join', compact('jadwal', 'daftar'));
         }
 
         $id_peserta = Peserta::withTrashed()->count();
@@ -160,13 +165,60 @@ class JadwalController extends Controller
 
         foreach ($peserta as $i => $id_peserta) {
             $kehadiran = $request->get('kehadiran');
+            $status    = $request->get('status');
+
             if ($kehadiran[$i] == 'true') {
                 Peserta::where('id_peserta', $id_peserta)->update([
-                    'kehadiran' => 'true'
+                    'kehadiran' => 'hadir'
                 ]);
+            } else {
+                Peserta::where('id_peserta', $id_peserta)->update([
+                    'kehadiran' => $status[$i]
+                ]);
+
+                $penalty = Penalty::where('user_id', $id_peserta)->where('status', 'false')->count();
+
+                if ($status[$i] == 'alpha' && $penalty == 0) {
+                    $tomorrow = Carbon::tomorrow();
+                    Penalty::create([
+                        'user_id' => $id_peserta,
+                        'tgl_awal_penalty' => $tomorrow,
+                        'tgl_akhir_penalty' => $tomorrow->copy()->addDays(7),
+                        'created_at' => Carbon::now()
+                    ]);
+                }
             }
         }
 
         return redirect()->route('jadwal.detail', $id)->with('success', 'Berhasil Melakukan Absensi!');
+    }
+
+    public function checkAbsen()
+    {
+        $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
+        $today = Carbon::today();
+        $absenFalse = Peserta::where('member_id', $user)->where('kehadiran', 'false')->count();
+
+        $penalty = Penalty::where('user_id', $user)
+            ->where('tgl_akhir_penalty', '>=', $today)
+            ->first();
+
+        if ($penalty) {
+            return response()->json(['message' => 'Anda dalam masa penalti dan tidak dapat mengikuti kelas selama 7 hari.'], 403);
+        }
+
+        if ($absenFalse != 0) {
+            $penaltyEndDate = $today->copy()->addDays(7);
+
+            // Buat penalti baru
+            Penalty::create([
+                'user_id' => $user,
+                'tgl_awal_penalty' => $today,
+                'tgl_akhir_penalty' => $penaltyEndDate,
+            ]);
+        }
+
+        return $absenFalse;
     }
 }
