@@ -134,7 +134,7 @@
                                     </td>
                                     <td>{{ $row->member?->member_id }}</td>
                                     <td class="text-left">{{ $row->member?->nama }}</td>
-                                    <td class="text-left">{{ $row->member?->instansi == 'pusat' ? $row->member->uker?->nama_unit_kerja : $row->member->nama_instansi }}</td>
+                                    <td class="text-left">{{ $row->member?->instansi == 'pusat' ? $row->member->uker?->nama_unit_kerja : $row->member?->nama_instansi }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
