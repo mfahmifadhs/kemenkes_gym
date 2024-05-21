@@ -104,18 +104,6 @@
     </header>
     <!-- Header End -->
 
-    @if (Session::has('success'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: '{{ Session::get("success") }}',
-            timer: 2000, // Durasi popup (dalam milidetik)
-            showConfirmButton: false // Tombol OK tidak ditampilkan
-        });
-    </script>
-    @endif
-
     @if (Session::has('failed'))
     <script>
         Swal.fire({

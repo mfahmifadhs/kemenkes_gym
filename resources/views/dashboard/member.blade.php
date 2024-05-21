@@ -6,6 +6,18 @@
     <div class="container">
         <div class="row identity">
             <div class="col-md-9 mx-auto">
+
+                @if ($message = Session::get('success'))
+                <div id="alert" class="alert bg-success">
+                    <p style="color:white;margin: auto;">{{ $message }}</p>
+                </div>
+                <script>
+                    setTimeout(function() {
+                        document.getElementById('alert').style.display = 'none';
+                    }, 10000);
+                </script>
+                @endif
+
                 <div class="section-title mb-2">
                     <h2>Hello, </h2>
                 </div>

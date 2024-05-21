@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="row">
-                            @foreach ($kelas->jadwal->sortByDesc('tanggal_kelas')->where('tanggal_kelas', '>=', \Carbon\Carbon::now()->format('Y-m-d')) as $row)
+                            @foreach ($kelas->jadwal->where('tanggal_kelas', '>=', \Carbon\Carbon::now()->format('Y-m-d')) as $row)
                             @php
                             $totalPeserta = 0;
                             $cekDaftar = 0;
@@ -108,8 +108,8 @@
                                             <div class="col-md-4 col-4 text-center mt-2">
 
                                                 @if ($cekDaftar == 0 && $totalPeserta != $row->kuota && Auth::user()->classActive->where('tanggal_latihan', $row->tanggal_kelas)->count() == 0)
-                                                <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-primary">
-                                                    <i class="fa fa-hand-o-up"></i> Join
+                                                <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-sm bg-main text-white mt-3">
+                                                    <small><i class="fa fa-hand-o-up"></i> Join</small>
                                                 </a>
                                                 @elseif ($totalPeserta == $row->kuota)
                                                 <a class="btn btn-primary text-white">

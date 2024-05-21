@@ -2,8 +2,8 @@
 @section('content')
 
 @php
-    $isPenalty    = Auth::user()->penalty->count();
-    $totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kelas)->count();
+$isPenalty = Auth::user()->penalty->count();
+$totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kelas)->count();
 @endphp
 
 <!-- ChoseUs Section Begin -->
@@ -57,24 +57,30 @@
                             <div class="col-md-9 col-9">: Kemenkes Bootcamp & Fitness Center</div>
                         </div>
                         @if(Auth::user()->role_id == 4)
-                            @if (!$isPenalty && $daftar?->count() == 0 && $totalPeserta != $jadwal->kuota && Auth::user()->classActive->where('tanggal_latihan', $jadwal->tanggal_kelas)->count() == 0)
-                            <form id="form" action="{{ route('jadwal.join', $jadwal->id_jadwal) }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="member_id" value="{{ Auth::user()->id }}">
-                                <input type="hidden" name="tanggal_latihan" value="{{ $jadwal->tanggal_kelas }}">
-                                <button type="submit" class="btn btn-primary btn-block" onclick="confirmSubmit(event)">
-                                    JOIN
-                                </button>
-                            </form>
-                            @elseif ($totalPeserta == $jadwal->kuota)
-                            <a href="" class="btn btn-danger btn-block text-uppercase font-weight-bold disabled">Full</a>
-                            @elseif (Auth::user()->classActive->where('tanggal_latihan', $jadwal->tanggal_kelas)->count() > 0 && Auth::user()->classActive->where('jadwal_id', $jadwal->id_jadwal)->count() == 0)
-                            <a href="" class="btn btn-warning btn-block font-weight-bold disabled">You're already enrolled in another class</a>
-                            @elseif ($isPenalty)
-                            <a href="" class="btn btn-danger btn-block font-weight-bold disabled">You're currently under penalty & can't attend classes for 7 days.</a>
-                            @else
-                            <a href="" class="btn btn-success btn-block font-weight-bold disabled">You're already enrolled.</a>
-                            @endif
+                        @if (!$isPenalty && $daftar?->count() == 0 && $totalPeserta != $jadwal->kuota && Auth::user()->classActive->where('tanggal_latihan', $jadwal->tanggal_kelas)->count() == 0)
+                        <form id="form" action="{{ route('jadwal.join', $jadwal->id_jadwal) }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="member_id" value="{{ Auth::user()->id }}">
+                            <input type="hidden" name="tanggal_latihan" value="{{ $jadwal->tanggal_kelas }}">
+                            <button type="submit" class="btn btn-primary btn-block" onclick="confirmSubmit(event)">
+                                JOIN
+                            </button>
+                        </form>
+                        @elseif ($totalPeserta == $jadwal->kuota)
+                        <a href="" class="btn btn-danger btn-block text-uppercase font-weight-bold disabled">Full</a>
+                        @elseif (Auth::user()->classActive->where('tanggal_latihan', $jadwal->tanggal_kelas)->count() > 0 && Auth::user()->classActive->where('jadwal_id', $jadwal->id_jadwal)->count() == 0)
+                        <div class="bg-warning rounded p-2 text-white text-center">
+                            <small><b>You're already enrolled in another class</b></small>
+                        </div>
+                        @elseif ($isPenalty)
+                        <div class="bg-danger rounded p-2 text-white text-center">
+                            <small><b>You're currently under penalty & can't attend classes for 7 days.</b></small>
+                        </div>
+                        @else
+                        <div class="bg-success rounded p-2 text-white text-center">
+                            <small><b>You're already enrolled.</b></small>
+                        </div>
+                        @endif
                         @endif
 
                         <div class="section-title mb-2">
@@ -82,7 +88,7 @@
                         </div>
 
                         @if ($totalPeserta == 0)
-                         <span class="text-white">No members have joined yet</span>
+                        <span class="text-white">No members have joined yet</span>
                         @else
                         <div class="row">
                             @foreach ($jadwal->peserta as $row)

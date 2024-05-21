@@ -163,6 +163,7 @@ class JadwalController extends Controller
         foreach ($peserta as $i => $id_peserta) {
             $kehadiran = $request->get('kehadiran');
             $status    = $request->get('status');
+            $user      = Peserta::where('id_peserta', $id_peserta)->first();
 
             if ($kehadiran[$i] == 'true') {
                 Peserta::where('id_peserta', $id_peserta)->update([
@@ -178,7 +179,7 @@ class JadwalController extends Controller
                 if ($status[$i] == 'alpha' && $penalty == 0) {
                     $tomorrow = Carbon::tomorrow();
                     Penalty::create([
-                        'user_id' => $id_peserta,
+                        'user_id' => $user->member_id,
                         'tgl_awal_penalty' => $tomorrow,
                         'tgl_akhir_penalty' => $tomorrow->copy()->addDays(7),
                         'created_at' => Carbon::now()
