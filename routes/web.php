@@ -72,6 +72,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('profile/{id}', [UserController::class, 'detail'])->name('profile');
 
     Route::get('absen/checkout/{id}', [AbsenController::class, 'checkout'])->name('absen.checkout');
+    Route::get('absen/list', [AbsenController::class, 'show'])->name('absen.show');
 
     Route::get('/absen/checkout/survey/{id}', function ($id) {
         return view('dashboard.survey', ['id' => $id]);
@@ -150,7 +151,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('class/store/schedule', [JadwalController::class, 'store'])->name('jadwal.store');
         Route::post('class/update/schedule/{id}', [JadwalController::class, 'update'])->name('jadwal.update');
 
-        Route::get('absen/list', [AbsenController::class, 'show'])->name('absen.show');
         Route::get('absen/report', [AbsenController::class, 'report'])->name('absen.report');
         Route::get('absen/chart', [AbsenController::class, 'chart'])->name('absen.chart');
         Route::get('absen/filter', [AbsenController::class, 'filter'])->name('absen.filter');

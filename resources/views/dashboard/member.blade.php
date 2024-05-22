@@ -53,17 +53,31 @@
 
                 <div class="section-header">
                     <div class="row mt-2">
-                        <a href="{{ route('bodyck') }}" class="col-md-2 col-6">
+                        <!-- <a href="{{ route('absen.show') }}" class="col-md-2 col-6 mt-2">
+                            <div class="card bg-main">
+                                <div class="card-body text-dark text-center font-weight-bold p-2 small">
+                                    <i class="fa fa-calendar"></i> Attendance
+                                </div>
+                            </div>
+                        </a> -->
+                        <a href="{{ route('bodyck') }}" class="col-md-2 col-6 mt-2">
                             <div class="card bg-main">
                                 <div class="card-body text-dark text-center font-weight-bold p-2 small">
                                     <i class="fa fa-heartbeat"></i> Body Check
                                 </div>
                             </div>
                         </a>
-                        <a href="{{ route('progres') }}" class="col-md-2 col-6">
+                        <!-- <a href="{{ route('progres') }}" class="col-md-2 col-6 mt-2">
                             <div class="card bg-main">
                                 <div class="card-body text-dark text-center font-weight-bold p-2 small">
-                                    <i class="fa fa-universal-access"></i> Progress
+                                    <i class="fa fa-universal-access"></i> My Workout
+                                </div>
+                            </div>
+                        </a> -->
+                        <a href="{{ route('progres') }}" class="col-md-2 col-6 mt-2">
+                            <div class="card bg-main">
+                                <div class="card-body text-dark text-center font-weight-bold p-2 small">
+                                    <i class="fa fa-bar-chart"></i> Progress
                                 </div>
                             </div>
                         </a>
@@ -74,7 +88,7 @@
 
                 <div class="section-menu my-5">
                     <div class="section-title mb-2">
-                        <h6 class="text-main mb-0 mt-0">Daftar Kelas</h6>
+                        <h6 class="text-main mb-0 mt-0">Class</h6>
                     </div>
                     <div class="container menu-group">
                         <div class="row text-center flex-nowrap">
@@ -95,7 +109,7 @@
                 <div class="section-header">
                     <div class="row mt-2">
                         <div class="col-md-12">
-                            <h6 class="text-main mb-3 mt-0">Kelas Diikuti</h6>
+                            <h6 class="text-main mb-3 mt-0">Enrolled Class</h6>
                         </div>
                         @foreach (Auth::user()->classActive->where('tanggal_latihan', '>', \Carbon\Carbon::now()) as $row)
                         <div class="col-md-3 form-group">

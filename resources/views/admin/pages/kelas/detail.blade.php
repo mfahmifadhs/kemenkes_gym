@@ -110,6 +110,10 @@
                         </button>
                     </div>
                 </div>
+                @php
+                $maleCount = 0;
+                $femaleCount = 0;
+                @endphp
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="table-member" class="table table-bordered text-xs text-center">
@@ -124,6 +128,13 @@
                             </thead>
                             <tbody>
                                 @foreach ($kelas->minat as $row)
+                                @if ($row->member)
+                                @if ($row->member->jenis_kelamin == 'male')
+                                @php $maleCount++; @endphp
+                                @elseif ($row->member->jenis_kelamin == 'female')
+                                @php $femaleCount++; @endphp
+                                @endif
+                                @endif
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>
@@ -140,6 +151,9 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+                <div class="card-body">
+                    <h6>Total Pria : {{ $maleCount }} | Total Wanita : {{ $femaleCount }}</h6>
                 </div>
             </div>
 

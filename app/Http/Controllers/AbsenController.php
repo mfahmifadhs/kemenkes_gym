@@ -17,6 +17,7 @@ class AbsenController extends Controller
 {
     public function show()
     {
+        $role     = Auth::user()->role_id;
         $colDate  = Carbon::now()->format('d');
         $colMonth = Carbon::now()->format('m');
         $colYear  = Carbon::now()->format('Y');
@@ -30,7 +31,10 @@ class AbsenController extends Controller
             ->where(DB::raw("DATE_FORMAT(tanggal, '%m')"), $colMonth)
             ->where(DB::raw("DATE_FORMAT(tanggal, '%Y')"), $colYear);
 
-        if (Auth::user()->id == 4) {
+        if ($role == 1) {
+            $absen = $query->where('user_id', Auth::user()->id)->paginate(10);
+            return view('admin.pages.absen.show', compact('absen', 'colDate', 'colMonth', 'colYear'));
+        } else if ($role == 4) {
             $absen = $query->where('user_id', Auth::user()->id)->paginate(10);
             return view('dashboard.pages.absen.show', compact('absen', 'colDate', 'colMonth', 'colYear'));
         } else {
