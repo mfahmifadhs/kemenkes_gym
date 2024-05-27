@@ -53,6 +53,12 @@
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
+        <div class="canvas-social text-left">
+            <a href="https://www.tiktok.com/@kemenkes.bootcamp">
+                <img src="{{ asset('dist/img/icon/tik-tok-black.png') }}" width="14"> <small>kemenkesbootcamp</small>
+            </a>
+            <a href="https://www.instagram.com/kemenkesbootcamp/"><i class="fa fa-instagram"></i> <small>kemenkesbootcamp</small></a>
+        </div>
     </div>
     <!-- Offcanvas Menu Section End -->
 
