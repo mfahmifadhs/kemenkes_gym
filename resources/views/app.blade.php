@@ -53,12 +53,12 @@
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
-        <!-- <div class="canvas-social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-youtube-play"></i></a>
-            <a href="#"><i class="fa fa-instagram"></i></a>
-        </div> -->
+        <div class="canvas-social text-left">
+            <a href="https://www.tiktok.com/@kemenkes.bootcamp">
+                <img src="{{ asset('dist/img/icon/tik-tok-black.png') }}" width="14"> <small>kemenkesbootcamp</small>
+            </a>
+            <a href="https://www.instagram.com/kemenkesbootcamp/"><i class="fa fa-instagram"></i> <small>kemenkesbootcamp</small></a>
+        </div>
     </div>
     <!-- Offcanvas Menu Section End -->
 
@@ -73,7 +73,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-5">
                     <nav class="nav-menu">
                         <ul>
                             <li><a href="/">Home</a></li>
@@ -85,7 +85,7 @@
                         </ul>
                     </nav>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <nav class="nav-menu">
                         <ul>
                             <li class="{{ request()->routeIs('daftar') ? 'active' : '' }}">
@@ -96,6 +96,13 @@
                             </li>
                         </ul>
                     </nav>
+                </div>
+                    <div class="top-option">
+                        <div class="to-social">
+                            <a href="https://www.tiktok.com/@kemenkes.bootcamp"><img src="{{ asset('dist/img/icon/tik-tok.png') }}" width="15"></a>
+                            <a href="https://www.instagram.com/kemenkesbootcamp/"><i class="fa fa-instagram"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="canvas-open">

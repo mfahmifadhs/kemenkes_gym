@@ -26,13 +26,15 @@ class AbsenController extends Controller
         $colUtama = '';
         $colUker  = '';
 
-        $query    = Absensi::orderBy('id_absensi', 'DESC')
-            ->where(DB::raw("DATE_FORMAT(tanggal, '%d')"), $colDate)
-            ->where(DB::raw("DATE_FORMAT(tanggal, '%m')"), $colMonth)
-            ->where(DB::raw("DATE_FORMAT(tanggal, '%Y')"), $colYear);
+        $query    = Absensi::orderBy('id_absensi', 'DESC');
 
         if ($role == 1) {
-            $absen = $query->where('user_id', Auth::user()->id)->paginate(10);
+            $absen = $query
+                ->where(DB::raw("DATE_FORMAT(tanggal, '%d')"), $colDate)
+                ->where(DB::raw("DATE_FORMAT(tanggal, '%m')"), $colMonth)
+                ->where(DB::raw("DATE_FORMAT(tanggal, '%Y')"), $colYear)
+                ->where('user_id', Auth::user()->id)
+                ->paginate(10);
             return view('admin.pages.absen.show', compact('absen', 'colDate', 'colMonth', 'colYear'));
         } else if ($role == 4) {
             $absen = $query->where('user_id', Auth::user()->id)->paginate(10);
