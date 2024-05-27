@@ -21,6 +21,18 @@
             <div class="card">
                 <div class="card-header">
                     <label class="card-title"><i class="fas fa-users"></i> Tabel Member</label>
+                    <div class="card-tools">
+                        <a id="downloadButton" onclick="downloadFile('pdf')" class="btn btn-csv bg-danger border-danger" target="__blank">
+                            <span class="btn btn-danger btn-sm"><i class="fas fa-print"></i></span>
+                            <span id="downloadSpinner" class="spinner-border spinner-border-sm" style="display: none;" role="status" aria-hidden="true"></span>
+                            <small>PRINT</small>
+                        </a>
+                        <a id="downloadButton" onclick="downloadFile('excel')" class="btn btn-csv bg-success border-success" target="__blank">
+                            <span class="btn btn-success btn-sm"><i class="fas fa-download"></i></span>
+                            <span id="downloadSpinner" class="spinner-border spinner-border-sm" style="display: none;" role="status" aria-hidden="true"></span>
+                            <small>XLSX</small>
+                        </a>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -192,6 +204,31 @@
             form.submit();
         });
     });
+
+    function downloadFile(downloadFile) {
+        var form = document.getElementById('searchForm');
+        var downloadButton = document.getElementById('downloadButton');
+        var downloadSpinner = document.getElementById('downloadSpinner');
+
+        downloadSpinner.style.display = 'inline-block';
+
+        var existingDownloadFile = form.querySelector('[name="downloadFile"]');
+        if (existingDownloadFile) {
+            existingDownloadFile.remove();
+        }
+
+        var downloadFileInput = document.createElement('input');
+        downloadFileInput.type = 'hidden';
+        downloadFileInput.name = 'downloadFile';
+        downloadFileInput.value = downloadFile;
+        form.appendChild(downloadFileInput);
+
+        downloadButton.disabled = true;
+        form.target = '_blank';
+
+        form.submit();
+        location.reload();
+    }
 </script>
 @endsection
 @endsection

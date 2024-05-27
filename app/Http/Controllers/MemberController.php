@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MemberExport;
 use App\Models\Kelas;
 use App\Models\MinatKelas;
 use App\Models\MinatTarget;
@@ -18,8 +19,7 @@ use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MemberController extends Controller
 {
@@ -106,6 +106,13 @@ class MemberController extends Controller
             'searchMail' => $searchMail,
             'searchCol7' => $searchCol7
         ]);
+
+        if ($request->downloadFile == 'pdf') {
+            $member = $resArr->get();
+            return view('admin.pages.member.print', compact('member'));
+        } elseif ($request->downloadFile == 'excel') {
+            return Excel::download(new MemberExport($request->all()), 'show.xlsx');
+        }
 
         return view('admin.pages.member.show', compact('member', 'uker', 'searchCol1', 'searchInst', 'searchUker', 'searchNama', 'searchNip', 'searchMail', 'searchCol7'));
     }
