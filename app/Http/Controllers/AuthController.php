@@ -231,9 +231,9 @@ class AuthController extends Controller
     {
         $tokenPass = LogPass::where('token', $token)->first();
 
-        // if ($tokenPass->isExpired == 'true') {
-        //     return redirect()->route('login')->with('failed', 'Page expired');
-        // }
+        if ($tokenPass->isExpired == 'true') {
+            return redirect()->route('login')->with('failed', 'Page expired');
+        }
 
         LogPass::where('id_log_password', $tokenPass->id_log_password)->update([
             'isExpired' => 'true'
