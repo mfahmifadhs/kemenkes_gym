@@ -116,6 +116,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('class/schedule/cari/{id}', [JadwalController::class, 'filter'])->name('jadwal.pilih');
     Route::get('class/schedule/join/{id}', [JadwalController::class, 'join'])->name('jadwal.join');
     Route::post('class/schedule/join/{id}', [JadwalController::class, 'join'])->name('jadwal.join');
+    Route::post('class/schedule/cancel/{id}', [JadwalController::class, 'cancel'])->name('jadwal.cancel');
 
     Route::get('bodyck', [BodyckController::class, 'show'])->name('bodyck');
     Route::get('bodyck/detail/{id}', [BodyckController::class, 'detail'])->name('bodyck.detail');

@@ -38,7 +38,7 @@ $totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kela
                 @endif
 
                 <div class="section-body mb-5">
-                    <div class="schedule p-3" style="border: 1px solid #f36100;">
+                    <div class="schedule p-3" style="border: 1px solid #00b9ad;">
                         <div class="section-title mb-2">
                             <span>Join Class</span>
                         </div>
@@ -57,6 +57,10 @@ $totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kela
                             <div class="col-md-9 col-9">: Kemenkes Bootcamp & Fitness Center</div>
                         </div>
                         @if(Auth::user()->role_id == 4)
+
+
+
+
                         @if (!$isPenalty && $daftar?->count() == 0 && $totalPeserta != $jadwal->kuota && Auth::user()->classActive->where('tanggal_latihan', $jadwal->tanggal_kelas)->count() == 0)
                         <form id="form" action="{{ route('jadwal.join', $jadwal->id_jadwal) }}" method="POST">
                             @csrf
@@ -77,9 +81,20 @@ $totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kela
                             <small><b>You're currently under penalty & can't attend classes for 7 days.</b></small>
                         </div>
                         @else
-                        <div class="bg-success rounded p-2 text-white text-center">
-                            <small><b>You're already enrolled.</b></small>
-                        </div>
+                            @if ($pembatalan == false)
+                            <form id="form" action="{{ route('jadwal.cancel', $jadwal->id_jadwal) }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="member_id" value="{{ Auth::user()->id }}">
+                                <input type="hidden" name="tanggal_latihan" value="{{ $jadwal->tanggal_kelas }}">
+                                <button type="submit" class="btn btn-danger btn-block" onclick="confirmCancel(event)">
+                                    <i class="fa fa-times"></i> Cancel
+                                </button>
+                            </form>
+                            @else
+                            <div class="bg-success rounded p-2 text-white text-center">
+                                <small><b>You're already enrolled.</b></small>
+                            </div>
+                            @endif
                         @endif
                         @endif
 
@@ -127,6 +142,26 @@ $totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kela
         Swal.fire({
             title: 'Ikut Kelas?',
             text: 'Peserta yang sudah daftar kelas agar WAJIB HADIR, jika tidak hadir maka akan dikenakan penalti, yaitu tidak boleh mengikuti kelas selama 1 minggu.',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'Cancel',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+
+    }
+
+    function confirmCancel(event) {
+        event.preventDefault();
+
+        const form = document.getElementById('form');
+
+        Swal.fire({
+            title: 'Batalkan',
+            text: 'Batalkan mengikuti kelas.',
             icon: 'question',
             showCancelButton: true,
             confirmButtonText: 'Yes',

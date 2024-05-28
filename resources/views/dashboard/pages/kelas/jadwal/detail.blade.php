@@ -72,11 +72,9 @@
                                         {{ $row->member->instansi != 'pusat' ? $row->member->nama_instansi : $row->member->uker->nama_unit_kerja }}
                                     </td>
                                     <td style="width: 30%;">
-                                        <select class="form-control form-control-sm text-center" name="status[]" id="">
-                                            <option value="hadir" <?php echo $row->kehadiran == 'hadir' ? 'selected' : ''; ?>>Hadir</option>
-                                            <option value="alpha" <?php echo $row->kehadiran == 'alpha' ? 'selected' : ''; ?>>Alpha</option>
-                                            <option value="izin" <?php echo $row->kehadiran == 'izin' ? 'selected' : ''; ?>>Izin</option>
-                                            <option value="sakit" <?php echo $row->kehadiran == 'sakit' ? 'selected' : ''; ?>>Sakit</option>
+                                        <select class="form-control form-control-sm text-center text-sm" name="status[]" id="">
+                                            <option class="small" value="hadir" <?php echo $row->kehadiran == 'hadir' ? 'selected' : ''; ?>>Hadir</option>
+                                            <option class="small" value="alpha" <?php echo $row->kehadiran == 'alpha' ? 'selected' : ''; ?>>Tidak Hadir</option>
                                         </select>
                                     </td>
                                 </tr>

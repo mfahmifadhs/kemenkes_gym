@@ -69,6 +69,6 @@ class User extends Authenticatable
     }
 
     public function penalty() {
-        return $this->hasMany(Penalty::class, 'user_id');
+        return $this->hasMany(Penalty::class, 'user_id')->where('status', 'false');
     }
 }

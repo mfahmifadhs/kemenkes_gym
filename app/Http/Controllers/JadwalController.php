@@ -138,11 +138,35 @@ class JadwalController extends Controller
 
     public function join(Request $request, $id)
     {
+        $penalty = Penalty::where('user_id', Auth::user()->id)->where('status', 'false')->first();
+
+        if ($penalty) {
+            $tgl_awal = Carbon::now()->startOfDay();
+            $tgl_akhir = Carbon::parse($penalty->tgl_akhir_penalty)->startOfDay();
+            $total_hari = $tgl_awal->diffInDays($tgl_akhir, false);
+
+            if ($total_hari == 0) {
+                Penalty::where('id_penalty', $penalty->id_penalty)->update([
+                    'status' => 'true'
+                ]);
+            }
+        }
 
         if ($request->all() == []) {
             $jadwal  = Jadwal::where('id_jadwal', $id)->first();
             $daftar  = Peserta::where('member_id', Auth::user()->id)->where('jadwal_id', $id)->where('tanggal_latihan', $jadwal->tanggal_kelas)->first();
-            return view('dashboard.pages.kelas.jadwal.join', compact('jadwal', 'daftar'));
+
+            $tglNow     = Carbon::now()->startOfDay();
+            $tglLatihan = Carbon::parse($jadwal->tanggal_kelas)->startOfDay();
+            $jamNow     = Carbon::now();
+            $jamLatihan = Carbon::parse($jadwal->waktu_mulai);
+
+            $totalHari  = $tglNow->diffInDays($tglLatihan, false);
+            $totalJam   = $jamNow->diffInMinutes($jamLatihan);
+
+            $pembatalan = $totalHari > 0 || $totalJam >= 120 ? 'true' : 'false';
+
+            return view('dashboard.pages.kelas.jadwal.join', compact('jadwal', 'daftar', 'pembatalan'));
         }
 
         $id_peserta = Peserta::withTrashed()->count();
@@ -154,6 +178,12 @@ class JadwalController extends Controller
         $tambah->save();
 
         return redirect()->route('jadwal.join', $id)->with('success', 'Success Enroll!');
+    }
+
+    public function cancel(Request $request, $id)
+    {
+        Peserta::where('jadwal_id', $id)->where('member_id', $request->member_id)->delete();
+        return redirect()->route('jadwal.join', $id)->with('success', 'Berhasil membatalkan kelas!');
     }
 
     public function attendance(Request $request, $id)

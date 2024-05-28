@@ -86,7 +86,7 @@
 
                 <div class="section-menu my-5">
                     <div class="section-title mb-2">
-                        <h6 class="text-main mb-0 mt-0">Class</h6>
+                        <h6 class="text-white mb-0 mt-0">Class</h6>
                     </div>
                     <div class="container menu-group">
                         <div class="row text-center flex-nowrap">
@@ -104,20 +104,23 @@
                     </div>
                 </div>
 
-                <!-- <div class="section-header">
+                <div class="section-header">
                     <div class="row mt-2">
                         <div class="col-md-12">
                             <h6 class="text-white mb-3 mt-0">Class Today</h6>
+                            @if ($jadwal->count() == 0)
+                            <small class="text-white">No class today</small>
+                            @endif
                         </div>
                         @foreach ($jadwal as $row)
                         @php
                         if ($row->peserta) {
-                            $totalPeserta = $row->peserta->where('tanggal_latihan', $row->tanggal_kelas)->count();
+                        $totalPeserta = $row->peserta->where('tanggal_latihan', $row->tanggal_kelas)->count();
                         }
                         @endphp
                         <div class="col-md-5 form-group" style="border-radius: 20px;">
                             <a href="{{ route('jadwal.join', $row->id_jadwal) }}">
-                                <div class="card">
+                                <div class="card p-1">
                                     <div class="card-body text-dark font-weight-bold p-2 small">
                                         <div class="row">
                                             <div class="col-md-8 col-9">
@@ -137,32 +140,16 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="" class="btn btn-sm btn-block bg-main small">
-                                        <h6>Join</h6>
+                                    <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-sm bg-main text-white mt-3">
+                                        <small><i class="fa fa-info-circle"></i> Detail</small>
                                     </a>
                                 </div>
                             </a>
                         </div>
                         @endforeach
-                    </div>
-                </div> -->
 
-                <!-- <div class="section-menu my-5">
-                    <div class="section-title mb-5">
-                        <span>My Class Active</span>
                     </div>
-                    <div class="menu-group">
-                        <div class="row text-center">
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+                </div>
             </div>
         </div>
 

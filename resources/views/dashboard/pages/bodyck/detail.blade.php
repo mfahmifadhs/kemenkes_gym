@@ -33,7 +33,7 @@
                 @endif
 
                 <div class="section-body mb-5">
-                    <div class="schedule px-3 pb-3" style="border: 1px solid #f36100;">
+                    <div class="schedule px-3 pb-3" style="border: 1px solid #00b9ad;">
                         <div class="section-title mb-2 text-center">
                             <span>Body Check</span>
                             <h6 class="text-main">{{ $bodyck->tanggal_cek }}</h6>
