@@ -35,13 +35,13 @@
                             </h3>
                         </div>
                         <div class="card-header text-center">
-                            <a href="{{ route('member.email', $member->id) }}" class="btn btn-warning bg-main btn-sm">
+                            <a href="{{ route('member.email', $member->id) }}" class="btn btn-primary bg-main btn-sm">
                                 <i class="fa fa-envelope"></i> Edit Email
                             </a>
-                            <a href="{{ route('member.password', $member->id) }}" class="btn btn-warning bg-main btn-sm">
+                            <a href="{{ route('member.password', $member->id) }}" class="btn btn-primary bg-main btn-sm">
                                 <i class="fa fa-shield"></i> Edit Password
                             </a>
-                            <a href="{{ route('member.edit', $member->id) }}" class="btn btn-warning bg-main btn-sm">
+                            <a href="{{ route('member.edit', $member->id) }}" class="btn btn-primary bg-main btn-sm">
                                 <i class="fa fa-pencil"></i> Edit Profile
                             </a>
                         </div>
