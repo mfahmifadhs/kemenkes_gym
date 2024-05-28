@@ -30,20 +30,20 @@
                         }, 5000);
                     </script>
                     @endif
-                    <form action="{{ route('masuk') }}" method="POST">
+                    <form id="form-login" action="{{ route('masuk') }}" method="POST">
                         @csrf
                         <label class="text-white small">Username</label>
-                        <input type="text" name="username" class="form-control bg-white" placeholder="Username">
+                        <input type="text" name="username" class="form-control text-dark bg-white" placeholder="Username">
                         <label class="text-white small">Password</label>
                         <div class="input-group">
-                            <input type="password" class="form-control bg-white rounded-0" id="password" name="password" placeholder="Password" required>
+                            <input type="password" class="form-control text-dark bg-white rounded-0" id="password" name="password" placeholder="Password" required>
                             <div class="input-group-append border border-dark">
                                 <span class="input-group-text h-100 rounded-0 bg-white">
                                     <i class="fa fa-eye" id="eye-icon-pass"></i>
                                 </span>
                             </div>
                         </div>
-                        <button type="submit" class="mt-4">Login</button>
+                        <button type="submit" class="mt-4" onclick="confirmSubmit(event)">Login</button>
                         <small class="text-white">
                             If your Account <b>Isn't Active</b>, Please <a href="{{ route('activation.show') }}"><u>Click Here</u></a>
                         </small><br>
@@ -57,5 +57,50 @@
     </div>
 </section>
 <!-- Contact Section End -->
+
+@section('js')
+<script>
+    function confirmSubmit(event) {
+        event.preventDefault();
+
+        const form = document.getElementById('form-login');
+
+        var password = $("#password").val();
+        var confPass = $("#conf-password").val();
+        const inputs = form.querySelectorAll('select[required], input[required], textarea[required]');
+        let isFormValid = true;
+
+        inputs.forEach(input => {
+            if (input.hasAttribute('required') && input.value.trim() === '') {
+                input.style.borderColor = 'red';
+                isFormValid = false;
+            } else {
+                input.style.borderColor = '';
+            }
+        });
+
+        if (isFormValid) {
+            Swal.fire({
+                title: "Proses...",
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                willOpen: () => {
+                    Swal.showLoading();
+                },
+            })
+
+            form.submit();
+        } else {
+            Swal.fire({
+                title: 'Gagal',
+                text: 'Seluruh Kolom Harus Diisi',
+                icon: 'error',
+            });
+        }
+
+    }
+</script>
+@endsection
 
 @endsection

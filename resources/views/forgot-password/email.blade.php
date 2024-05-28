@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Kirim Email</title>
+    <title>Reset Password Email</title>
     <link href="{{ asset('dist/css/bootstrap.min.css') }}" rel="stylesheet" />
 </head>
+
 <body class="m-3">
     <img src="https://i.ibb.co/7Y6Y11n/logo.png" width="100">
     <br>
-    <b style="margin-left: 5px;"><i>Your Password</i></b>
-    <table style="margin-left: 5px;">
+    <b><i>Reset Password</i></b>
+    <table>
         <tr>
             <td>Full name</td>
             <td>:</td>
@@ -24,16 +26,21 @@
             <td>:</td>
             <td>{{ $data['username'] }}</td>
         </tr>
-        <tr>
-            <td>Password</td>
-            <td>:</td>
-            <td>{{ substr($data['password'], 0, -3) . str_repeat('*', 3) }}</td>
-        </tr>
+
         <tr>
             <td colspan="3">
-                <span style="color: red;">Keep your Password and don't share this password to others.</span>
+
             </td>
         </tr>
     </table>
+    <p>
+        Klik link dibawah ini untuk <i>Reset Password</i>: <br>
+        <a href="{{ route('resetPass.show', ['token' => $data['token'], 'id' => $data['id']]) }}" style="color: blue;"><i><u>
+                    {{ encrypt($data['token']) }}
+            </i></u></a>
+
+        <h6 class="small" style="color: red;">Link reset password hanya dapat digunakan 1 kali.</h6>
+    </p>
 </body>
+
 </html>

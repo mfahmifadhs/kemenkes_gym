@@ -68,7 +68,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="logo">
-                        <a href="/">
+                        <a href="{{ route('dashboard') }}">
                             <img src="{{ asset('dist/img/logo.png') }}" alt="">
                         </a>
                     </div>

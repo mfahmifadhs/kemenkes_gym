@@ -30,7 +30,7 @@
                         }, 5000);
                     </script>
                     @endif
-                    <form id="form-mail" action="{{ route('resetPass.post') }}" method="GET">
+                    <form id="form-mail" action="{{ route('resetPass.mail') }}" method="GET">
                         @csrf
                         <label class="text-white h4 mb-0">Email</label><br>
                         <small class="text-white mt-0">Please enter the email you used during registration.</small>

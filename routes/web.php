@@ -51,17 +51,19 @@ Route::post('absensi/post/{id}', [AbsenController::class, 'store']);
 
 Route::post('activation/post', [AuthController::class, 'resendActivation'])->name('activation.post');
 
-Route::get('reset/password/post', [AuthController::class, 'sentMailResetPass'])->name('resetPass.post');
+Route::get('reset/password/email', [AuthController::class, 'sentMailResetPass'])->name('resetPass.mail');
 Route::get('reset/password/{token}/{id}', [AuthController::class, 'showResetPass'])->name('resetPass.show');
+Route::post('reset/password/{id}', [AuthController::class, 'postResetPass'])->name('resetPass.post');
 
 Route::get('uker/select/{id}', [UkerController::class, 'selectUker']);
 Route::get('registration', [AuthController::class, 'daftar'])->name('daftar');
 Route::get('aktivation/{token}/{id}', [AuthController::class, 'aktivasi'])->name('aktivasi');
+
 Route::get('member/chart', [MemberController::class, 'chartAll'])->name('member.chart');
-Route::get('logout', [AuthController::class, 'keluar'])->name('logout');
 
 Route::post('registration', [AuthController::class, 'postDaftar'])->name('daftar');
 Route::post('login', [AuthController::class, 'postLogin'])->name('masuk');
+Route::get('logout', [AuthController::class, 'keluar'])->name('logout');
 
 
 

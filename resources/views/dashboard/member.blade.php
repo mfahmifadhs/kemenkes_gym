@@ -19,40 +19,38 @@
                 @endif
 
                 <div class="section-title mb-2">
-                    <h2>Hello, </h2>
+                    <div class="input-group">
+                        <img src="https://cdn-icons-png.flaticon.com/128/149/149071.png" width="50">
+                        <h6 class="ml-2 mt-1 text-white">Welcome Back, <br> {{ Auth::user()->nama }}</h6>
+                    </div>
                 </div>
 
                 <div class="section-body">
-                    <div class="card">
-                        <div class="card-body p-2">
+                    <div class="card bg-main mb-3" style="border-radius: 20px;">
+                        <div class="card-body">
                             <div class="row">
-                                <div class="col-md-3 col-2 text-center">
-                                    <a type="button" href="{{ route('member.qrcode') }}" class="btn btn-default bg-main border border-dark px-2 py-0 pt-1">
+                                <div class="col-8">
+                                    <h3 class="text-white font-weight-bold">COMING SOON!</h3>
+                                </div>
+                                <div class="col-4 text-center">
+                                    @if(Auth::user()->absen->where('waktu_keluar', null)->count() == 0)
+                                    <a type="button" href="{{ route('member.qrcode') }}" class="btn btn-default bg-white border border-dark px-2 py-0 pt-1">
                                         <i class="fa fa-qrcode fa-4x text-dark"></i>
+                                        <h6 class="small mb-1">Member Card</h6>
                                     </a>
-                                    <!-- <a type="button" class="btn btn-default bg-main border border-dark px-2 py-0 pt-1" data-toggle="modal" data-target="#qrcode">
-                                        <i class="fa fa-qrcode fa-5x"></i>
-                                    </a> -->
-                                    <!-- <i class="fa fa-user-circle fa-4x text-main px-2 py-0 pt-1"></i> -->
-                                </div>
-                                <div class="col-md-6 col-6">
-                                    <h6 class="ml-3">{{ Auth::user()->nama }}</h6>
-                                    <h6 class="ml-3">{{ Auth::user()->instansi != 'pusat' ? Auth::user()->nama_instansi : Auth::user()->uker->nama_unit_kerja }}</h6>
-                                </div>
-                                @if(Auth::user()->absen->where('waktu_keluar', null)->count() != 0)
-                                <div class="col-md-3 col-4 text-center my-auto">
-                                    <a href="" class="btn btn-sm bg-main text-white mt-1" onclick="confirm(event, `{{ route('absen.checkout', Auth::user()->id) }}`)">
+                                    @else
+                                    <a href="" class="btn btn-sm bg-white text-main mt-1" onclick="confirm(event, `{{ route('absen.checkout', Auth::user()->id) }}`)">
                                         <small><i class="fa fa-sign-out"></i> Check out</small>
                                     </a>
+                                    @endif
                                 </div>
-                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="section-header">
-                    <div class="row mt-2">
+                    <div class="row">
                         <!-- <a href="{{ route('absen.show') }}" class="col-md-2 col-6 mt-2">
                             <div class="card bg-main">
                                 <div class="card-body text-dark text-center font-weight-bold p-2 small">
@@ -60,9 +58,9 @@
                                 </div>
                             </div>
                         </a> -->
-                        <a href="{{ route('bodyck') }}" class="col-md-2 col-6 mt-2">
-                            <div class="card bg-main">
-                                <div class="card-body text-dark text-center font-weight-bold p-2 small">
+                        <a href="{{ route('bodyck') }}" class="col-md-2 col-6">
+                            <div class="card bg-main" style="border-radius: 20px;">
+                                <div class="card-body text-white text-center font-weight-bold p-2 small">
                                     <i class="fa fa-heartbeat"></i> Body Check
                                 </div>
                             </div>
@@ -74,9 +72,9 @@
                                 </div>
                             </div>
                         </a> -->
-                        <a href="{{ route('progres') }}" class="col-md-2 col-6 mt-2">
-                            <div class="card bg-main">
-                                <div class="card-body text-dark text-center font-weight-bold p-2 small">
+                        <a href="{{ route('progres') }}" class="col-md-2 col-6">
+                            <div class="card bg-main" style="border-radius: 20px;">
+                                <div class="card-body text-white text-center font-weight-bold p-2 small">
                                     <i class="fa fa-bar-chart"></i> Progress
                                 </div>
                             </div>
@@ -106,26 +104,48 @@
                     </div>
                 </div>
 
-                <div class="section-header">
+                <!-- <div class="section-header">
                     <div class="row mt-2">
                         <div class="col-md-12">
-                            <h6 class="text-main mb-3 mt-0">Enrolled Class</h6>
+                            <h6 class="text-white mb-3 mt-0">Class Today</h6>
                         </div>
-                        @foreach (Auth::user()->classActive->where('tanggal_latihan', '>', \Carbon\Carbon::now()) as $row)
-                        <div class="col-md-3 form-group">
-                            <a href="{{ route('jadwal.join', $row->jadwal_id) }}">
+                        @foreach ($jadwal as $row)
+                        @php
+                        if ($row->peserta) {
+                            $totalPeserta = $row->peserta->where('tanggal_latihan', $row->tanggal_kelas)->count();
+                        }
+                        @endphp
+                        <div class="col-md-5 form-group" style="border-radius: 20px;">
+                            <a href="{{ route('jadwal.join', $row->id_jadwal) }}">
                                 <div class="card">
                                     <div class="card-body text-dark font-weight-bold p-2 small">
-                                        {{ $row->jadwal->tanggal_kelas }} <br>
-                                        {{ $row->jadwal->kelas->nama_kelas }} <br>
-                                        {{ \Carbon\Carbon::parse($row->jadwal->waktu_mulai)->format('H:m') }} - {{ \Carbon\Carbon::parse($row->jadwal->waktu_selesai)->format('H:m') }} <br>
+                                        <div class="row">
+                                            <div class="col-md-8 col-9">
+                                                <div class="input-group">
+                                                    <img src="{{ asset('dist/img/class/'. $row->kelas->img_icon) }}" width="50">
+                                                    <h6 class="ml-2 mt-1">
+                                                        {{ $row->kelas->nama_kelas }} <br>
+                                                        <small>{{ \Carbon\Carbon::parse($row->tanggal_kelas)->isoFormat('DD MMMM Y') }} |
+                                                            {{ \Carbon\Carbon::parse($row->waktu_mulai)->format('H:m') }} - {{ \Carbon\Carbon::parse($row->waktu_selesai)->format('H:m') }}
+                                                        </small>
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-3 text-center mt-2">
+                                                <h6 class="small">Kuota</h6>
+                                                <h6>{{ $totalPeserta }} / {{ $row->kuota }}</h6>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <a href="" class="btn btn-sm btn-block bg-main small">
+                                        <h6>Join</h6>
+                                    </a>
                                 </div>
                             </a>
                         </div>
                         @endforeach
                     </div>
-                </div>
+                </div> -->
 
                 <!-- <div class="section-menu my-5">
                     <div class="section-title mb-5">

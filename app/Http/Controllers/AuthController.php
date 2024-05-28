@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Mail\SendEmail;
 use App\Models\Kelas;
 use App\Models\LogMail;
+use App\Models\LogPass;
 use App\Models\MinatKelas;
 use App\Models\MinatTarget;
 use App\Models\Target;
@@ -59,7 +60,7 @@ class AuthController extends Controller
         $kelas  = Kelas::orderBy('nama_kelas', 'ASC')->get();
         $target = Target::orderBy('nama_target', 'ASC')->get();
         $utama  = UnitUtama::get();
-        return view('daftar', compact('utama','kelas','target'));
+        return view('daftar', compact('utama', 'kelas', 'target'));
     }
 
     public function postDaftar(Request $request)
@@ -120,8 +121,8 @@ class AuthController extends Controller
         }
 
         $uker = UnitKerja::where('id_unit_kerja', $request->uker)
-                ->join('t_unit_utama', 'id_unit_utama', 'unit_utama_id')
-                ->first();
+            ->join('t_unit_utama', 'id_unit_utama', 'unit_utama_id')
+            ->first();
 
         $tokenMail = Str::random(32);
         $logMail = new LogMail();
@@ -151,8 +152,8 @@ class AuthController extends Controller
         $user     = User::where('id', $id)->first();
         $format   = Carbon::now()->isoFormat('YYMMDDHHmmss');
         $total    = str_pad($id, 4, 0, STR_PAD_LEFT);
-        $rand     = rand(111,999);
-        $memberId = $format.$rand.$total;
+        $rand     = rand(111, 999);
+        $memberId = $format . $rand . $total;
 
         User::where('id', $id)->update([
             'member_id'  => $user->member_id ?? $memberId,
@@ -167,7 +168,6 @@ class AuthController extends Controller
 
         session()->forget('success');
         return redirect()->route('login')->with('success', 'Activation Success!');
-
     }
 
     public function resendActivation(Request $request)
@@ -208,9 +208,14 @@ class AuthController extends Controller
             return back()->with('failed', 'Email belum terdaftar');
         }
 
-        $tokenMail = Str::random(32);
+        $tokenPass = Str::random(32);
+        $logPass = new LogPass();
+        $logPass->user_id = $user->id;
+        $logPass->token   = $tokenPass;
+        $logPass->save();
+
         $data = [
-            'token'    => $tokenMail,
+            'token'    => $tokenPass,
             'id'       => $user->id,
             'nama'     => $user->nama,
             'uker'     => $user->instansi == 'pusat' ? $user->nama_unit_kerja : $user->nama_instansi,
@@ -224,7 +229,27 @@ class AuthController extends Controller
 
     public function showResetPass($token, $id)
     {
-        dd($id);
+        $tokenPass = LogPass::where('token', $token)->first();
+
+        // if ($tokenPass->isExpired == 'true') {
+        //     return redirect()->route('login')->with('failed', 'Page expired');
+        // }
+
+        LogPass::where('id_log_password', $tokenPass->id_log_password)->update([
+            'isExpired' => 'true'
+        ]);
+
+        return view('forgot-password.reset', compact('id'));
+    }
+
+    public function postResetPass(Request $request, $id)
+    {
+        User::where('id', $id)->update([
+            'password'       => Hash::make($request->password),
+            'password_teks'  => $request->password
+        ]);
+
+        return redirect()->route('login')->with('success', 'Successfully Reset Password!');
     }
 
 
