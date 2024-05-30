@@ -28,7 +28,7 @@ class DashboardController extends Controller
 
         $roleId = Auth::user()->role_id;
         $kelas  = Kelas::orderBy('nama_kelas', 'ASC')->where('status', 'true')->get();
-        $jadwal = Jadwal::where('tanggal_kelas', '<=', $today)->get();
+        $jadwal = Jadwal::where('tanggal_kelas', $today)->get();
         $absen  = Absensi::where('tanggal', Carbon::now()->format('Y-m-d'))->get();
         $totalPeminatan = MinatKelas::count();
         $totalMember    = User::where('role_id', 4)->count();
