@@ -125,7 +125,7 @@
                                         <div class="row">
                                             <div class="col-md-8 col-9">
                                                 <div class="input-group">
-                                                    <img src="{{ asset('dist/img/class/'. $row->kelas->img_icon) }}" width="50">
+                                                    <img src="{{ asset('dist/img/class/'. $row->kelas->img_icon) }}" width="58">
                                                     <h6 class="ml-2 mt-1">
                                                         {{ $row->kelas->nama_kelas }} <br>
                                                         <small>{{ \Carbon\Carbon::parse($row->tanggal_kelas)->isoFormat('DD MMMM Y') }} |
