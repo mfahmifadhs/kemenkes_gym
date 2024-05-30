@@ -58,9 +58,6 @@ $totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kela
                         </div>
                         @if(Auth::user()->role_id == 4)
 
-
-
-
                         @if (!$isPenalty && $daftar?->count() == 0 && $totalPeserta != $jadwal->kuota && Auth::user()->classActive->where('tanggal_latihan', $jadwal->tanggal_kelas)->count() == 0)
                         <form id="form" action="{{ route('jadwal.join', $jadwal->id_jadwal) }}" method="POST">
                             @csrf
@@ -74,25 +71,25 @@ $totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kela
                         <a href="" class="btn btn-danger btn-block text-uppercase font-weight-bold disabled">Full</a>
                         @elseif (Auth::user()->classActive->where('tanggal_latihan', $jadwal->tanggal_kelas)->count() > 0 && Auth::user()->classActive->where('jadwal_id', $jadwal->id_jadwal)->count() == 0)
                         <div class="bg-warning rounded p-2 text-white text-center">
-                            <small><b>You're already enrolled in another class</b></small>
+                            <small><b>Anda sudah terdaftar di kelas lain</b></small>
                         </div>
                         @elseif ($isPenalty)
                         <div class="bg-danger rounded p-2 text-white text-center">
-                            <small><b>You're currently under penalty & can't attend classes for 7 days.</b></small>
+                            <small><b>Anda sedang masa penalti & tidak dapat mengikuti kelas selama 7 hari.</b></small>
                         </div>
                         @else
-                            @if ($pembatalan == false)
+                            @if ($pembatalan == 'true')
                             <form id="form" action="{{ route('jadwal.cancel', $jadwal->id_jadwal) }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="member_id" value="{{ Auth::user()->id }}">
                                 <input type="hidden" name="tanggal_latihan" value="{{ $jadwal->tanggal_kelas }}">
                                 <button type="submit" class="btn btn-danger btn-block" onclick="confirmCancel(event)">
-                                    <i class="fa fa-times"></i> Cancel
+                                    <i class="fa fa-times"></i> Batal
                                 </button>
                             </form>
                             @else
                             <div class="bg-success rounded p-2 text-white text-center">
-                                <small><b>You're already enrolled.</b></small>
+                                <small><b>Anda sudah terdaftar</b></small>
                             </div>
                             @endif
                         @endif

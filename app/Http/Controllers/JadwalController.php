@@ -89,7 +89,7 @@ class JadwalController extends Controller
         $cekHari = Jadwal::where('kelas_id', $request->kelas_id)->whereDate('tanggal_kelas', '=', date('Y-m-d', strtotime($request->tanggal)))->count();
 
         if ($cekHari != 0) {
-            return redirect()->route('kelas.detail', $request->kelas_id)->with('failed', 'Days Name Available, Please Only Update the Date');
+            return redirect()->route('kelas.detail', $request->kelas_id)->with('failed', 'Jadwal sudah tersedia');
         }
 
         $tambah = new Jadwal();
@@ -101,7 +101,7 @@ class JadwalController extends Controller
         $tambah->nama_pelatih   = $request->nama_pelatih;
         $tambah->save();
 
-        return redirect()->route('kelas.detail', $request->kelas_id)->with('success', 'Created Successfully!');
+        return redirect()->route('kelas.detail', $request->kelas_id)->with('success', 'Berhasil membuat jadwal!');
     }
 
     public function edit($id)
@@ -133,7 +133,7 @@ class JadwalController extends Controller
             'nama_pelatih'  => $request->nama_pelatih
         ]);
 
-        return redirect()->route('kelas.detail', $request->kelas_id)->with('success', 'Updated Successfully!');
+        return redirect()->route('kelas.detail', $request->kelas_id)->with('success', 'Berhasil memperbaharui jadwal!');
     }
 
     public function join(Request $request, $id)
@@ -177,7 +177,7 @@ class JadwalController extends Controller
         $tambah->tanggal_latihan = $request->tanggal_latihan;
         $tambah->save();
 
-        return redirect()->route('jadwal.join', $id)->with('success', 'Success Enroll!');
+        return redirect()->route('jadwal.join', $id)->with('success', 'Berhasil mendaftar kelas!');
     }
 
     public function cancel(Request $request, $id)
@@ -218,6 +218,6 @@ class JadwalController extends Controller
             }
         }
 
-        return redirect()->route('jadwal.detail', $id)->with('success', 'Berhasil Melakukan Absensi!');
+        return redirect()->route('jadwal.detail', $id)->with('success', 'Berhasil melakukan Absensi!');
     }
 }

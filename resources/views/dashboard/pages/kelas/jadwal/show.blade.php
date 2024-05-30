@@ -73,7 +73,7 @@
 
                                                         <!-- Sudah daftar kelas lain di tanggal yang sama -->
                                                         @if (Auth::user()->classActive->where('tanggal_latihan', $row->tanggal_kelas)->count() > 0 && Auth::user()->classActive->where('jadwal_id', $row->id_jadwal)->count() == 0)
-                                                        <h6 class="text-danger" style="font-size: 11px;">You're already enrolled in another class.</h6>
+                                                        <h6 class="text-danger" style="font-size: 11px;">Kamu sudah terdaftar di kelas lain</h6>
                                                         @endif
                                                     </td>
                                                     <td style="width: 20%;">
