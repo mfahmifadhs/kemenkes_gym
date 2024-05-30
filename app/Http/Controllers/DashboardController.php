@@ -23,6 +23,7 @@ class DashboardController extends Controller
     {
         $totalUtama    = $this->totalMinatByUker();
         $totalKelas    = $this->totalMinatByKelas();
+        $totalStatus   = $this->totalMinatByStatus();
         $today = Carbon::now()->startOfDay();
 
         $roleId = Auth::user()->role_id;
@@ -33,7 +34,7 @@ class DashboardController extends Controller
         $totalMember    = User::where('role_id', 4)->count();
 
         if ($roleId == 1) {
-            return view('admin.dashboard', compact('totalPeminatan', 'totalMember', 'totalUtama', 'totalKelas'));
+            return view('admin.dashboard', compact('totalPeminatan', 'totalMember', 'totalUtama', 'totalStatus', 'totalKelas'));
         } else if ($roleId == 4) {
             $role = 'member';
         } else {
@@ -106,7 +107,7 @@ class DashboardController extends Controller
             ->join('t_kelas', 'id_kelas', 'kelas_id')
             ->select('id_kelas', 'nama_kelas', DB::raw('COUNT(t_minat_kelas.member_id) as total_member'))
             ->groupBy('id_kelas', 'nama_kelas')
-            ->orderBy('nama_kelas', 'ASC')
+            ->orderBy('total_member', 'DESC')
             ->get();
 
         return $total;
@@ -119,7 +120,18 @@ class DashboardController extends Controller
             ->join('t_unit_utama', 'id_unit_utama', 'unit_utama_id')
             ->select('id_unit_utama', 'nama_unit_utama', DB::raw('COUNT(id) as total_member'))
             ->groupBy('id_unit_utama', 'nama_unit_utama')
-            ->orderBy('nama_unit_utama', 'ASC')
+            ->orderBy('total_member', 'DESC')
+            ->get();
+
+        return $total;
+    }
+
+    public function totalMinatByStatus()
+    {
+        $total = User::where('role_id', 4)
+            ->select('instansi', DB::raw('COUNT(id) as total_member'))
+            ->groupBy('instansi')
+            ->orderBy('total_member', 'DESC')
             ->get();
 
         return $total;

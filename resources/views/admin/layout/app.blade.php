@@ -19,6 +19,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset('dist/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('dist/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('dist/admin/plugins/select2/css/select2.css') }}">
 
@@ -181,6 +186,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('dist/js/sweetalert2.all.min.js') }}"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script> -->
 
+
+    <!-- DataTables  & Plugins -->
+    <script src="{{ asset('dist/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('dist/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('dist/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('dist/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('dist/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('dist/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('dist/admin/plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('dist/admin/plugins/pdfmake/pdfmake.js') }}"></script>
+    <script src="{{ asset('dist/admin/plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('dist/admin/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('dist/admin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('dist/admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
     <script src="{{ asset('dist/admin/plugins/select2/js/select2.full.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/0.7.0/chartjs-plugin-datalabels.min.js"></script>
@@ -213,8 +233,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 "autoWidth": false,
                 "info": false,
                 "paging": false,
-                "searching": false
-            })
+                "searching": false,
+
+                buttons: [{
+                        extend: 'pdf',
+                        text: ' Pdf',
+                        pageSize: 'A4',
+                        className: 'bg-danger',
+                        title: 'Report'
+                    },
+                    {
+                        extend: 'excel',
+                        text: ' Excel',
+                        className: 'bg-success',
+                        title: 'Report'
+                    }
+                ],
+                "bDestroy": true
+            }).buttons().container().appendTo('#table-sort-1_wrapper .col-md-6:eq(0)');
 
             $("#table-sort-2").DataTable({
                 "responsive": false,
@@ -222,8 +258,49 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 "autoWidth": false,
                 "info": false,
                 "paging": false,
-                "searching": false
-            })
+                "searching": false,
+
+                buttons: [{
+                        extend: 'pdf',
+                        text: ' Pdf',
+                        pageSize: 'A4',
+                        className: 'bg-danger',
+                        title: 'Report'
+                    },
+                    {
+                        extend: 'excel',
+                        text: ' Excel',
+                        className: 'bg-success',
+                        title: 'Report'
+                    }
+                ],
+                "bDestroy": true
+            }).buttons().container().appendTo('#table-sort-2_wrapper .col-md-6:eq(0)');
+
+            $("#table-sort-3").DataTable({
+                "responsive": false,
+                "lengthChange": false,
+                "autoWidth": false,
+                "info": false,
+                "paging": false,
+                "searching": false,
+
+                buttons: [{
+                        extend: 'pdf',
+                        text: ' Pdf',
+                        pageSize: 'A4',
+                        className: 'bg-danger',
+                        title: 'Report'
+                    },
+                    {
+                        extend: 'excel',
+                        text: ' Excel',
+                        className: 'bg-success',
+                        title: 'Report'
+                    }
+                ],
+                "bDestroy": true
+            }).buttons().container().appendTo('#table-sort-3_wrapper .col-md-6:eq(0)');
         })
 
         $(document).ready(function() {

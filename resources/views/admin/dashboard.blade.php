@@ -51,7 +51,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <i class="fas fa-table"></i> Total Member Unit Utama
+                                    <i class="fas fa-table"></i> Total Peminatan (Unit Utama)
                                     <table id="table-sort-1" class="table table-bordered text-sm mt-2">
                                         <thead>
                                             <tr class="text-center">
@@ -79,7 +79,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <i class="fas fa-table"></i> Total Pemilihan Minat Kelas
+                                    <i class="fas fa-table"></i> Total Peminatan (Kelas)
                                     <table id="table-sort-2" class="table table-bordered text-sm mt-2">
                                         <thead>
                                             <tr class="text-center">
@@ -98,6 +98,31 @@
                                                     </a>
                                                 </td>
                                                 <td>{{ $row->nama_kelas }}</td>
+                                                <td class="text-center">{{ $row->total_member }}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <i class="fas fa-table"></i> Total Peminatan (Status Kepegawaian)
+                                    <table id="table-sort-3" class="table table-bordered text-sm mt-2">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th>No</th>
+                                                <th>Unit Utama</th>
+                                                <th>Jumlah</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($totalStatus as $row)
+                                            <tr>
+                                                <td class="text-center">
+                                                    {{ $loop->iteration }}
+                                                </td>
+                                                <td>{{ strtoupper($row->instansi) }}</td>
                                                 <td class="text-center">{{ $row->total_member }}</td>
                                             </tr>
                                             @endforeach
