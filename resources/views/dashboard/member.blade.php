@@ -118,9 +118,9 @@
                         $totalPeserta = $row->peserta->where('tanggal_latihan', $row->tanggal_kelas)->count();
                         }
                         @endphp
-                        <div class="col-md-5 form-group" style="border-radius: 20px;">
+                        <div class="col-md-5 form-group">
                             <a href="{{ route('jadwal.join', $row->id_jadwal) }}">
-                                <div class="card p-1">
+                                <div class="card p-1" style="border-radius: 20px;">
                                     <div class="card-body text-dark font-weight-bold p-2 small">
                                         <div class="row">
                                             <div class="col-md-8 col-9">
@@ -140,7 +140,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-sm bg-main text-white mt-3">
+                                    <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-sm bg-main text-white mt-3" style="border-radius: 20px;">
                                         <small><i class="fa fa-info-circle"></i> Detail</small>
                                     </a>
                                 </div>
