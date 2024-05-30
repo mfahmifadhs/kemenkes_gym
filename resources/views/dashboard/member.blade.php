@@ -130,7 +130,10 @@
                                                         {{ $row->kelas->nama_kelas }} <br>
                                                         <small>{{ \Carbon\Carbon::parse($row->tanggal_kelas)->isoFormat('DD MMMM Y') }} |
                                                             {{ \Carbon\Carbon::parse($row->waktu_mulai)->format('H:m') }} - {{ \Carbon\Carbon::parse($row->waktu_selesai)->format('H:m') }}
-                                                        </small>
+                                                        </small> <br>
+                                                        @if (Auth::user()->classActive->where('jadwal_id', $row->id_jadwal)->count() > 0)
+                                                        <span class="text-success" style="font-size: 11px;">You're already enrolled.</span>
+                                                        @endif
                                                     </h6>
                                                 </div>
                                             </div>
