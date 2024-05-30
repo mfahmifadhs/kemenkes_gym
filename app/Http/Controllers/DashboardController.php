@@ -129,10 +129,15 @@ class DashboardController extends Controller
     public function totalMinatByStatus()
     {
         $total = User::where('role_id', 4)
-            ->select('instansi', DB::raw('COUNT(id) as total_member'))
-            ->groupBy('instansi')
-            ->orderBy('total_member', 'DESC')
-            ->get();
+        ->select(
+            'instansi',
+            DB::raw('COUNT(id) as total_member'),
+            DB::raw('SUM(CASE WHEN nip_nik LIKE "19%" THEN 1 ELSE 0 END) as total_pns'),
+            DB::raw('SUM(CASE WHEN nip_nik LIKE "9%" THEN 1 ELSE 0 END) as total_ppnpn')
+        )
+        ->groupBy('instansi')
+        ->orderBy('total_member', 'DESC')
+        ->get();
 
         return $total;
     }

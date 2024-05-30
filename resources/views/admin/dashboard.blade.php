@@ -113,7 +113,9 @@
                                             <tr class="text-center">
                                                 <th>No</th>
                                                 <th>Unit Utama</th>
-                                                <th>Jumlah</th>
+                                                <th>Total Peserta</th>
+                                                <th>Total PNS</th>
+                                                <th>Total PPNPN</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -124,6 +126,8 @@
                                                 </td>
                                                 <td>{{ strtoupper($row->instansi) }}</td>
                                                 <td class="text-center">{{ $row->total_member }}</td>
+                                                <td class="text-center">{{ $row->total_pns }}</td>
+                                                <td class="text-center">{{ $row->total_ppnpn }}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
