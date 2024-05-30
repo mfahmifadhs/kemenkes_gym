@@ -88,7 +88,7 @@
                                 @foreach ($jadwal->peserta as $row)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td class="text-left">{{ $row->member->uker?->nama_unit_kerja }}</td>
+                                    <td class="text-left">{{ $row->member->instansi == 'pusat' ? $row->member->uker?->nama_unit_kerja : $row->member->nama_instansi }}</td>
                                     <td class="text-left">{{ $row->member->nama }}</td>
                                     <td>{{ $row->kehadiran == 'true' ? 'Hadir' : '' }}</td>
                                 </tr>
