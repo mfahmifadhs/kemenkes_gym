@@ -48,7 +48,7 @@
                     <a href="{{ route('jadwal.show') }}"><i class="fa fa-calendar"></i> Schedule</a>
                 </li>
 
-                <li><a href="{{ route('leaderboard') }}"><i class="fa fa-user-circle"></i> Leaderboard</a></li>
+                <li><a href="{{ route('leaderboard') }}"><i class="fa fa-bar-chart"></i> Leaderboard</a></li>
                 <li><a href="{{ route('profile', Auth::user()->id) }}"><i class="fa fa-user-circle"></i> Profile</a></li>
                 <li><a href="{{ route('logout') }}"><i class="fa fa-sign-out"></i> Sign Out</a></li>
             </ul>

@@ -47,7 +47,7 @@ class AuthController extends Controller
             }
         }
 
-        return redirect()->route('login')->with('failed', 'Wrong Username or Password');
+        return redirect()->route('login')->with('failed', 'Username atau password salah!');
     }
 
     public function dashboard()
