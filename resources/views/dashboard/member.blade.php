@@ -29,8 +29,11 @@
                     <div class="card bg-main mb-3" style="border-radius: 20px;">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-8">
-                                    <h3 class="text-white font-weight-bold">COMING SOON!</h3>
+                                <div class="col-8 my-auto">
+                                    <h6 class="text-white">KELAS <b>ZUMBA</b> SEGARA DIMULAI</h6>
+                                    <h4 class="text-white font-weight-bold mt-1">
+                                        <a href="{{ route('kelas.detail', 2) }}"><u>DAFTAR SEKARANG!</u></a>
+                                    </h4>
                                 </div>
                                 <div class="col-4 text-center">
                                     @if(Auth::user()->absen->where('waktu_keluar', null)->count() == 0)
