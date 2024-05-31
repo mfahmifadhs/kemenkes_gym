@@ -34,6 +34,7 @@
                                     <h4 class="text-white font-weight-bold mt-1">
                                         <a href="{{ route('kelas.detail', 2) }}"><u>DAFTAR SEKARANG!</u></a>
                                     </h4>
+                                    <span style="font-size: 10px; color: red;"><b>Kuota terbatas</b></span>
                                 </div>
                                 <div class="col-4 text-center">
                                     @if(Auth::user()->absen->where('waktu_keluar', null)->count() == 0)
@@ -132,7 +133,7 @@
                                                     <h6 class="ml-2 mt-1">
                                                         {{ $row->kelas->nama_kelas }} <br>
                                                         <small>{{ \Carbon\Carbon::parse($row->tanggal_kelas)->isoFormat('DD MMMM Y') }} |
-                                                            {{ \Carbon\Carbon::parse($row->waktu_mulai)->format('H:m') }} - {{ \Carbon\Carbon::parse($row->waktu_selesai)->format('H:m') }}
+                                                            {{ \Carbon\Carbon::parse($row->waktu_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($row->waktu_selesai)->format('H:i') }}
                                                         </small> <br>
                                                         @if (Auth::user()->classActive->where('jadwal_id', $row->id_jadwal)->count() > 0)
                                                         <span class="text-success" style="font-size: 11px;">You're already enrolled.</span>
