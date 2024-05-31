@@ -43,7 +43,7 @@ class AuthController extends Controller
                 return redirect()->intended('dashboard')->with('success', 'Hello!');
             } else {
                 Session::flush();
-                return redirect()->route('login')->with('failed', 'Account is not active.');
+                return redirect()->route('login')->with('failed', 'Akun anda belum aktif');
             }
         }
 
@@ -70,11 +70,11 @@ class AuthController extends Controller
         $cekNipnik = User::where('nip_nik', $request->nipnik)->count();
 
         if ($cekUser == 1) {
-            return back()->with('failed', 'Username Sudah Terdaftar');
+            return back()->with('failed', 'Username sudah terdaftar');
         } else if ($cekEmail == 1) {
-            return back()->with('failed', 'Email Sudah Terdaftar');
+            return back()->with('failed', 'Email sudah terdaftar');
         } else if ($cekNipnik == 1) {
-            return back()->with('failed', 'NIP/NIK Sudah Terdaftar');
+            return back()->with('failed', 'NIP/NIK sudah terdaftar');
         }
 
         $tanggal_lahir    = Carbon::createFromFormat('Y-m-d', $request->tanggal_lahir);
@@ -139,7 +139,7 @@ class AuthController extends Controller
         ];
 
         Mail::to($request->email)->send(new SendEmail($data));
-        return redirect()->route('login')->with('success', 'Registration Success!, Please check you`re email for Activation');
+        return redirect()->route('login')->with('success', 'Pendaftaran Berhasil!, Silahkan cek email untuk aktivasi akun');
     }
 
     public function aktivasi($token, $id)
@@ -167,7 +167,7 @@ class AuthController extends Controller
         ]);
 
         session()->forget('success');
-        return redirect()->route('login')->with('success', 'Activation Success!');
+        return redirect()->route('login')->with('success', 'Aktivasi berhasil!');
     }
 
     public function resendActivation(Request $request)
@@ -175,11 +175,11 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')->first();
 
         if (!$user) {
-            return back()->with('failed', 'Account not found!');
+            return back()->with('failed', 'Akun tidak ditemukan!');
         }
 
         if ($user->member_id != null) {
-            return back()->with('failed', 'You`re Account is Active!');
+            return back()->with('failed', 'Akun anda sudah aktif!');
         }
 
         $tokenMail = Str::random(32);
@@ -197,7 +197,7 @@ class AuthController extends Controller
         ];
 
         Mail::to($user->email)->send(new SendEmail($data));
-        return redirect()->route('login')->with('success', 'Resend link Activation Success!');
+        return redirect()->route('login')->with('success', 'Berhasil mengirim link aktivasi!');
     }
 
     public function sentMailResetPass(Request $request)
@@ -224,7 +224,7 @@ class AuthController extends Controller
         ];
 
         Mail::to($user->email)->send(new ForgotPassword($data));
-        return redirect()->route('login')->with('success', 'Forgot password link sent successfully!');
+        return redirect()->route('login')->with('success', 'Berhasil mengirim link lupa password!');
     }
 
     public function showResetPass($token, $id)
@@ -249,7 +249,7 @@ class AuthController extends Controller
             'password_teks'  => $request->password
         ]);
 
-        return redirect()->route('login')->with('success', 'Successfully Reset Password!');
+        return redirect()->route('login')->with('success', 'Berhasil reset password!');
     }
 
 
@@ -257,6 +257,6 @@ class AuthController extends Controller
     {
         Session::flush();
         Auth::logout();
-        return Redirect('/')->with('success', 'Sign Out Success');
+        return Redirect('/')->with('success', 'Berhasil keluar');
     }
 }

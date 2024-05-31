@@ -43,12 +43,12 @@
                                 </span>
                             </div>
                         </div>
-                        <button type="submit" class="mt-4" onclick="confirmSubmit(event)">Login</button>
+                        <button type="submit" class="mt-4 mb-2" onclick="confirmSubmit(event)">Login</button>
                         <small class="text-white">
-                            If your Account <b>Isn't Active</b>, Please <a href="{{ route('activation.show') }}"><u>Click Here</u></a>
+                           <b><a href="{{ route('activation.show') }}"><u>Aktivasi akun</u></a></b>
                         </small><br>
                         <small class="text-white">
-                            Forgot Password ? Please <a href="{{ route('mailResetPass.show') }}"><u>Click Here</u></a>
+                            <b><a href="{{ route('mailResetPass.show') }}"><u>Lupa Password</u></a></b>
                         </small>
                     </form>
                 </div>
