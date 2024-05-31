@@ -7,12 +7,12 @@
         <div class="row identity">
             <div class="col-md-9 mx-auto">
                 <div class="row" style="margin-bottom: -5vh;">
-                    <div class="col-6 text-left">
+                    <div class="col-8 text-left">
                         <div class="section-title">
-                            <h4 class="text-main"><u>BODY CHECK</u></h4>
+                            <h4 class="text-main"><u>BODY COMPOSITION</u></h4>
                         </div>
                     </div>
-                    <div class="col-6 text-right mt-1">
+                    <div class="col-4 text-right mt-1">
                         <a href="{{ url()->previous() }}" class="btn btn-primary">
                             <i class="fa fa-arrow-circle-left"></i> Back
                         </a>
