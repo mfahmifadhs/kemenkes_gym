@@ -50,7 +50,7 @@
                                                 <h5 class="bg-main text-center px-2 py-2 rounded"><b>{{ $loop->iteration }}</b></h5>
                                             </div>
                                             <div class="col-md-7 col-6 mt-2">
-                                                <h5>{{ $row['progress'] }} <small class="text-xs">%</small></h5>
+                                                <h5>{{ $row['progress'] }} <small class="text-xs">{{ $row['satuan'] }}</small></h5>
                                             </div>
                                             <div class="col-md-12 col-12 mt-1">
                                                 <h6 class="text-xs small">
@@ -75,7 +75,7 @@
                                                 <h5 class="bg-main text-center px-2 py-2 rounded"><b>{{ $loop->iteration }}</b></h5>
                                             </div>
                                             <div class="col-md-7 col-6 mt-2">
-                                                <h5>{{ $row['progress'] }} <small class="text-xs">%</small></h5>
+                                                <h5>{{ $row['progress'] }} <small class="text-xs">{{ $row['satuan'] }}</small></h5>
                                             </div>
                                             <div class="col-md-12 col-12 mt-1">
                                                 <h6 class="text-xs small">

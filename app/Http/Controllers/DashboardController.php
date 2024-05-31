@@ -88,7 +88,8 @@ class DashboardController extends Controller
                 $results[$member_id] = [
                     'nama' => $member->nama,
                     'uker' => $uker,
-                    'progress' => $progress
+                    'progress' => $progress,
+                    'satuan' => $paramId == 2 ? '%' : 'kg'
                 ];
             }
         }
