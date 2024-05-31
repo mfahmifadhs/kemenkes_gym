@@ -65,7 +65,7 @@
                             </div>
 
 
-                            <div class="col-md-3 mx-4" style="overflow-y: auto; max-height: 500px;">
+                            <div class="col-md-3" style="overflow-y: auto; max-height: 500px;">
                                 <h6 class="text-main mb-0 mt-0"><i class="fa fa-fire mb-4"></i> Top 10 Best Progress Muscle Mass</h6>
                                 @foreach (collect($topMuscleMass)->sortByDesc('progress') as $row)
                                 <div class="card form-group">
