@@ -7,12 +7,12 @@
         <div class="row identity">
             <div class="col-md-9 mx-auto">
                 <div class="row">
-                    <div class="col-6 text-left">
+                    <div class="col-7 text-left">
                         <div class="section-title">
-                            <h4 class="text-main"><u>BODY CHCECK</u></h4>
+                            <h4 class="text-main"><u>BODY COMPOSITION</u></h4>
                         </div>
                     </div>
-                    <div class="col-6 text-right mt-1">
+                    <div class="col-5 text-right mt-1">
                         <a href="{{ route('bodyck') }}" class="btn btn-primary">
                             <i class="fa fa-arrow-circle-left"></i> Back
                         </a>
@@ -35,7 +35,7 @@
                 <div class="section-body mb-5">
                     <div class="schedule px-3 pb-3" style="border: 1px solid #00b9ad;">
                         <div class="section-title mb-2 text-center">
-                            <span>Body Check</span>
+                            <span>Body  Composition</span>
                             <h6 class="text-main">{{ $bodyck->tanggal_cek }}</h6>
                             <h6 class="text-main">SERIAL NO. {{ str_pad($bodyck->no_serial, 8, '0', STR_PAD_LEFT) }}</h6>
                         </div>
