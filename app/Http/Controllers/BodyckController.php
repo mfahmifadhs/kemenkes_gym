@@ -56,7 +56,7 @@ class BodyckController extends Controller
             $detail->save();
         }
 
-        return redirect()->route('bodyck.detail', $id_bodyck)->with('success', 'Successfully Created Progress!');
+        return redirect()->route('bodyck.detail', $id_bodyck)->with('success', 'Berhasil menambah Body Composition!');
     }
 
     public function edit(Request $request, $id)
@@ -86,7 +86,7 @@ class BodyckController extends Controller
                 'nilai'     => $request->$val,
             ]);
 
-            return redirect()->route('bodyck.detail', $id)->with('success', 'Successfully Updated Progress!');
+            return redirect()->route('bodyck.detail', $id)->with('success', 'Berhasil menyimpan perubahan!');
         }
     }
 }
