@@ -26,20 +26,12 @@
             <td>:</td>
             <td>{{ $data['username'] }}</td>
         </tr>
-
-        <tr>
-            <td colspan="3">
-
-            </td>
-        </tr>
     </table>
     <p>
-        Klik link dibawah ini untuk <i>Reset Password</i>: <br>
-        <a href="{{ route('resetPass.show', ['token' => $data['token'], 'id' => $data['id']]) }}" style="color: blue;"><i><u>
-                    {{ encrypt($data['token']) }}
-            </i></u></a>
-
-        <h6 class="small" style="color: red;">Link reset password hanya dapat digunakan 1 kali.</h6>
+        <a href="{{ route('resetPass.show', ['token' => $data['token'], 'id' => $data['id']]) }}" style="background-color: #F8F8FF; border: 1px #000 solid; padding: 5px; color: #000;">
+            <b>Reset Password</b>
+        </a> <br> <br>
+        <span style="color: red; font-size: 12px;">Link reset password hanya dapat digunakan 1 kali.</span>
     </p>
 </body>
 
