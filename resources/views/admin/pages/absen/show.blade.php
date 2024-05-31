@@ -124,12 +124,14 @@
                                     <tr>
                                         <td>{{ $absen->firstItem() + $loop->index }}</td>
                                         <td>
+                                            @if (Auth::user()->role_id == 1)
                                             <a type="button" class="mx-2" data-toggle="modal" data-target="#edit-{{ $row->id_absen }}">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <a href="" onclick="confirmRemove(event, `{{ route('absen.delete', $row->id_absensi) }}`)">
                                                 <i class="fas fa-trash"></i>
                                             </a>
+                                            @endif
                                         </td>
                                         <td>{{ $row->tanggal }}</td>
                                         <td class="text-left">{{ $row->member->nama }}</td>

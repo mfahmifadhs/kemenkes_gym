@@ -151,9 +151,11 @@
                                     <tr>
                                         <td>{{ $member->firstItem() + $loop->index }}</td>
                                         <td>
+                                            @if (Auth::user()->role_id == 1)
                                             <a href="{{ route('member.detail', $row->id) }}"><i class="fas fa-eye"></i></a>
                                             <a href="{{ route('member.edit', $row->id) }}"><i class="fas fa-pencil mx-1"></i></a>
                                             <a href="{{ route('member.delete', $row->id) }}"><i class="fas fa-trash"></i></a>
+                                            @endif
                                         </td>
                                         <td>{{ $row->member_id }}</td>
                                         <td>{{ $row->created_at }}</td>

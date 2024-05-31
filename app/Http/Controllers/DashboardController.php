@@ -33,7 +33,7 @@ class DashboardController extends Controller
         $totalPeminatan = MinatKelas::count();
         $totalMember    = User::where('role_id', 4)->count();
 
-        if ($roleId == 1) {
+        if ($roleId == 1 || $roleId == 3) {
             return view('admin.dashboard', compact('totalPeminatan', 'totalMember', 'totalUtama', 'totalStatus', 'totalKelas'));
         } else if ($roleId == 4) {
             $role = 'member';
@@ -56,7 +56,7 @@ class DashboardController extends Controller
         $topFatLoss    = collect($this->topProgress(2))->take(10);
         $topMuscleMass = collect($this->topProgress(5))->take(10);
 
-        if ($roleId == 1) {
+        if ($roleId == 1 || $roleId == 3) {
             return view('admin.leaderboard', compact('topFatLoss', 'topMuscleMass'));
         } else {
             return view('dashboard.pages.leaderboard', compact('topFatLoss', 'topMuscleMass'));

@@ -27,7 +27,7 @@ class AccessAdmin
 
         if ($status == 'admin')
         {
-            if ($role == 1 || $role == 2) {
+            if ($role == 1 || $role == 2 || $role == 3) {
                 return $next($request);
             } else {
                 return back()->with('failed', 'You don`t have access!');

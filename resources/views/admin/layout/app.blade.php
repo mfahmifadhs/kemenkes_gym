@@ -82,9 +82,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <a href="{{ route('member.detail', Auth::user()->id) }}" class="dropdown-item">
                                         <i class="fa fa-user-circle"></i> &nbsp; Profile
                                     </a>
+                                    @if (Auth::user()->role_id == 1)
                                     <a href="{{ route('user') }}" class="dropdown-item">
                                         <i class="fa fa-users"></i> &nbsp;Pengguna
                                     </a>
+                                    @endif
                                 </li>
                                 <li class="dropdown-divider"></li>
                                 <li>

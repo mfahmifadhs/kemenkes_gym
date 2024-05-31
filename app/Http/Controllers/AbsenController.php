@@ -28,7 +28,7 @@ class AbsenController extends Controller
 
         $query    = Absensi::orderBy('id_absensi', 'DESC');
 
-        if ($role == 1) {
+        if ($role == 1 || $role == 3) {
             $absen = $query
                 ->where(DB::raw("DATE_FORMAT(tanggal, '%d')"), $colDate)
                 ->where(DB::raw("DATE_FORMAT(tanggal, '%m')"), $colMonth)

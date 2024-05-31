@@ -40,9 +40,10 @@ class JadwalController extends Controller
 
     public function detail($id)
     {
+        $role  = Auth::user()->role_id;
         $jadwal = Jadwal::where('id_jadwal', $id)->first();
 
-        if (Auth::user()->role_id == 1) {
+        if ($role == 1 || $role == 3) {
             return view('admin.pages.jadwal.detail', compact('jadwal'));
         } else {
             return view('dashboard.pages.kelas.jadwal.detail', compact('jadwal'));
@@ -75,9 +76,10 @@ class JadwalController extends Controller
 
     public function create($id)
     {
+        $role  = Auth::user()->role_id;
         $kelas = Kelas::where('id_kelas', $id)->first();
 
-        if (Auth::user()->role_id == 1) {
+        if ($role == 1 || $role == 3) {
             return view('admin.pages.jadwal.create', compact('kelas'));
         } else {
             return view('dashboard.pages.kelas.jadwal.create', compact('kelas'));
@@ -89,7 +91,7 @@ class JadwalController extends Controller
         $cekHari = Jadwal::where('kelas_id', $request->kelas_id)->whereDate('tanggal_kelas', '=', date('Y-m-d', strtotime($request->tanggal)))->count();
 
         if ($cekHari != 0) {
-            return redirect()->route('kelas.detail', $request->kelas_id)->with('failed', 'Jadwal sudah tersedia');
+            return redirect()->route('kelas.detail', $request->kelas_id)->with('failed', 'Jadwal sudah tersediaPlease Only Update the Date');
         }
 
         $tambah = new Jadwal();
@@ -106,9 +108,10 @@ class JadwalController extends Controller
 
     public function edit($id)
     {
+        $role = Auth::user()->role_id;
         $jadwal = Jadwal::where('id_jadwal', $id)->first();
 
-        if (Auth::user()->role_id == 1) {
+        if ($role == 1 || $role == 3) {
             return view('admin.pages.jadwal.edit', compact('jadwal'));
         } else {
             return view('dashboard.pages.kelas.jadwal.edit', compact('jadwal'));

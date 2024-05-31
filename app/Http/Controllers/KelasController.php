@@ -20,9 +20,10 @@ class KelasController extends Controller
 {
     public function show()
     {
+        $role  = Auth::user()->role_id;
         $kelas = Kelas::orderBy('nama_kelas', 'ASC')->get();
 
-        if (Auth::user()->role_id == 1) {
+        if ($role == 1 || $role == 3) {
             return view('admin.pages.kelas.show', compact('kelas'));
         } else {
             return view('dashboard.pages.kelas.show', compact('kelas'));
@@ -48,10 +49,11 @@ class KelasController extends Controller
 
     public function detail($id)
     {
+        $role   = Auth::user()->role_id;
         $kelas  = Kelas::where('id_kelas', $id)->first();
         $daftar = Peserta::where('member_id', Auth::user()->id)->first();
 
-        if (Auth::user()->role_id == 1) {
+        if ($role == 1 || $role == 3) {
             return view('admin.pages.kelas.detail', compact('id', 'kelas', 'daftar'));
         } else {
             return view('dashboard.pages.kelas.detail', compact('id', 'kelas', 'daftar'));
