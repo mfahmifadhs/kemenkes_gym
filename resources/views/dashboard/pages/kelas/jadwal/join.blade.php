@@ -54,7 +54,7 @@ $totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kela
                             <label class="col-md-3 col-3">Kuota</label>
                             <div class="col-md-9 col-9">: {{ $totalPeserta }} / {{ $jadwal->kuota }}</div>
                             <label class="col-md-3 col-3">Location</label>
-                            <div class="col-md-9 col-9">: Kemenkes Bootcamp & Fitness Center</div>
+                            <div class="col-md-9 col-9">: {{ $jadwal->lokasi }}</div>
                         </div>
                         @if(Auth::user()->role_id == 4)
 

@@ -101,6 +101,7 @@ class JadwalController extends Controller
         $tambah->waktu_selesai  = $request->waktu_selesai;
         $tambah->kuota          = $request->kuota;
         $tambah->nama_pelatih   = $request->nama_pelatih;
+        $tambah->lokasi         = $request->lokasi;
         $tambah->save();
 
         return redirect()->route('kelas.detail', $request->kelas_id)->with('success', 'Berhasil membuat jadwal!');

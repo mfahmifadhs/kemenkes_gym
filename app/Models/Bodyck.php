@@ -22,7 +22,9 @@ class Bodyck extends Model
         'tipe_badan',
         'bodyck_tinggi',
         'berat_baju',
-        'bodyck_keterangan'
+        'bodyck_keterangan',
+        'bodyck_status',
+        'bodyck_file'
     ];
 
     public function member() {

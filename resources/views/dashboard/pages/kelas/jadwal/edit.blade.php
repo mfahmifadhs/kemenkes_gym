@@ -46,6 +46,10 @@
                                     <label class="text-white small">Personal Trainer Name</label>
                                     <input type="text" class="form-control" name="nama_pelatih" value="{{ $jadwal->nama_pelatih }}">
                                 </div>
+                                <div class="form-group col-md-6 col-6">
+                                    <label class="text-white small">Location</label>
+                                    <input type="text" class="form-control" name="lokasi" value="{{ $jadwal->lokasi }}">
+                                </div>
                             </div>
                             <button class="btn btn-primary btn-block mt-3">Update</button>
                         </form>

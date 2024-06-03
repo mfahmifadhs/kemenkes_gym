@@ -45,6 +45,10 @@
                                 <label class="mb-1 mt-3">Personal Trainer Name</label>
                                 <input type="text" class="form-control" name="nama_pelatih">
                             </div>
+                            <div class="col-md-6">
+                                <label class="mb-1 mt-3">Location</label>
+                                <input type="text" class="form-control" name="lokasi" value="Kemenkes Bootcamp & Fitness Center">
+                            </div>
                             <div class="col-md-12 mt-4">
                                 <button type="submit" class="btn btn-primary btn-block" onclick="confirmSubmit(event)">
                                     <b>CREATE</b>

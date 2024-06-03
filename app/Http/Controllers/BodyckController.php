@@ -13,13 +13,27 @@ class BodyckController extends Controller
 {
     public function show()
     {
-        $bodyck = Bodyck::where('member_id', Auth::user()->id)->get();
+        $role = Auth::user()->role_id;
+        $data = Bodyck::orderBy('tanggal_cek', 'DESC');
+
+        if ($role == 1 || $role == 2) {
+            $bodyck = $data->get();
+            return view('admin.pages.bodyck.show', compact('bodyck'));
+        }
+
+        $bodyck = $data->where('member_id', Auth::user()->id)->get();
         return view('dashboard.pages.bodyck.show', compact('bodyck'));
     }
 
     public function detail($id)
     {
+        $role = Auth::user()->role_id;
         $bodyck = Bodyck::where('id_bodyck', $id)->first();
+
+        if ($role == 1 || $role == 2) {
+            return view('admin.pages.bodyck.detail', compact('bodyck'));
+        }
+
         return view('dashboard.pages.bodyck.detail', compact('bodyck'));
     }
 

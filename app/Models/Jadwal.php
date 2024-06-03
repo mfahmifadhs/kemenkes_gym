@@ -22,7 +22,8 @@ class Jadwal extends Model
         'waktu_mulai',
         'waktu_selesai',
         'kuota',
-        'nama_pelatih'
+        'nama_pelatih',
+        'lokasi'
     ];
 
     public function kelas() {

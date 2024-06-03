@@ -70,7 +70,9 @@
                                 @if ($bodyck->count() != 0)
                                 @foreach($bodyck as $row)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        {{ $loop->iteration }}
+                                    </td>
                                     <td>{{ Carbon\Carbon::parse($row->tanggal_cek)->format('d-m-Y H:m') }}</td>
                                     @foreach ($row->detail as $i => $subRow)
                                     @php $idLoop = $i+1; @endphp
@@ -117,7 +119,6 @@
                                 @endif
                                 <div class="chart">
                                     <canvas id="progressChart" style="height: 320px;"></canvas>
-
                                 </div>
                             </div>
                         </div>
@@ -132,7 +133,13 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-3 col-2 text-center mt-2">
-                                        <h6 class="fa-1x">{{ $loop->iteration }}</h6>
+                                        <h6 class="fa-1x">
+                                            {{ $loop->iteration }}
+
+                                            @if ($row->bodyck_status == 'false') <i class="fa fa-clock-o text-warning"></i>
+                                            @elseif ($row->bodyck_status == 'true') <i class="fa fa-check-circle text-success"></i>
+                                            @else <i class="fa fa-times-circle text-warning"></i> @endif
+                                        </h6>
                                     </div>
                                     @php $tanggal = Carbon\Carbon::parse($row->tanggal_cek); @endphp
                                     <div class="col-md-6 col-6">
