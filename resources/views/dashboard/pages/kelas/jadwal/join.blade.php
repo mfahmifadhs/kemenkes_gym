@@ -105,7 +105,7 @@ $totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kela
                         <div class="row">
                             @foreach ($jadwal->peserta as $row)
                             <div class="col-md-3 col-6">
-                                <div class="card text-center form-group" style="height: 100%;">
+                                <div class="card text-center form-group">
                                     <div class="card-header">
                                         <i class="fa fa-user-circle fa-3x"></i>
                                     </div>
