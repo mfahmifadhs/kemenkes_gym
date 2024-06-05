@@ -43,7 +43,11 @@
                                 </span>
                             </div>
                         </div>
-                        <button type="submit" class="mt-4 mb-2" onclick="confirmSubmit(event)">Login</button>
+                        <button type="submit" class="mt-4 mb-1" onclick="confirmSubmit(event)">Login</button>
+                        <small class="text-white">
+                           <b><a href="{{ route('daftar') }}"> <u>Daftar</u></a></b>
+                        </small><br>
+
                         <small class="text-white">
                            <b><a href="{{ route('activation.show') }}"><u>Aktivasi akun</u></a></b>
                         </small><br>

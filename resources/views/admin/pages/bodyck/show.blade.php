@@ -59,8 +59,8 @@
                                         <a href=""><i class="fas fa-eye"></i></a>
                                         <a href=""><i class="fas fa-edit"></i></a>
                                         @else
-                                        <a href="{{ route('bodyck.detail', $row->id_bodyck) }}" class="btn btn-default btn-xs">
-                                            <small><i class="fas fa-spinner text-warning"></i> Proses</small>
+                                        <a href="{{ route('bodyck.detail', $row->id_bodyck) }}" class="btn btn-default btn-xs border-dark">
+                                            <small><i class="fas fa-spinner text-warning"></i> <b>Proses</b></small>
                                         </a>
                                         @endif
                                     </td>

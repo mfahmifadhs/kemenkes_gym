@@ -19,7 +19,8 @@
 <!-- Hero Section Begin -->
 <section class="hero-section">
     <div class="hs-slider owl-carousel">
-        <div class="hs-item set-bg" data-setbg="{{ asset('dist/img/hero-2.jpg') }}">
+        @for($i = 3; $i >= 1; $i--)
+        <div class="hs-item set-bg" data-setbg="{{ asset('dist/img/hero-'.$i.'.jpg') }}">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 offset-lg-6">
@@ -32,19 +33,8 @@
                 </div>
             </div>
         </div>
-        <div class="hs-item set-bg" data-setbg="{{ asset('dist/img/hero-1.jpg') }}" style="background-color: rgba(0, 0, 0, 0.5);">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 offset-lg-6">
-                        <div class="hi-text">
-                            <!-- <span>Shape your body</span> -->
-                            <h1>You're <strong>stronger</strong> than you think</h1>
-                            <a href="{{ route('daftar') }}" class="primary-btn btn-normal">Join Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endfor
+
     </div>
 </section>
 <!-- Hero Section End -->

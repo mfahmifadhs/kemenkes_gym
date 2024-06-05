@@ -3412,3 +3412,7 @@ ol {
     filter: hue-rotate(60deg) saturate(100%) brightness(50%) sepia(100%);
     /* Atur filter untuk mengubah warna gambar menjadi kuning */
 }
+
+.bg-main {
+    background-color: #00b9ad;
+}
