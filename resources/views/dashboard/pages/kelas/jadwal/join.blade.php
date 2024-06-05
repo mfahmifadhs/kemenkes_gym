@@ -2,8 +2,9 @@
 @section('content')
 
 @php
-$isPenalty = Auth::user()->penalty->count();
+$isPenalty    = Auth::user()->penalty->count();
 $totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kelas)->count();
+$terdaftar    = $jadwal->peserta->where('peserta_id', Auth::user()->id)->count();
 @endphp
 
 <!-- ChoseUs Section Begin -->
@@ -68,7 +69,18 @@ $totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kela
                             </button>
                         </form>
                         @elseif ($totalPeserta == $jadwal->kuota)
-                        <a href="" class="btn btn-danger btn-block text-uppercase font-weight-bold disabled">Full</a>
+                            @if ($terdaftar == 0 || $pembatalan == 'false')
+                            <a href="" class="btn btn-danger btn-block text-uppercase font-weight-bold disabled">Full</a>
+                            @else
+                            <form id="form" action="{{ route('jadwal.cancel', $jadwal->id_jadwal) }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="member_id" value="{{ Auth::user()->id }}">
+                                <input type="hidden" name="tanggal_latihan" value="{{ $jadwal->tanggal_kelas }}">
+                                <button type="submit" class="btn btn-danger btn-block" onclick="confirmCancel(event)">
+                                    <i class="fa fa-times"></i> Batal
+                                </button>
+                            </form>
+                            @endif
                         @elseif (Auth::user()->classActive->where('tanggal_latihan', $jadwal->tanggal_kelas)->count() > 0 && Auth::user()->classActive->where('jadwal_id', $jadwal->id_jadwal)->count() == 0)
                         <div class="bg-warning rounded p-2 text-white text-center">
                             <small><b>Anda sudah terdaftar di kelas lain</b></small>
