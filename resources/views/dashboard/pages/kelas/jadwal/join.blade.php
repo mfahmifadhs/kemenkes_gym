@@ -4,7 +4,7 @@
 @php
 $isPenalty    = Auth::user()->penalty->count();
 $totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kelas)->count();
-$terdaftar    = $jadwal->peserta->where('peserta_id', Auth::user()->id)->count();
+$terdaftar    = $jadwal->peserta->where('member_id', Auth::user()->id)->count();
 @endphp
 
 <!-- ChoseUs Section Begin -->
