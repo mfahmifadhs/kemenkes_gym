@@ -67,7 +67,7 @@ $totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kela
                                 JOIN
                             </button>
                         </form>
-                        @elseif ($totalPeserta == $jadwal->kuota)
+                        @elseif ($totalPeserta == $jadwal->kuota && $pembatalan == 'false')
                         <a href="" class="btn btn-danger btn-block text-uppercase font-weight-bold disabled">Full</a>
                         @elseif (Auth::user()->classActive->where('tanggal_latihan', $jadwal->tanggal_kelas)->count() > 0 && Auth::user()->classActive->where('jadwal_id', $jadwal->id_jadwal)->count() == 0)
                         <div class="bg-warning rounded p-2 text-white text-center">
