@@ -48,7 +48,7 @@
                                     <option value="">-- Pilih Institusi --</option>
                                     <option value="pusat">Kemenkes Pusat</option>
                                     <option value="upt">UPT</option>
-                                    <option value="umum">Umum</option>
+                                    <option value="umum">Mitra Kemenkes</option>
                                 </select>
                             </div>
                         </div>
