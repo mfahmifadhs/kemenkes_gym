@@ -88,7 +88,7 @@
         <div class="row">
             <div class="col-lg-12 col-sm-6">
                 <div class="cs-item">
-                    <img src="{{ asset('dist/img/schedule.png') }}" alt="">
+                    <img src="{{ asset('dist/img/schedule.png') }}" class="img-fluid" alt="">
                 </div>
             </div>
         </div>
