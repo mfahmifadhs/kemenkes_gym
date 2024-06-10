@@ -9,14 +9,14 @@
                 <div class="row mb-2">
                     <div class="col-7 text-left">
                         <div class="section-title">
-                            <h4 class="text-main"><u>BODY COMPOSITION</u></h4>
+                            <h4 class="text-main"><u>MY WORKOUT</u></h4>
                         </div>
                     </div>
-                    <div class="col-5 text-right mt-2">
+                    <!-- <div class="col-5 text-right mt-2">
                         <a href="{{ route('bodyck.create') }}" class="btn btn-primary p-2">
                             <small><i class="fa fa-heartbeat"></i> Create Progress</small>
                         </a>
-                    </div>
+                    </div> -->
                 </div>
                 @if ($message = Session::get('success'))
                 <div id="alert" class="alert bg-success">
@@ -55,11 +55,8 @@
                                             <h6 class="ml-2 mt-1">
                                                 {{ $row->jadwal->kelas->nama_kelas }} <br>
                                                 <small>{{ \Carbon\Carbon::parse($row->tanggal_kelas)->isoFormat('DD MMMM Y') }} |
-                                                    {{ \Carbon\Carbon::parse($row->waktu_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($row->waktu_selesai)->format('H:i') }}
+                                                    {{ \Carbon\Carbon::parse($row->jadwal->waktu_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($row->jadwal->waktu_selesai)->format('H:i') }}
                                                 </small> <br>
-                                                @if (Auth::user()->classActive->where('jadwal_id', $row->id_jadwal)->count() > 0)
-                                                <span class="text-success" style="font-size: 11px;">You're already enrolled.</span>
-                                                @endif
                                             </h6>
                                         </div>
                                     </div>
