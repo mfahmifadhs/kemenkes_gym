@@ -2,7 +2,7 @@
 @section('content')
 
 <!-- Hero Section Begin -->
-<section class="hero-section">
+<!-- <section class="hero-section">
     <div class="hs-slider owl-carousel">
         @for($i = 3; $i >= 1; $i--)
         <div class="hs-item set-bg" data-setbg="{{ asset('dist/img/hero-'.$i.'.jpg') }}">
@@ -10,7 +10,6 @@
                 <div class="row">
                     <div class="col-lg-6 offset-lg-6">
                         <div class="hi-text">
-                            <!-- <span>Shape your body</span> -->
                             <h1>You're <strong>stronger</strong> than you think</h1>
                             <a href="{{ route('daftar') }}" class="primary-btn btn-normal">Join Now</a>
                         </div>
@@ -19,9 +18,8 @@
             </div>
         </div>
         @endfor
-
     </div>
-</section>
+</section> -->
 <!-- Hero Section End -->
 
 <!-- Contact Section Begin -->
