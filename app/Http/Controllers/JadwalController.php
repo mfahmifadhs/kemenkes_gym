@@ -173,6 +173,12 @@ class JadwalController extends Controller
             return view('dashboard.pages.kelas.jadwal.join', compact('jadwal', 'daftar', 'pembatalan'));
         }
 
+        $peserta = Peserta::where('jadwal_id', $id)->get();
+
+        if ($request->kuota == $peserta->count()) {
+            return redirect()->route('jadwal.join', $id)->with('failed', 'Maaf kuota sudah penuh');
+        };
+
         $id_peserta = Peserta::withTrashed()->count();
         $tambah = new Peserta();
         $tambah->id_peserta      = $id_peserta + 1;

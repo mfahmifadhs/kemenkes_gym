@@ -38,6 +38,19 @@ $terdaftar    = $jadwal->peserta->where('member_id', Auth::user()->id)->count();
                 </script>
                 @endif
 
+                @if ($message = Session::get('failed'))
+                <div id="alert" class="alert bg-danger">
+                    <div class="row">
+                        <p style="color:white;margin: auto;">{{ $message }}</p>
+                    </div>
+                </div>
+                <script>
+                    setTimeout(function() {
+                        document.getElementById('alert').style.display = 'none';
+                    }, 5000);
+                </script>
+                @endif
+
                 <div class="section-body mb-5">
                     <div class="schedule p-3" style="border: 1px solid #00b9ad;">
                         <div class="section-title mb-2">
@@ -64,6 +77,7 @@ $terdaftar    = $jadwal->peserta->where('member_id', Auth::user()->id)->count();
                             @csrf
                             <input type="hidden" name="member_id" value="{{ Auth::user()->id }}">
                             <input type="hidden" name="tanggal_latihan" value="{{ $jadwal->tanggal_kelas }}">
+                            <input type="hidden" name="kuota" value="{{ $jadwal->kuota }}">
                             <button type="submit" class="btn btn-primary btn-block" onclick="confirmSubmit(event)">
                                 JOIN
                             </button>
@@ -123,7 +137,7 @@ $terdaftar    = $jadwal->peserta->where('member_id', Auth::user()->id)->count();
                                     </div>
                                     <div class="card-body">
                                         <h6 class="small">{{ $row->created_at }}</h6>
-                                        <h6 class="small">{{ $row->member->nama }}</h6>
+                                        <h6 class="small">{{ ucwords(strtolower($row->member->nama)) }}</h6>
                                     </div>
                                 </div>
                             </div>
