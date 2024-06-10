@@ -131,7 +131,7 @@
                                         <label class="col-form-label text-sm">Asal Instansi</label>
                                         <select name="instansi" class="form-control border-dark" required>
                                             <option value="pusat" <?php echo $member->instansi == 'pusat' ? 'selected' : '' ?>>PUSAT</option>
-                                            <option value="umum" <?php echo $member->instansi == 'umum' ? 'selected' : '' ?>>UMUM</option>
+                                            <option value="umum" <?php echo $member->instansi == 'umum' ? 'selected' : '' ?>>MITRA KEMENKES</option>
                                             <option value="upt" <?php echo $member->instansi == 'upt' ? 'selected' : '' ?>>UPT</option>
                                         </select>
                                     </div>
