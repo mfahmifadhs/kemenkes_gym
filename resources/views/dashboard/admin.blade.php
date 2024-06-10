@@ -86,7 +86,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $row->member->uker->nama_unit_kerja ?? $row->member->nama_instansi }}</td>
                                             <td>{{ $row->member->nama }}</td>
-                                            <td class="text-center">{{ Carbon\Carbon::parse($row->waktu_masuk)->isoFormat('H:i') }}</td>
+                                            <td class="text-center">{{ Carbon\Carbon::parse($row->waktu_masuk)->format('H:i') }}</td>
                                         </tr>
                                         @endforeach
                                         @if ($absen->count() == 0)

@@ -72,12 +72,9 @@
                     <h2>SCHEDULE (COMING SOON) !</h2>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-sm-6">
-                <div class="cs-item">
-                    <img src="{{ asset('dist/img/schedule.png') }}" alt="">
-                </div>
+
+            <div class="col-lg-12">
+                <img src="{{ asset('dist/img/schedule.png') }}" class="img-fluid w-100" alt="">
             </div>
         </div>
     </div>
