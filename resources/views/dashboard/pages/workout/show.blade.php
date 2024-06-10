@@ -44,7 +44,7 @@
 
                 <div class="section-body">
                     <div class="schedule">
-                        <div class="section-title mb-2"><span>Body Composition Result</span></div>
+                        <div class="section-title mb-2"><span>My Workout</span></div>
                         @foreach ($kelas as $i => $row)
                         <div class="card my-2">
                             <div class="card-body">
