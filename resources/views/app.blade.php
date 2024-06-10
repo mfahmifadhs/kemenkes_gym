@@ -44,8 +44,9 @@
         <nav class="canvas-menu mobile-menu">
             <ul>
                 <li><a href="/">Home</a></li>
-                @if (!request()->is('registration') && !request()->is('login') && !request()->is('activation'))
+                            @if (!request()->is('registration') && !request()->is('login') && !request()->is('activation') && !request()->is('mail/reset/password') && !request()->is('Attendance'))
                 <li><a href="#class">Classes</a></li>
+                <li><a href="#schedule">Schedule</a></li>
                 <li><a href="#survey">Survey Result</a></li>
                 <li><a href="#gallery">Gallery</a></li>
                 @endif
@@ -78,8 +79,9 @@
                     <nav class="nav-menu">
                         <ul>
                             <li><a href="/">Home</a></li>
-                            @if (!request()->is('registration') && !request()->is('login') && !request()->is('activation') && !request()->is('mail/reset/password'))
+                            @if (!request()->is('registration') && !request()->is('login') && !request()->is('activation') && !request()->is('mail/reset/password') && !request()->is('Attendance'))
                             <li><a href="#class">Classes</a></li>
+                            <li><a href="#schedule">Schedule</a></li>
                             <li><a href="#survey">Survey Result</a></li>
                             <li><a href="#gallery">Gallery</a></li>
                             @endif

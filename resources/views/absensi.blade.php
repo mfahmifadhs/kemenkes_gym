@@ -1,6 +1,29 @@
 @extends('app')
 @section('content')
 
+<!-- Hero Section Begin -->
+<section class="hero-section">
+    <div class="hs-slider owl-carousel">
+        @for($i = 3; $i >= 1; $i--)
+        <div class="hs-item set-bg" data-setbg="{{ asset('dist/img/hero-'.$i.'.jpg') }}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-6">
+                        <div class="hi-text">
+                            <!-- <span>Shape your body</span> -->
+                            <h1>You're <strong>stronger</strong> than you think</h1>
+                            <a href="{{ route('daftar') }}" class="primary-btn btn-normal">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endfor
+
+    </div>
+</section>
+<!-- Hero Section End -->
+
 <!-- Contact Section Begin -->
 <section class="contact-section spad">
     <div class="container">
@@ -39,6 +62,27 @@
     </div>
 </section>
 <!-- Contact Section End -->
+
+<!-- Schedule Section Begin -->
+<section class="choseus-section spad h-100 my-auto">
+    <div id="schedule" class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>SCHEDULE (COMING SOON) !</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-sm-6">
+                <div class="cs-item">
+                    <img src="{{ asset('dist/img/schedule.png') }}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Schedule Section End -->
 
 <audio id="sound-datang" src="{{ asset('dist/sound/sound-datang.mp3') }}" preload="auto"></audio>
 <audio id="sound-gagal" src="{{ asset('dist/sound/sound-gagal.mp3') }}" preload="auto"></audio>

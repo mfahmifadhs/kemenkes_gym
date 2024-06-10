@@ -74,6 +74,28 @@
 </section>
 <!-- ChoseUs Section End -->
 
+
+<!-- Schedule Section Begin -->
+<section class="choseus-section spad h-100 my-auto">
+    <div id="schedule" class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>SCHEDULE (COMING SOON) !</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-sm-6">
+                <div class="cs-item">
+                    <img src="{{ asset('dist/img/schedule.png') }}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Schedule Section End -->
+
 <!-- Classes Section Begin -->
 <section class="classes-section spad">
     <div id="class" class="container">

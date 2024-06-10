@@ -13,6 +13,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProgresController;
 use App\Http\Controllers\UkerController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WorkoutController;
 use App\Models\Kelas;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -124,6 +125,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('bodyck/create', [BodyckController::class, 'create'])->name('bodyck.create');
     Route::post('bodyck/store', [BodyckController::class, 'create'])->name('bodyck.store');
     Route::post('bodyck/update/{id}', [BodyckController::class, 'edit'])->name('bodyck.update');
+
+    Route::get('workout', [WorkoutController::class, 'show'])->name('workout');
 
     Route::get('progress', [ProgresController::class, 'show'])->name('progres');
     Route::get('progress/chart', [ProgresController::class, 'chart'])->name('progres.chart');

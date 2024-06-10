@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                         </a>
-                        <a href="{{ route('progres') }}" class="col-md-3 col-6">
+                        <a href="{{ route('workout') }}" class="col-md-3 col-6">
                             <div class="card bg-main" style="border-radius: 20px;">
                                 <div class="card-body text-white text-center font-weight-bold p-2 small">
                                     <i class="fa fa-fire"></i> My Workout
