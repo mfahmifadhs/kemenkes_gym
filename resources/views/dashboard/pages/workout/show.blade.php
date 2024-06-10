@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="col-md-4 col-3 text-center mt-2">
                                         <h6>
-                                            @if ($row->kehadiran == 'true')
+                                            @if ($row->kehadiran == 'hadir')
                                             <i class="fa fa-check-circle fa-3x text-success"></i>
                                             @else
                                             <i class="fa fa-times-circle fa-3x text-danger"></i>
