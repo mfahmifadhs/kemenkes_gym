@@ -12,7 +12,6 @@ class WorkoutController extends Controller
     {
         $role = Auth::user()->role_id;
         $kelas = Peserta::where('member_id', Auth::user()->id)
-            ->where('kehadiran', 'hadir')
             ->get();
 
         return view('dashboard.pages.workout.show', compact('kelas'));
