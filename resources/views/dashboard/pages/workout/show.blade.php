@@ -54,7 +54,7 @@
                                             <img src="{{ asset('dist/img/class/'. $row->jadwal->kelas->img_icon) }}" width="58">
                                             <h6 class="ml-2 mt-1">
                                                 {{ $row->jadwal->kelas->nama_kelas }} <br>
-                                                <small>{{ \Carbon\Carbon::parse($row->tanggal_kelas)->isoFormat('DD MMMM Y') }} |
+                                                <small>{{ \Carbon\Carbon::parse($row->jadwal->tanggal_kelas)->isoFormat('DD MMMM Y') }} |
                                                     {{ \Carbon\Carbon::parse($row->jadwal->waktu_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($row->jadwal->waktu_selesai)->format('H:i') }}
                                                 </small> <br>
                                             </h6>
