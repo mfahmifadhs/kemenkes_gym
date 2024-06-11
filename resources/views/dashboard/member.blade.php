@@ -6,6 +6,12 @@
     <div class="container">
         <div class="row identity">
             <div class="col-md-9 mx-auto">
+                <div class="section-title mb-2">
+                    <div class="input-group">
+                        <img src="https://cdn-icons-png.flaticon.com/128/149/149071.png" width="50">
+                        <h6 class="ml-2 mt-1 text-white">Welcome Back, <br> {{ Auth::user()->nama }}</h6>
+                    </div>
+                </div>
 
                 @if ($message = Session::get('success'))
                 <div id="alert" class="alert bg-success">
@@ -17,13 +23,6 @@
                     }, 10000);
                 </script>
                 @endif
-
-                <div class="section-title mb-2">
-                    <div class="input-group">
-                        <img src="https://cdn-icons-png.flaticon.com/128/149/149071.png" width="50">
-                        <h6 class="ml-2 mt-1 text-white">Welcome Back, <br> {{ Auth::user()->nama }}</h6>
-                    </div>
-                </div>
 
                 <div class="section-body">
                     <div class="card bg-main mb-3" style="border-radius: 20px;">

@@ -26,10 +26,16 @@
 <section class="contact-section spad">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 mx-auto mt-5">
-                <div class="section-title contact-title text-center">
-                    <h2><u>Attendance</u></h2>
+            <div class="col-lg-12 mx-auto mt-5 text-center">
+
+            <div class="section-title contact-title text-center">
+                    <h2><u>KEHADIRAN</u></h2>
                 </div>
+            </div>
+            <div class="col-lg-12 mx-auto mt-0 mb-4 text-center">
+                <img src="{{ asset('dist/img/kehadiran.png') }}" class="img-fluid w-100" alt="">
+            </div>
+            <div class="col-lg-6 mx-auto ">
                 <div class="leave-comment">
                     @if ($message = Session::get('success'))
                     <div id="alert" class="alert bg-success">
@@ -53,7 +59,7 @@
                     @endif
                     <label class="text-white h4 mb-0">ID MEMBER</label><br>
                     <small class="text-white mt-0">Please scan ID Member here.</small>
-                    <input type="number" name="member_id" class="form-control bg-white" id="member_id" placeholder="Member ID" min="0">
+                    <input type="text" name="member_id" class="form-control bg-white number" id="member_id" placeholder="Member ID" min="0" maxlength="19">
                 </div>
             </div>
         </div>
@@ -103,7 +109,7 @@
                             icon: 'success',
                             title: 'Halo',
                             text: 'Selamat Datang',
-                            timer: 3500, // Durasi popup (dalam milidetik)
+                            timer: 1000, // Durasi popup (dalam milidetik)
                             showConfirmButton: false // Tombol OK tidak ditampilkan
                         }).then((result) => {
                             // Callback ini akan dipanggil setelah popup Swal ditutup
@@ -116,7 +122,7 @@
                             icon: 'success',
                             title: 'Terima Kasih',
                             text: 'Sampai Jumpa',
-                            timer: 3500,
+                            timer: 1000,
                             showConfirmButton: false
                         }).then((result) => {
                             location.reload();
@@ -127,7 +133,7 @@
                             icon: 'error',
                             title: 'Gagal',
                             text: 'Sudah melakukan rekam kehadiran',
-                            timer: 3500,
+                            timer: 1000,
                             showConfirmButton: false
                         }).then((result) => {
                             location.reload();
@@ -138,7 +144,7 @@
                             icon: 'error',
                             title: 'Gagal',
                             text: 'Data Tidak Ditemukan',
-                            timer: 3700, // Durasi popup (dalam milidetik)
+                            timer: 1000, // Durasi popup (dalam milidetik)
                             showConfirmButton: false // Tombol OK tidak ditampilkan
                         }).then((result) => {
                             // Callback ini akan dipanggil setelah popup Swal ditutup
@@ -153,7 +159,7 @@
                         icon: 'error',
                         title: 'Gagal',
                         text: 'Data Tidak Ditemukan',
-                        timer: 3500, // Durasi popup (dalam milidetik)
+                        timer: 1000, // Durasi popup (dalam milidetik)
                         showConfirmButton: false // Tombol OK tidak ditampilkan
                     }).then((result) => {
                         // Callback ini akan dipanggil setelah popup Swal ditutup
