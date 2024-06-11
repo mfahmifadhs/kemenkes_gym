@@ -197,7 +197,7 @@
             <div class="col-lg-12 text-center">
                 <div class="bs-text">
                     <h2>Are you ready !</h2>
-                    <a href="{{ route('daftar') }}" class="primary-btn  btn-normal">Join Now</a>
+                    <a href="{{ route('login') }}" class="primary-btn  btn-normal">Masuk</a>
                 </div>
             </div>
         </div>
