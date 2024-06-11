@@ -27,7 +27,7 @@
                         <div class="hi-text">
                             <!-- <span>Shape your body</span> -->
                             <h1>You're <strong>stronger</strong> than you think</h1>
-                            <a href="{{ route('daftar') }}" class="primary-btn btn-normal">Join Now</a>
+                            <a href="{{ route('login') }}" class="primary-btn btn-normal">Masuk</a>
                         </div>
                     </div>
                 </div>
