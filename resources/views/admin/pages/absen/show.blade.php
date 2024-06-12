@@ -116,7 +116,7 @@
                                         <th>UNIT KERJA/UPT/INSTANSI</th>
                                         <th>WAKTU DATANG</th>
                                         <th>WAKTU KELUAR</th>
-                                        <th>DURASI LATIHAN</th>
+                                        <th>LAMA LATIHAN</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -125,6 +125,8 @@
                                         <td>{{ $absen->firstItem() + $loop->index }}</td>
                                         <td>
                                             @if (Auth::user()->role_id == 1)
+
+                                            <a href="{{ route('member.detail', $row->user_id) }}"><i class="fas fa-eye"></i></a>
                                             <a type="button" class="mx-2" data-toggle="modal" data-target="#edit-{{ $row->id_absen }}">
                                                 <i class="fas fa-edit"></i>
                                             </a>

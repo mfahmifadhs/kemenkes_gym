@@ -17,7 +17,6 @@
                 </div>
                 <div class="section-body">
 
-                    @if(Auth::user()->absen->where('waktu_keluar', null)->count() == 0)
                     <h2 class="text-main mb-3 text-center">MEMBER CARD</h2>
                     <div class="qrcode">
                         <div class="bg-dark p-4 rounded">
@@ -29,8 +28,9 @@
                             </div>
                         </div>
                     </div>
-                    @else
-                    <div class="text-center">
+
+                    <!-- Check out -->
+                    <!-- <div class="text-center">
                         <h2 class="text-main">SELAMAT DATANG</h2>
                         <div class="my-3">
                             <i class="fa fa-check-circle text-main" style="font-size: 10em;"></i>
@@ -44,9 +44,8 @@
                                 <i class="fa fa-sign-out"></i> Check out
                             </a>
                         </h2>
-                    </div>
+                    </div> -->
 
-                    @endif
                     <!-- <div class="card">
                         <div class="card-body text-center border">
                         </div>

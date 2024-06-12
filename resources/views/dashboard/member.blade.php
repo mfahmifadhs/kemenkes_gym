@@ -36,20 +36,16 @@
                                     <span style="font-size: 10px; color: red;"><b>Kuota terbatas</b></span>
                                     <!-- <h3 class="text-white"><b>COMING SOON!</b></h3> -->
                                 </div>
-                                @if (Auth::user()->instansi != 'umum')
                                 <div class="col-4 text-center">
-                                    @if(Auth::user()->absen->where('waktu_keluar', null)->count() == 0)
                                     <a type="button" href="{{ route('member.qrcode') }}" class="btn btn-default bg-white border border-dark px-2 py-0 pt-1">
                                         <i class="fa fa-qrcode fa-4x text-dark"></i>
                                         <h6 class="small mb-1">Member Card</h6>
                                     </a>
-                                    @else
-                                    <a href="" class="btn btn-sm bg-white text-main mt-1" onclick="confirm(event, `{{ route('absen.checkout', Auth::user()->id) }}`)">
+
+                                    <!-- <a href="" class="btn btn-sm bg-white text-main mt-1" onclick="confirm(event, `{{ route('absen.checkout', Auth::user()->id) }}`)">
                                         <small><i class="fa fa-sign-out"></i> Check out</small>
-                                    </a>
-                                    @endif
+                                    </a> -->
                                 </div>
-                                @endif
                             </div>
                         </div>
                     </div>

@@ -33,7 +33,6 @@ class AbsenController extends Controller
                 ->where(DB::raw("DATE_FORMAT(tanggal, '%d')"), $colDate)
                 ->where(DB::raw("DATE_FORMAT(tanggal, '%m')"), $colMonth)
                 ->where(DB::raw("DATE_FORMAT(tanggal, '%Y')"), $colYear)
-                ->where('user_id', Auth::user()->id)
                 ->paginate(10);
             return view('admin.pages.absen.show', compact('absen', 'colDate', 'colMonth', 'colYear', 'utama', 'uker', 'colUtama', 'colUker'));
         } else if ($role == 4) {
@@ -103,24 +102,25 @@ class AbsenController extends Controller
         $user  = User::where('member_id', $id)->first();
         $absen = Absensi::where('user_id', $user->id)->where('waktu_keluar', null)->first();
 
-        if ($absen) {
-            // Absensi::where('id_absensi', $absen->id_absensi)->update([
-            //     'waktu_keluar' => Carbon::now()
-            // ]);
+        $tambah = new Absensi();
+        $tambah->user_id = $user->id;
+        $tambah->tanggal = Carbon::now();
+        $tambah->waktu_masuk = Carbon::now();
+        $tambah->waktu_keluar = Carbon::now()->addHours(3);
+        $tambah->created_at  = Carbon::now();
+        $tambah->save();
 
 
-            return response()->json(['hadir' => true]);
-        } else {
-            $tambah = new Absensi();
-            $tambah->user_id = $user->id;
-            $tambah->tanggal = Carbon::now();
-            $tambah->waktu_masuk = Carbon::now();
-            $tambah->created_at  = Carbon::now();
-            $tambah->save();
+        return response()->json(['success' => true]);
 
-
-            return response()->json(['success' => true]);
-        }
+        // if ($absen) {
+        //     Absensi::where('id_absensi', $absen->id_absensi)->update([
+        //         'waktu_keluar' => Carbon::now()
+        //     ]);
+        //     return response()->json(['hadir' => true]);
+        // } else {
+        //     Kondisi tambah kehadiran
+        // }
     }
 
     public function update(Request $request, $id)
@@ -130,14 +130,14 @@ class AbsenController extends Controller
             'waktu_keluar' => $request->keluar
         ]);
 
-        return redirect()->route('attendance.show')->with('success', 'Successfully Updated');
+        return redirect()->route('absen.show')->with('success', 'Successfully Updated');
     }
 
     public function delete($id)
     {
         Absensi::where('id_absensi', $id)->delete();
 
-        return redirect()->route('attendance.show')->with('success', 'Successfully Deleted');
+        return redirect()->route('absen.show')->with('success', 'Successfully Deleted');
     }
 
     public function report()
@@ -184,5 +184,13 @@ class AbsenController extends Controller
             ->get();
 
         return response()->json($result);
+    }
+
+    public function list(Request $request)
+    {
+        $today = Carbon::today();
+        $absens = Absensi::with(['member', 'member.uker'])->whereDate('tanggal', $today)->orderBy('waktu_masuk', 'DESC')->get();
+
+        return response()->json($absens);
     }
 }

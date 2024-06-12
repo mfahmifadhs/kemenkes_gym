@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-lg-12 mx-auto mt-5 text-center">
 
-            <div class="section-title contact-title text-center">
+                <div class="section-title contact-title text-center">
                     <h2><u>KEHADIRAN</u></h2>
                 </div>
             </div>
@@ -66,6 +66,46 @@
     </div>
 </section>
 <!-- Contact Section End -->
+
+<!-- Schedule Section Begin -->
+<section class="choseus-section spad h-100 my-auto">
+    <div id="schedule" class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>DAFTAR HADIR</h2>
+                </div>
+            </div>
+
+            <div class="col-lg-12 mb-5">
+                <h1 class="text-white text-center">
+                    <span id="total"></span>
+                </h1>
+            </div>
+            <div class="col-lg-12">
+                <div class="table-responsive" style="max-height: 300px;overflow-y: auto;">
+                    <table class="table table-striped text-white small">
+                        <thead>
+                            <tr>
+                                <th colspan="4">
+                                    {{ \Carbon\Carbon::now()->isoFormat('DD MMMM Y') }}
+                                </th>
+                            </tr>
+                            <tr class="text-center">
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Asal</th>
+                                <th>Waktu Datang</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Schedule Section End -->
 
 <!-- Schedule Section Begin -->
 <section class="choseus-section spad h-100 my-auto">
@@ -180,6 +220,38 @@
 
         // Fokuskan pada elemen input
         memberInput.focus();
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: "{{ route('absen.list') }}",
+            method: "POST",
+            data: {
+                _token: "{{ csrf_token() }}" // Sertakan token CSRF
+            },
+            success: function(data) {
+                let total = data.length;
+                let tbody = $('table tbody');
+                let totalSpan = $('#total');
+
+                totalSpan.text(total);
+
+                data.forEach((item, index) => {
+                    let row = `<tr>
+                            <td class="text-center">${index + 1}</td>
+                            <td class="text-center">${item.member.nama}</td>
+                            <td class="text-center">${item.member.uker.nama_unit_kerja}</td>
+                            <td class="text-center">${item.waktu_masuk}</td>
+                        </tr>`;
+                    tbody.append(row);
+                });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('Error:', textStatus, errorThrown);
+            }
+        });
     });
 </script>
 

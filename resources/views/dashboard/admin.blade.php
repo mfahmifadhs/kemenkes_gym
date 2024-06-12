@@ -70,7 +70,12 @@
                         </div>
                         <div class="col-md-12 mt-5">
                             <div class="table-responsive">
-                                <h6 class="text-main my-2">{{ Carbon\Carbon::now()->isoFormat('DD MMMM Y') }}</h6>
+                                <div class="float-left my-2">
+                                    <h6 class="text-main">{{ Carbon\Carbon::now()->isoFormat('DD MMMM Y') }}</h6>
+                                </div>
+                                <div class="float-right my-2">
+                                    <h6 class="text-main">Total : {{ $absen->count() }} <small>member</small></h6>
+                                </div>
                                 <table class="table table-bordered text-main" style="font-size: 14px;">
                                     <thead class="text-center">
                                         <tr>

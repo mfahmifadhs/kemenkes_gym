@@ -49,6 +49,7 @@ Route::get('/Attendance', function () {
 
 
 Route::post('absensi/post/{id}', [AbsenController::class, 'store']);
+Route::post('Attendance/list', [AbsenController::class, 'list'])->name('absen.list');
 
 Route::post('activation/post', [AuthController::class, 'resendActivation'])->name('activation.post');
 

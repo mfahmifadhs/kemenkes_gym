@@ -28,6 +28,10 @@
                 <div class="card-body">
                     <label class="text-secondary text-sm mb-0"><i>Informasi Member</i></label>
                     <div class="row">
+                        <div class="col-md-12 mt-2">
+                            <label class="mb-0 text-sm">ID</label>
+                            <h6 class="text-sm">{{ $member->member_id }}</h6>
+                        </div>
                         <div class="col-md-6 mt-2">
                             <label class="mb-0 text-sm">Nama</label>
                             <h6 class="text-sm">{{ $member->nama }}</h6>
