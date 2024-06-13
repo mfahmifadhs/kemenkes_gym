@@ -39,74 +39,89 @@
                     <div class="table-responsive">
                         <form id="form-absen" action="{{ route('absen.filter') }}" method="GET">
                             @csrf
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+                                    <div class="small">Unit utama:</div>
+                                    <select name="utama" class="form-control border-dark rounded" onchange="this.form.submit()">
+                                        <option value="">seluruh unit utama</option>
+                                        @foreach($utama as $row)
+                                        <option value="{{ $row->id_unit_utama }}" <?php echo $colUtama == $row->id_unit_utama ? 'selected' : '' ?>>
+                                            {{ $row->nama_unit_utama }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <div class="small">Unit kerja:</div>
+                                    <select name="uker" class="form-control border-dark rounded" onchange="this.form.submit()">
+                                        <option value="">seluruh unit kerja</option>
+                                        @foreach($uker as $row)
+                                        <option value="{{ $row->id_unit_kerja }}" <?php echo $colUker == $row->id_unit_kerja ? 'selected' : '' ?>>
+                                            {{ $row->nama_unit_kerja }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <div class="small">Tanggal:</div>
+                                    <div class="input-group">
+                                        <select name="tanggal" class="form-control border-dark rounded text-center" onchange="this.form.submit()">
+                                            <option value="">seluruh tanggal</option>
+                                            @foreach(range(1, 31) as $dateNumber)
+                                            @php $rowTgl = Carbon\Carbon::create()->day($dateNumber)->isoFormat('DD'); @endphp
+                                            <option value="{{ $rowTgl }}" <?php echo $colDate == $rowTgl ? 'selected' : '' ?>>
+                                                {{ $rowTgl }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+
+                                        <select name="bulan" class="form-control mx-1 border-dark rounded text-center" onchange="this.form.submit()">
+                                            <option value="">seluruh bulan</option>
+                                            @foreach(range(1, 12) as $monthNumber)
+                                            @php $rowBulan = Carbon\Carbon::create()->month($monthNumber); @endphp
+                                            <option value="{{ $rowBulan->isoFormat('MM') }}" <?php echo $colMonth == $rowBulan->isoFormat('M') ? 'selected' : '' ?>>
+                                                {{ $rowBulan->isoFormat('MMMM') }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+
+                                        <select name="tahun" class="form-control border-dark rounded" onchange="this.form.submit()">
+                                            <option value="">seluruh tahun</option>
+                                            @foreach(range(2024, 2030) as $yearNumber)
+                                            @php $rowTahun = Carbon\Carbon::create()->year($yearNumber); @endphp
+                                            <option value="{{ $rowTahun->isoFormat('Y') }}" <?php echo $colYear == $rowTahun->isoFormat('Y') ? 'selected' : '' ?>>
+                                                {{ $rowTahun->isoFormat('Y') }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <div class="align-left">
                                     <div class="sort-container">
                                         <div class="input-group">
-                                            <select name="perPage" class="form-control form-control-sm border-dark rounded mt-2 w-auto" id="perPage" onchange="this.form.submit()">
+                                            <!-- <select name="perPage" class="form-control form-control-sm border-dark rounded mt-2 w-auto" id="perPage" onchange="this.form.submit()">
                                                 <option value="10" {{ request('perPage') == 10 ? 'selected' : '' }}>10</option>
                                                 <option value="25" {{ request('perPage') == 25 ? 'selected' : '' }}>25</option>
                                                 <option value="50" {{ request('perPage') == 50 ? 'selected' : '' }}>50</option>
                                                 <option value="100" {{ request('perPage') == 100 ? 'selected' : '' }}>100</option>
-                                            </select>
+                                            </select> -->
 
-                                            <select name="utama" class="form-control form-control-sm border-dark rounded mx-2 mt-2 w-auto" onchange="this.form.submit()">
-                                                <option value="">seluruh unit utama</option>
-                                                @foreach($utama as $row)
-                                                <option value="{{ $row->id_unit_utama }}" <?php echo $colUtama == $row->id_unit_utama ? 'selected' : '' ?>>
-                                                    {{ $row->nama_unit_utama }}
-                                                </option>
-                                                @endforeach
-                                            </select>
 
-                                            <select name="uker" class="form-control form-control-sm border-dark rounded ml-0 mt-2 w-auto" onchange="this.form.submit()">
-                                                <option value="">seluruh unit kerja</option>
-                                                @foreach($uker as $row)
-                                                <option value="{{ $row->id_unit_kerja }}" <?php echo $colUker == $row->id_unit_kerja ? 'selected' : '' ?>>
-                                                    {{ $row->nama_unit_kerja }}
-                                                </option>
-                                                @endforeach
-                                            </select>
+
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="align-right">
                                     <div class="sort-container">
-                                        <div class="input-group">
-                                            <select name="tanggal" class="form-control form-control-sm border-dark rounded ml-1 mt-2 w-auto text-center" onchange="this.form.submit()">
-                                                <option value="">seluruh tanggal</option>
-                                                @foreach(range(1, 31) as $dateNumber)
-                                                @php $rowTgl = Carbon\Carbon::create()->day($dateNumber)->isoFormat('DD'); @endphp
-                                                <option value="{{ $rowTgl }}" <?php echo $colDate == $rowTgl ? 'selected' : '' ?>>
-                                                    {{ $rowTgl }}
-                                                </option>
-                                                @endforeach
-                                            </select>
 
-                                            <select name="bulan" class="form-control form-control-sm border-dark rounded ml-2 mt-2 w-auto text-center" onchange="this.form.submit()">
-                                                <option value="">seluruh bulan</option>
-                                                @foreach(range(1, 12) as $monthNumber)
-                                                @php $rowBulan = Carbon\Carbon::create()->month($monthNumber); @endphp
-                                                <option value="{{ $rowBulan->isoFormat('MM') }}" <?php echo $colMonth == $rowBulan->isoFormat('M') ? 'selected' : '' ?>>
-                                                    {{ $rowBulan->isoFormat('MMMM') }}
-                                                </option>
-                                                @endforeach
-                                            </select>
-
-                                            <select name="tahun" class="form-control form-control-sm border-dark rounded ml-2 mt-2 w-auto text-center" onchange="this.form.submit()">
-                                                <option value="">seluruh tahun</option>
-                                                @foreach(range(2024, 2030) as $yearNumber)
-                                                @php $rowTahun = Carbon\Carbon::create()->year($yearNumber); @endphp
-                                                <option value="{{ $rowTahun->isoFormat('Y') }}" <?php echo $colYear == $rowTahun->isoFormat('Y') ? 'selected' : '' ?>>
-                                                    {{ $rowTahun->isoFormat('Y') }}
-                                                </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <table class="table table-bordered small text-center">
+                            <hr>
+                            <table id="table" class="table table-bordered small text-center">
                                 <thead>
                                     <tr>
                                         <th>NO</th>
