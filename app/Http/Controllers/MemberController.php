@@ -341,7 +341,8 @@ class MemberController extends Controller
             ->generate($memberId);
 
         // Save the QR code image temporarily
-        $tempImagePath = 'qrcode.png'; // Removed public_path since it's already within the view scope
+        $tempImagePath = 'qrcode_' . Auth::id() . '_' . time() . '.png';
+        // $tempImagePath = 'qrcode.png';
         file_put_contents(public_path($tempImagePath), $image);
 
         return view('dashboard.pages.user.qrcode', compact('tempImagePath'));
