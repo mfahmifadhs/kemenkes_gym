@@ -33,7 +33,7 @@ class AbsenController extends Controller
                 ->where(DB::raw("DATE_FORMAT(tanggal, '%d')"), $colDate)
                 ->where(DB::raw("DATE_FORMAT(tanggal, '%m')"), $colMonth)
                 ->where(DB::raw("DATE_FORMAT(tanggal, '%Y')"), $colYear)
-                ->paginate(10);
+                ->get();
             return view('admin.pages.absen.show', compact('absen', 'colDate', 'colMonth', 'colYear', 'utama', 'uker', 'colUtama', 'colUker'));
         } else if ($role == 4) {
             $absen = $query->where('user_id', Auth::user()->id)->paginate(10);
