@@ -75,7 +75,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="table-history" class="table table-bordered text-xs text-center">
+                        <table id="table" class="table table-bordered text-xs text-center">
                             <thead>
                                 <tr>
                                     <th>No</th>
