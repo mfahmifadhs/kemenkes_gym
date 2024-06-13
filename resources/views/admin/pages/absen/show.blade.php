@@ -176,12 +176,12 @@
                                 </tbody>
                             </table>
                             <div class="row">
-                                <div class="col-md-12 col-12">
+                                <!-- <div class="col-md-12 col-12">
                                     Total: {{ number_format($absen->total(), 0, ',', '.') }}
                                     Current page: {{ $absen->count()}}
 
                                     <div class="mt-2">{{ $absen->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
-                                </div>
+                                </div> -->
                             </div>
                         </form>
                     </div>
