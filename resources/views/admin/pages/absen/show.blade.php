@@ -137,7 +137,7 @@
                                 <tbody>
                                     @foreach ($absen as $row)
                                     <tr>
-                                        <td>{{ $absen->firstItem() + $loop->index }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>
                                             @if (Auth::user()->role_id == 1)
 
