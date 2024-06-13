@@ -92,7 +92,7 @@ class AbsenController extends Controller
             $absen = $res->where('user_id', Auth::user()->id)->paginate($perPage);
             return view('dashboard.pages.absen.show', compact('absen', 'colDate', 'colMonth', 'colYear', 'colUtama', 'colUker'));
         } else {
-            $absen = $res->paginate($perPage);
+            $absen = $res->get();
             return view('admin.pages.absen.show', compact('absen', 'colDate', 'colMonth', 'colYear', 'colUtama', 'colUker', 'utama', 'uker'));
         }
     }
