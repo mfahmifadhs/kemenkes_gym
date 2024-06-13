@@ -230,4 +230,12 @@ class JadwalController extends Controller
 
         return redirect()->route('jadwal.detail', $id)->with('success', 'Berhasil melakukan Absensi!');
     }
+
+    public function cancelJoin($id)
+    {
+        $peserta = Peserta::where('id_peserta', $id)->first();
+        Peserta::where('id_peserta', $id)->delete();
+
+        return redirect()->route('jadwal.detail', $peserta->jadwal_id)->with('success', 'Successfully Deleted');
+    }
 }

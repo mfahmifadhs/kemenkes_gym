@@ -79,6 +79,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Aksi</th>
                                     <th>Unit Kerja/UPT/Umum</th>
                                     <th>Nama</th>
                                     <th>Kehadiran</th>
@@ -88,9 +89,17 @@
                                 @foreach ($jadwal->peserta as $row)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        @if (Auth::user()->role_id == 1)
+                                        <a href="{{ route('member.detail', $row->member_id) }}"><i class="fas fa-eye"></i></a>
+                                        <a href="" onclick="confirmRemove(event, `{{ route('join.delete', $row->id_peserta) }}`)">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                        @endif
+                                    </td>
                                     <td class="text-left">{{ $row->member->instansi == 'pusat' ? $row->member->uker?->nama_unit_kerja : $row->member->nama_instansi }}</td>
                                     <td class="text-left">{{ $row->member->nama }}</td>
-                                    <td>{{ $row->kehadiran == 'true' ? 'Hadir' : '' }}</td>
+                                    <td>{{ $row->kehadiran }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -123,6 +132,23 @@
             "searching": false
         })
     })
+
+    function confirmRemove(event, url) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: 'Delete ?',
+            text: 'Delete this data',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'Cancel',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
+    }
 </script>
 @endsection
 @endsection
