@@ -18,7 +18,7 @@
     </div>
 
     <div class="content">
-        <div class="container-fluid col-md-6">
+        <div class="container-fluid col-md-8">
             <div class="card">
                 <div class="card-header">
                     <div class="row">
