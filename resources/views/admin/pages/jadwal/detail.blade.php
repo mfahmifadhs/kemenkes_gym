@@ -92,6 +92,9 @@
                                     <td>
                                         @if (Auth::user()->role_id == 1)
                                         <a href="{{ route('member.detail', $row->member_id) }}"><i class="fas fa-eye"></i></a>
+                                        <a href="" data-toggle="modal" data-target="#modal-{{ $row->id_peserta }}">
+                                            <i class="fas fa-pencil mx-2"></i>
+                                        </a>
                                         <a href="" onclick="confirmRemove(event, `{{ route('join.delete', $row->id_peserta) }}`)">
                                             <i class="fas fa-trash"></i>
                                         </a>
@@ -99,7 +102,13 @@
                                     </td>
                                     <td class="text-left">{{ $row->member->instansi == 'pusat' ? $row->member->uker?->nama_unit_kerja : $row->member->nama_instansi }}</td>
                                     <td class="text-left">{{ $row->member->nama }}</td>
-                                    <td>{{ $row->kehadiran }}</td>
+                                    <td>
+                                        @if($row->kehadiran == 'hadir')
+                                        <span class="badge badge-success">Hadir</span>
+                                        @else
+                                        <span class="badge badge-danger">Tidak Hadir</span>
+                                        @endif
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -110,6 +119,49 @@
         </div>
     </div>
 </div>
+
+
+@foreach ($jadwal->peserta as $row)
+<div class="modal fade" id="modal-{{ $row->id_peserta }}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Kehadiran</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ route('kehadiran.update', $row->id_peserta) }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="row">
+                        <label class="col-md-3">Kelas</label>
+                        <div class="col-md-9">: {{ $row->jadwal->kelas->nama_kelas }} | {{ \Carbon\carbon::parse($row->jadwal->waktu_mulai)->format('H:i') }} - {{ \Carbon\carbon::parse($row->jadwal->waktu_selesai)->format('H:i') }}</div>
+                        <label class="col-md-3">Nama</label>
+                        <div class="col-md-9">: {{ $row->member->nama }}</div>
+                        <label class="col-md-3">Asal Instansi</label>
+                        <div class="col-md-9">: {{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</div>
+                        <label class="col-md-3">Kehadiran</label>
+                        <div class="col-md-9">:
+                            <label class="radio-inline">
+                                <input type="radio" id="true" name="kehadiran" value="hadir" <?php echo ($row->kehadiran == 'hadir') ? 'checked' : ''; ?>>
+                                <span class="small">Hadir</span>
+                            </label>
+                            <label class="radio-inline ml-2">
+                                <input type="radio" id="false" name="kehadiran" value="alpha" <?php echo ($row->kehadiran == 'alpha') ? 'checked' : ''; ?>>
+                                <span class="small">Tidak Hadir</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach
 
 @section('js')
 <script>

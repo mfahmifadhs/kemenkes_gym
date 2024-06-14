@@ -238,4 +238,33 @@ class JadwalController extends Controller
 
         return redirect()->route('jadwal.detail', $peserta->jadwal_id)->with('success', 'Successfully Deleted');
     }
+
+    public function updateKehadiran(Request $request, $id)
+    {
+        $peserta = Peserta::where('id_peserta', $id)->first();
+
+        if ($request->kehadiran == 'hadrir') {
+            Peserta::where('id_peserta', $id)->update([
+                'kehadiran' => $request->kehadiran
+            ]);
+        } else {
+            Peserta::where('id_peserta', $id)->update([
+                'kehadiran' => $request->kehadiran
+            ]);
+
+            $penalty = Penalty::where('user_id', $id)->where('status', 'false')->count();
+
+            if ($request->kehadiran == 'alpha' && $penalty == 0) {
+                $tomorrow = Carbon::tomorrow();
+                Penalty::create([
+                    'user_id' => $peserta->member_id,
+                    'tgl_awal_penalty' => $tomorrow,
+                    'tgl_akhir_penalty' => $tomorrow->copy()->addDays(7),
+                    'created_at' => Carbon::now()
+                ]);
+            }
+        }
+
+        return redirect()->route('jadwal.detail', $peserta->jadwal_id)->with('success', 'Berhasil menyimpan perubahan!');
+    }
 }
