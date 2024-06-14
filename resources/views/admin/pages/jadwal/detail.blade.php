@@ -3,7 +3,7 @@
 
 <div class="content-wrapper">
     <div class="content-header">
-        <div class="container-fluid col-md-6">
+        <div class="container-fluid col-md-7">
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0">Jadwal {{ $jadwal->kelas->nama_kelas }}</small></h1>
@@ -18,7 +18,7 @@
     </div>
 
     <div class="content">
-        <div class="container-fluid col-md-8">
+        <div class="container-fluid col-md-7">
             <div class="card">
                 <div class="card-header">
                     <div class="row">

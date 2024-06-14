@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\AbsenExport;
 use App\Models\Absensi;
+use App\Models\Peserta;
 use App\Models\UnitKerja;
 use App\Models\UnitUtama;
 use App\Models\User;
@@ -99,8 +100,17 @@ class AbsenController extends Controller
 
     public function store(Request $request, $id)
     {
+        $today = Carbon::now()->toDateString();
         $user  = User::where('member_id', $id)->first();
         $absen = Absensi::where('user_id', $user->id)->where('waktu_keluar', null)->first();
+
+        $classNow = Peserta::where('tanggal_latihan', $today)->where('member_id', $user->id)->first();
+
+        if ($classNow) {
+            Peserta::where('id_peserta', $classNow->id_peserta)->update([
+                'kehadiran' => 'hadir'
+            ]);
+        }
 
         $tambah = new Absensi();
         $tambah->user_id = $user->id;
@@ -188,7 +198,7 @@ class AbsenController extends Controller
 
     public function list(Request $request)
     {
-        $today = Carbon::yesterday();
+        $today = Carbon::today();
         $absens = Absensi::with(['member', 'member.uker'])->whereDate('tanggal', $today)->orderBy('waktu_masuk', 'DESC')->get();
 
         return response()->json($absens);
