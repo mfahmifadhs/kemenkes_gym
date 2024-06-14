@@ -88,7 +88,7 @@
                         <thead>
                             <tr>
                                 <th colspan="4">
-                                    {{ \Carbon\Carbon::now()->isoFormat('DD MMMM Y') }}
+                                    {{ \Carbon\Carbon::yesterday()->isoFormat('DD MMMM Y') }}
                                 </th>
                             </tr>
                             <tr class="text-center">

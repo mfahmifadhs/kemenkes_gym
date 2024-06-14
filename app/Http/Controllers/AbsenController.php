@@ -188,7 +188,7 @@ class AbsenController extends Controller
 
     public function list(Request $request)
     {
-        $today = Carbon::today();
+        $today = Carbon::yesterday();
         $absens = Absensi::with(['member', 'member.uker'])->whereDate('tanggal', $today)->orderBy('waktu_masuk', 'DESC')->get();
 
         return response()->json($absens);
