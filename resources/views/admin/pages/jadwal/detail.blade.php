@@ -105,7 +105,7 @@
                                     <td>
                                         @if($row->kehadiran == 'hadir')
                                         <span class="badge badge-success">Hadir</span>
-                                        @else
+                                        @elseif ($row->kehadiran == 'alpha')
                                         <span class="badge badge-danger">Tidak Hadir</span>
                                         @endif
                                     </td>
