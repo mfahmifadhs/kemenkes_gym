@@ -102,7 +102,7 @@ class AbsenController extends Controller
     {
         $today = Carbon::now()->toDateString();
         $user  = User::where('member_id', $id)->first();
-        $absen = Absensi::where('user_id', $user->id)->where('waktu_keluar', null)->first();
+        $absen = Absensi::where('tanggal', $today)->where('user_id', $user->id)->orderBy('id_absensi', 'desc')->first();
 
         $classNow = Peserta::where('tanggal_latihan', $today)->where('member_id', $user->id)->first();
 
@@ -110,6 +110,12 @@ class AbsenController extends Controller
             Peserta::where('id_peserta', $classNow->id_peserta)->update([
                 'kehadiran' => 'hadir'
             ]);
+        }
+
+        if ($absen) {
+            if (Carbon::now()->diffInMinutes(Carbon::parse($absen->waktu_masuk)) < 60) {
+                return response()->json(['hadir' => true]);
+            }
         }
 
         $tambah = new Absensi();
