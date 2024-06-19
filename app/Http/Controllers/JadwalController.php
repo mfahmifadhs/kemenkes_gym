@@ -243,7 +243,7 @@ class JadwalController extends Controller
     {
         $peserta = Peserta::where('id_peserta', $id)->first();
 
-        if ($request->kehadiran == 'hadrir') {
+        if ($request->kehadiran == 'hadir') {
             Peserta::where('id_peserta', $id)->update([
                 'kehadiran' => $request->kehadiran
             ]);
@@ -260,6 +260,7 @@ class JadwalController extends Controller
                     'user_id' => $peserta->member_id,
                     'tgl_awal_penalty' => $tomorrow,
                     'tgl_akhir_penalty' => $tomorrow->copy()->addDays(7),
+                    'status' => 'false',
                     'created_at' => Carbon::now()
                 ]);
             }
