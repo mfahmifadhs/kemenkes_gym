@@ -84,6 +84,7 @@ $terdaftar    = $jadwal->peserta->where('member_id', Auth::user()->id)->count();
                         </form>
                         @elseif ($totalPeserta == $jadwal->kuota)
                             @if ($terdaftar == 0 || $pembatalan == 'false')
+
                             <a href="" class="btn btn-danger btn-block text-uppercase font-weight-bold disabled">Full</a>
                             @else
                             <form id="form" action="{{ route('jadwal.cancel', $jadwal->id_jadwal) }}" method="POST">
