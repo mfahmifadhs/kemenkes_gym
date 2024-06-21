@@ -227,7 +227,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             $("#table").DataTable({
                 "responsive": false,
                 "lengthChange": true,
-                "autoWidth": true,
+                "autoWidth": false,
                 "info": true,
                 "paging": true,
                 "searching": true,
@@ -238,10 +238,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     className: 'bg-danger',
                     title: 'Kehadiran',
                     exportOptions: {
-                        columns: [0, 2, 3]
+                        columns: [2, 3]
                     },
                 }],
-                "bDestroy": true,
+                "bDestroy": true
             }).buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
 
             $("#table-sort-1").DataTable({

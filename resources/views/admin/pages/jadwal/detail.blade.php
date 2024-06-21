@@ -80,15 +80,15 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Aksi</th>
-                                    <th>Unit Kerja/UPT/Umum</th>
                                     <th>Nama</th>
+                                    <th>Unit Kerja/UPT/Umum</th>
                                     <th>Kehadiran</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($jadwal->peserta as $row)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td style="width: 0vh;">{{ $loop->iteration }}</td>
                                     <td>
                                         @if (Auth::user()->role_id == 1)
                                         <a href="{{ route('member.detail', $row->member_id) }}"><i class="fas fa-eye"></i></a>
@@ -100,8 +100,8 @@
                                         </a>
                                         @endif
                                     </td>
+                                    <td class="text-left">{{ $loop->iteration }}. {{ $row->member->nama }}</td>
                                     <td class="text-left">{{ $row->member->instansi == 'pusat' ? $row->member->uker?->nama_unit_kerja : $row->member->nama_instansi }}</td>
-                                    <td class="text-left">{{ $row->member->nama }}</td>
                                     <td>
                                         @if($row->kehadiran == 'hadir')
                                         <span class="badge badge-success">Hadir</span>
