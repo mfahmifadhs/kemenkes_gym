@@ -230,8 +230,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 "autoWidth": true,
                 "info": true,
                 "paging": true,
-                "searching": true
-            })
+                "searching": true,
+                buttons: [{
+                    extend: 'pdf',
+                    text: ' Print PDF',
+                    pageSize: 'A4',
+                    className: 'bg-danger',
+                    title: 'Kehadiran'
+                }],
+                "bDestroy": false,
+                "columnDefs": [{
+                    "targets": [2],
+                    "visible": true,
+                }]
+            }).buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
 
             $("#table-sort-1").DataTable({
                 "responsive": false,

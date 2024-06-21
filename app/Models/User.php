@@ -68,6 +68,10 @@ class User extends Authenticatable
         return $this->hasMany(Peserta::class, 'member_id')->where('kehadiran', null);
     }
 
+    public function absenClass() {
+        return $this->hasOne(Peserta::class, 'member_id')->join('t_jadwal','id_jadwal','jadwal_id')->join('t_kelas','id_kelas','kelas_id')->orderBy('id_peserta', 'DESC');
+    }
+
     public function penalty() {
         return $this->hasMany(Penalty::class, 'user_id')->where('status', 'false');
     }

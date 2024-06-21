@@ -85,9 +85,12 @@
                                 <div class="row">
                                 <div class="col-md-4 mb-2 col-form-label ">15. Upload file*</div>
                                     <div class="col-md-8 mb-2">
-                                        <input type="hidden" name="id_detail[]" value="{{ $row->id_detail }}" required>
-                                        <input type="hidden" name="key[]" value="{{ $row->param_id }}" required>
-                                        <input type="number" class="form-control" id="val_{{ $row->param_id }}" name="val_{{ $row->param_id }}" value="{{ $row->nilai }}" required>
+                                        <div class="btn btn-default btn-file">
+                                        <i class="fas fa-paperclip"></i> Upload Foto KTP
+                                        <input type="file" name="foto_ktp" class="image-ktp">
+                                        <img id="preview-image-ktp" style="max-height: 80px;">
+                                    </div><br>
+                                    <span class="help-block" style="font-size: 12px;">Max. 5MB</span>
                                     </div>
                                 </div>
                             </div>

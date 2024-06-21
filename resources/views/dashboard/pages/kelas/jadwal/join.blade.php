@@ -70,83 +70,80 @@ $terdaftar    = $jadwal->peserta->where('member_id', Auth::user()->id)->count();
                             <label class="col-md-3 col-3">Location</label>
                             <div class="col-md-9 col-9">: {{ $jadwal->lokasi }}</div>
                         </div>
-                        @if(Auth::user()->role_id == 4)
 
-                        @if (!$isPenalty && $daftar?->count() == 0 && $totalPeserta != $jadwal->kuota && Auth::user()->classActive->where('tanggal_latihan', $jadwal->tanggal_kelas)->count() == 0)
-                        <form id="form" action="{{ route('jadwal.join', $jadwal->id_jadwal) }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="member_id" value="{{ Auth::user()->id }}">
-                            <input type="hidden" name="tanggal_latihan" value="{{ $jadwal->tanggal_kelas }}">
-                            <input type="hidden" name="kuota" value="{{ $jadwal->kuota }}">
-                            <button type="submit" class="btn btn-primary btn-block" onclick="confirmSubmit(event)">
-                                JOIN
-                            </button>
-                        </form>
-                        @elseif ($totalPeserta == $jadwal->kuota)
-                            @if ($terdaftar == 0 || $pembatalan == 'false')
-
-                            <a href="" class="btn btn-danger btn-block text-uppercase font-weight-bold disabled">Full</a>
-                            @else
-                            <form id="form" action="{{ route('jadwal.cancel', $jadwal->id_jadwal) }}" method="POST">
+                        @if(Auth::user()->role_id == 4 && Carbon\Carbon::now()->format('H:i:s') <= $jadwal->waktu_selesai)
+                            @if (!$isPenalty && $daftar?->count() == 0 && $totalPeserta != $jadwal->kuota && Auth::user()->classActive->where('tanggal_latihan', $jadwal->tanggal_kelas)->count() == 0)
+                            <form id="form" action="{{ route('jadwal.join', $jadwal->id_jadwal) }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="member_id" value="{{ Auth::user()->id }}">
                                 <input type="hidden" name="tanggal_latihan" value="{{ $jadwal->tanggal_kelas }}">
-                                <button type="submit" class="btn btn-danger btn-block" onclick="confirmCancel(event)">
-                                    <i class="fa fa-times"></i> Batal
+                                <input type="hidden" name="kuota" value="{{ $jadwal->kuota }}">
+                                <button type="submit" class="btn btn-primary btn-block" onclick="confirmSubmit(event)">
+                                    JOIN
                                 </button>
                             </form>
-                            @endif
-                        @elseif (Auth::user()->classActive->where('tanggal_latihan', $jadwal->tanggal_kelas)->count() > 0 && Auth::user()->classActive->where('jadwal_id', $jadwal->id_jadwal)->count() == 0)
-                        <div class="bg-warning rounded p-2 text-white text-center">
-                            <small><b>Anda sudah terdaftar di kelas lain</b></small>
-                        </div>
-                        @elseif ($isPenalty)
-                        <div class="bg-danger rounded p-2 text-white text-center">
-                            <small><b>Anda sedang masa penalti & tidak dapat mengikuti kelas selama 7 hari.</b></small>
-                        </div>
-                        @else
-                            @if ($pembatalan == 'true')
-                            <form id="form" action="{{ route('jadwal.cancel', $jadwal->id_jadwal) }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="member_id" value="{{ Auth::user()->id }}">
-                                <input type="hidden" name="tanggal_latihan" value="{{ $jadwal->tanggal_kelas }}">
-                                <button type="submit" class="btn btn-danger btn-block" onclick="confirmCancel(event)">
-                                    <i class="fa fa-times"></i> Batal
-                                </button>
-                            </form>
-                            @else
-                            <div class="bg-success rounded p-2 text-white text-center">
-                                <small><b>Anda sudah terdaftar</b></small>
+                            @elseif ($totalPeserta == $jadwal->kuota)
+                                @if ($terdaftar == 0 || $pembatalan == 'false')
+                                <a href="" class="btn btn-danger btn-block text-uppercase font-weight-bold disabled">Full</a>
+                                @else
+                                <form id="form" action="{{ route('jadwal.cancel', $jadwal->id_jadwal) }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="member_id" value="{{ Auth::user()->id }}">
+                                    <input type="hidden" name="tanggal_latihan" value="{{ $jadwal->tanggal_kelas }}">
+                                    <button type="submit" class="btn btn-danger btn-block" onclick="confirmCancel(event)">
+                                        <i class="fa fa-times"></i> Batal
+                                    </button>
+                                </form>
+                                @endif
+                            @elseif (Auth::user()->classActive->where('tanggal_latihan', $jadwal->tanggal_kelas)->count() > 0 && Auth::user()->classActive->where('jadwal_id', $jadwal->id_jadwal)->count() == 0)
+                            <div class="bg-warning rounded p-2 text-white text-center">
+                                <small><b>Anda sudah terdaftar di kelas lain</b></small>
                             </div>
+                            @elseif ($isPenalty)
+                            <div class="bg-danger rounded p-2 text-white text-center">
+                                <small><b>Anda sedang masa penalti & tidak dapat mengikuti kelas selama 7 hari.</b></small>
+                            </div>
+                            @else
+                                @if ($pembatalan == 'true')
+                                <form id="form" action="{{ route('jadwal.cancel', $jadwal->id_jadwal) }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="member_id" value="{{ Auth::user()->id }}">
+                                    <input type="hidden" name="tanggal_latihan" value="{{ $jadwal->tanggal_kelas }}">
+                                    <button type="submit" class="btn btn-danger btn-block" onclick="confirmCancel(event)">
+                                        <i class="fa fa-times"></i> Batal
+                                    </button>
+                                </form>
+                                @else
+                                <div class="bg-success rounded p-2 text-white text-center">
+                                    <small><b>Anda sudah terdaftar</b></small>
+                                </div>
+                                @endif
                             @endif
-                        @endif
-                        @endif
+                            @endif
 
-                        <div class="section-title mb-2">
-                            <span>Members Joined ({{ $totalPeserta }})</span>
-                        </div>
+                            <div class="section-title mb-2">
+                                <span>Members Joined ({{ $totalPeserta }})</span>
+                            </div>
 
-                        @if ($totalPeserta == 0)
-                        <span class="text-white">No members have joined yet</span>
-                        @else
-                        <div class="row">
-                            @foreach ($jadwal->peserta as $row)
-                            <div class="col-md-3 col-6">
-                                <div class="card text-center form-group">
-                                    <div class="card-header">
-                                        <i class="fa fa-user-circle fa-3x"></i>
-                                    </div>
-                                    <div class="card-body">
-                                        <h6 class="small">{{ $row->created_at }}</h6>
-                                        <h6 class="small">{{ ucwords(strtolower($row->member->nama)) }}</h6>
+                            @if ($totalPeserta == 0)
+                            <span class="text-white">No members have joined yet</span>
+                            @else
+                            <div class="row">
+                                @foreach ($jadwal->peserta as $row)
+                                <div class="col-md-3 col-6">
+                                    <div class="card text-center form-group">
+                                        <div class="card-header">
+                                            <i class="fa fa-user-circle fa-3x"></i>
+                                        </div>
+                                        <div class="card-body">
+                                            <h6 class="small">{{ $row->created_at }}</h6>
+                                            <h6 class="small">{{ ucwords(strtolower($row->member->nama)) }}</h6>
+                                        </div>
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
-                            @endforeach
-                        </div>
                         @endif
-
-
                     </div>
                 </div>
             </div>
