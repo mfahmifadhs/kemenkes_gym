@@ -236,13 +236,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     text: ' Print PDF',
                     pageSize: 'A4',
                     className: 'bg-danger',
-                    title: 'Kehadiran'
+                    title: 'Report',
+                    exportOptions: {
+                        columns: [0, 2, 3]
+                    },
                 }],
-                "bDestroy": false,
-                "columnDefs": [{
-                    "targets": [2],
-                    "visible": true,
-                }]
+                "bDestroy": true,
             }).buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
 
             $("#table-sort-1").DataTable({
