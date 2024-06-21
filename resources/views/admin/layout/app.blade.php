@@ -236,7 +236,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     text: ' Print PDF',
                     pageSize: 'A4',
                     className: 'bg-danger',
-                    title: 'Report',
+                    title: 'Kehadiran',
                     exportOptions: {
                         columns: [0, 2, 3]
                     },
