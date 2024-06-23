@@ -71,7 +71,7 @@ $terdaftar    = $jadwal->peserta->where('member_id', Auth::user()->id)->count();
                             <div class="col-md-9 col-9">: {{ $jadwal->lokasi }}</div>
                         </div>
 
-                        @if(Auth::user()->role_id == 4 && Carbon\Carbon::now()->format('H:i:s') <= $jadwal->waktu_selesai)
+                        @if(Auth::user()->role_id == 4)
                             @if (!$isPenalty && $daftar?->count() == 0 && $totalPeserta != $jadwal->kuota && Auth::user()->classActive->where('tanggal_latihan', $jadwal->tanggal_kelas)->count() == 0)
                             <form id="form" action="{{ route('jadwal.join', $jadwal->id_jadwal) }}" method="POST">
                                 @csrf
