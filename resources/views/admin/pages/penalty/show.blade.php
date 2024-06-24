@@ -51,8 +51,8 @@
                                         </td>
                                         <td>{{ $row->jadwal?->kelas->nama_kelas }}</td>
                                         <td>{{ $row->jadwal?->tanggal_kelas }}</td>
-                                        <td>{{ $row->member->nama }}</td>
-                                        <td>{{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</td>
+                                        <td class="text-left">{{ $row->member->nama }}</td>
+                                        <td class="text-left">{{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</td>
                                         <td>{{ Carbon\Carbon::parse($row->tgl_awal_penalty)->isoFormat('DD MMM Y').' s/d '. Carbon\Carbon::parse($row->tgl_akhir_penalty)->isoFormat('DD MMM Y') }}</td>
                                     </tr>
                                     @endforeach
