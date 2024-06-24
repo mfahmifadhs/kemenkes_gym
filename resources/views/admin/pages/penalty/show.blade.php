@@ -49,8 +49,8 @@
                                             </a>
                                             @endif
                                         </td>
-                                        <td>{{ $row->jadwal->kelas->nama_kelas }}</td>
-                                        <td>{{ $row->jadwal->tanggal_kelas }}</td>
+                                        <td>{{ $row->jadwal?->kelas->nama_kelas }}</td>
+                                        <td>{{ $row->jadwal?->tanggal_kelas }}</td>
                                         <td>{{ $row->member->nama }}</td>
                                         <td>{{ $row->member->uker->nama_unit_kerja }}</td>
                                         <td>{{ Carbon\Carbon::parse($row->tgl_awal_penalty)->isoFormat('DD MMM Y').' s/d '. Carbon\Carbon::parse($row->tgl_akhir_penalty)->isoFormat('DD MMM Y') }}</td>
