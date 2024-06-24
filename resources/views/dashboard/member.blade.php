@@ -29,7 +29,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-8 my-auto">
-                                    <h6 class="text-white">KELAS <b>ZUMBA</b> SEGARA DIMULAI</h6>
+                                    <h6 class="text-white">KELAS <b>POUNDFIT</b> SEGARA DIMULAI</h6>
                                     <h4 class="text-white font-weight-bold mt-1">
                                         <a href="{{ route('kelas.detail', 2) }}"><u>DAFTAR SEKARANG!</u></a>
                                     </h4>

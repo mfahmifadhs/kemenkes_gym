@@ -48,7 +48,7 @@
                 <div class="section-body">
                     <div class="information text-justify">
                         <div class="section-title mb-0 mt-0"><span>Information</span></div>
-                        <p>{{ ucwords(strtolower($kelas->nama_kelas)) }} Class</p>
+                        <p>{!! nl2br(e($kelas->deskripsi)) !!}</p>
                     </div>
                     <div class="schedule my-5">
                         <div class="section-title mb-2">

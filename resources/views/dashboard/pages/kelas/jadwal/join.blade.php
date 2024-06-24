@@ -122,6 +122,12 @@ $terdaftar    = $jadwal->peserta->where('member_id', Auth::user()->id)->count();
                             @endif
 
                             <div class="section-title mb-2">
+                                <span>Notes</span>
+                            </div>
+
+                            <span class="text-white small">{!! nl2br(e($jadwal->kelas->deskripsi)) !!}</span>
+
+                            <div class="section-title mb-2">
                                 <span>Members Joined ({{ $totalPeserta }})</span>
                             </div>
 
