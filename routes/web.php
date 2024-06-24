@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\PenaltyController;
 use App\Http\Controllers\ProgresController;
 use App\Http\Controllers\UkerController;
 use App\Http\Controllers\UserController;
@@ -166,5 +167,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('absen/filter', [AbsenController::class, 'filter'])->name('absen.filter');
         Route::get('absen/delete/{id}', [AbsenController::class, 'delete'])->name('absen.delete');
         Route::post('absen/edit/{id}', [AbsenController::class, 'update'])->name('absen.update');
+
+        // Penalty
+        Route::get('penalty', [PenaltyController::class, 'show'])->name('penalty');
+        Route::get('penalty/delete/{id}', [PenaltyController::class, 'delete'])->name('penalty.delete');
+        Route::post('penalty/update/{id}', [PenaltyController::class, 'update'])->name('penalty.update');
     });
 });

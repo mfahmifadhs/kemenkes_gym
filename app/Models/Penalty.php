@@ -16,6 +16,7 @@ class Penalty extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'jadwal_id',
         'user_id',
         'tgl_awal_penalty',
         'tgl_akhir_penalty',
@@ -24,5 +25,9 @@ class Penalty extends Model
 
     public function member() {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function jadwal() {
+        return $this->belongsTo(Jadwal::class, 'jadwal_id');
     }
 }

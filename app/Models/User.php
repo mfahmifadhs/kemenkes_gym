@@ -73,6 +73,6 @@ class User extends Authenticatable
     }
 
     public function penalty() {
-        return $this->hasMany(Penalty::class, 'user_id')->where('status', 'false');
+        return $this->hasMany(Penalty::class, 'user_id')->join('t_jadwal','id_jadwal','jadwal_id')->where('status', 'false');
     }
 }

@@ -76,8 +76,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li class="nav-item {{ request()->routeIs('kelas') ? 'active' : '' }}">
                             <a href="{{ route('kelas') }}" class="nav-link">Class</a>
                         </li>
-                        <li class="nav-item {{ request()->routeIs('member') ? 'active' : '' }}">
-                            <a href="{{ route('member') }}" class="nav-link">Members</a>
+
+                        <li class="nav-item dropdown">
+                            <a id="menuMembers" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Members</a>
+                            <ul aria-labelledby="menuMembers" class="dropdown-menu border-0 shadow">
+                                <li>
+                                    <a href="{{ route('member') }}" class="dropdown-item">
+                                        <i class="fa fa-users"></i> List
+                                    </a>
+                                    <a href="{{ route('penalty') }}" class="dropdown-item">
+                                        <i class="fa fa-calendar-times"></i> Penalty
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item dropdown">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Profile</a>

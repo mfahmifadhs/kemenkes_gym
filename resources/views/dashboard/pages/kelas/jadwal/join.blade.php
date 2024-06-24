@@ -2,7 +2,7 @@
 @section('content')
 
 @php
-$isPenalty    = Auth::user()->penalty->count();
+$isPenalty    = Auth::user()->penalty->where('kelas_id', $jadwal->kelas_id)->count();
 $totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kelas)->count();
 $terdaftar    = $jadwal->peserta->where('member_id', Auth::user()->id)->count();
 $waktuSelesai = Carbon\Carbon::parse($jadwal->tanggal_kelas . ' ' . $jadwal->waktu_selesai)
@@ -55,7 +55,7 @@ $waktuSelesai = Carbon\Carbon::parse($jadwal->tanggal_kelas . ' ' . $jadwal->wak
                 <div class="section-body mb-5">
                     <div class="schedule p-3" style="border: 1px solid #00b9ad;">
                         <div class="section-title mb-2">
-                            <span>Join Class</span>
+                            <span>Join Class {{ $isPenalty }}</span>
                         </div>
                         <div class="row text-white mb-2">
                             <label class="col-md-3 col-3">Class</label>

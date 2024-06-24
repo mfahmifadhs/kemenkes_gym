@@ -141,7 +141,7 @@
                                         <td>
                                             <a href="{{ route('member.detail', $row->user_id) }}"><i class="fas fa-eye"></i></a>
                                             @if (Auth::user()->role_id == 1)
-                                            <a type="button" class="mx-2" data-toggle="modal" data-target="#edit-{{ $row->id_absen }}">
+                                            <a type="button" class="mx-2" data-toggle="modal" data-target="#edit-{{ $row->id_absensi }}">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <a href="" onclick="confirmRemove(event, `{{ route('absen.delete', $row->id_absensi) }}`)">

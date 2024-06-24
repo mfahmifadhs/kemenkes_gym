@@ -242,6 +242,7 @@ class JadwalController extends Controller
     public function updateKehadiran(Request $request, $id)
     {
         $peserta = Peserta::where('id_peserta', $id)->first();
+        $jadwal  = Jadwal::where('id_jadwal', $peserta->jadwal_id)->first();
 
         if ($request->kehadiran == 'hadir') {
             Peserta::where('id_peserta', $id)->update([
@@ -257,8 +258,9 @@ class JadwalController extends Controller
             if ($request->kehadiran == 'alpha' && $penalty == 0) {
                 $tomorrow = Carbon::tomorrow();
                 Penalty::create([
-                    'user_id' => $peserta->member_id,
-                    'tgl_awal_penalty' => $tomorrow,
+                    'jadwal_id' => $peserta->jadwal_id,
+                    'user_id'  => $peserta->member_id,
+                    'tgl_awal_penalty'  => $tomorrow,
                     'tgl_akhir_penalty' => $tomorrow->copy()->addDays(7),
                     'status' => 'false',
                     'created_at' => Carbon::now()
