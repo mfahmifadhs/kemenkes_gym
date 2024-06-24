@@ -11,7 +11,7 @@ class PenaltyController extends Controller
     public function show()
     {
         $utama   = UnitUtama::get();
-        $penalty = Penalty::get();
+        $penalty = Penalty::where('status', 'false')->get();
         return view('admin.pages.penalty.show', compact('utama', 'penalty'));
     }
 
