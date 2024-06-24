@@ -108,7 +108,7 @@
                                                     <small><i class="fa fa-hand-o-up"></i> Join</small>
                                                 </a>
                                                 @elseif ($totalPeserta == $row->kuota)
-                                                <a class="btn btn-primary text-white">
+                                                <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-primary text-white">
                                                     <i class="fa fa-exclamation-circle"></i> Full
                                                 </a>
                                                 @else
