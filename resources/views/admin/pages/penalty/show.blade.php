@@ -72,51 +72,6 @@
     </div><br>
 </div>
 
-<!-- Modal edit -->
-@foreach ($penalty as $row)
-<div class="modal fade" id="edit-{{ $row->id_penalty }}" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Edit Absensi</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form id="form" action="{{ route('penalty.update', $row->id_penalty) }}" method="POST">
-                @csrf
-                <div class="modal-body">
-                    <div class="row form-group">
-                        <label class="col-form-label col-md-3">Tanggal</label>
-                        <input type="text" class="form-control col-md-9" value="{{ $row->tanggal }}" readonly>
-                    </div>
-                    <div class="row form-group">
-                        <label class="col-form-label col-md-3">Nama</label>
-                        <input type="text" class="form-control col-md-9" value="{{ $row->member->nama }}" readonly>
-                    </div>
-                    <div class="row form-group">
-                        <label class="col-form-label col-md-3">Unit Kerja</label>
-                        <input type="text" class="form-control col-md-9" value="{{ $row->member->uker->nama_unit_kerja }}" readonly>
-                    </div>
-                    <div class="row form-group">
-                        <label class="col-form-label col-md-3">Waktu Datang</label>
-                        <input type="time" class="form-control col-md-9" name="masuk" value="{{ $row->waktu_masuk }}">
-                    </div>
-                    <div class="row form-group">
-                        <label class="col-form-label col-md-3">Waktu Keluar</label>
-                        <input type="time" class="form-control col-md-9" name="keluar" value="{{ $row->waktu_keluar }}">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" onclick="confirm(event)">Save changes</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-@endforeach
-
 @section('js')
 <script>
     $(document).ready(function() {
