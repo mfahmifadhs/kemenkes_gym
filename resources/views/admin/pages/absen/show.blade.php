@@ -139,8 +139,8 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>
-                                            @if (Auth::user()->role_id == 1)
                                             <a href="{{ route('member.detail', $row->user_id) }}"><i class="fas fa-eye"></i></a>
+                                            @if (Auth::user()->role_id == 1)
                                             <a type="button" class="mx-2" data-toggle="modal" data-target="#edit-{{ $row->id_absen }}">
                                                 <i class="fas fa-edit"></i>
                                             </a>

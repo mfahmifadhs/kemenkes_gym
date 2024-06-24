@@ -136,6 +136,7 @@
                         </div>
                     </div>
                 </div>
+                @if (Auth::user()->role_id == 1)
                 <div class="card-footer text-right">
                     <a href="{{ route('member.email', $member->id) }}" class="btn btn-warning btn-sm">
                         <i class="fas fa-envelope"></i> Ubah Email
@@ -147,6 +148,7 @@
                         <i class="fas fa-pencil"></i> Ubah Informasi
                     </a>
                 </div>
+                @endif
             </div> <br>
         </div>
     </div>

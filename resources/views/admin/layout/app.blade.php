@@ -52,7 +52,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </li>
 
                         <li class="nav-item {{ request()->routeIs('bodyck') ? 'active' : '' }}">
-                            <a href="{{ route('bodyck') }}" class="nav-link">Body Composition</a>
+                            <a href="#" class="nav-link">Body Composition</a>
                         </li>
 
                         <li class="nav-item {{ request()->routeIs('leaderboard') ? 'active' : '' }}">

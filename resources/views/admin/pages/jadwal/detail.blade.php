@@ -90,8 +90,8 @@
                                 <tr>
                                     <td style="width: 0vh;">{{ $loop->iteration }}</td>
                                     <td>
-                                        @if (Auth::user()->role_id == 1)
                                         <a href="{{ route('member.detail', $row->member_id) }}"><i class="fas fa-eye"></i></a>
+                                        @if (Auth::user()->role_id == 1)
                                         <a href="" data-toggle="modal" data-target="#modal-{{ $row->id_peserta }}">
                                             <i class="fas fa-pencil mx-2"></i>
                                         </a>
