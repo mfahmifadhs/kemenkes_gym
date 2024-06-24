@@ -127,14 +127,14 @@
                                         <div class="row">
                                             <div class="col-md-8 col-9">
                                                 <div class="input-group">
-                                                    <img src="{{ asset('dist/img/class/'. $row->kelas->img_icon) }}" width="58">
+                                                    <img src="{{ asset('dist/img/class/'. $row->kelas->img_icon) }}" width="50">
                                                     <h6 class="ml-2 mt-1">
                                                         {{ $row->kelas->nama_kelas }} <br>
                                                         <small>{{ \Carbon\Carbon::parse($row->tanggal_kelas)->isoFormat('DD MMMM Y') }} |
                                                             {{ \Carbon\Carbon::parse($row->waktu_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($row->waktu_selesai)->format('H:i') }}
                                                         </small> <br>
                                                         @if (Auth::user()->classActive->where('jadwal_id', $row->id_jadwal)->count() > 0)
-                                                        <span class="text-success" style="font-size: 11px;">You're already enrolled.</span>
+                                                        <span class="text-success" style="font-size: 11px;">Anda sudah terdaftar.</span>
                                                         @endif
                                                     </h6>
                                                 </div>

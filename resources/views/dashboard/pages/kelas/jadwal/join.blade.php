@@ -5,6 +5,7 @@
 $isPenalty    = Auth::user()->penalty->count();
 $totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kelas)->count();
 $terdaftar    = $jadwal->peserta->where('member_id', Auth::user()->id)->count();
+$waktuSelesai = Carbon\Carbon::parse($jadwal->tanggal_kelas . ' ' . $jadwal->waktu_selesai)
 @endphp
 
 <!-- ChoseUs Section Begin -->
@@ -68,11 +69,11 @@ $terdaftar    = $jadwal->peserta->where('member_id', Auth::user()->id)->count();
                             <label class="col-md-3 col-3">Kuota</label>
                             <div class="col-md-9 col-9">: {{ $totalPeserta }} / {{ $jadwal->kuota }}</div>
                             <label class="col-md-3 col-3">Location</label>
-                            <div class="col-md-9 col-9">: {{ $jadwal->lokasi }}</div>
+                            <div class="col-md-9 col-9">: {{ $jadwal->lokasi }} {{ $daftar?->count() }}</div>
                         </div>
 
-                        @if(Auth::user()->role_id == 4)
-                            @if (!$isPenalty && $daftar?->count() == 0 && $totalPeserta != $jadwal->kuota && Auth::user()->classActive->where('tanggal_latihan', $jadwal->tanggal_kelas)->count() == 0)
+                        @if(Auth::user()->role_id == 4 && Carbon\Carbon::now() <= $waktuSelesai)
+                            @if (!$isPenalty && $daftar?->count() == 0 && $totalPeserta != $jadwal->kuota)
                             <form id="form" action="{{ route('jadwal.join', $jadwal->id_jadwal) }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="member_id" value="{{ Auth::user()->id }}">
@@ -95,10 +96,6 @@ $terdaftar    = $jadwal->peserta->where('member_id', Auth::user()->id)->count();
                                     </button>
                                 </form>
                                 @endif
-                            @elseif (Auth::user()->classActive->where('tanggal_latihan', $jadwal->tanggal_kelas)->count() > 0 && Auth::user()->classActive->where('jadwal_id', $jadwal->id_jadwal)->count() == 0)
-                            <div class="bg-warning rounded p-2 text-white text-center">
-                                <small><b>Anda sudah terdaftar di kelas lain</b></small>
-                            </div>
                             @elseif ($isPenalty)
                             <div class="bg-danger rounded p-2 text-white text-center">
                                 <small><b>Anda sedang masa penalti & tidak dapat mengikuti kelas selama 7 hari.</b></small>
