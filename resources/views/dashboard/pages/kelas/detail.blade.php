@@ -46,7 +46,7 @@
                 @endif
 
                 <div class="section-body">
-                    <div class="information text-justify">
+                    <div class="information">
                         <div class="section-title mb-0 mt-0"><span>Information</span></div>
                         <p>{!! nl2br(e($kelas->deskripsi)) !!}</p>
                     </div>
