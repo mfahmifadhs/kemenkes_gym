@@ -87,7 +87,7 @@
                     <table class="table table-striped text-white small">
                         <thead>
                             <tr>
-                                <th colspan="4">
+                                <th colspan="5">
                                     {{ \Carbon\Carbon::now()->isoFormat('DD MMMM Y') }}
                                 </th>
                             </tr>
@@ -95,7 +95,8 @@
                                 <th>No</th>
                                 <th>Nama</th>
                                 <th>Asal</th>
-                                <th>Waktu Datang</th>
+                                <th>Waktu</th>
+                                <th>Latihan</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -244,6 +245,7 @@
                             <td class="text-center">${item.member.nama}</td>
                             <td class="text-center">${item.member.uker.nama_unit_kerja}</td>
                             <td class="text-center">${item.waktu_masuk}</td>
+                            <td class="text-center">${item.jadwal ? item.jadwal.kelas.nama_kelas : 'EXERCISE'}</td>
                         </tr>`;
                     tbody.append(row);
                 });

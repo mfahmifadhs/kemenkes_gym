@@ -55,7 +55,7 @@ $waktuSelesai = Carbon\Carbon::parse($jadwal->tanggal_kelas . ' ' . $jadwal->wak
                 <div class="section-body mb-5">
                     <div class="schedule p-3" style="border: 1px solid #00b9ad;">
                         <div class="section-title mb-2">
-                            <span>Join Class {{ $isPenalty }}</span>
+                            <span>Join Class</span>
                         </div>
                         <div class="row text-white mb-2">
                             <label class="col-md-3 col-3">Class</label>
@@ -69,20 +69,22 @@ $waktuSelesai = Carbon\Carbon::parse($jadwal->tanggal_kelas . ' ' . $jadwal->wak
                             <label class="col-md-3 col-3">Kuota</label>
                             <div class="col-md-9 col-9">: {{ $totalPeserta }} / {{ $jadwal->kuota }}</div>
                             <label class="col-md-3 col-3">Location</label>
-                            <div class="col-md-9 col-9">: {{ $jadwal->lokasi }} {{ $daftar?->count() }}</div>
+                            <div class="col-md-9 col-9">: {{ $jadwal->lokasi }}</div>
                         </div>
 
                         @if(Auth::user()->role_id == 4 && Carbon\Carbon::now() <= $waktuSelesai)
                             @if (!$isPenalty && $daftar?->count() == 0 && $totalPeserta != $jadwal->kuota)
-                            <form id="form" action="{{ route('jadwal.join', $jadwal->id_jadwal) }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="member_id" value="{{ Auth::user()->id }}">
-                                <input type="hidden" name="tanggal_latihan" value="{{ $jadwal->tanggal_kelas }}">
-                                <input type="hidden" name="kuota" value="{{ $jadwal->kuota }}">
-                                <button type="submit" class="btn btn-primary btn-block" onclick="confirmSubmit(event)">
-                                    JOIN
-                                </button>
-                            </form>
+                                @if (Carbon\Carbon::now() >= $tglBuka && Carbon\Carbon::now()->format('H:i') >= $jamBuka)
+                                <form id="form" action="{{ route('jadwal.join', $jadwal->id_jadwal) }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="member_id" value="{{ Auth::user()->id }}">
+                                    <input type="hidden" name="tanggal_latihan" value="{{ $jadwal->tanggal_kelas }}">
+                                    <input type="hidden" name="kuota" value="{{ $jadwal->kuota }}">
+                                    <button type="submit" class="btn btn-primary btn-block" onclick="confirmSubmit(event)">
+                                        JOIN
+                                    </button>
+                                </form>
+                                @endif
                             @elseif ($totalPeserta == $jadwal->kuota)
                                 @if ($terdaftar == 0 || $pembatalan == 'false')
                                 <a href="" class="btn btn-danger btn-block text-uppercase font-weight-bold disabled">Full</a>

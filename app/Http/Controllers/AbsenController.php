@@ -101,24 +101,36 @@ class AbsenController extends Controller
     public function store(Request $request, $id)
     {
         $today = Carbon::now()->toDateString();
+        $timeNow = Carbon::now()->format('H:i:s');
         $user  = User::where('member_id', $id)->first();
         $absen = Absensi::where('tanggal', $today)->where('user_id', $user->id)->orderBy('id_absensi', 'desc')->first();
+        $jadwal = '';
 
-        $classNow = Peserta::where('tanggal_latihan', $today)->where('member_id', $user->id)->first();
+        $classNow = Peserta::join('t_jadwal', 'id_jadwal', '=', 'jadwal_id')
+            ->where('tanggal_latihan', $today)
+            ->where('kehadiran', null)
+            ->where('member_id', $user->id)
+            ->orderBy('waktu_mulai', 'ASC')
+            ->first();
 
-        if ($classNow) {
+        if ($classNow && $timeNow >= '15:00') {
             Peserta::where('id_peserta', $classNow->id_peserta)->update([
                 'kehadiran' => 'hadir'
             ]);
+
+            $jadwal = $classNow ? $classNow->jadwal_id : null;
+        } else {
+            $jadwal = null;
         }
 
         if ($absen) {
-            if (Carbon::now()->diffInMinutes(Carbon::parse($absen->waktu_masuk)) < 60) {
+            if (Carbon::now()->diffInMinutes(Carbon::parse($absen->waktu_masuk)) < 30) {
                 return response()->json(['hadir' => true]);
             }
         }
 
         $tambah = new Absensi();
+        $tambah->jadwal_id = $jadwal;
         $tambah->user_id = $user->id;
         $tambah->tanggal = Carbon::now();
         $tambah->waktu_masuk = Carbon::now();
@@ -205,7 +217,10 @@ class AbsenController extends Controller
     public function list(Request $request)
     {
         $today = Carbon::today();
-        $absens = Absensi::with(['member', 'member.uker'])->whereDate('tanggal', $today)->orderBy('waktu_masuk', 'DESC')->get();
+        $absens = Absensi::with(['member', 'member.uker', 'jadwal.kelas'])
+            ->whereDate('tanggal', $today)
+            ->orderBy('waktu_masuk', 'DESC')
+            ->get();
 
         return response()->json($absens);
     }
