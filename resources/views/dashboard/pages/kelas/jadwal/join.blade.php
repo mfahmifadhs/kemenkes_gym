@@ -74,7 +74,7 @@ $waktuSelesai = Carbon\Carbon::parse($jadwal->tanggal_kelas . ' ' . $jadwal->wak
 
                         @if(Auth::user()->role_id == 4 && Carbon\Carbon::now() <= $waktuSelesai)
                             @if (!$isPenalty && $daftar?->count() == 0 && $totalPeserta != $jadwal->kuota)
-                                @if (Carbon\Carbon::now() >= $tglBuka && Carbon\Carbon::now()->format('H:i') >= $jamBuka)
+                                @if (Carbon\Carbon::now() >= $tglBuka)
                                 <form id="form" action="{{ route('jadwal.join', $jadwal->id_jadwal) }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="member_id" value="{{ Auth::user()->id }}">

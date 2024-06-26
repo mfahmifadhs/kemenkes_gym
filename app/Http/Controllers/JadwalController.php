@@ -169,10 +169,9 @@ class JadwalController extends Controller
             $totalJam   = $jamNow->diffInMinutes($jamLatihan);
 
             $pembatalan = $totalHari > 0 || $totalJam >= 120 ? 'true' : 'false';
-            $tglBuka    = Carbon::parse($jadwal->tanggal_kelas)->subDay()   ;
-            $jamBuka    = '19:00';
+            $tglBuka    = Carbon::parse($jadwal->tanggal_kelas)->subDay()->setTime(19, 0);
 
-            return view('dashboard.pages.kelas.jadwal.join', compact('jadwal', 'daftar', 'pembatalan', 'tglBuka', 'jamBuka'));
+            return view('dashboard.pages.kelas.jadwal.join', compact('jadwal', 'daftar', 'pembatalan', 'tglBuka'));
         }
 
         $peserta = Peserta::where('jadwal_id', $id)->get();

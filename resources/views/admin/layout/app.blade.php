@@ -51,12 +51,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
                         </li>
 
-                        <li class="nav-item {{ request()->routeIs('bodyck') ? 'active' : '' }}">
-                            <a href="#" class="nav-link">Body Composition</a>
-                        </li>
-
-                        <li class="nav-item {{ request()->routeIs('leaderboard') ? 'active' : '' }}">
-                            <a href="{{ route('leaderboard') }}" class="nav-link">Leaderboard</a>
+                        <li class="nav-item {{ request()->routeIs('kelas') ? 'active' : '' }}">
+                            <a href="{{ route('kelas') }}" class="nav-link">Class</a>
                         </li>
 
                         <li class="nav-item dropdown">
@@ -72,10 +68,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </li>
                             </ul>
                         </li>
-                        </li>
-                        <li class="nav-item {{ request()->routeIs('kelas') ? 'active' : '' }}">
-                            <a href="{{ route('kelas') }}" class="nav-link">Class</a>
-                        </li>
 
                         <li class="nav-item dropdown">
                             <a id="menuMembers" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Members</a>
@@ -86,6 +78,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </a>
                                     <a href="{{ route('penalty') }}" class="dropdown-item">
                                         <i class="fa fa-calendar-times"></i> Penalty
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a id="menu" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Menu</a>
+                            <ul aria-labelledby="menu" class="dropdown-menu border-0 shadow">
+                                <li>
+                                    <a href="#" class="dropdown-item">
+                                        <i class="fa fa-weight-scale"></i> Body Composition
+                                    </a>
+                                    <a href="{{ route('leaderboard') }}" class="dropdown-item">
+                                        <i class="fa fa-ranking-star"></i> Leaderboard
+                                    </a>
+                                    <a href="{{ route('leaderboard') }}" class="dropdown-item">
+                                        <i class="fa fa-circle-question"></i> FAQ
                                     </a>
                                 </li>
                             </ul>
