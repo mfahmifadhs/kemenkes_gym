@@ -143,6 +143,8 @@ class JadwalController extends Controller
     public function join(Request $request, $id)
     {
         $penalty = Penalty::where('user_id', Auth::user()->id)->where('status', 'false')->first();
+        $jadwal  = Jadwal::where('id_jadwal', $id)->first();
+        $daftar  = Peserta::where('member_id', Auth::user()->id)->where('jadwal_id', $id)->where('tanggal_latihan', $jadwal->tanggal_kelas)->first();
 
         if ($penalty) {
             $tgl_awal = Carbon::now()->startOfDay();
@@ -157,9 +159,6 @@ class JadwalController extends Controller
         }
 
         if ($request->all() == []) {
-            $jadwal  = Jadwal::where('id_jadwal', $id)->first();
-            $daftar  = Peserta::where('member_id', Auth::user()->id)->where('jadwal_id', $id)->where('tanggal_latihan', $jadwal->tanggal_kelas)->first();
-
             $tglNow     = Carbon::now()->startOfDay();
             $tglLatihan = Carbon::parse($jadwal->tanggal_kelas)->startOfDay();
             $jamNow     = Carbon::now();
@@ -180,13 +179,15 @@ class JadwalController extends Controller
             return redirect()->route('jadwal.join', $id)->with('failed', 'Maaf kuota sudah penuh');
         };
 
-        $id_peserta = Peserta::withTrashed()->count();
-        $tambah = new Peserta();
-        $tambah->id_peserta      = $id_peserta + 1;
-        $tambah->jadwal_id       = $id;
-        $tambah->member_id       = $request->member_id;
-        $tambah->tanggal_latihan = $request->tanggal_latihan;
-        $tambah->save();
+        if (!$daftar) {
+            $id_peserta = Peserta::withTrashed()->count();
+            $tambah = new Peserta();
+            $tambah->id_peserta      = $id_peserta + 1;
+            $tambah->jadwal_id       = $id;
+            $tambah->member_id       = $request->member_id;
+            $tambah->tanggal_latihan = $request->tanggal_latihan;
+            $tambah->save();
+        }
 
         return redirect()->route('jadwal.join', $id)->with('success', 'Berhasil mendaftar kelas!');
     }

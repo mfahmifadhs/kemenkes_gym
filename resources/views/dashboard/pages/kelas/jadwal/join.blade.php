@@ -174,6 +174,16 @@ $waktuSelesai = Carbon\Carbon::parse($jadwal->tanggal_kelas . ' ' . $jadwal->wak
             cancelButtonText: 'Cancel',
         }).then((result) => {
             if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Loading...",
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    willOpen: () => {
+                        Swal.showLoading();
+                    },
+                })
+
                 form.submit();
             }
         });

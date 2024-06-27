@@ -111,7 +111,7 @@
                     </div>
                     <div class="ci-text">
                         <span>STRENGTH</span>
-                        <h5>PILATES</h5>
+                        <h5>POUNDFIT</h5>
                         <a href="#"><i class="fa fa-angle-right"></i></a>
                     </div>
                 </div>
