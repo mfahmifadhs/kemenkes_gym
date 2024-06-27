@@ -93,7 +93,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <a href="{{ route('leaderboard') }}" class="dropdown-item">
                                         <i class="fa fa-ranking-star"></i> Leaderboard
                                     </a>
-                                    <a href="{{ route('leaderboard') }}" class="dropdown-item">
+                                    <a href="{{ route('faq') }}" class="dropdown-item">
                                         <i class="fa fa-circle-question"></i> FAQ
                                     </a>
                                 </li>

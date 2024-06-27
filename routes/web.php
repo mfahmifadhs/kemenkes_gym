@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BodyckController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KelasController;
@@ -133,6 +134,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('progress', [ProgresController::class, 'show'])->name('progres');
     Route::get('progress/chart', [ProgresController::class, 'chart'])->name('progres.chart');
 
+    Route::get('faq', [FaqController::class, 'show'])->name('faq');
+
     Route::group(['middleware' => ['access:admin']], function () {
         Route::get('kelas/kehadiran/{id}', [JadwalController::class, 'attendance'])->name('kelas.attendance');
         Route::get('class/schedule/detail/{id}', [JadwalController::class, 'detail'])->name('jadwal.detail');
@@ -172,5 +175,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('penalty', [PenaltyController::class, 'show'])->name('penalty');
         Route::get('penalty/delete/{id}', [PenaltyController::class, 'delete'])->name('penalty.delete');
         Route::post('penalty/update/{id}', [PenaltyController::class, 'update'])->name('penalty.update');
+
+        // FAQ
+        Route::get('faq/store', [FaqController::class, 'store'])->name('faq.store');
     });
 });
