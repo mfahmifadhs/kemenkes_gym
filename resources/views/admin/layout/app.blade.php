@@ -319,7 +319,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 "lengthChange": false,
                 "autoWidth": false,
                 "info": false,
-                "paging": false,
+                "paging": true,
                 "searching": false,
 
                 buttons: [{

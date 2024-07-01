@@ -179,7 +179,20 @@ class AbsenController extends Controller
             ->take(8)
             ->get();
 
-        return view('admin.pages.absen.report', compact('listTopMember'));
+        $reportUtama = Absensi::join('users', 'id', 'user_id')
+            ->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
+            ->join('t_unit_utama', 'id_unit_utama', 'unit_utama_id')
+            ->select(DB::RAW('count(id_absensi) as total'), 'nama_unit_utama')
+            ->groupBy('id_unit_utama', 'nama_unit_utama')
+            ->get();
+
+        $reportUker = Absensi::join('users', 'id', 'user_id')
+            ->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
+            ->select(DB::RAW('count(id_absensi) as total'), 'nama_unit_kerja')
+            ->groupBy('id_unit_kerja', 'nama_unit_kerja')
+            ->get();
+
+        return view('admin.pages.absen.report', compact('listTopMember', 'reportUtama', 'reportUker'));
     }
 
     public function checkout($id)
