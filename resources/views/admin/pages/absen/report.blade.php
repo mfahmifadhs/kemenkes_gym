@@ -25,17 +25,18 @@
                         <div class="row">
                             @foreach ($listTopMember as $row)
                             <div class="col-md-3 mt-2">
-                                <div class="card">
-                                    <div class="card-body p-3">
-                                        <div class="row">
-                                            <div class="col-md-3 bg-info text-center rounded">
-                                                <h2 class="font-weight-bold mt-3">{{ $loop->iteration }}</h2>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <h6>{{ ucwords(strtolower($row->nama)) }} <br> <span class="text-xs">{{ Str::limit($row->nama_unit_kerja, 40) }}</span></h6>
-                                                <h6><b>{{ $row->total_absen }} <small class="text-xs">kehadiran</small></b></h6>
-                                            </div>
-                                        </div>
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-info elevation-1">
+                                        <h2 class="font-weight-bold mt-2">{{ $loop->iteration }}</h2>
+                                    </span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text small">
+                                            {{ ucwords(strtolower($row->nama)) }} <br>
+                                            {{ Str::limit($row->nama_unit_kerja, 40) }}
+                                        </span>
+                                        <span class="info-box-number">
+                                            {{ $row->total_absen }} <small class="text-xs">kehadiran</small>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
