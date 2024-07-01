@@ -170,6 +170,7 @@ class AbsenController extends Controller
 
     public function report()
     {
+        $total = Absensi::count();
         $listTopMember = Absensi::join('users', 'id', 'user_id')
             ->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
             ->join('t_unit_utama', 'id_unit_utama', 'unit_utama_id')
@@ -194,7 +195,7 @@ class AbsenController extends Controller
             ->orderBy('total', 'DESC')
             ->get();
 
-        return view('admin.pages.absen.report', compact('listTopMember', 'reportUtama', 'reportUker'));
+        return view('admin.pages.absen.report', compact('total', 'listTopMember', 'reportUtama', 'reportUker'));
     }
 
     public function checkout($id)

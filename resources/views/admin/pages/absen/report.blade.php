@@ -47,7 +47,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <i class="fas fa-calendar-alt"></i> Total Kehadiran
+                                <i class="fas fa-calendar-alt"></i> Total Kehadiran : {{ $total }}
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                         <i class="fas fa-minus"></i>
