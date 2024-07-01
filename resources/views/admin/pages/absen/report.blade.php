@@ -31,8 +31,9 @@
                                     </span>
                                     <div class="info-box-content">
                                         <span class="info-box-text small">
-                                            {{ ucwords(strtolower($row->nama)) }} <br>
-                                            {{ Str::limit($row->nama_unit_kerja, 40) }}
+                                            <h6>{{ ucwords(strtolower($row->nama)) }} <br>
+                                                <small>{{ Str::limit($row->nama_unit_kerja, 40) }}</small>
+                                            </h6>
                                         </span>
                                         <span class="info-box-number">
                                             {{ $row->total_absen }} <small class="text-xs">kehadiran</small>
