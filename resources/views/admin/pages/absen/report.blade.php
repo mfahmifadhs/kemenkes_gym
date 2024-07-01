@@ -18,7 +18,7 @@
 
     <div class="content">
         <div class="container-fluid">
-            <div class="col-md-9 col-12 mx-auto">
+            <div class="col-md-10 col-12 mx-auto">
                 <div class="row">
                     <div class="col-md-12">
                         <i class="fas fa-fire"></i> Top Member Active 2024
@@ -108,7 +108,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-7">
                         <i class="fas fa-table"></i> Laporan Kehadiran Unit Kerja
 
                         <div class="card mt-2">
