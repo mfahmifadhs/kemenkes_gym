@@ -4,7 +4,7 @@
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
-            <div class="col-md-9 col-12 mx-auto">
+            <div class="col-md-10 col-12 mx-auto">
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1 class="m-0">
@@ -108,7 +108,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-7">
+                    <div class="col-md-12">
                         <i class="fas fa-table"></i> Laporan Kehadiran Unit Kerja
 
                         <div class="card mt-2">
@@ -228,7 +228,7 @@
                 // Inisialisasi DataTables setelah data ditambahkan
                 $("#table-report").DataTable({
                     "responsive": false,
-                    "lengthChange": false,
+                    "lengthChange": true,
                     "autoWidth": true,
                     "info": true,
                     "paging": true,
