@@ -32,7 +32,7 @@ class JadwalController extends Controller
 
         $jadwal     = Jadwal::select(DB::raw("DATE_FORMAT(tanggal_kelas, '%a') as hari"), 't_jadwal.*')
             ->where(DB::raw("DATE_FORMAT(tanggal_kelas, '%d-%b-%Y')"), $today)
-            ->orderBy('waktu_mulai', 'ASC')
+            ->orderBy('waktu_mulai', 'DESC')
             ->get();
 
         $daftar     = Peserta::where('member_id', Auth::user()->id)->first();
@@ -69,6 +69,7 @@ class JadwalController extends Controller
         $status = ''; // default status
         $jadwal     = Jadwal::select(DB::raw("DATE_FORMAT(tanggal_kelas, '%d-%b-%Y') as hari"), 't_jadwal.*')
             ->where(DB::raw("DATE_FORMAT(tanggal_kelas, '%d-%b-%Y')"), $id)
+            ->orderBy('waktu_mulai', 'ASC')
             ->get();
 
         $daftar     = Peserta::where('member_id', Auth::user()->id)->first();
