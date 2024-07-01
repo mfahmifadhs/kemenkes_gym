@@ -32,6 +32,7 @@ class JadwalController extends Controller
 
         $jadwal     = Jadwal::select(DB::raw("DATE_FORMAT(tanggal_kelas, '%a') as hari"), 't_jadwal.*')
             ->where(DB::raw("DATE_FORMAT(tanggal_kelas, '%d-%b-%Y')"), $today)
+            ->orderBy('waktu_mulai', 'ASC')
             ->get();
 
         $daftar     = Peserta::where('member_id', Auth::user()->id)->first();
