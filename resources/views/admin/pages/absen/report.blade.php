@@ -4,7 +4,7 @@
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
-            <div class="col-md-10 col-12 mx-auto">
+            <div class="col-md-12 col-12 mx-auto">
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1 class="m-0">
@@ -18,25 +18,24 @@
 
     <div class="content">
         <div class="container-fluid">
-            <div class="col-md-10 col-12 mx-auto">
+            <div class="col-md-12 col-12 mx-auto">
                 <div class="row">
                     <div class="col-md-12">
                         <i class="fas fa-fire"></i> Top Member Active 2024
                         <div class="row">
                             @foreach ($listTopMember as $row)
                             <div class="col-md-3 mt-2">
-                                <div class="info-box">
-                                    <span class="info-box-icon bg-info elevation-1">
-                                        <h2 class="font-weight-bold mt-2">{{ $loop->iteration }}</h2>
-                                    </span>
-                                    <div class="info-box-content">
-                                        <span class="info-box-text small">
-                                            {{ $row->nama }} <br>
-                                            {{ $row->nama_unit_kerja }}
-                                        </span>
-                                        <span class="info-box-number">
-                                            {{ $row->total_absen }} <small class="text-xs">kehadiran</small>
-                                        </span>
+                                <div class="card">
+                                    <div class="card-body h-100">
+                                        <div class="row">
+                                            <div class="col-md-3 bg-info text-center rounded">
+                                                <h2 class="font-weight-bold mt-3">{{ $loop->iteration }}</h2>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <h6>{{ $row->nama }} <br> <span class="text-xs">{{ $row->nama_unit_kerja }}</span></h6>
+                                                <h6><b>{{ $row->total_absen }} <small class="text-xs">kehadiran</small></b></h6>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
