@@ -79,7 +79,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <i class="fas fa-table"></i> Laporan Kehadiran Unit Utama
 
                         <div class="card mt-2">
@@ -97,7 +97,7 @@
                                             @foreach ($reportUtama as $row)
                                             <tr class="bg-white">
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $row->nama_unit_utama }}</td>
+                                                <td class="text-left">{{ $row->nama_unit_utama }}</td>
                                                 <td>{{ $row->total }}</td>
                                             </tr>
                                             @endforeach
@@ -108,7 +108,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <i class="fas fa-table"></i> Laporan Kehadiran Unit Kerja
 
                         <div class="card mt-2">
@@ -126,7 +126,7 @@
                                             @foreach ($reportUker as $row)
                                             <tr class="bg-white">
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $row->nama_unit_kerja }}</td>
+                                                <td class="text-left">{{ $row->nama_unit_kerja }}</td>
                                                 <td>{{ $row->total }}</td>
                                             </tr>
                                             @endforeach
