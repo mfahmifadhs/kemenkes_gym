@@ -25,8 +25,8 @@
                         <div class="row">
                             @foreach ($listTopMember as $row)
                             <div class="col-md-3 mt-2">
-                                <div class="card">
-                                    <div class="card-body h-100">
+                                <div class="card h-100">
+                                    <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-3 bg-info text-center rounded">
                                                 <h2 class="font-weight-bold mt-3">{{ $loop->iteration }}</h2>
