@@ -41,7 +41,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
                 <a href="{{ route('dashboard') }}" class="navbar-brand">
-                    <img src="{{ asset('dist/img/logo.png') }}" alt="Logo" class="brand-image mt-1">
+                    <img src="{{ asset('dist/img/logo-light.png') }}" alt="Logo" class="brand-image mt-1">
                 </a>
 
                 <div class="collapse navbar-collapse order-3" id="navbarCollapse">
