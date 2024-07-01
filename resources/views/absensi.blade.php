@@ -27,13 +27,15 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 mx-auto mt-5 text-center">
-
+                <div class="section-title contact-title text-center">
+                    <h2><u>JADWAL KELAS</u></h2>
+                </div>
+                <img src="{{ asset('dist/img/schedule.png') }}" class="img-fluid w-100" alt="">
+            </div>
+            <div class="col-lg-12 mx-auto mt-5 text-center">
                 <div class="section-title contact-title text-center">
                     <h2><u>KEHADIRAN</u></h2>
                 </div>
-            </div>
-            <div class="col-lg-12 mx-auto mt-0 mb-4 text-center">
-                <img src="{{ asset('dist/img/kehadiran.png') }}" class="img-fluid w-100" alt="">
             </div>
             <div class="col-lg-6 mx-auto ">
                 <div class="leave-comment">
@@ -102,24 +104,6 @@
                         <tbody></tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Schedule Section End -->
-
-<!-- Schedule Section Begin -->
-<section class="choseus-section spad h-100 my-auto">
-    <div id="schedule" class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title">
-                    <h2>SCHEDULE (COMING SOON) !</h2>
-                </div>
-            </div>
-
-            <div class="col-lg-12">
-                <img src="{{ asset('dist/img/schedule.png') }}" class="img-fluid w-100" alt="">
             </div>
         </div>
     </div>
