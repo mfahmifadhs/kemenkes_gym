@@ -32,7 +32,7 @@
                                                 <h2 class="font-weight-bold mt-3">{{ $loop->iteration }}</h2>
                                             </div>
                                             <div class="col-md-9">
-                                                <h6>{{ $row->nama }} <br> <span style="font-size: 10px;">{{ $row->nama_unit_kerja }}</span></h6>
+                                                <h6>{{ $row->nama }} <br> <span class="text-xs">{{ Str::limit($row->nama_unit_kerja, 50) }}</span></h6>
                                                 <h6><b>{{ $row->total_absen }} <small class="text-xs">kehadiran</small></b></h6>
                                             </div>
                                         </div>
