@@ -113,18 +113,35 @@ class AbsenController extends Controller
             ->orderBy('waktu_mulai', 'ASC')
             ->first();
 
-        if ($classNow && $timeNow >= '15:00') {
-            Peserta::where('id_peserta', $classNow->id_peserta)->update([
-                'kehadiran' => 'hadir'
-            ]);
+        if ($classNow) {
+            if ($classNow->waktu_mulai == '09:15:00') {
+                if ($timeNow >= '05:30') {
+                    Peserta::where('id_peserta', $classNow->id_peserta)->update([
+                        'kehadiran' => 'hadir'
+                    ]);
 
-            $jadwal = $classNow ? $classNow->jadwal_id : null;
+                    $jadwal = $classNow ? $classNow->jadwal_id : null;
+                } else {
+                    $jadwal = null;
+                }
+            } else {
+                if ($timeNow >= '09:00') {
+                    Peserta::where('id_peserta', $classNow->id_peserta)->update([
+                        'kehadiran' => 'hadir'
+                    ]);
+
+                    $jadwal = $classNow ? $classNow->jadwal_id : null;
+                } else {
+                    $jadwal = null;
+                }
+            }
+
         } else {
             $jadwal = null;
         }
 
         if ($absen) {
-            if (Carbon::now()->diffInMinutes(Carbon::parse($absen->waktu_masuk)) < 30) {
+            if (Carbon::now()->diffInMinutes(Carbon::parse($absen->waktu_masuk)) < 0) {
                 return response()->json(['hadir' => true]);
             }
         }
