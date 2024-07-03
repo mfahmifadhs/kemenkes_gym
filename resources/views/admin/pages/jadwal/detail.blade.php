@@ -111,7 +111,7 @@
                                         <span class="badge badge-danger">Tidak Hadir</span>
                                         @endif
                                     </td>
-                                    <td class="text-left">{{ $loop->iteration }}. {{ $row->member->nama }}</td>
+                                    <td class="text-left">{{ $loop->iteration }}. {{ ucwords(strtolower($row->member->nama)) }}</td>
                                     <td>{{ $row->member->nip_nik }}</td>
                                     <td>{{ $row->member->tanggal_lahir }}</td>
                                     <td class="text-left">{{ $row->member->instansi == 'pusat' ? $row->member->uker?->nama_unit_kerja : $row->member->nama_instansi }}</td>
