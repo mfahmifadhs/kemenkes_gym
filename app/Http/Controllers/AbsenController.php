@@ -125,7 +125,7 @@ class AbsenController extends Controller
                     $jadwal = null;
                 }
             } else {
-                if ($timeNow >= '09:00') {
+                if ($timeNow >= '15:00') {
                     Peserta::where('id_peserta', $classNow->id_peserta)->update([
                         'kehadiran' => 'hadir'
                     ]);
