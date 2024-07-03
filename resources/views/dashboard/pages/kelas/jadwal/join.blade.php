@@ -59,7 +59,7 @@ $waktuSelesai = Carbon\Carbon::parse($jadwal->tanggal_kelas . ' ' . $jadwal->wak
                     <div class="schedule p-3 {{ $cekHari == 'Kamis' ? 'border-pink' : 'border-main' }}">
                         <div class="section-title mb-2">
                             <h5 class="{{ $cekWarna }}">
-                                <b>JOIN CLASS</b> {{ $cekHari == 'Kamis' ? '(Ledies Day)' : '' }}
+                                <b>JOIN CLASS</b> {{ $cekHari == 'Kamis' ? '(Ladies Day)' : '' }}
                             </h5>
                         </div>
                         <div class="row text-white mb-2">
