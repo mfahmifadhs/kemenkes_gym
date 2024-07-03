@@ -13,6 +13,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PenaltyController;
 use App\Http\Controllers\ProgresController;
+use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\UkerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkoutController;
@@ -68,6 +69,8 @@ Route::get('member/chart', [MemberController::class, 'chartAll'])->name('member.
 Route::post('registration', [AuthController::class, 'postDaftar'])->name('daftar');
 Route::post('login', [AuthController::class, 'postLogin'])->name('masuk');
 Route::get('logout', [AuthController::class, 'keluar'])->name('logout');
+
+Route::get('survey-kepuasan', [SurveyController::class, 'show'])->name('survey-kepuasan');
 
 
 

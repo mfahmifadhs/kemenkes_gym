@@ -3,7 +3,7 @@
 
 <div class="content-wrapper">
     <div class="content-header">
-        <div class="container-fluid col-md-7">
+        <div class="container-fluid col-md-8">
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0">Jadwal {{ $jadwal->kelas->nama_kelas }}</small></h1>
@@ -18,7 +18,7 @@
     </div>
 
     <div class="content">
-        <div class="container-fluid col-md-7">
+        <div class="container-fluid col-md-8">
             <div class="card">
                 <div class="card-header">
                     <div class="row">
@@ -81,6 +81,8 @@
                                     <th>No</th>
                                     <th>Aksi</th>
                                     <th>Nama</th>
+                                    <th>NIP/NIK</th>
+                                    <th>Tanggal Lahir</th>
                                     <th>Unit Kerja/UPT/Umum</th>
                                     <th>Kehadiran</th>
                                 </tr>
@@ -101,6 +103,8 @@
                                         @endif
                                     </td>
                                     <td class="text-left">{{ $loop->iteration }}. {{ $row->member->nama }}</td>
+                                    <td class="text-left">{{ $loop->nip_nik }}</td>
+                                    <td class="text-left">{{ $loop->tanggal_lahir }}</td>
                                     <td class="text-left">{{ $row->member->instansi == 'pusat' ? $row->member->uker?->nama_unit_kerja : $row->member->nama_instansi }}</td>
                                     <td>
                                         @if($row->kehadiran == 'hadir')
@@ -166,14 +170,25 @@
 @section('js')
 <script>
     $(function() {
-        $("#table-active").DataTable({
+        $("#table-peserta").DataTable({
             "responsive": false,
             "lengthChange": true,
-            "autoWidth": true,
-            "info": false,
-            "paging": false,
-            "searching": false
-        })
+            "autoWidth": false,
+            "info": true,
+            "paging": true,
+            "searching": true,
+            buttons: [{
+                extend: 'pdf',
+                text: ' Print PDF',
+                pageSize: 'A4',
+                className: 'bg-danger',
+                title: 'Kehadiran',
+                exportOptions: {
+                    columns: [2, 3, 4, 5, 6]
+                },
+            }],
+            "bDestroy": true
+        }).buttons().container().appendTo('#table-peserta_wrapper .col-md-6:eq(0)');
 
         $("#table-history").DataTable({
             "responsive": false,

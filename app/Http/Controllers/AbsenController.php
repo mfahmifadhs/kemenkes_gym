@@ -114,7 +114,7 @@ class AbsenController extends Controller
             ->first();
 
         if ($classNow) {
-            if ($classNow->waktu_mulai == '09:15:00') {
+            if ($classNow->waktu_mulai == '06:15:00') {
                 if ($timeNow >= '05:30') {
                     Peserta::where('id_peserta', $classNow->id_peserta)->update([
                         'kehadiran' => 'hadir'
@@ -141,7 +141,7 @@ class AbsenController extends Controller
         }
 
         if ($absen) {
-            if (Carbon::now()->diffInMinutes(Carbon::parse($absen->waktu_masuk)) < 0) {
+            if (Carbon::now()->diffInMinutes(Carbon::parse($absen->waktu_masuk)) < 30) {
                 return response()->json(['hadir' => true]);
             }
         }
