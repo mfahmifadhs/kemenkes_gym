@@ -45,7 +45,7 @@ $cekWarna = $cekHari == 'Kamis' ? 'bg-pink' : 'bg-main';
 
                         @if ($cekHari == 'Kamis')
                         <div class="mt-5">
-                            <h5 class="text-pink">Ledies Day</h5>
+                            <h5 class="text-pink">Ladies Day</h5>
                             <small class="text-white">Setiap hari <b>Kamis</b> Kemenkes Bootcamp & Fitness Center hanya untuk <b>Wanita</b></small>
                         </div>
                         @endif
