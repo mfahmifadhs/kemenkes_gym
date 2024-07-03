@@ -85,7 +85,7 @@ $waktuSelesai = Carbon\Carbon::parse($jadwal->tanggal_kelas . ' ' . $jadwal->wak
                                     <input type="hidden" name="member_id" value="{{ Auth::user()->id }}">
                                     <input type="hidden" name="tanggal_latihan" value="{{ $jadwal->tanggal_kelas }}">
                                     <input type="hidden" name="kuota" value="{{ $jadwal->kuota }}">
-                                    <button type="submit" class="btn btn-primary btn-block" onclick="confirmSubmit(event)">
+                                    <button type="submit" class="btn btn-primary {{ $cekHari == 'Kamis' ? 'bg-pink' : 'bg-main' }} btn-block" onclick="confirmSubmit(event)">
                                         JOIN
                                     </button>
                                 </form>
