@@ -80,11 +80,11 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Aksi</th>
+                                    <th>Kehadiran</th>
                                     <th>Nama</th>
                                     <th>NIP/NIK</th>
                                     <th>Tanggal Lahir</th>
                                     <th>Unit Kerja/UPT/Umum</th>
-                                    <th>Kehadiran</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -102,10 +102,6 @@
                                         </a>
                                         @endif
                                     </td>
-                                    <td class="text-left">{{ $loop->iteration }}. {{ $row->member->nama }}</td>
-                                    <td class="text-left">{{ $row->member->nip_nik }}</td>
-                                    <td class="text-left">{{ $row->member->tanggal_lahir }}</td>
-                                    <td class="text-left">{{ $row->member->instansi == 'pusat' ? $row->member->uker?->nama_unit_kerja : $row->member->nama_instansi }}</td>
                                     <td>
                                         @if($row->kehadiran == 'hadir')
                                         <span class="badge badge-success">Hadir</span>
@@ -113,6 +109,10 @@
                                         <span class="badge badge-danger">Tidak Hadir</span>
                                         @endif
                                     </td>
+                                    <td class="text-left">{{ $loop->iteration }}. {{ $row->member->nama }}</td>
+                                    <td>{{ $row->member->nip_nik }}</td>
+                                    <td>{{ $row->member->tanggal_lahir }}</td>
+                                    <td class="text-left">{{ $row->member->instansi == 'pusat' ? $row->member->uker?->nama_unit_kerja : $row->member->nama_instansi }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -184,7 +184,7 @@
                 className: 'bg-danger',
                 title: 'Kehadiran',
                 exportOptions: {
-                    columns: [2, 3, 4, 5, 6]
+                    columns: [3, 4, 5, 6]
                 },
             }],
             "bDestroy": true
