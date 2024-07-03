@@ -88,7 +88,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($jadwal->peserta as $row)
+                                @foreach ($jadwal->peserta->sortBy(function($row) {
+                                    return $row->member->nama;
+                                }) as $row)
                                 <tr>
                                     <td style="width: 0vh;">{{ $loop->iteration }}</td>
                                     <td>
