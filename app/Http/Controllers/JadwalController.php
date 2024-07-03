@@ -36,7 +36,8 @@ class JadwalController extends Controller
             ->get();
 
         $daftar     = Peserta::where('member_id', Auth::user()->id)->first();
-        return view('dashboard.pages.kelas.jadwal.show', compact('jadwal', 'range', 'rangeAwal', 'today', 'daftar'));
+        $id = $today;
+        return view('dashboard.pages.kelas.jadwal.show', compact('id', 'jadwal', 'range', 'rangeAwal', 'today', 'daftar'));
     }
 
     public function detail($id)
@@ -73,7 +74,7 @@ class JadwalController extends Controller
             ->get();
 
         $daftar     = Peserta::where('member_id', Auth::user()->id)->first();
-        return view('dashboard.pages.kelas.jadwal.show', compact('jadwal', 'range', 'rangeAwal', 'today', 'daftar', 'status'));
+        return view('dashboard.pages.kelas.jadwal.show', compact('id', 'jadwal', 'range', 'rangeAwal', 'today', 'daftar', 'status'));
     }
 
     public function create($id)

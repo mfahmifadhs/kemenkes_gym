@@ -2,6 +2,9 @@
 @section('content')
 
 @php
+$cekHari  = Carbon\Carbon::parse($jadwal->tanggal_kelas)->isoFormat('dddd');
+$cekWarna = $cekHari == 'Kamis' ? 'text-pink' : 'text-main';
+
 $isPenalty    = Auth::user()->penalty->where('kelas_id', $jadwal->kelas_id)->count();
 $totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kelas)->count();
 $terdaftar    = $jadwal->peserta->where('member_id', Auth::user()->id)->count();
@@ -53,9 +56,11 @@ $waktuSelesai = Carbon\Carbon::parse($jadwal->tanggal_kelas . ' ' . $jadwal->wak
                 @endif
 
                 <div class="section-body mb-5">
-                    <div class="schedule p-3" style="border: 1px solid #00b9ad;">
+                    <div class="schedule p-3 {{ $cekHari == 'Kamis' ? 'border-pink' : 'border-main' }}">
                         <div class="section-title mb-2">
-                            <span>Join Class</span>
+                            <h5 class="{{ $cekWarna }}">
+                                <b>JOIN CLASS</b> {{ $cekHari == 'Kamis' ? '(Ledies Day)' : '' }}
+                            </h5>
                         </div>
                         <div class="row text-white mb-2">
                             <label class="col-md-3 col-3">Class</label>
@@ -121,13 +126,13 @@ $waktuSelesai = Carbon\Carbon::parse($jadwal->tanggal_kelas . ' ' . $jadwal->wak
                             @endif
 
                             <div class="section-title mb-2">
-                                <span>Notes</span>
+                                <h5 class="{{ $cekWarna }}"><b>Notes</b></h5>
                             </div>
 
                             <span class="text-white small">{!! nl2br(e($jadwal->kelas->deskripsi)) !!}</span>
 
                             <div class="section-title mb-2">
-                                <span>Members Joined ({{ $totalPeserta }})</span>
+                                <h5 class="{{ $cekWarna }}"><b>Members Joined ({{ $totalPeserta }})</b></h5>
                             </div>
 
                             @if ($totalPeserta == 0)

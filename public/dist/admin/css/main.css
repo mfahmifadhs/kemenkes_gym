@@ -3487,6 +3487,24 @@ ol {
     background-color: #00b9ad;
 }
 
+.border-main {
+    border: 1px solid;
+    border-color: #00b9ad;
+}
+
+.bg-pink {
+    background-color: #ff00d9;
+}
+
+.border-pink {
+    border: 1px solid;
+    border-color: #ff00d9;
+}
+
+.text-pink {
+    color: #ff00d9;
+}
+
 .divider {
     border-color: #FFF;
 }
