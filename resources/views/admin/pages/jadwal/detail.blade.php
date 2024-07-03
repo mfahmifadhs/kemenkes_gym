@@ -103,8 +103,8 @@
                                         @endif
                                     </td>
                                     <td class="text-left">{{ $loop->iteration }}. {{ $row->member->nama }}</td>
-                                    <td class="text-left">{{ $row->nip_nik }}</td>
-                                    <td class="text-left">{{ $row->tanggal_lahir }}</td>
+                                    <td class="text-left">{{ $row->member->nip_nik }}</td>
+                                    <td class="text-left">{{ $row->member->tanggal_lahir }}</td>
                                     <td class="text-left">{{ $row->member->instansi == 'pusat' ? $row->member->uker?->nama_unit_kerja : $row->member->nama_instansi }}</td>
                                     <td>
                                         @if($row->kehadiran == 'hadir')
