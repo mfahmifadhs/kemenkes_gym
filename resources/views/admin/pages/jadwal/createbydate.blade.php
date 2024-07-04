@@ -5,13 +5,18 @@
     <div class="content-header">
         <div class="container-fluid col-md-6">
             <div class="row mb-2">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <h1 class="m-0 text-lg">Create Schedule</h1>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ ucwords(strtolower($kelas->nama_kelas)) }}</a></li>
-                        <li class="breadcrumb-item active">Create Schedule</li>
+                        <li class="breadcrumb-item"><a href="{{ route('jadwal.pilih', $id) }}">Jadwal</a></li>
+                        <li class="breadcrumb-item active">Create Class Schedule</li>
                     </ol>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{ url()->previous() }}" class="btn btn-default border-dark">
+                        <i class="fas fa-arrow-left"></i> Kembali
+                    </a>
                 </div>
             </div>
         </div>
@@ -22,9 +27,17 @@
             <div class="card">
                 <form id="form-jadwal" action="{{ route('jadwal.store') }}" method="POST">
                     @csrf
-                    <input type="hidden" name="kelas_id" value="{{ $kelas->id_kelas }}">
                     <div class="card-body">
                         <div class="row text-sm">
+                            <div class="col-md-12 mb-2">
+                                <label class="mb-1">Kelas*</label>
+                                <select name="kelas_id" class="form-control" required>
+                                    <option value="">-- Pilih Kelas --</option>
+                                    @foreach ($kelas as $row)
+                                    <option value="{{ $row->id_kelas }}">{{ $row->nama_kelas }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="col-md-6">
                                 <label class="mb-1">Date*</label>
                                 <input type="date" class="form-control" name="tanggal" value="{{ $date }}" min="{{ date('Y-m-d') }}" required>
@@ -67,7 +80,7 @@
     function confirmSubmit(event) {
         event.preventDefault();
 
-        const form   = document.getElementById('form-jadwal');
+        const form = document.getElementById('form-jadwal');
         const inputs = form.querySelectorAll('select[required], input[required], textarea[required]');
         let isFormValid = true;
 
@@ -95,7 +108,7 @@
         } else {
             Swal.fire({
                 title: 'Failed',
-                text: 'Please fill out this field.',
+                text: 'Seluruh kolom harus diisi',
                 icon: 'error',
             });
         }

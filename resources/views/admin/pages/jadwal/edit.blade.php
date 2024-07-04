@@ -9,6 +9,7 @@
                     <h1 class="m-0 text-lg">Edit Schedule</h1>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('jadwal.pilih', Carbon\Carbon::parse($jadwal->tanggal_kelas)->format('d-M-Y')) }}">Jadwal</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ ucwords(strtolower($jadwal->kelas->nama_kelas)) }}</a></li>
                         <li class="breadcrumb-item active">Edit Schedule</li>
                     </ol>

@@ -51,8 +51,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
                         </li>
 
-                        <li class="nav-item {{ request()->routeIs('kelas') ? 'active' : '' }}">
-                            <a href="{{ route('kelas') }}" class="nav-link">Class</a>
+                        <li class="nav-item dropdown">
+                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Class</a>
+                            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                                <li>
+                                    <a href="{{ route('kelas') }}" class="dropdown-item">
+                                        <i class="fa fa-table"></i> List
+                                    </a>
+                                    <a href="{{ route('jadwal.show') }}" class="dropdown-item">
+                                        <i class="fa fa-calendar"></i> Schedule
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
 
                         <li class="nav-item dropdown">

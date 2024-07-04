@@ -16,6 +16,7 @@ class JadwalController extends Controller
 {
     public function show()
     {
+        $role       = Auth::user()->role_id == 4 ? 'dashboard.pages.kelas' : 'admin.pages';
         $tglAwal    = Carbon::now();
         $tglAkhir   = Carbon::now()->endOfMonth();
         $tglAwalBulanBerikutnya = $tglAkhir->copy()->addDay();
@@ -35,9 +36,10 @@ class JadwalController extends Controller
             ->orderBy('waktu_mulai', 'DESC')
             ->get();
 
-        $daftar     = Peserta::where('member_id', Auth::user()->id)->first();
-        $id = $today;
-        return view('dashboard.pages.kelas.jadwal.show', compact('id', 'jadwal', 'range', 'rangeAwal', 'today', 'daftar'));
+        $daftar = Peserta::where('member_id', Auth::user()->id)->first();
+        $id     = $today;
+
+        return view($role.'.jadwal.show', compact('id', 'jadwal', 'range', 'rangeAwal', 'today', 'daftar'));
     }
 
     public function detail($id)
@@ -54,6 +56,7 @@ class JadwalController extends Controller
 
     public function filter($id)
     {
+        $role       = Auth::user()->role_id == 4 ? 'dashboard.pages.kelas' : 'admin.pages';
         $tglAwal    = Carbon::now();
         $tglAkhir   = Carbon::now()->endOfMonth();
         $tglAwalBulanBerikutnya = $tglAkhir->copy()->addDay();
@@ -74,7 +77,7 @@ class JadwalController extends Controller
             ->get();
 
         $daftar     = Peserta::where('member_id', Auth::user()->id)->first();
-        return view('dashboard.pages.kelas.jadwal.show', compact('id', 'jadwal', 'range', 'rangeAwal', 'today', 'daftar', 'status'));
+        return view($role.'.jadwal.show', compact('id', 'jadwal', 'range', 'rangeAwal', 'today', 'daftar', 'status'));
     }
 
     public function create($id)
@@ -89,12 +92,21 @@ class JadwalController extends Controller
         }
     }
 
+    public function createByDate($id)
+    {
+        $date  = Carbon::parse($id)->format('Y-m-d');
+        $role  = Auth::user()->role_id;
+        $kelas = Kelas::orderBy('nama_kelas', 'ASC')->get();
+
+        return view('admin.pages.jadwal.createbydate', compact('kelas', 'date', 'id'));
+    }
+
     public function store(Request $request)
     {
         $cekHari = Jadwal::where('kelas_id', $request->kelas_id)->whereDate('tanggal_kelas', '=', date('Y-m-d', strtotime($request->tanggal)))->count();
 
         if ($cekHari != 0) {
-            return redirect()->route('kelas.detail', $request->kelas_id)->with('failed', 'Jadwal sudah tersediaPlease Only Update the Date');
+            return redirect()->route('kelas.detail', $request->kelas_id)->with('failed', 'Jadwal sudah tersedia!');
         }
 
         $tambah = new Jadwal();
@@ -107,7 +119,9 @@ class JadwalController extends Controller
         $tambah->lokasi         = $request->lokasi;
         $tambah->save();
 
-        return redirect()->route('kelas.detail', $request->kelas_id)->with('success', 'Berhasil membuat jadwal!');
+        $date = Carbon::parse($request->tanggal)->format('d-M-Y');
+
+        return redirect()->route('jadwal.pilih', $date)->with('success', 'Berhasil membuat jadwal!');
     }
 
     public function edit($id)
@@ -146,6 +160,7 @@ class JadwalController extends Controller
 
     public function join(Request $request, $id)
     {
+        $role = Auth::user()->role_id;
         $penalty = Penalty::where('user_id', Auth::user()->id)->where('status', 'false')->first();
         $jadwal  = Jadwal::where('id_jadwal', $id)->first();
         $daftar  = Peserta::where('member_id', Auth::user()->id)->where('jadwal_id', $id)->where('tanggal_latihan', $jadwal->tanggal_kelas)->first();
@@ -174,7 +189,11 @@ class JadwalController extends Controller
             $pembatalan = $totalHari > 0 || $totalJam >= 120 ? 'true' : 'false';
             $tglBuka    = Carbon::parse($jadwal->tanggal_kelas)->subDay()->setTime(19, 0);
 
-            return view('dashboard.pages.kelas.jadwal.join', compact('jadwal', 'daftar', 'pembatalan', 'tglBuka'));
+            if ($role == 4) {
+                return view('dashboard.pages.kelas.jadwal.join', compact('jadwal', 'daftar', 'pembatalan', 'tglBuka'));
+            } else {
+                return redirect()->route('jadwal.detail', $id);
+            }
         }
 
         $peserta = Peserta::where('jadwal_id', $id)->get();
