@@ -49,10 +49,10 @@
     <!-- Header End -->
 
     <!-- Contact Section Begin -->
-    <section class="contact-section spad" style="margin-top: 10%;">
+    <section class="contact-section spad" style="margin-top: 5%;">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 mx-auto">
+                <div class="col-lg-12 mx-auto">
                     @if ($message = Session::get('success'))
                     <div id="alert" class="alert bg-success">
                         <div class="row">

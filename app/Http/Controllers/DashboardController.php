@@ -11,6 +11,7 @@ use App\Models\Kelas;
 use App\Models\MinatKelas;
 use App\Models\Pengajuan;
 use App\Models\PengajuanDetail;
+use App\Models\Survey;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
@@ -32,9 +33,10 @@ class DashboardController extends Controller
         $absen  = Absensi::where('tanggal', Carbon::now()->format('Y-m-d'))->get();
         $totalPeminatan = MinatKelas::count();
         $totalMember    = User::where('role_id', 4)->count();
+        $totalKepuasan  = Survey::get();
 
         if ($roleId == 1 || $roleId == 3) {
-            return view('admin.dashboard', compact('totalPeminatan', 'totalMember', 'totalUtama', 'totalStatus', 'totalKelas'));
+            return view('admin.dashboard', compact('totalPeminatan', 'totalMember', 'totalUtama', 'totalStatus', 'totalKelas', 'totalKepuasan'));
         } else if ($roleId == 4) {
             $role = 'member';
         } else {

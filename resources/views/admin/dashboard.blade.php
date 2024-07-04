@@ -42,11 +42,14 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header">
-                                <i class="fas fa-users"></i> Total Peserta : <b>{{ $totalMember }}</b>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
+                                <div class="row text-sm">
+                                    <div class="col-md-6 col-5">
+                                        <i class="fas fa-users"></i> Total Peserta : <b>{{ $totalMember }}</b>
+                                    </div>
+                                    <div class="col-md-6 col-7 text-right">
+                                        <i class="fas fa-face-smile text-success border-dark"></i> Puas : <b>{{ $totalKepuasan->where('kepuasan', 'puas')->count() }}</b>
+                                        <i class="fas fa-face-frown ml-2 text-danger border-dark"></i> Tidak Puas : <b>{{ $totalKepuasan->where('kepuasan', 'tidak puas')->count() }}</b>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-body">
