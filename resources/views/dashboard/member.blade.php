@@ -25,15 +25,15 @@
                 @endif
 
                 <div class="section-body">
-                    <div class="card bg-main mb-3" style="border-radius: 20px;">
+                    <div class="card mb-3" style="border-radius: 20px;background-image: url('{{ asset('dist/img/bg-card.png') }}'); background-size: cover; background-position: center;"">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-8 my-auto">
-                                    <h6 class="text-white">KELAS <b>POUNDFIT</b> SEGARA DIMULAI</h6>
+                                    <!-- <h6 class="text-white">KELAS <b>POUNDFIT</b> SEGARA DIMULAI</h6>
                                     <h4 class="text-white font-weight-bold mt-1">
                                         <a href="{{ route('kelas.detail', 5) }}"><u>DAFTAR SEKARANG!</u></a>
                                     </h4>
-                                    <span style="font-size: 10px; color: red;"><b>Kuota terbatas</b></span>
+                                    <span style="font-size: 10px; color: red;"><b>Kuota terbatas</b></span> -->
                                     <!-- <h3 class="text-white"><b>COMING SOON!</b></h3> -->
                                 </div>
                                 <div class="col-4 text-center">
