@@ -25,7 +25,7 @@
                 @endif
 
                 <div class="section-body">
-                    <div class="card mb-3" style="border-radius: 20px;background-image: url('{{ asset('dist/img/bg-card.png') }}'); background-size: cover; background-position: center;"">
+                    <div class="card mb-3" style="border-radius: 20px;background-image: url('<?php echo asset('dist/img/bg-card.png'); ?>'); background-size: cover; background-position: center;">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-8 my-auto">
@@ -60,17 +60,24 @@
                                 </div>
                             </div>
                         </a> -->
-                        <a href="{{ route('bodyck') }}" class="col-md-3 col-6">
+                        <!-- <a href="{{ route('bodyck') }}" class="col-md-3 col-6">
                             <div class="card bg-main" style="border-radius: 20px;">
                                 <div class="card-body text-white text-center font-weight-bold p-2 small">
                                     <i class="fa fa-heartbeat"></i> Body Composition
                                 </div>
                             </div>
-                        </a>
+                        </a> -->
                         <a href="{{ route('workout') }}" class="col-md-3 col-6">
                             <div class="card bg-main" style="border-radius: 20px;">
                                 <div class="card-body text-white text-center font-weight-bold p-2 small">
                                     <i class="fa fa-fire"></i> My Workout
+                                </div>
+                            </div>
+                        </a>
+                        <a href="{{ route('jadwal.show') }}" class="col-md-3 col-6">
+                            <div class="card bg-main" style="border-radius: 20px;">
+                                <div class="card-body text-white text-center font-weight-bold p-2 small">
+                                    <i class="fa fa-calendar"></i> Schedule
                                 </div>
                             </div>
                         </a>
