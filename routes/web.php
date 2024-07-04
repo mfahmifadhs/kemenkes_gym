@@ -71,6 +71,7 @@ Route::post('login', [AuthController::class, 'postLogin'])->name('masuk');
 Route::get('logout', [AuthController::class, 'keluar'])->name('logout');
 
 Route::get('survey-kepuasan', [SurveyController::class, 'show'])->name('survey-kepuasan');
+Route::get('survey-kepuasan/store/{id}', [SurveyController::class, 'store'])->name('survey-kepuasan.store');
 
 
 

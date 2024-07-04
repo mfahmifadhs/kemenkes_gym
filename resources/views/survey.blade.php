@@ -53,29 +53,42 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
+                    @if ($message = Session::get('success'))
+                    <div id="alert" class="alert bg-success">
+                        <div class="row">
+                            <p style="color:white;margin: auto;">{{ $message }}</p>
+                        </div>
+                    </div>
+                    <script>
+                        setTimeout(function() {
+                            document.getElementById('alert').style.display = 'none';
+                        }, 3000);
+                    </script>
+                    @endif
                     <div class="section-title contact-title text-center">
                         <h2>BAGAIMANA SURVEY ANDA TERHADAP PELAYANAN KAMI ?</h2>
                     </div>
                     <div class="section-body">
-                        <form action="">
-                            @csrf
-                            <div class="row mt-5">
-                                <div class="col-md-6 col-6">
+                        <div class="row mt-5">
+                            <div class="col-md-6 col-6">
+                                <a href="" onclick="confirmSubmit(event, `{{ route('survey-kepuasan.store', 'puas') }}`)" class="btn btn-default">
                                     <div class="survey-option">
                                         <input id="puas" name="result" type="checkbox" class="survey-checkbox" value="puas">
-                                        <img src="{{ asset('dist/img/survey/happy.png') }}" class="w-75 face-img mx-4" id="happy-img">
+                                        <img src="{{ asset('dist/img/survey/happy.png') }}" class="w-75 face-img mx-4 p-2" id="happy-img">
                                         <label for="puas" class="text-center text-white">Puas</label>
                                     </div>
-                                </div>
-                                <div class="col-md-6 col-6">
+                                </a>
+                            </div>
+                            <div class="col-md-6 col-6">
+                                <a href="" onclick="confirmSubmit(event, `{{ route('survey-kepuasan.store', 'tidakpuas') }}`)" class="btn btn-default">
                                     <div class="survey-option">
                                         <input name="result" type="checkbox" class="survey-checkbox" value="tidak puas">
                                         <img src="{{ asset('dist/img/survey/sad.png') }}" class="w-75 face-img mx-4" id="sad-img">
                                         <label for="tidak puas" class="text-center text-white">Tidak Puas</label>
                                     </div>
-                                </div>
+                                </a>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -106,37 +119,27 @@
 
 
     <script>
-        function confirmSubmit(event) {
+        function confirmSubmit(event, url) {
             event.preventDefault();
 
-            const form = document.getElementById('form-login');
-
-            var password = $("#password").val();
-            var confPass = $("#conf-password").val();
-            const inputs = form.querySelectorAll('select[required], input[required], textarea[required]');
-            let isFormValid = true;
-
-            inputs.forEach(input => {
-                if (input.hasAttribute('required') && input.value.trim() === '') {
-                    input.style.borderColor = 'red';
-                    isFormValid = false;
-                } else {
-                    input.style.borderColor = '';
-                }
-            });
+            // Check if form is valid (you need to define your own validation logic)
+            const isFormValid = true; // Replace with your form validation logic
 
             if (isFormValid) {
                 Swal.fire({
-                    title: "Proses...",
+                    title: "Loading...",
                     showConfirmButton: false,
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                     willOpen: () => {
                         Swal.showLoading();
                     },
-                })
+                });
 
-                form.submit();
+                // Redirect to the URL after a short delay to allow Swal to show loading
+                setTimeout(() => {
+                    window.location.href = url;
+                }, 500); // You can adjust the delay as needed
             } else {
                 Swal.fire({
                     title: 'Gagal',
@@ -144,7 +147,6 @@
                     icon: 'error',
                 });
             }
-
         }
     </script>
 
