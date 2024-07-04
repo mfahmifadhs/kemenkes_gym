@@ -7,6 +7,10 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0"> {{ $kelas->nama_kelas }}</small></h1>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">{{ ucwords(strtolower($kelas->nama_kelas)) }}</li>
+                    </ol>
                 </div>
                 <div class="col-sm-6 text-right">
                     <a href="{{ route('kelas') }}" class="btn btn-default border-dark">

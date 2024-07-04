@@ -6,7 +6,12 @@
         <div class="container-fluid col-md-8">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Jadwal {{ $jadwal->kelas->nama_kelas }}</small></h1>
+                    <h1 class="m-0">Jadwal {{ ucwords(strtolower($jadwal->kelas->nama_kelas)) }}</small></h1>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('jadwal.pilih', Carbon\Carbon::parse($jadwal->tanggal_kelas)->format('d-M-Y')) }}">Jadwal</a></li>
+                        <li class="breadcrumb-item active">Detail</li>
+                    </ol>
                 </div>
                 <div class="col-sm-6 text-right">
                     <a href="{{ route('kelas.detail', $jadwal->kelas_id) }}" class="btn btn-default border-dark">
@@ -89,7 +94,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($jadwal->peserta->sortBy(function($row) {
-                                    return $row->member->nama;
+                                return $row->member->nama;
                                 }) as $row)
                                 <tr>
                                     <td style="width: 0vh;">{{ $loop->iteration }}</td>
