@@ -36,7 +36,7 @@
     <header class="header-section">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-3 mx-auto text-center">
                     <div class="logo">
                         <a href="/">
                             <img src="{{ asset('dist/img/logo.png') }}" alt="">
@@ -49,7 +49,7 @@
     <!-- Header End -->
 
     <!-- Contact Section Begin -->
-    <section class="contact-section spad" style="margin-top: 5%;">
+    <section class="contact-section spad mt-3">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 mx-auto">
