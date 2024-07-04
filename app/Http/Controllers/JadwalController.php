@@ -137,7 +137,8 @@ class JadwalController extends Controller
             'waktu_mulai'   => $request->waktu_mulai,
             'waktu_selesai' => $request->waktu_selesai,
             'kuota'         => $request->kuota,
-            'nama_pelatih'  => $request->nama_pelatih
+            'nama_pelatih'  => $request->nama_pelatih,
+            'lokasi'        => $request->lokasi
         ]);
 
         return redirect()->route('kelas.detail', $request->kelas_id)->with('success', 'Berhasil memperbaharui jadwal!');
