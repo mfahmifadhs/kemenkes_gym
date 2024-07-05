@@ -81,7 +81,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <h2>SCHEDULE (COMING SOON) !</h2>
+                    <h2>SCHEDULE</h2>
                 </div>
             </div>
             <div class="col-lg-12">
