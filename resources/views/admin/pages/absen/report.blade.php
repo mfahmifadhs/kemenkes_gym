@@ -57,7 +57,7 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <div class="chart">
-                                        <canvas id="memberChart" height="350px"></canvas>
+                                        <canvas id="memberChart" height="300px"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -175,7 +175,7 @@
                     yAxes: [{
                         ticks: {
                             beginAtZero: true,
-                            max: maxSurveyTotal + 10
+                            max: maxSurveyTotal + 20
                         }
                     }]
                 },
