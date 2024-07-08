@@ -175,7 +175,7 @@
                     yAxes: [{
                         ticks: {
                             beginAtZero: true,
-                            max: maxSurveyTotal + 1
+                            max: maxSurveyTotal + 10
                         }
                     }]
                 },
@@ -202,7 +202,7 @@
                         },
                         anchor: 'end', // Menempatkan label di atas titik
                         align: 'top',
-                        offset: 10
+                        offset: 4
                     }
                 }
             };
