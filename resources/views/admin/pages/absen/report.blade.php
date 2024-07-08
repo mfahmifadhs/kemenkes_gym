@@ -157,8 +157,6 @@
             });
 
             var maxSurveyTotal = Math.max(...SurveyTotal);
-            var dynamicMax = maxSurveyTotal * 1.05;
-
             var doughnutChartCanvas = document.getElementById('memberChart').getContext('2d');
             var doughnutChartData = {
                 labels: Survey,
@@ -177,7 +175,7 @@
                     yAxes: [{
                         ticks: {
                             beginAtZero: true,
-                            max: dynamicMax
+                            max: maxSurveyTotal + 1
                         }
                     }]
                 },
@@ -204,7 +202,7 @@
                         },
                         anchor: 'end', // Menempatkan label di atas titik
                         align: 'top',
-                        offset: 4
+                        offset: 10
                     }
                 }
             };
