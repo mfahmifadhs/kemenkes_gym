@@ -157,6 +157,8 @@
             });
 
             var maxSurveyTotal = Math.max(...SurveyTotal);
+            var dynamicMax = maxSurveyTotal * 1.05;
+
             var doughnutChartCanvas = document.getElementById('memberChart').getContext('2d');
             var doughnutChartData = {
                 labels: Survey,
@@ -175,7 +177,7 @@
                     yAxes: [{
                         ticks: {
                             beginAtZero: true,
-                            max: maxSurveyTotal + 2
+                            max: dynamicMax
                         }
                     }]
                 },
@@ -185,7 +187,7 @@
                     labels: {
                         boxWidth: 20,
                         fontColor: '#fff',
-                        padding: 20,
+                        padding: 15,
                         generateLabels: function(chart) {
                             var data = doughnutChartData;
                             return [];
@@ -197,12 +199,12 @@
                         color: '#111',
                         textAlign: 'center',
                         font: {
-                            lineHeight: 2,
+                            lineHeight: 1.6,
                             fontWeight: 'bold'
                         },
                         anchor: 'end', // Menempatkan label di atas titik
                         align: 'top',
-                        offset: 1
+                        offset: 4
                     }
                 }
             };
