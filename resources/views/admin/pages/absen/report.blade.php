@@ -57,7 +57,7 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <div class="chart">
-                                        <canvas id="memberChart" height="200px"></canvas>
+                                        <canvas id="memberChart" height="300px"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -185,7 +185,7 @@
                     labels: {
                         boxWidth: 20,
                         fontColor: '#fff',
-                        padding: 15,
+                        padding: 20,
                         generateLabels: function(chart) {
                             var data = doughnutChartData;
                             return [];
@@ -197,7 +197,7 @@
                         color: '#111',
                         textAlign: 'center',
                         font: {
-                            lineHeight: 1.6,
+                            lineHeight: 2,
                             fontWeight: 'bold'
                         },
                         anchor: 'end', // Menempatkan label di atas titik
