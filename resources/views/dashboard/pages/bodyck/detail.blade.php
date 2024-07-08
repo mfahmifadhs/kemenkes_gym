@@ -58,9 +58,9 @@
                         </div>
                         @endforeach
 
-                        <a href="" class="btn btn-danger btn-block font-weight-bold">
+                        <!-- <a href="" class="btn btn-danger btn-block font-weight-bold">
                             <i class="fa fa-file"></i> Download
-                        </a>
+                        </a> -->
                     </div>
                 </div>
             </div>

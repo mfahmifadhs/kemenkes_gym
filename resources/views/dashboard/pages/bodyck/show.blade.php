@@ -7,9 +7,9 @@
         <div class="row identity">
             <div class="col-md-9 mx-auto">
                 <div class="row mb-2">
-                    <div class="col-7 text-left">
+                    <div class="col-7 text-left mt-1">
                         <div class="section-title">
-                            <h4 class="text-main"><u>BODY COMPOSITION</u></h4>
+                            <h5 class="text-main"><u>BODY COMPOSITION</u></h5>
                         </div>
                     </div>
                     <div class="col-5 text-right mt-2">
