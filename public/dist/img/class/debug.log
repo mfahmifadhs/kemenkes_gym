@@ -25,3 +25,5 @@
 [0702/132638.533:WARNING:dns_config_service_win.cc(668)] Failed to read DnsConfig.
 [0702/132638.602:WARNING:dns_config_service_win.cc(668)] Failed to read DnsConfig.
 [0704/121844.929:WARNING:dns_config_service_win.cc(668)] Failed to read DnsConfig.
+[0705/172350.511:WARNING:dns_config_service_win.cc(668)] Failed to read DnsConfig.
+[0705/172350.927:WARNING:dns_config_service_win.cc(668)] Failed to read DnsConfig.
