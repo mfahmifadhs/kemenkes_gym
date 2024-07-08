@@ -175,7 +175,7 @@
                     yAxes: [{
                         ticks: {
                             beginAtZero: true,
-                            max: maxSurveyTotal + 20
+                            max: maxSurveyTotal + 30
                         }
                     }]
                 },
