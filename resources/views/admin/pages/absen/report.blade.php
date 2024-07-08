@@ -156,6 +156,7 @@
                 SurveyTotal.push(data.total_absen);
             });
 
+            var maxSurveyTotal = Math.max(...SurveyTotal);
             var doughnutChartCanvas = document.getElementById('memberChart').getContext('2d');
             var doughnutChartData = {
                 labels: Survey,
@@ -170,6 +171,14 @@
             var doughnutChartOptions = {
                 responsive: true,
                 maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: maxSurveyTotal + 2
+                        }
+                    }]
+                },
                 legend: {
                     display: true,
                     position: 'bottom',
@@ -190,7 +199,10 @@
                         font: {
                             lineHeight: 1.6,
                             fontWeight: 'bold'
-                        }
+                        },
+                        anchor: 'end', // Menempatkan label di atas titik
+                        align: 'top',
+                        offset: 1
                     }
                 }
             };
