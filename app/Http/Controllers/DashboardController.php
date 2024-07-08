@@ -83,7 +83,7 @@ class DashboardController extends Controller
             $resProgress = $hasil_pertama - $hasil_akhir;
             $member = $details->first();
 
-            $progress = $resProgress < 0 ? '+' . abs($resProgress) : '-' . (string)$resProgress;
+            $progress = $resProgress < 0 ? '-' . abs($resProgress) : '+' . (string)$resProgress;
             $uker = $member->instansi === 'pusat' ? $member->nama_unit_kerja : $member->nama_instansi;
 
             if ($progress != 0) {
