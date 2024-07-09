@@ -39,7 +39,7 @@
                     <div class="col-md-5">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="text-sm"><i class="fas fa-fire"></i> Top 10 Best Progress Fat Loss</div>
+                                <div class="text-sm mb-2"><i class="fas fa-fire"></i> Top 10 Best Progress Fat Loss</div>
                                 @foreach (collect($topFatLoss)->sortBy('progress') as $row)
                                 <div class="info-box">
                                     <span class="info-box-icon bg-info elevation-1">
@@ -59,7 +59,7 @@
                                 @endforeach
                             </div>
                             <div class="col-md-6">
-                                <div class="text-sm"><i class="fas fa-fire"></i> Top 10 Best Progress Muscle Mass</div>
+                                <div class="text-sm mb-2"><i class="fas fa-fire"></i> Top 10 Best Progress Muscle Mass</div>
                                 @foreach (collect($topMuscleMass)->sortBy('progress') as $row)
                                 <div class="info-box">
                                     <span class="info-box-icon bg-info elevation-1">
@@ -81,9 +81,9 @@
                         </div>
                     </div>
                     <div class="col-md-7">
-                        <div class="text-sm"><i class="fas fa-weight-scale"></i> Body Composition</div>
+                        <div class="text-sm mb-2"><i class="fas fa-weight-scale"></i> Body Composition</div>
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-body">
                                 <div class="table-responsive">
                                     <table id="table" class="table table-bordered text-center">
                                         <thead class="text-sm">
