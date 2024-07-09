@@ -66,7 +66,7 @@
                     </script>
                     @endif
                     <div class="section-title contact-title text-center">
-                        <h2>BAGAIMANA KEPUASAN ANDA TERHADATAP PELAYANAN KAMI ?</h2>
+                        <h2>BAGAIMANA KEPUASAN ANDA TERHADAP PELAYANAN KAMI ?</h2>
                     </div>
                     <div class="section-body">
                         <div class="row mt-5">

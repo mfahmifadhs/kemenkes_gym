@@ -97,7 +97,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a id="menu" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Menu</a>
                             <ul aria-labelledby="menu" class="dropdown-menu border-0 shadow">
                                 <li>
-                                    <a href="#" class="dropdown-item">
+                                    <a href="{{ route('bodyck') }}" class="dropdown-item">
                                         <i class="fa fa-weight-scale"></i> Body Composition
                                     </a>
                                     <a href="{{ route('leaderboard') }}" class="dropdown-item">

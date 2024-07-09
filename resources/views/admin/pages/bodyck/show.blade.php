@@ -34,46 +34,89 @@
 
     <div class="content">
         <div class="container-fluid">
-            <div class="card col-md-9 col-12 mx-auto">
-                <div class="card-header">
-                    <label class="card-title"><i class="fas fa-clock"></i> Riwayat Body Composition</label>
-                </div>
-                <div class="card-header">
-                    <div class="table-responsive">
-                        <table id="table" class="table table-bordered text-center">
-                            <thead class="text-sm">
-                                <tr>
-                                    <th style="width: 5%;">No</th>
-                                    <th style="width: 10%;">Tanggal</th>
-                                    <th>Nama</th>
-                                    <th style="width: 20%;">No.Serial</th>
-                                    <th>Keterangan</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-sm">
-                                @foreach($bodyck as $row)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>
-                                        @if ($row->bodyck_status == 'true')
-                                        <a href=""><i class="fas fa-eye"></i></a>
-                                        <a href=""><i class="fas fa-edit"></i></a>
-                                        @else
-                                        <a href="{{ route('bodyck.detail', $row->id_bodyck) }}" class="btn btn-default btn-xs border-dark">
-                                            <small><i class="fas fa-spinner text-warning"></i> <b>Proses</b></small>
-                                        </a>
-                                        @endif
-                                    </td>
-                                    <td class="text-left">
-                                        {{ $row->member->nama }} <br>
-                                        {{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}
-                                    </td>
-                                    <td>Serial No. {{ str_pad($row->no_serial, 8, '0', STR_PAD_LEFT) }}</td>
-                                    <td>{{ $row->bodyck_keterangan }}</td>
-                                </tr>
+            <div class="col-md-12 col-12 mx-auto">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="text-sm"><i class="fas fa-fire"></i> Top 10 Best Progress Fat Loss</div>
+                                @foreach (collect($topFatLoss)->sortBy('progress') as $row)
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-info elevation-1">
+                                        <h2 class="font-weight-bold mt-2">{{ $loop->iteration }}</h2>
+                                    </span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text small">
+                                            <h6>{{ ucwords(strtolower($row['nama'])) }} <br>
+                                                <small>{{ Str::limit($row['uker'], 40) }}</small>
+                                            </h6>
+                                        </span>
+                                        <span class="info-box-number">
+                                            <b>{{ $row['progress'] }} <small class="text-xs">%</small></b>
+                                        </span>
+                                    </div>
+                                </div>
                                 @endforeach
-                            </tbody>
-                        </table>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-sm"><i class="fas fa-fire"></i> Top 10 Best Progress Muscle Mass</div>
+                                @foreach (collect($topMuscleMass)->sortBy('progress') as $row)
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-info elevation-1">
+                                        <h2 class="font-weight-bold mt-2">{{ $loop->iteration }}</h2>
+                                    </span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text small">
+                                            <h6>{{ ucwords(strtolower($row['nama'])) }} <br>
+                                                <small>{{ Str::limit($row['uker'], 40) }}</small>
+                                            </h6>
+                                        </span>
+                                        <span class="info-box-number">
+                                            <b>{{ $row['progress'] }} <small class="text-xs">%</small></b>
+                                        </span>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="text-sm"><i class="fas fa-weight-scale"></i> Body Composition</div>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="table-responsive">
+                                    <table id="table" class="table table-bordered text-center">
+                                        <thead class="text-sm">
+                                            <tr>
+                                                <th style="width: 5%;">No</th>
+                                                <th>Nama</th>
+                                                <th style="width: 10%;">Pengecekan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-sm">
+                                            @foreach($user as $row)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td class="text-left">
+                                                    {{ $row->nama }} <br>
+                                                    {{ $row->instansi == 'pusat' ? $row->uker?->nama_unit_kerja : $row->nama_instansi }}
+                                                </td>
+                                                <td>
+                                                    @foreach ($row->bodyCk as $no => $subRow)
+                                                    <a href="">
+                                                        <span class="text-success">
+                                                            <i class="fas fa-check-circle"></i> Tanita {{ $no+1 }} - {{ Carbon\Carbon::parse($subRow->tanggal_cek)->format('d-m-Y') }}
+                                                        </span><br>
+                                                    </a>
+                                                    @endforeach
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
