@@ -39,7 +39,7 @@ class JadwalController extends Controller
         $daftar = Peserta::where('member_id', Auth::user()->id)->first();
         $id     = $today;
 
-        return view($role.'.jadwal.show', compact('id', 'jadwal', 'range', 'rangeAwal', 'today', 'daftar'));
+        return view($role . '.jadwal.show', compact('id', 'jadwal', 'range', 'rangeAwal', 'today', 'daftar'));
     }
 
     public function detail($id)
@@ -77,7 +77,7 @@ class JadwalController extends Controller
             ->get();
 
         $daftar     = Peserta::where('member_id', Auth::user()->id)->first();
-        return view($role.'.jadwal.show', compact('id', 'jadwal', 'range', 'rangeAwal', 'today', 'daftar', 'status'));
+        return view($role . '.jadwal.show', compact('id', 'jadwal', 'range', 'rangeAwal', 'today', 'daftar', 'status'));
     }
 
     public function create($id)
@@ -196,23 +196,38 @@ class JadwalController extends Controller
             }
         }
 
-        $peserta = Peserta::where('jadwal_id', $id)->get();
+        $response = DB::transaction(function () use ($request, $id) {
+            // Mengunci jadwal yang sedang diproses
+            $jadwal = Jadwal::where('id_jadwal', $id)->lockForUpdate()->first();
+            $peserta = Peserta::where('jadwal_id', $id)->lockForUpdate()->get();
 
-        if ($request->kuota == $peserta->count()) {
-            return redirect()->route('jadwal.join', $id)->with('failed', 'Maaf kuota sudah penuh');
-        };
+            // Memeriksa apakah kuota sudah penuh
+            if ($peserta->count() >= $request->kuota) {
+                return ['status' => 'failed', 'message' => 'Maaf kuota sudah penuh'];
+            }
 
-        if (!$daftar) {
-            $id_peserta = Peserta::withTrashed()->count();
-            $tambah = new Peserta();
-            $tambah->id_peserta      = $id_peserta + 1;
-            $tambah->jadwal_id       = $id;
-            $tambah->member_id       = $request->member_id;
-            $tambah->tanggal_latihan = $request->tanggal_latihan;
-            $tambah->save();
-        }
+            // Memeriksa apakah pengguna sudah terdaftar
+            $daftar = Peserta::where('member_id', Auth::user()->id)
+                ->where('jadwal_id', $id)
+                ->where('tanggal_latihan', $jadwal->tanggal_kelas)
+                ->first();
 
-        return redirect()->route('jadwal.join', $id)->with('success', 'Berhasil mendaftar kelas!');
+            if (!$daftar) {
+                $id_peserta = Peserta::withTrashed()->count();
+                $tambah = new Peserta();
+                $tambah->id_peserta = $id_peserta + 1;
+                $tambah->jadwal_id = $id;
+                $tambah->member_id = $request->member_id;
+                $tambah->tanggal_latihan = $request->tanggal_latihan;
+                $tambah->save();
+                return ['status' => 'success', 'message' => 'Berhasil mendaftar kelas!'];
+            } else {
+                return ['status' => 'failed', 'message' => 'Anda sudah terdaftar dalam kelas ini.'];
+            }
+        });
+
+        // Mengarahkan ke route jadwal.join dengan notifikasi yang sesuai
+        return redirect()->route('jadwal.join', $id)->with($response['status'], $response['message']);
     }
 
     public function cancel(Request $request, $id)

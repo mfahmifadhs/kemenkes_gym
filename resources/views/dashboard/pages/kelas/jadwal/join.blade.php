@@ -78,7 +78,7 @@ $waktuSelesai = Carbon\Carbon::parse($jadwal->tanggal_kelas . ' ' . $jadwal->wak
                         </div>
 
                         @if(Auth::user()->role_id == 4 && Carbon\Carbon::now() <= $waktuSelesai)
-                            @if (!$isPenalty && $daftar?->count() == 0 && $totalPeserta != $jadwal->kuota)
+                            @if (!$isPenalty && $daftar?->count() == 0 && $totalPeserta < $jadwal->kuota)
                                 @if (Carbon\Carbon::now() >= $tglBuka)
                                 <form id="form" action="{{ route('jadwal.join', $jadwal->id_jadwal) }}" method="POST">
                                     @csrf
@@ -90,7 +90,7 @@ $waktuSelesai = Carbon\Carbon::parse($jadwal->tanggal_kelas . ' ' . $jadwal->wak
                                     </button>
                                 </form>
                                 @endif
-                            @elseif ($totalPeserta == $jadwal->kuota)
+                            @elseif ($totalPeserta == $jadwal->kuota || $totalPeserta >= $jadwal->kuota)
                                 @if ($terdaftar == 0 || $pembatalan == 'false')
                                 <a href="" class="btn btn-danger btn-block text-uppercase font-weight-bold disabled">Full</a>
                                 @else
