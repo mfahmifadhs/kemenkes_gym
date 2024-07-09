@@ -14,17 +14,17 @@
 
 <div class="content-wrapper">
     <div class="content-header">
-        <div class="container-fluid col-md-9 col-12 mx-auto">
+        <div class="container-fluid col-md-12 col-12 mx-auto">
             <div class="row mb-2">
                 <div class="col-sm-6 col-6">
                     <h1 class="m-0 text-lg">Body Composition</h1>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Riwayat Body Composition</li>
+                        <li class="breadcrumb-item active">Body Composition</li>
                     </ol>
                 </div>
                 <div class="col-sm-6 col-6 text-right mt-2">
-                    <a href="{{ route('user.create') }}" class="btn btn-default btn-sm border-dark">
+                    <a href="" class="btn btn-default btn-sm border-dark">
                         <i class="fas fa-circle-plus"></i> Create
                     </a>
                 </div>
