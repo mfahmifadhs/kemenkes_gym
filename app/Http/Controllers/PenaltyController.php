@@ -5,13 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Penalty;
 use App\Models\UnitUtama;
 use Illuminate\Http\Request;
+use Auth;
 
 class PenaltyController extends Controller
 {
     public function show()
     {
-        $utama   = UnitUtama::get();
-        $penalty = Penalty::where('status', 'false')->get();
+        $upl   = Auth::user()->uker_id;
+        $utama = UnitUtama::get();
+        $dataPenalty = Penalty::where('t_penalty.status', 'false');
+
+        if ($upl == '121103') {
+            $penalty = $dataPenalty->join('t_jadwal','id_jadwal','jadwal_id')->whereIn('kelas_id', [12,13,14])->get();
+        } else {
+            $penalty = $dataPenalty->get();
+        }
+
         return view('admin.pages.penalty.show', compact('utama', 'penalty'));
     }
 

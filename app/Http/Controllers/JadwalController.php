@@ -16,6 +16,7 @@ class JadwalController extends Controller
 {
     public function show()
     {
+        $upl        = Auth::user()->uker_id;
         $role       = Auth::user()->role_id == 4 ? 'dashboard.pages.kelas' : 'admin.pages';
         $tglAwal    = Carbon::now();
         $tglAkhir   = Carbon::now()->endOfMonth();
@@ -31,19 +32,25 @@ class JadwalController extends Controller
         // $ranges     = range($rangeAwal->day, $rangeAkhir->day);
         $today      = Carbon::now()->format('d-M-Y');
 
-        $jadwal     = Jadwal::select(DB::raw("DATE_FORMAT(tanggal_kelas, '%a') as hari"), 't_jadwal.*')
+        $dataJadwal = Jadwal::select(DB::raw("DATE_FORMAT(tanggal_kelas, '%a') as hari"), 't_jadwal.*')
             ->where(DB::raw("DATE_FORMAT(tanggal_kelas, '%d-%b-%Y')"), $today)
-            ->orderBy('waktu_mulai', 'DESC')
-            ->get();
+            ->orderBy('waktu_mulai', 'DESC');
 
         $daftar = Peserta::where('member_id', Auth::user()->id)->first();
         $id     = $today;
+
+        if ($role != 4 && $upl == '121103') {
+            $jadwal = $dataJadwal->whereIn('kelas_id', [12,13,14])->get();
+        } else {
+            $jadwal = $dataJadwal->get();
+        }
 
         return view($role . '.jadwal.show', compact('id', 'jadwal', 'range', 'rangeAwal', 'today', 'daftar'));
     }
 
     public function detail($id)
     {
+        $upl   = Auth::user()->uker_id;
         $role  = Auth::user()->role_id;
         $jadwal = Jadwal::where('id_jadwal', $id)->first();
 
@@ -56,6 +63,7 @@ class JadwalController extends Controller
 
     public function filter($id)
     {
+        $upl        = Auth::user()->uker_id;
         $role       = Auth::user()->role_id == 4 ? 'dashboard.pages.kelas' : 'admin.pages';
         $tglAwal    = Carbon::now();
         $tglAkhir   = Carbon::now()->endOfMonth();
@@ -71,12 +79,18 @@ class JadwalController extends Controller
         // $ranges     = range($rangeAwal->day, $rangeAkhir->day);
         $today      = $id;
         $status = ''; // default status
-        $jadwal     = Jadwal::select(DB::raw("DATE_FORMAT(tanggal_kelas, '%d-%b-%Y') as hari"), 't_jadwal.*')
+        $dataJadwal     = Jadwal::select(DB::raw("DATE_FORMAT(tanggal_kelas, '%d-%b-%Y') as hari"), 't_jadwal.*')
             ->where(DB::raw("DATE_FORMAT(tanggal_kelas, '%d-%b-%Y')"), $id)
-            ->orderBy('waktu_mulai', 'ASC')
-            ->get();
+            ->orderBy('waktu_mulai', 'ASC');
 
         $daftar     = Peserta::where('member_id', Auth::user()->id)->first();
+
+        if ($role != 4 && $upl == '121103') {
+            $jadwal = $dataJadwal->whereIn('kelas_id', [12,13,14])->get();
+        } else {
+            $jadwal = $dataJadwal->get();
+        }
+
         return view($role . '.jadwal.show', compact('id', 'jadwal', 'range', 'rangeAwal', 'today', 'daftar', 'status'));
     }
 

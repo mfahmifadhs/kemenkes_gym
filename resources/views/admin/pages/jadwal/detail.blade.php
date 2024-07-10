@@ -90,6 +90,7 @@
                                     <th>NIP/NIK</th>
                                     <th>Tanggal Lahir</th>
                                     <th>Unit Kerja/UPT/Umum</th>
+                                    <th>Waktu</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -120,6 +121,8 @@
                                     <td>{{ $row->member->nip_nik }}</td>
                                     <td>{{ $row->member->tanggal_lahir }}</td>
                                     <td class="text-left">{{ $row->member->instansi == 'pusat' ? $row->member->uker?->nama_unit_kerja : $row->member->nama_instansi }}</td>
+
+                                    <td>{{ $row->created_at }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

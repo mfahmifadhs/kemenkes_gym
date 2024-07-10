@@ -21,7 +21,7 @@ class BodyckController extends Controller
         $data = Bodyck::orderBy('tanggal_cek', 'DESC');
         $user = User::where('role_id', 4)->whereHas('bodyck')->get();
 
-        if ($role == 1 || $role == 2) {
+        if ($role != 4) {
             return view('admin.pages.bodyck.show', compact('user', 'topFatLoss', 'topMuscleMass'));
         }
 

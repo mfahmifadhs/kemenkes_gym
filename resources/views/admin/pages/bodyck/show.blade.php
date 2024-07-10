@@ -23,11 +23,13 @@
                         <li class="breadcrumb-item active">Body Composition</li>
                     </ol>
                 </div>
+                @if (Auth::user()->role_id == 1)
                 <div class="col-sm-6 col-6 text-right mt-2">
                     <a href="" class="btn btn-default btn-sm border-dark">
                         <i class="fas fa-circle-plus"></i> Create
                     </a>
                 </div>
+                @endif
             </div>
         </div>
     </div>

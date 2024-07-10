@@ -123,6 +123,7 @@
                         </div>
                         @endforeach
                     </div>
+                    @if (Auth::user()->role_id == 1)
                     <hr>
                     <label class="text-secondary text-sm mb-0"><i>Informasi Akun</i></label>
                     <div class="row">
@@ -135,6 +136,7 @@
                             <h6 class="text-sm">{{ $member->password_teks }}</h6>
                         </div>
                     </div>
+                    @endif
                 </div>
                 @if (Auth::user()->role_id == 1)
                 <div class="card-footer text-right">

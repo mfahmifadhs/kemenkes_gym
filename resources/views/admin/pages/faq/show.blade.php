@@ -27,6 +27,7 @@
                             <p>{!! nl2br($faq?->deskripsi) !!}</p>
                         </div>
                     </div>
+                    @if (Auth::user()->role_id == 1)
                     <div class="col-md-6">
                         <div class="card-body">
                             <form action="{{ route('faq.store') }}" method="GET">
@@ -45,6 +46,7 @@
                             </form>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

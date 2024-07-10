@@ -38,12 +38,16 @@
                                     <tr>
                                         <td>
                                             {{ $loop->iteration }}
-
                                             @if ($row->status == 'true')  <i class="fas fa-circle-check text-success"></i> @endif
                                             @if ($row->status == 'false') <i class="fas fa-times-circle text-danger"></i> @endif
                                         </td>
                                         <td>
+                                            @if (Auth::user()->uker_id == '121103' && $row->id_kelas == 12 || $row->id_kelas == 13 || $row->id_kelas == 14)
                                             <a href="{{ route('kelas.detail', $row->id_kelas) }}"><i class="fas fa-eye mx-1"></i></a>
+                                            @elseif (Auth::user()->uker_id != '121103')
+                                            <a href="{{ route('kelas.detail', $row->id_kelas) }}"><i class="fas fa-eye mx-1"></i></a>
+                                            @endif
+
                                             @if (Auth::user()->role_id == 1)
                                             <a href="{{ route('kelas.edit', $row->id_kelas) }}"><i class="fas fa-pencil mx-1"></i></a>
                                             @endif
