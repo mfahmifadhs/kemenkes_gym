@@ -96,11 +96,12 @@ class JadwalController extends Controller
 
     public function create($id)
     {
+        $date  = '';
         $role  = Auth::user()->role_id;
         $kelas = Kelas::where('id_kelas', $id)->first();
 
         if ($role == 1 || $role == 3) {
-            return view('admin.pages.jadwal.create', compact('kelas'));
+            return view('admin.pages.jadwal.create', compact('kelas', 'date'));
         } else {
             return view('dashboard.pages.kelas.jadwal.create', compact('kelas'));
         }

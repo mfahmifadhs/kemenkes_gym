@@ -10,6 +10,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KelasController;
+use App\Http\Controllers\KonsulController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PenaltyController;
 use App\Http\Controllers\ProgresController;
@@ -139,6 +140,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('progress/chart', [ProgresController::class, 'chart'])->name('progres.chart');
 
     Route::get('faq', [FaqController::class, 'show'])->name('faq');
+
+    Route::get('konsultas', [KonsulController::class, 'show'])->name('konsul');
 
     Route::group(['middleware' => ['access:admin']], function () {
         Route::get('kelas/kehadiran/{id}', [JadwalController::class, 'attendance'])->name('kelas.attendance');
