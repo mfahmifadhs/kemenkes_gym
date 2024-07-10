@@ -67,7 +67,7 @@
                                             @elseif ($row->kehadiran == 'alpha')
                                             <i class="fa fa-times-circle fa-3x text-danger"></i>
                                             @else
-                                            <i class="fa fa-clock fa-3x text-warning"></i>
+                                            <i class="fa fa-hourglass fa-2x mt-2 text-warning"></i>
                                             @endif
                                         </h6>
                                     </div>
