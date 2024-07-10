@@ -16,13 +16,14 @@ class BodyckController extends Controller
     {
         $topFatLoss    = collect($this->topProgress(2))->take(10);
         $topMuscleMass = collect($this->topProgress(5))->take(10);
+        $bodyckParam   = BodyckParam::get();
 
         $role = Auth::user()->role_id;
         $data = Bodyck::orderBy('tanggal_cek', 'DESC');
-        $user = User::where('role_id', 4)->whereHas('bodyck')->get();
+        $user = User::where('role_id', 4)->whereHas('bodyck')->paginate(5);
 
         if ($role != 4) {
-            return view('admin.pages.bodyck.show', compact('user', 'topFatLoss', 'topMuscleMass'));
+            return view('admin.pages.bodyck.show', compact('user', 'topFatLoss', 'topMuscleMass', 'bodyckParam'));
         }
 
         $bodyck = $data->where('member_id', Auth::user()->id)->get();
