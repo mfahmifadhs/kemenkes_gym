@@ -64,8 +64,10 @@
                                         <h6>
                                             @if ($row->kehadiran == 'hadir')
                                             <i class="fa fa-check-circle fa-3x text-success"></i>
-                                            @else
+                                            @elseif ($row->kehadiran == 'alpha')
                                             <i class="fa fa-times-circle fa-3x text-danger"></i>
+                                            @else
+                                            <i class="fa fa-clock fa-3x text-warning"></i>
                                             @endif
                                         </h6>
                                     </div>
