@@ -73,15 +73,15 @@
                                     <a href="" data-toggle="modal" data-target="#modal-{{ $row->id_konsul }}">
                                         <div class="card mt-2 p-2 text-dark">
                                             <h6 class="text-xs">
-                                                <span class="mr-1">
-                                                    @if ($row->test_sipgar == 1) <i class="fas fa-check-circle text-success"></i> Test Sipgar
-                                                    @else <i class="fas fa-times-circle text-danger"></i> Test Sipgar @endif
+                                                <span>
+                                                    @if ($row->test_sipgar == 1) <i class="fas fa-check-circle text-success ml-1"></i> Test Sipgar
+                                                    @else <i class="fas fa-times-circle text-danger ml-1"></i> Test Sipgar @endif
 
-                                                    @if ($row->test_fitness == 1) <i class="fas fa-check-circle text-success"></i> Test Fitness
-                                                    @else <i class="fas fa-times-circle text-danger"></i> Test Fitness @endif
+                                                    @if ($row->test_fitness == 1) <i class="fas fa-check-circle text-success ml-2"></i> Test Fitness
+                                                    @else <i class="fas fa-times-circle text-danger ml-2"></i> Test Fitness @endif
 
-                                                    @if ($row->konsultasi == 1) <i class="fas fa-check-circle text-success"></i> Konsultasi
-                                                    @else <i class="fas fa-times-circle text-danger"></i> Konsultasi @endif
+                                                    @if ($row->konsultasi == 1) <i class="fas fa-check-circle text-success ml-2"></i> Konsultasi
+                                                    @else <i class="fas fa-times-circle text-danger ml-2"></i> Konsultasi @endif
                                                 </span>
                                             </h6>
                                             <h6 class="text-xs pt-2">
