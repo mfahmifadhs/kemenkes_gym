@@ -61,7 +61,13 @@
 
                                     <small class="text-white">{{ $dokter->profil_dokter }}</small>
 
+                                    @if (Auth::user()->konsul->where('konsultasi', false)->count() != 1)
                                     <button type="submit" onclick="confirmSubmit(event)" class="btn btn-primary btn-block">Konsul</button>
+                                    @else
+                                    <a href="{{ route('konsul.cancel') }}" onclick="confirmCancel(event)" class="btn btn-danger btn-sm mt-2 btn-block">
+                                        Batalkan
+                                    </a>
+                                    @endif
                                 </div>
                             </div>
                         </form>
@@ -110,7 +116,9 @@
                                 <h6 class="text-secondary ml-4">untuk melakukan tes silahkan hubungi Coach untuk mengatur jadwal.</h6>
 
                                 <div class="input-group ml-4">
-                                    <a href="" class="btn btn-primary btn-sm">Hubungi Coach</a>
+                                    <a href="https://api.whatsapp.com/send?phone=+{{ $phone }}&text={{ $msg }}" target="_blank" class="btn btn-primary btn-sm">
+                                        Hubungi Coach
+                                    </a>
                                 </div>
                             @endif
 
@@ -177,21 +185,20 @@
     function confirmCancel(event) {
         event.preventDefault();
 
-        const form = document.getElementById('form');
+        const url = event.currentTarget.href;
 
         Swal.fire({
             title: 'Batalkan',
-            text: 'Batalkan mengikuti kelas.',
+            text: 'Batalkan Konsultasi, Antrian akan dibatalkan',
             icon: 'question',
             showCancelButton: true,
-            confirmButtonText: 'Yes',
-            cancelButtonText: 'Cancel',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Batal',
         }).then((result) => {
             if (result.isConfirmed) {
-                form.submit();
+                window.location.href = url;
             }
         });
-
     }
 </script>
 

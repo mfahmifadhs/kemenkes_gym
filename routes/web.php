@@ -143,6 +143,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('konsultasi', [KonsulController::class, 'show'])->name('konsul');
     Route::get('konsultasi/tambah', [KonsulController::class, 'store'])->name('konsul.store');
+    Route::get('konsultasi/batal', [KonsulController::class, 'cancel'])->name('konsul.cancel');
+    Route::get('konsultasi/update/{id}', [KonsulController::class, 'update'])->name('konsul.update');
 
     Route::group(['middleware' => ['access:admin']], function () {
         Route::get('kelas/kehadiran/{id}', [JadwalController::class, 'attendance'])->name('kelas.attendance');
