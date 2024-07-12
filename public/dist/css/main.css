@@ -3425,14 +3425,17 @@ ol {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 10px; /* Adjust margin as needed */
+    margin: 0 10px;
+    /* Adjust margin as needed */
 }
 
 .face-img {
     display: block;
-    margin-bottom: 5px; /* Adjust spacing between image and text */
+    margin-bottom: 5px;
+    /* Adjust spacing between image and text */
 }
 
 .survey-checkbox {
-    display: none; /* Hide the checkbox, only show the image and label */
+    display: none;
+    /* Hide the checkbox, only show the image and label */
 }

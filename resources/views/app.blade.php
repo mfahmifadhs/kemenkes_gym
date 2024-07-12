@@ -44,7 +44,7 @@
         <nav class="canvas-menu mobile-menu">
             <ul>
                 <li><a href="/">Home</a></li>
-                            @if (!request()->is('registration') && !request()->is('login') && !request()->is('activation') && !request()->is('mail/reset/password') && !request()->is('Attendance'))
+                @if (!request()->is('registration') && !request()->is('login') && !request()->is('activation') && !request()->is('mail/reset/password') && !request()->is('Attendance'))
                 <li><a href="#class">Classes</a></li>
                 <li><a href="#schedule">Schedule</a></li>
                 <li><a href="#survey">Survey Result</a></li>
@@ -100,17 +100,17 @@
                         </ul>
                     </nav>
                 </div>
-                    <div class="top-option">
-                        <div class="to-social">
-                            <a href="https://www.tiktok.com/@kemenkes.bootcamp"><img src="{{ asset('dist/img/icon/tik-tok.png') }}" width="15"></a>
-                            <a href="https://www.instagram.com/kemenkesbootcamp/"><i class="fa fa-instagram"></i></a>
-                        </div>
+                <div class="top-option">
+                    <div class="to-social">
+                        <a href="https://www.tiktok.com/@kemenkes.bootcamp"><img src="{{ asset('dist/img/icon/tik-tok.png') }}" width="15"></a>
+                        <a href="https://www.instagram.com/kemenkesbootcamp/"><i class="fa fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="canvas-open">
-                <i class="fa fa-bars"></i>
-            </div>
+        </div>
+        <div class="canvas-open">
+            <i class="fa fa-bars"></i>
+        </div>
         </div>
     </header>
     <!-- Header End -->
@@ -215,6 +215,19 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/0.7.0/chartjs-plugin-datalabels.min.js"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2SRTQTG74G"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-2SRTQTG74G');
+    </script>
 
     @yield('js')
 

@@ -142,6 +142,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('faq', [FaqController::class, 'show'])->name('faq');
 
     Route::get('konsultasi', [KonsulController::class, 'show'])->name('konsul');
+    Route::get('konsultasi/tambah', [KonsulController::class, 'store'])->name('konsul.store');
 
     Route::group(['middleware' => ['access:admin']], function () {
         Route::get('kelas/kehadiran/{id}', [JadwalController::class, 'attendance'])->name('kelas.attendance');
