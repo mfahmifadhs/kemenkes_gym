@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Auth;
+use PDF;
 
 class KonsulController extends Controller
 {
@@ -18,16 +19,25 @@ class KonsulController extends Controller
 
         if ($role != 4) {
             $test    = ['Test Sipgar', 'Test Fitness', 'Konsul'];
-            $konsul  = Konsultasi::get();
-            return view('admin.pages.konsul.show', compact('dokter', 'konsul', 'test'));
+            $konsul  = Konsultasi::paginate(4);
+            $konsulAll = Konsultasi::get();
+            return view('admin.pages.konsul.show', compact('dokter', 'konsul','konsulAll','test'));
         } else {
-            $user   = User::where('id', Auth::user()->id)->first();
-            $nama   = $user->nama;
-            $asal   = $user->instansi == 'pusat' ? $user->uker->nama_unit_kerja : $user->nama_instansi;
-            $phone  = '6285772652563';
-            $msg    = "Halo coach, saya *$nama* dari *$asal*. %0ASaya ingin menjadwalkan Tes Vo2Max dengan SIPGAR dan Fitness Test sebelum Konsultasi dengan Dokter.";
-            return view('dashboard.pages.konsul.show', compact('dokter', 'phone', 'msg'));
+            $user       = User::where('id', Auth::user()->id)->first();
+            $nama       = $user->nama;
+            $asal       = $user->instansi == 'pusat' ? $user->uker->nama_unit_kerja : $user->nama_instansi;
+            $userKonsul = Auth::user()->konsul->where('status', 'false');
+            $phone      = '6285772652563';
+            $msg        = "Halo coach, saya *$nama* dari *$asal*. %0ASaya ingin menjadwalkan Tes Vo2Max dengan SIPGAR dan Fitness Test sebelum Konsultasi dengan Dokter.";
+            return view('dashboard.pages.konsul.show', compact('dokter', 'phone', 'msg', 'userKonsul'));
         }
+    }
+
+    public function detail($id)
+    {
+        $dokter = Dokter::where('id_dokter', 1)->first();
+        $konsul = Konsultasi::where('id_konsultasi', $id)->first();
+        return view('admin.pages.konsul.detail', compact('id', 'dokter', 'konsul'));
     }
 
     public function store(Request $request)
@@ -61,11 +71,16 @@ class KonsulController extends Controller
     public function update(Request $request, $id)
     {
         Konsultasi::where('id_konsultasi', $id)->update([
-            'test_sipgar'   => (int) $request->test[1],
-            'test_fitness'  => (int) $request->test[2],
+            'test_sipgar'   => (int) $request->sipgar,
+            'test_fitness'  => (int) $request->fitness,
         ]);
 
-        if ($request->catatan_dokter || $request->catatan_pasien) {
+        if ($request->tanggal_konsul && $request->waktu_konsul && !$request->catatan_dokter && !$request->catatan_pasien) {
+            Konsultasi::where('id_konsultasi', $id)->update([
+                'tanggal_konsul' => $request->tanggal_konsul,
+                'waktu_konsul'   => $request->waktu_konsul,
+            ]);
+        } elseif ($request->tanggal_konsul && $request->catatan_dokter && $request->catatan_pasien) {
             Konsultasi::where('id_konsultasi', $id)->update([
                 'konsultasi'     => 1,
                 'catatan_dokter' => $request->catatan_dokter,
@@ -73,6 +88,30 @@ class KonsulController extends Controller
             ]);
         }
 
-        return redirect()->route('konsul')->with('success', 'Berhasil Proses Konsultasi!');
+        return redirect()->route('konsul.detail', $id)->with('success', 'Berhasil Proses Konsultasi!');
+    }
+
+    public function delete($id)
+    {
+        Konsultasi::where('id_konsultasi', $id)->delete();
+        return redirect()->route('konsul')->with('success', 'Berhasil Menghapus Data!');
+    }
+
+    public function reset()
+    {
+        $konsul = Konsultasi::where('member_id', Auth::user()->id)->where('status', 'false')->first();
+
+        Konsultasi::where('id_konsultasi', $konsul->id_konsultasi)->update([
+            'status' => 'true'
+        ]);
+
+        return redirect()->route('konsul')->with('success', 'Berhasil Reset Konsultasi!');
+    }
+
+    public function download($id)
+    {
+        $konsul = Konsultasi::where('id_konsultasi', $id)->first();
+        $pdf = PDF::loadView('admin.pages.konsul.pdf', compact('konsul'));
+        return $pdf->download('result.pdf');
     }
 }

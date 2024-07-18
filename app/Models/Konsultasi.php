@@ -26,7 +26,8 @@ class Konsultasi extends Model
         'tanggal_konsul',
         'waktu_konsul',
         'catatan_dokter',
-        'catatan_pasien'
+        'catatan_pasien',
+        'status'
     ];
 
     public function member() {

@@ -61,25 +61,32 @@
 
                                     <small class="text-white">{{ $dokter->profil_dokter }}</small>
 
-                                    @if (Auth::user()->konsul->where('konsultasi', false)->count() != 1)
+                                    @if (Auth::user()->konsul->where('status', 'false')->count() == 0)
                                     <button type="submit" onclick="confirmSubmit(event)" class="btn btn-primary btn-block">Konsul</button>
-                                    @else
+                                    @elseif (!$userKonsul->first()->konsultasi)
                                     <a href="{{ route('konsul.cancel') }}" onclick="confirmCancel(event)" class="btn btn-danger btn-sm mt-2 btn-block">
                                         Batalkan
+                                    </a>
+                                    @elseif ($userKonsul->first()->konsultasi)
+                                    <a href="{{ route('konsul.reset') }}" onclick="confirmReset(event)" class="btn btn-primary btn-sm mt-2 btn-block">
+                                        Konsultasi Kembali
+                                    </a>
+                                    <a href="{{ route('konsul.download', $userKonsul->first()->id_konsultasi) }}" onclick="confirmDownload(event)" class="btn btn-primary bg-danger btn-sm mt-2 btn-block">
+                                        Download Hasil Konsultasi
                                     </a>
                                     @endif
                                 </div>
                             </div>
                         </form>
 
-                        @if (Auth::user()->konsul->count() == 1 || Auth::user()->konsul->where('konsultasi', false)->count() == 1)
                         <div class="row">
+                            @if ($userKonsul->where('status', 'false')->count() != 0)
                             <div class="col-md-3">
                                 <div class="vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
                                     <div class="vertical-timeline-item vertical-timeline-element">
                                         <div>
                                             <span class="vertical-timeline-element-icon bounce-in">
-                                                <i class="badge badge-dot badge-dot-xl badge-danger"> </i>
+                                                <i class="badge badge-dot badge-dot-xl {{ $userKonsul->where('test_sipgar', 1)->first() ? 'badge-success' : 'badge-danger' }}"> </i>
                                             </span>
                                             <div class="vertical-timeline-element-content bounce-in">
                                                 <h4 class="timeline-title">Tes Vo2Max SIPGAR</h4>
@@ -89,7 +96,7 @@
                                     <div class="vertical-timeline-item vertical-timeline-element">
                                         <div>
                                             <span class="vertical-timeline-element-icon bounce-in">
-                                                <i class="badge badge-dot badge-dot-xl badge-secondary"> </i>
+                                                <i class="badge badge-dot badge-dot-xl {{ $userKonsul->where('test_fitness', 1)->first() ? 'badge-success' : 'badge-danger' }}"> </i>
                                             </span>
                                             <div class="vertical-timeline-element-content bounce-in">
                                                 <h4 class="timeline-title">Tes Fitness</h4>
@@ -99,7 +106,7 @@
                                     <div class="vertical-timeline-item vertical-timeline-element">
                                         <div>
                                             <span class="vertical-timeline-element-icon bounce-in">
-                                                <i class="badge badge-dot badge-dot-xl badge-secondary"> </i>
+                                                <i class="badge badge-dot badge-dot-xl {{ $userKonsul->where('konsultasi', 1)->first() ? 'badge-success' : 'badge-danger' }}"> </i>
                                             </span>
                                             <div class="vertical-timeline-element-content bounce-in">
                                                 <h4 class="timeline-title">Konsul Dokter</h4>
@@ -108,8 +115,9 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
 
-                            @if (Auth::user()->konsul->where('test_sipgar', false)->count() == 1 && Auth::user()->konsul->where('test_fitness', false)->count() == 1)
+                            @if ($userKonsul->where('test_sipgar', 0)->first() || $userKonsul->where('test_fitness', 0)->first())
                             <div class="col-md-9 col-12 mt-5">
                                 <div class="vertical-line"></div>
                                 <h4 class="text-white ml-4 text-uppercase">Mohon untuk melakukan Tes Vo2Max SIPGAR & Tes Fitness</h4>
@@ -120,26 +128,39 @@
                                         Hubungi Coach
                                     </a>
                                 </div>
+                            </div>
                             @endif
 
-                            @if (Auth::user()->konsul->where('test_sipgar', true)->count() == 1 && Auth::user()->konsul->where('test_fitness', true)->count() == 1)
+                            @if ($userKonsul->first()?->tanggal_konsul && $userKonsul->first()->status == 'false')
+                            <div class="col-md-9 col-12 mt-5">
                                 <div class="vertical-line"></div>
                                 <label class="text-success text-sm ml-4 font-weight-bold">Berikut jadwal konsultasi anda:</label> <br>
                                 <label class="text-white ml-4">
-                                    <span><i class="fa fa-calendar"></i> Jum'at, 12 Juni 2024</span>
+                                    <span><i class="fa fa-calendar"></i> {{ Carbon\Carbon::parse($userKonsul->first()->tanggal_konsul)->isoFormat('DD MMMM Y') }}</span>
                                 </label> <br>
 
                                 <label class="text-white ml-4">
-                                    <span><i class="fa fa-clock-o"></i> 08.00 WIB s/d 08.30 WIB</span>
+                                    <span><i class="fa fa-clock-o"></i>
+                                        @if ($userKonsul->first()->waktu_konsul == 1) 07.00 WIB s/d 07.30 WIB @endif
+                                        @if ($userKonsul->first()->waktu_konsul == 2) 07.30 WIB s/d 08.00 WIB @endif
+                                        @if ($userKonsul->first()->waktu_konsul == 3) 08.00 WIB s/d 08.30 WIB @endif
+                                        @if ($userKonsul->first()->waktu_konsul == 4) 08.30 WIB s/d 09.00 WIB @endif
+                                    </span>
                                 </label> <br>
 
+                                <label class="text-white ml-4">
+                                    <span><i class="fa fa-map-pin"></i> Ruang Dokter, Kemenkes Bootcamp & Fitness Center</span>
+                                </label> <br>
+
+                                @if ($userKonsul->first()->konsultasi == 1)
                                 <label class="text-white ml-4 mt-4">
                                     <span><i class="fa fa-pencil"></i> Catatan Dokter: </span>
+                                    <p class="text-white">{{ $userKonsul->first()->catatan_pasien }}</p>
                                 </label>
+                                @endif
                             </div>
                             @endif
                         </div>
-                        @endif
 
                     </div>
                 </div>
@@ -182,6 +203,25 @@
 
     }
 
+    function confirmReset(event) {
+        event.preventDefault();
+
+        const url = event.currentTarget.href;
+
+        Swal.fire({
+            title: 'Konsultasi',
+            text: 'Konsultasi kembali',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
+    }
+
     function confirmCancel(event) {
         event.preventDefault();
 
@@ -199,6 +239,61 @@
                 window.location.href = url;
             }
         });
+    }
+
+    function confirmDownload(event) {
+        event.preventDefault();
+
+        const url = event.currentTarget.href;
+
+        Swal.fire({
+            title: "Loading...",
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            willOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        // Create a temporary link to handle the download
+        const link = document.createElement('a');
+        link.href = url;
+        link.style.display = 'none';
+        document.body.appendChild(link);
+
+        link.click();
+
+        // Clean up
+        document.body.removeChild(link);
+
+        // Function to check download status
+        const checkDownloadStatus = async () => {
+            try {
+                const response = await fetch(url);
+                if (response.ok) {
+                    // Download completed
+                    Swal.close();
+                    Swal.fire({
+                        title: "File sudah diunduh",
+                        text: "Klik OK untuk menyegarkan halaman.",
+                        showConfirmButton: true,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    }).then(() => {
+                        window.location.reload();
+                    });
+                } else {
+                    // Handle errors if needed
+                    console.error('Download error:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Download error:', error);
+            }
+        };
+
+        // Start checking download status
+        checkDownloadStatus();
     }
 </script>
 

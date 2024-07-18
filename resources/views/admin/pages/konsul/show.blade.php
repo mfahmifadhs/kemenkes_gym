@@ -51,9 +51,9 @@
             </div>
 
             <div class="card p-2">
-                <div class="card-header">
+                <div class="card-header mb-3">
                     <label class="card-title text-sm mt-1">
-                        <i class="fas fa-circle-check text-success"></i> Daftar Pasien
+                        <i class="fas fa-circle-check text-success"></i> Daftar Pasien Aktif
                     </label>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -64,110 +64,115 @@
                 <div class="table-responsive">
                     <table class="table table-borderless">
                         <tbody>
+
+                            @if ($konsul->count() == 0)
+                            <div class="small text-center">
+                                Data tidak tersedia
+                            </div>
+                            @endif
                             @foreach ($konsul as $row)
                             <tr>
-                                <td style="width: 10%;">
-                                    <h3 class="text-info"><b>{{ $loop->iteration }}</b></h3>
-                                </td>
                                 <td>
-                                    <a href="" data-toggle="modal" data-target="#modal-{{ $row->id_konsul }}">
-                                        <div class="card mt-2 p-2 text-dark">
-                                            <h6 class="text-xs">
-                                                <span>
-                                                    @if ($row->test_sipgar == 1) <i class="fas fa-check-circle text-success ml-1"></i> Test Sipgar
-                                                    @else <i class="fas fa-times-circle text-danger ml-1"></i> Test Sipgar @endif
+                                    <a href="{{ route('konsul.detail', $row->id_konsultasi) }}">
+                                        <div class="card p-2 text-dark border border-dark">
+                                            <div class="row">
+                                                <div class="col-md-2 col-2 my-auto">
+                                                    <h3 class="text-info text-center"><b>{{ $konsul->firstItem() + $loop->index }}</b></h3>
+                                                </div>
+                                                <div class="col-md-10 col-10">
+                                                    <h6 class="text-xs">
+                                                        <span>
+                                                            @if ($row->test_sipgar == 1) <i class="fas fa-check-circle text-success"></i> Test Sipgar
+                                                            @else <i class="fas fa-times-circle text-danger"></i> Test Sipgar @endif
 
-                                                    @if ($row->test_fitness == 1) <i class="fas fa-check-circle text-success ml-2"></i> Test Fitness
-                                                    @else <i class="fas fa-times-circle text-danger ml-2"></i> Test Fitness @endif
+                                                            @if ($row->test_fitness == 1) <i class="fas fa-check-circle text-success ml-1"></i> Test Fitness
+                                                            @else <i class="fas fa-times-circle text-danger ml-1"></i> Test Fitness @endif
 
-                                                    @if ($row->konsultasi == 1) <i class="fas fa-check-circle text-success ml-2"></i> Konsultasi
-                                                    @else <i class="fas fa-times-circle text-danger ml-2"></i> Konsultasi @endif
-                                                </span>
-                                            </h6>
-                                            <h6 class="text-xs pt-2">
-                                                {{ Carbon\Carbon::parse($row->created_at)->isoFormat('DD MMMM Y || HH:mm') }} <br>
-                                                {{ $row->member->nama }} <br>
-                                                {{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}
-                                            </h6>
-                                        </div>
-                                    </a>
-
-                                    <div class="modal fade" id="modal-{{ $row->id_konsul }}" role="dialog">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <form id="form" action="{{ route('konsul.update', $row->id_konsultasi) }}" method="GET">
-                                                    @csrf
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title text-md" id="modal-{{ $row->id_konsul }}">
-                                                            {{ $loop->iteration.' - '.$row->member->nama }} <br>
-                                                            <small style="margin-left: 13%;">
-                                                                {{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}
-                                                            </small>
-                                                        </h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="row">
-                                                            <div class="col-md-4 col-4">1. Test Sipgar</div>
-                                                            <div class="col-md-8 col-8">:
-                                                                <!-- Test Sipgar -->
-                                                                <input id="true-sipgar" type="radio" name="test[1]" class="ml-2" value="1" {{ $row->test_sipgar == true ? 'checked' : '' }}>
-                                                                <label for="true-sipgar"><i class="fa fa-check-circle text-xs text-success"></i> sudah</label>
-
-                                                                <input id="false-sipgar" type="radio" name="test[1]" class="ml-2" value="0" {{ $row->test_sipgar == false ? 'checked' : '' }}>
-                                                                <label for="false-sipgar"><i class="fa fa-times-circle text-xs text-danger"></i> belum</label>
-                                                            </div>
-
-
-                                                            <div class="col-md-4 col-4">2. Test Fitness</div>
-                                                            <div class="col-md-8 col-8">:
-                                                                <!-- Test Fitness -->
-                                                                <input id="true-fitness" type="radio" name="test[2]" class="ml-2" value="1" {{ $row->test_fitness == true ? 'checked' : '' }}>
-                                                                <label for="true-fitness"><i class="fa fa-check-circle text-xs text-success"></i> sudah</label>
-
-                                                                <input id="false-fitness" type="radio" name="test[2]" class="ml-2" value="0" {{ $row->test_fitness == false ? 'checked' : '' }}>
-                                                                <label for="false-fitness"><i class="fa fa-times-circle text-xs text-danger"></i> belum</label>
-                                                            </div>
-
-                                                            @if ($row->test_sipgar == 1 && $row->test_fitness == 1)
-                                                            <div class="col-md-12 col-12 mt-3">Konsultasi :</div>
-                                                            <div class="col-md-12 col-12 text-sm mt-3">
-                                                                <label for="catatan_dokter">
-                                                                    Catatan Dokter <br>
-                                                                    <span class="text-danger" style="font-size: 10px;">
-                                                                        Catatan bersifat rahasia, dan tidak akan diberitahukan kepada pasien
-                                                                    </span>
-                                                                </label>
-                                                                <textarea name="catatan_dokter" class="form-control" id="catatan_dokter" rows="5">{{ $row->catatan_dokter }}</textarea>
-                                                            </div>
-                                                            <div class="col-md-12 col-12 text-sm mt-3">
-                                                                <label for="catatan_pasien">Catatan Pasien</label>
-                                                                <textarea name="catatan_pasien" class="form-control" id="catatan_pasien" rows="5">{{ $row->catatan_pasien }}</textarea>
-                                                            </div>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-primary btn-sm btn-info" onclick="confirmSubmit(event)">
-                                                            <i class="fa fa-save"></i> Simpan
-                                                        </button>
-                                                    </div>
-                                                </form>
+                                                            @if ($row->konsultasi == 1) <i class="fas fa-check-circle text-success ml-1"></i> Konsultasi
+                                                            @else <i class="fas fa-times-circle text-danger ml-1"></i> Konsultasi @endif
+                                                        </span>
+                                                    </h6>
+                                                    <h6 class="text-xs">
+                                                        <h6>
+                                                            <small class="text-xs">{{ $row->created_at }}</small><br>
+                                                            <b>{{ strtoupper($row->member->nama) }}</b> <br>
+                                                            <small>{{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</small>
+                                                        </h6>
+                                                    </h6>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
-                    </table>
+                    </table><hr>
+                    <div class="row">
+                        <div class="col-md-12 col-12 mx-2">
+                            Total: {{ number_format($konsul->total(), 0, ',', '.') }}
+                            Current page: {{ $konsul->count()}}
+
+                            <div class="mt-2">{{ $konsul->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card p-2">
+                <div class="card-header">
+                    <label class="card-title text-sm mt-1">
+                        <i class="fas fa-history text-success"></i> Riwayat Daftar Pasien
+                    </label>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="table-history" class="table table-bordered small text-center">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Aksi</th>
+                                    <th>Nama</th>
+                                    <th>Asal</th>
+                                    <th>Tanggal Konsul</th>
+                                    <th>Waktu Konsul</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($konsulAll->where('konsultasi', 1) as $row)
+                                <tr>
+                                    <td>{{ $row->kode_book }}</td>
+                                    <td>
+                                        <a href="{{ route('konsul.detail', $row->id_konsultasi) }}"><i class="fas fa-eye"></i></a>
+                                        @if (Auth::user()->role_id == 1)
+                                        <a href="{{ route('konsul.delete', $row->id_konsultasi) }}"><i class="fas fa-trash"></i></a>
+                                        @endif
+                                    </td>
+                                    <td class="text-left">{{ $row->member->nama }}</td>
+                                    <td class="text-left">{{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</td>
+                                    <td>{{ $row->tanggal_konsul }}</td>
+                                    <td class="text-proper">
+                                        @if ($row->waktu_konsul == 1) 07.00 WIB s/d 07.30 WIB @endif
+                                        @if ($row->waktu_konsul == 2) 07.30 WIB s/d 08.00 WIB @endif
+                                        @if ($row->waktu_konsul == 3) 08.00 WIB s/d 08.30 WIB @endif
+                                        @if ($row->waktu_konsul == 4) 08.30 WIB s/d 09.00 WIB @endif
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div><br>
 </div>
+
 
 @section('js')
 <script>
@@ -184,40 +189,31 @@
         $("#table-history").DataTable({
             "responsive": false,
             "lengthChange": true,
-            "autoWidth": true,
-            "info": false,
-            "paging": false,
-            "searching": false
-        })
-
-        $("#table-member").DataTable({
-            "responsive": false,
-            "lengthChange": false,
-            "autoWidth": true,
+            "autoWidth": false,
             "info": true,
             "paging": true,
-            "searching": true
-        })
+            "searching": true,
+            buttons: [{
+                extend: 'pdf',
+                text: ' PDF',
+                pageSize: 'A4',
+                className: 'bg-danger',
+                title: 'Riwayat Pasien',
+                exportOptions: {
+                    columns: [0, 2, 3, 4, 5]
+                },
+            }, {
+                extend: 'excel',
+                text: ' Excel',
+                className: 'bg-success',
+                title: 'Riwayat Pasien',
+                exportOptions: {
+                    columns: [0, 2, 3, 4, 5]
+                },
+            }],
+            "bDestroy": true
+        }).buttons().container().appendTo('#table-history_wrapper .col-md-6:eq(0)');
     })
-
-    function confirmSubmit(event) {
-        event.preventDefault();
-
-        const form = document.getElementById('form');
-
-        Swal.fire({
-            title: "Loading...",
-            showConfirmButton: false,
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            willOpen: () => {
-                Swal.showLoading();
-            },
-        })
-
-        form.submit();
-
-    }
 
     function confirmRemove(event, url) {
         event.preventDefault();
