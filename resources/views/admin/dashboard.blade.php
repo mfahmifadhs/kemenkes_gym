@@ -41,6 +41,7 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card">
+                            @if (Auth::user()->uker_id != '121103')
                             <div class="card-header">
                                 <div class="row text-sm">
                                     <div class="col-md-6 col-5">
@@ -52,6 +53,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <i class="fas fa-table"></i> Total Peminatan (Unit Utama)

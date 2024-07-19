@@ -65,6 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </ul>
                         </li>
 
+                        @if (Auth::user()->uker_id != '121103')
                         <li class="nav-item dropdown">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Attendance</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
@@ -92,17 +93,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </li>
                             </ul>
                         </li>
+                        @endif
 
                         <li class="nav-item dropdown">
                             <a id="menu" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Menu</a>
                             <ul aria-labelledby="menu" class="dropdown-menu border-0 shadow">
                                 <li>
+                                    @if (Auth::user()->uker_id != '121103')
                                     <a href="{{ route('bodyck') }}" class="dropdown-item">
                                         <i class="fa fa-weight-scale"></i> Body Composition
                                     </a>
                                     <a href="{{ route('leaderboard') }}" class="dropdown-item">
                                         <i class="fa fa-ranking-star"></i> Leaderboard
                                     </a>
+                                    @endif
                                     <a href="{{ route('konsul') }}" class="dropdown-item">
                                         <i class="fa fa-stethoscope"></i> Konsultasi
                                     </a>
