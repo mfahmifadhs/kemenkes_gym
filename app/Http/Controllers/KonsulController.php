@@ -23,13 +23,14 @@ class KonsulController extends Controller
             $konsulAll = Konsultasi::get();
             return view('admin.pages.konsul.show', compact('dokter', 'konsul','konsulAll','test'));
         } else {
-            $user       = User::where('id', Auth::user()->id)->first();
-            $nama       = $user->nama;
-            $asal       = $user->instansi == 'pusat' ? $user->uker->nama_unit_kerja : $user->nama_instansi;
-            $userKonsul = Auth::user()->konsul->where('status', 'false');
-            $phone      = '62895361160934';
-            $msg        = "Halo coach, saya *$nama* dari *$asal*. %0ASaya ingin menjadwalkan Tes Vo2Max dengan SIPGAR dan Fitness Test sebelum Konsultasi dengan Dokter.";
-            return view('dashboard.pages.konsul.show', compact('dokter', 'phone', 'msg', 'userKonsul'));
+            $user        = User::where('id', Auth::user()->id)->first();
+            $nama        = $user->nama;
+            $asal        = $user->instansi == 'pusat' ? $user->uker->nama_unit_kerja : $user->nama_instansi;
+            $userKonsul  = Auth::user()->konsul->where('status', 'false');
+            $phoneSalsa  = '62895361160934';
+            $phoneWiyata = '6289673958264';
+            $msg         = "Halo coach, saya *$nama* dari *$asal*. %0ASaya ingin menjadwalkan Tes Vo2Max dengan SIPGAR dan Fitness Test sebelum Konsultasi dengan Dokter.";
+            return view('dashboard.pages.konsul.show', compact('dokter', 'phoneSalsa', 'phoneWiyata', 'msg', 'userKonsul'));
         }
     }
 

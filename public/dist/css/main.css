@@ -3439,3 +3439,13 @@ ol {
     display: none;
     /* Hide the checkbox, only show the image and label */
 }
+
+.text-main {
+    color: #00b9ad;
+    font-weight: bold;
+}
+
+.border-main {
+    border: 1px solid;
+    border-color: #00b9ad;
+}

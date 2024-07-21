@@ -9,13 +9,8 @@
                 <div class="row mb-2">
                     <div class="col-7 text-left mt-1">
                         <div class="section-title">
-                            <h5 class="text-main"><u>BODY COMPOSITION</u></h5>
+                            <h4 class="text-main"><u>BODY COMPOSITION</u></h4>
                         </div>
-                    </div>
-                    <div class="col-5 text-right mt-2">
-                        <a href="{{ route('bodyck.create') }}" class="btn btn-primary p-2">
-                            <small><i class="fa fa-heartbeat"></i> Create Progress</small>
-                        </a>
                     </div>
                 </div>
                 @if ($message = Session::get('success'))
@@ -50,57 +45,65 @@
                                 <tr>
                                     <th>No</th>
                                     <th>DATE</th>
+                                    <th>HEIGHT</th>
+                                    <th>CLOTHES</th>
                                     <th>WEIGHT</th>
                                     <th>FAT</th>
                                     <th>FAT&nbsp;MASS</th>
                                     <th>FFM</th>
                                     <th>MUSCLE&nbsp;MASS</th>
                                     <th>TBW</th>
-                                    <th>TBW&nbsp;%</th>
                                     <th>BONE&nbsp;MASS</th>
                                     <th>BMR</th>
                                     <th>METABOLIC&nbsp;AGE</th>
                                     <th>VISCERAL&nbsp;FAT&nbsp;RATING</th>
                                     <th>BMI</th>
-                                    <th>IDEAL&nbsp;BODY&nbsp;WEIGHT</th>
-                                    <th>DEGREE&nbsp;OF&nbsp;OBESITY</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if ($bodyck->count() != 0)
-                                @foreach($bodyck as $row)
+                                @foreach ($bodyCp as $row)
                                 <tr>
-                                    <td>
-                                        {{ $loop->iteration }}
-                                    </td>
-                                    <td>{{ Carbon\Carbon::parse($row->tanggal_cek)->format('d-m-Y H:m') }}</td>
-                                    @foreach ($row->detail as $i => $subRow)
-                                    @php $idLoop = $i+1; @endphp
-                                    <td>
-                                        @if ($subRow->param_id == $idLoop)
-                                        {{ $subRow->nilai.$subRow->param->satuan }}
-                                        @endif
-                                    </td>
-                                    @endforeach
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ Carbon\Carbon::createFromFormat('d/m/Y H:i', $row->tanggal_cek)->isoFormat('DD MMMM Y HH:mm') }}</td>
+                                    <td>{{ $row->height }} cm</td>
+                                    <td>{{ $row->clothes }} kg</td>
+                                    <td>{{ $row->weight }} kg</td>
+                                    <td>{{ $row->fatp }} %</td>
+                                    <td>{{ $row->fatm }} kg</td>
+                                    <td>{{ $row->ffm }} kg</td>
+                                    <td>{{ $row->pmm }} kg</td>
+                                    <td>{{ $row->tbw }} kg</td>
+                                    <td>{{ $row->bonem }} kg</td>
+                                    <td>{{ $row->bmr }} kJ</td>
+                                    <td>{{ $row->metaage }} tahun</td>
+                                    <td>{{ $row->vfatl }}</td>
+                                    <td>{{ $row->bmi }}</td>
                                 </tr>
                                 @endforeach
+
+                                <!-- Hasil Selisih -->
                                 <tr>
+                                    @php
+                                    $first = $bodyCp->first();
+                                    $last = $bodyCp->last();
+                                    @endphp
                                     <td colspan="2"></td>
-                                    @foreach ($row->detail as $i => $subRow)
-                                    @php $idLoop = $i+1; @endphp
-                                    <td>
-                                        @if ($subRow->param_id == $idLoop)
-                                        @php
-                                        $hasil_pertama = $bodyck->first()->detail()->where('param_id', $subRow->param_id)->first()->nilai;
-                                        $hasil_akhir = $row->detail()->orderBy('id_detail', 'DESC')->where('param_id', $subRow->param_id)->first()->nilai;
-                                        @endphp
-                                        @if ($hasil_akhir > $hasil_pertama) + @else - @endif
-                                        {{ abs($hasil_pertama - $hasil_akhir). $subRow->param->satuan }}
-                                        @endif
-                                    </td>
-                                    @endforeach
+                                    <td>{{ ($first->height - $last->height) < 0 ? '+' : '-' }} {{ abs($first->height - $last->height) }} cm</td>
+                                    <td></td>
+                                    <td>{{ ($first->weight - $last->weight) < 0 ? '+' : '-' }} {{ abs($first->weight - $last->weight) }} kg</td>
+                                    <td>{{ ($first->fatp - $last->fatp) < 0 ? '+' : '-' }} {{ abs($first->fatp - $last->fatp) }} %</td>
+                                    <td>{{ ($first->fatm - $last->fatm) < 0 ? '+' : '-' }} {{ abs($first->fatm - $last->fatm) }} kg</td>
+                                    <td>{{ ($first->ffm - $last->ffm) < 0 ? '+' : '-' }} {{ number_format(abs($last->ffm - $first->ffm), 1) }} kg</td>
+                                    <td>{{ ($first->pmm - $last->pmm) < 0 ? '+' : '-' }} {{ number_format(abs($last->pmm - $first->pmm), 1) }} kg</td>
+                                    <td>{{ ($first->tbw - $last->tbw) < 0 ? '+' : '-' }} {{ abs($first->tbw - $last->tbw) }} kg</td>
+                                    <td>{{ ($first->bonem - $last->bonem) < 0 ? '+' : '-' }} {{ abs($first->bonem - $last->bonem) }} kg</td>
+                                    <td>{{ ($first->bmr - $last->bmr) < 0 ? '+' : '-' }} {{ abs($first->bmr - $last->bmr) }} kJ</td>
+                                    <td>{{ ($first->metaage - $last->metaage) < 0 ? '+' : '-' }} {{ abs($first->metaage - $last->metaage) }} tahun</td>
+                                    <td>{{ ($first->vfatl - $last->vfatl) < 0 ? '+' : '-' }} {{ abs($first->vfatl - $last->vfatl) }}</td>
+                                    <td>{{ ($first->bmi - $last->bmi) < 0 ? '+' : '-' }} {{ abs($first->bmi - $last->bmi) }}</td>
                                 </tr>
-                                @else
+
+                                @if (!$bodyCp->count())
                                 <tr>
                                     <td colspan="16">data not available</td>
                                 </tr>
@@ -114,60 +117,18 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                @if ($bodyck->count() == 0)
+                                @if ($bodyCp->count() == 0)
                                 data not available
                                 @endif
                                 <div class="chart">
                                     <canvas id="progressChart" style="height: 320px;"></canvas>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="section-body">
-                    <div class="schedule">
-                        <div class="section-title mb-2"><span>Body Composition Result</span></div>
-                        @foreach ($bodyck as $i => $row)
-                        <div class="card my-2">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-3 col-2 text-center mt-2">
-                                        <h6 class="fa-1x">
-                                            {{ $loop->iteration }}
-
-                                            @if ($row->bodyck_status == 'false') <i class="fa fa-clock-o text-warning"></i>
-                                            @elseif ($row->bodyck_status == 'true') <i class="fa fa-check-circle text-success"></i>
-                                            @else <i class="fa fa-times-circle text-warning"></i> @endif
-                                        </h6>
-                                    </div>
-                                    @php $tanggal = Carbon\Carbon::parse($row->tanggal_cek); @endphp
-                                    <div class="col-md-6 col-6">
-                                        <h6>{{ $tanggal->isoFormat('DD-MM-Y HH:mm') }}</h6>
-                                        <small>SERIAL NO. {{ str_pad($row->no_serial, 8, '0', STR_PAD_LEFT) }}</small>
-                                    </div>
-                                    <div class="col-md-3 col-4 text-center">
-                                        <a href="{{ route('bodyck.detail', $row->id_bodyck) }}" class="btn btn-primary mt-0 p-2">
-                                            <i class="fa fa-info-circle fa-2x"></i>
-                                        </a>
-                                        <a href="{{ route('bodyck.edit', $row->id_bodyck) }}" class="btn btn-primary mt-0 p-2">
-                                            <i class="fa fa-edit fa-2x"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @if ($i == 0)
-                        <hr class="divider">
-                        @endif
-                        @endforeach
-                        @if ($bodyck->count() == 0)
-                        <div class="text-white" style="height: 100px;">
-                            <p>Data not available</p>
-                        </div>
-                        @endif
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -178,7 +139,7 @@
 @section('js')
 <script>
     // Ambil data dari controller
-    var dayUrl = "{{ route('progres.chart') }}";
+    var dayUrl = "{{ route('bodycp.chart') }}";
     var Title = [];
     var Weight = [];
     var FatMass = [];

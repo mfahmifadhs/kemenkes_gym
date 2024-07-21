@@ -59,9 +59,39 @@
                                     <h5 class="font-weight-bold">{{ $dokter->nama_dokter }}</h5>
                                     <h5 class="text-secondary font-weight-bold mb-3">{{ $dokter->spesialisasi }}</h5>
 
-                                    <small class="text-white">{{ $dokter->profil_dokter }}</small>
-
+                                    <small class="text-white">{{ $dokter->profil_dokter }}</small> <br>
                                     @if (Auth::user()->konsul->where('status', 'false')->count() == 0)
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <small>
+                                                <label class="mt-4"><b>Tahapan: </b></label> <br>
+                                                1. Tes Vo2Max SIPGAR <br>
+                                                2. Tes Fitness <br>
+                                                3. Konsultasi
+                                            </small>
+                                        </div>
+
+                                        <div class="col-md-8">
+                                            <small>
+                                                <label class="mt-4"><b>Lokasi & Jam Praktek: </b></label> <br>
+                                                <i class="fa fa-calendar"></i> Setiap Hari Jumat <br>
+                                                <i class="fa fa-clock-o"></i> 07.00 WIB s/d 09.00 WIB <br>
+                                                <i class="fa fa-map-pin"></i> Ruang Dokter, Kemenkes Bootcamp & Fitness Center <br>
+                                            </small>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <small>
+                                                <label class="mt-4"><b>Syarat & Ketentuan: </b></label> <br>
+                                                1. Merupakan Pegawai Kantor Pusat / UPT Kemenkes (menunjukan identitas pegawai). <br>
+                                                2. Melakukan tes sesuai tahapan, sebelum melakukan konsultasi. <br>
+                                                3. Membuat jadwal tes dengan <i>coach</i>. <br>
+                                                4. Jika setelah <i>booking</i> dilakukan pembatalan, maka antrian dimulai dari awal. <br>
+                                                5. Kuota konsultasi hanya <b>4 pasien / hari</b>. <br>
+                                                6. Jadwal konsultasi akan diberikan oleh <i>coach</i>, setelah melakukan semua tes.
+                                            </small>
+                                        </div>
+                                    </div>
+
                                     <button type="submit" onclick="confirmSubmit(event)" class="btn btn-primary btn-block">Konsul</button>
                                     @elseif (!$userKonsul->first()->konsultasi)
                                     <a href="{{ route('konsul.cancel') }}" onclick="confirmCancel(event)" class="btn btn-danger btn-sm mt-2 btn-block">
@@ -124,8 +154,11 @@
                                 <h6 class="text-secondary ml-4">untuk melakukan tes silahkan hubungi Coach untuk mengatur jadwal.</h6>
 
                                 <div class="input-group ml-4">
-                                    <a href="https://api.whatsapp.com/send?phone=+{{ $phone }}&text={{ $msg }}" target="_blank" class="btn btn-primary btn-sm">
-                                        Hubungi Coach
+                                    <a href="https://api.whatsapp.com/send?phone=+{{ $phoneSalsa }}&text={{ $msg }}" target="_blank" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-male"></i> Hubungi Coach Wiyata
+                                    </a>
+                                    <a href="https://api.whatsapp.com/send?phone=+{{ $phoneWiyata }}&text={{ $msg }}" target="_blank" class="btn btn-primary btn-sm ml-2">
+                                        <i class="fa fa-female"></i> Hubungi Coach Salsa
                                     </a>
                                 </div>
                             </div>

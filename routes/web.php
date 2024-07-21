@@ -4,6 +4,7 @@ use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BodyckController;
+use App\Http\Controllers\BodycpController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FaqController;
@@ -50,6 +51,10 @@ Route::get('/mail/reset/password', function () {
 Route::get('/Attendance', function () {
     return view('absensi');
 })->name('attendance.show');
+
+Route::get('/menu-tab', function () {
+    return view('menu-tab');
+})->name('menu.tab');
 
 
 Route::post('absensi/post/{id}', [AbsenController::class, 'store']);
@@ -133,6 +138,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('bodyck/create', [BodyckController::class, 'create'])->name('bodyck.create');
     Route::post('bodyck/store', [BodyckController::class, 'create'])->name('bodyck.store');
     Route::post('bodyck/update/{id}', [BodyckController::class, 'edit'])->name('bodyck.update');
+
+    Route::get('bodycp', [BodycpController::class, 'show'])->name('bodycp');
+    Route::get('bodycp/progres/chart', [BodycpController::class, 'chart'])->name('bodycp.chart');
 
     Route::get('workout', [WorkoutController::class, 'show'])->name('workout');
 

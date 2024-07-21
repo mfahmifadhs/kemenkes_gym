@@ -6,6 +6,7 @@ use App\Models\Absensi;
 use App\Models\Bodyck;
 use App\Models\BodyckDetail;
 use App\Models\BodyckParam;
+use App\Models\Bodycp;
 use App\Models\Jadwal;
 use App\Models\Kelas;
 use App\Models\MinatKelas;
