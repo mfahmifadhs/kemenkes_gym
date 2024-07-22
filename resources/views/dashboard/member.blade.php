@@ -74,13 +74,13 @@
                                 </div>
                             </div>
                         </a>
-                        <a href="{{ route('bodycp') }}" class="col-md-3 form-group col-6">
+                        <!-- <a href="{{ route('bodycp') }}" class="col-md-3 form-group col-6">
                             <div class="card bg-main" style="border-radius: 20px;">
                                 <div class="card-body text-white text-center font-weight-bold p-2 small">
                                     <i class="fa fa-heartbeat"></i> Body Composition
                                 </div>
                             </div>
-                        </a>
+                        </a> -->
 
                         <!-- <a href="{{ route('konsul') }}" class="col-md-3 form-group col-6">
                             <div class="card bg-main" style="border-radius: 20px;">
