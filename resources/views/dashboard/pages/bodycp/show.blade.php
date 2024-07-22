@@ -64,7 +64,7 @@
                                 @foreach ($bodyCp as $row)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ Carbon\Carbon::createFromFormat('d/m/Y H:i', $row->tanggal_cek)->isoFormat('DD MMMM Y HH:mm') }}</td>
+                                    <td>{{ Carbon\Carbon::createFromFormat('d/m/Y H:i:s', $row->tanggal_cek)->isoFormat('DD MMMM Y HH:mm') }}</td>
                                     <td>{{ $row->height }} cm</td>
                                     <td>{{ $row->clothes }} kg</td>
                                     <td>{{ $row->weight }} kg</td>
