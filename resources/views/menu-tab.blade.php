@@ -68,7 +68,7 @@
                     <div class="section-body" style="margin-top: 10%;">
                         <div class="row mt-5">
                             <div class="col-md-6 col-6">
-                                <a href="" onclick="confirmSubmit(event, `{{ route('survey-kepuasan.store', 'puas') }}`)" class="btn btn-default">
+                                <a href="{{ route('loker') }}" class="btn btn-default">
                                     <div class="survey-option border-main">
                                         <input id="puas" name="result" type="checkbox" class="survey-checkbox" value="puas">
                                         <img src="{{ asset('dist/img/menu-tab/loker.png') }}" class="w-75 face-img mx-4 p-2">

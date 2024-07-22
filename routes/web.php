@@ -12,6 +12,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\KonsulController;
+use App\Http\Controllers\LokerController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PenaltyController;
 use App\Http\Controllers\ProgresController;
@@ -80,6 +81,8 @@ Route::get('survey-kepuasan', [SurveyController::class, 'show'])->name('survey-k
 Route::get('survey-kepuasan/store/{id}', [SurveyController::class, 'store'])->name('survey-kepuasan.store');
 
 
+Route::get('loker', [LokerController::class, 'index'])->name('loker');
+Route::post('loker', [LokerController::class, 'check'])->name('loker.check');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');

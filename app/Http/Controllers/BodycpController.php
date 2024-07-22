@@ -11,7 +11,7 @@ class BodycpController extends Controller
     public function show()
     {
         $user       = Auth::user();
-        $dataBodycp = Bodycp::orderBy('id_bodycp', 'DESC');
+        $dataBodycp = Bodycp::orderBy('id_bodycp', 'ASC');
 
         // format tanggal
         // $Carbon::createFromFormat('d/m/Y H:i', $bodycp->tanggal_cek)->isoFormat('DD MMMM Y HH:mm');

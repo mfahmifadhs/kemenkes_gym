@@ -82,6 +82,7 @@
                                 @endforeach
 
                                 <!-- Hasil Selisih -->
+                                @if ($bodyCp->count() != 0)
                                 <tr>
                                     @php
                                     $first = $bodyCp->first();
@@ -102,6 +103,7 @@
                                     <td>{{ ($first->vfatl - $last->vfatl) < 0 ? '+' : '-' }} {{ abs($first->vfatl - $last->vfatl) }}</td>
                                     <td>{{ ($first->bmi - $last->bmi) < 0 ? '+' : '-' }} {{ abs($first->bmi - $last->bmi) }}</td>
                                 </tr>
+                                @endif
 
                                 @if (!$bodyCp->count())
                                 <tr>
