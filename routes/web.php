@@ -85,8 +85,11 @@ Route::get('loker', [LokerController::class, 'index'])->name('loker');
 Route::post('loker', [LokerController::class, 'check'])->name('loker.check');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/leaderboard', function () {
+        return redirect()->route('dashboard');
+    })->name('leaderboard');
+
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('leaderboard', [DashboardController::class, 'leaderboard'])->name('leaderboard');
     Route::get('waktu', [DashboardController::class, 'time'])->name('dashboard.time');
     Route::get('profile/{id}', [UserController::class, 'detail'])->name('profile');
 

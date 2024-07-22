@@ -7,9 +7,60 @@
         <div class="row identity">
             <div class="col-md-9 mx-auto">
                 <div class="row mb-2">
-                    <div class="col-7 text-left mt-1">
+                    <div class="col-12 text-left mt-1">
                         <div class="section-title">
-                            <h4 class="text-main"><u>BODY COMPOSITION</u></h4>
+                            <h4 class="text-main mb-3"><u>BODY COMPOSITION</u></h4>
+                            <label class="text-justify text-white small">
+                                Body composition (komposisi tubuh) mengacu pada proporsi antara lemak, otot, tulang, dan cairan
+                                dalam tubuh. Data body composition dibawah ini didapatkan dari hasil pengecekan yang telah dilakukan
+                                pada mesin Tanita di Kemenkes Bootcamp & Fitness Center. <br>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-md-5 col-5">1. Height</div>
+                                            <div class="col-md-7 col-7">: Tinggi Badan</div>
+
+                                            <div class="col-md-5 col-5">2. Clotes</div>
+                                            <div class="col-md-7 col-7">: Berat Baju</div>
+
+                                            <div class="col-md-5 col-5">3. Weight</div>
+                                            <div class="col-md-7 col-7">: Berat Badan</div>
+
+                                            <div class="col-md-5 col-5">4. Height</div>
+                                            <div class="col-md-7 col-7">: Persentase Lemak</div>
+
+                                            <div class="col-md-5 col-5">5. Fat Mass</div>
+                                            <div class="col-md-7 col-7">: Masa Lemak</div>
+
+                                            <div class="col-md-5 col-5">6. Muscle Mass</div>
+                                            <div class="col-md-7 col-7">: Masa Otot</div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="col-md-5 col-5">7. FFM (Fat Free-Mass)</div>
+                                            <div class="col-md-7 col-7">: Komponen tubuh selain lemak</div>
+
+                                            <div class="col-md-5 col-5">8. TBW (Total Body Water)</div>
+                                            <div class="col-md-7 col-7">: Total cairan dalam tubuh</div>
+
+                                            <div class="col-md-5 col-5">9. Bone Mass</div>
+                                            <div class="col-md-7 col-7">: Berat Masa Tulang</div>
+
+                                            <div class="col-md-5 col-5">10. BMR (Basal Metabolic Rate)</div>
+                                            <div class="col-md-7 col-7">: Jumlah energi yang dibutuhkan</div>
+
+                                            <div class="col-md-5 col-5">11. Metabolic Age</div>
+                                            <div class="col-md-7 col-7">: Usia metabolisme tubuh</div>
+
+                                            <div class="col-md-5 col-5">12. Visceral Fat Rating</div>
+                                            <div class="col-md-7 col-7">: Jumlah lemak di organ dalam perut</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
                         </div>
                     </div>
                 </div>
