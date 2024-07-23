@@ -120,62 +120,11 @@
                                     <h6 class="text-sm">{{ $konsul->member->instansi == 'pusat' ? $konsul->member->uker->nama_unit_kerja : $konsul->member->nama_instansi }}</h6>
                                 </div>
                             </div>
-                            <hr>
-                            <label class="text-secondary text-sm mb-0">
-                                <i>Progres</i>
-                            </label>
 
                             <form id="form" action="{{ route('konsul.update', $id) }}" method="GET">
                                 <div class="row">
-                                    <label class="col-md-4 col-6">1. Test Sipgar</label>
-                                    <label class="col-md-1 col-1">:</label>
-                                    <div class="col-md-7 col-12">
-                                        <!-- Test Sipgar -->
-                                        <input id="true-sipgar" type="radio" name="sipgar" class="ml-2" value="1" {{ $konsul->test_sipgar == true ? 'checked' : '' }}>
-                                        <label for="true-sipgar"><i class="fa fa-check-circle text-xs text-success"></i> sudah</label>
-
-                                        <input id="false-sipgar" type="radio" name="sipgar" class="ml-2" value="0" {{ $konsul->test_sipgar == false ? 'checked' : '' }}>
-                                        <label for="false-sipgar"><i class="fa fa-times-circle text-xs text-danger"></i> belum</label>
-                                    </div>
-
-
-                                    <label class="col-md-4 col-6">2. Test Fitness</label>
-                                    <label class="col-md-1 col-1">:</label>
-                                    <div class="col-md-7 col-12">
-                                        <!-- Test Fitness -->
-                                        <input id="true-fitness" type="radio" name="fitness" class="ml-2" value="1" {{ $konsul->test_fitness == true ? 'checked' : '' }}>
-                                        <label for="true-fitness"><i class="fa fa-check-circle text-xs text-success"></i> sudah</label>
-
-                                        <input id="false-fitness" type="radio" name="fitness" class="ml-2" value="0" {{ $konsul->test_fitness == false ? 'checked' : '' }}>
-                                        <label for="false-fitness"><i class="fa fa-times-circle text-xs text-danger"></i> belum</label>
-                                    </div>
-
-                                    @if ($konsul->test_sipgar == 1 && $konsul->test_fitness == 1)
-                                    <label class="col-md-4 col-6 mt-1">3. Tanggal Konsul</label>
-                                    <label class="col-md-1 col-1">:</label>
-                                    <div class="col-md-7 col-12">
-                                        <div class="input-group">
-                                            <input id="tanggal_konsul" type="date" class="form-control form-control-sm ml-2" name="tanggal_konsul" value="{{ $konsul->tanggal_konsul }}" min="{{ date('Y-m-d') }}">
-                                        </div>
-                                    </div>
-
-                                    <label class="col-md-4 col-6 mt-2">3. Waktu Konsul</label>
-                                    <label class="col-md-1 col-1 mt-2">:</label>
-                                    <div class="col-md-7 col-12">
-                                        <div class="input-group">
-                                            <select name="waktu_konsul" class="form-control form-control-sm ml-2" id="">
-                                                <option value="">-- Pilih Waktu --</option>
-                                                <option value="1" <?php echo $konsul->waktu_konsul == 1 ? 'selected' : ''; ?>>07.00 s/d 07.30</option>
-                                                <option value="2" <?php echo $konsul->waktu_konsul == 2 ? 'selected' : ''; ?>>07.30 s/d 08.00</option>
-                                                <option value="3" <?php echo $konsul->waktu_konsul == 3 ? 'selected' : ''; ?>>08.00 s/d 08.30</option>
-                                                <option value="4" <?php echo $konsul->waktu_konsul == 4 ? 'selected' : ''; ?>>08.30 s/d 09.00</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    @endif
-
                                     @if ($konsul->test_sipgar == 1 && $konsul->test_fitness == 1 && $konsul->tanggal_konsul)
-                                    <div class="col-md-12 col-12 text-sm mt-3">
+                                    <div class="col-md-12 col-12 form-group text-sm mt-3">
                                         <hr>
                                         <h6>Konsultasi:</h6>
                                         <label for="catatan_dokter">
@@ -186,11 +135,123 @@
                                         </label>
                                         <textarea name="catatan_dokter" class="form-control" id="catatan_dokter" rows="10">{{ $konsul->catatan_dokter }}</textarea>
                                     </div>
-                                    <div class="col-md-12 col-12 text-sm mt-3">
+                                    <div class="col-md-12 col-12 form-group text-sm mt-3">
                                         <label for="catatan_pasien">Catatan Pasien</label>
                                         <textarea name="catatan_pasien" class="form-control" id="catatan_pasien" rows="10">{{ $konsul->catatan_pasien }}</textarea>
                                     </div>
                                     @endif
+
+                                    @if ($konsul->test_sipgar == 1 && $konsul->test_fitness == 1)
+                                    <label class="col-md-4 col-6 mt-1">3. Tanggal Konsul</label>
+                                    <label class="col-md-1 col-1">:</label>
+                                    <div class="col-md-7 col-12 form-group">
+                                        <div class="input-group">
+                                            <input id="tanggal_konsul" type="date" class="form-control form-control-sm" name="tanggal_konsul" value="{{ $konsul->tanggal_konsul }}" min="{{ date('Y-m-d') }}">
+                                        </div>
+                                    </div>
+
+                                    <label class="col-md-4 col-6 mt-2">4. Waktu Konsul</label>
+                                    <label class="col-md-1 col-1 mt-2">:</label>
+                                    <div class="col-md-7 col-12 form-group">
+                                        <div class="input-group">
+                                            <select name="waktu_konsul" class="form-control form-control-sm" id="">
+                                                <option value="">-- Pilih Waktu --</option>
+                                                <option value="1" <?php echo $konsul->waktu_konsul == 1 ? 'selected' : ''; ?>>07.00 s/d 07.20</option>
+                                                <option value="2" <?php echo $konsul->waktu_konsul == 2 ? 'selected' : ''; ?>>07.20 s/d 07.40</option>
+                                                <option value="3" <?php echo $konsul->waktu_konsul == 3 ? 'selected' : ''; ?>>07.40 s/d 08.00</option>
+                                                <option value="4" <?php echo $konsul->waktu_konsul == 4 ? 'selected' : ''; ?>>08.00 s/d 08.20</option>
+                                                <option value="4" <?php echo $konsul->waktu_konsul == 5 ? 'selected' : ''; ?>>08.20 s/d 08.40</option>
+                                                <option value="4" <?php echo $konsul->waktu_konsul == 6 ? 'selected' : ''; ?>>08.40 s/d 09.00</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    @endif
+
+                                    @if ($konsul->test_fitness == 1)
+                                    <label class="col-md-4 col-6">2. Test Fitness</label>
+                                    <label class="col-md-1 col-1">:</label>
+                                    <div class="col-md-7 col-12 form-group">
+                                        <small class="text-xs"><b>a. <i>Back and stretch</i></b></small>
+                                        <div class="input-group mt-0">
+                                            <input type="number" class="form-control form-control-sm" min="0" name="hasil_backs" placeholder="Hasil (cm)" value="{{ $konsul->hasil_backs }}">
+                                            <select class="form-control form-control-sm w-25" name="kategori_backs">
+                                                <option value="">-- Pilih Kategori --</option>
+                                                <option value="baik" <?php echo $konsul->kategori_backs == 'baik' ? 'selected' : ''; ?>>Baik</option>
+                                                <option value="cukup" <?php echo $konsul->kategori_backs == 'cukup' ? 'selected' : ''; ?>>Cukup</option>
+                                                <option value="kurang" <?php echo $konsul->kategori_backs == 'kurang' ? 'selected' : ''; ?>>Kurang</option>
+                                            </select>
+                                        </div>
+
+                                        <small class="text-xs"><b>b. <i>Handgrip Dynamometer</i></b></small>
+                                        <div class="input-group mt-0">
+                                            <input type="number" class="form-control form-control-sm" min="0" name="hasil_dynamo_r" placeholder="Kiri (kg)" value="{{ $konsul->hasil_dynamo_r }}">
+                                            <input type="number" class="form-control form-control-sm" min="0" name="hasil_dynamo_l" placeholder="Kanan (kg)" value="{{ $konsul->hasil_dynamo_l }}">
+                                        </div>
+                                        <select class="form-control form-control-sm mt-1" name="kategori_dynamo">
+                                            <option value="">-- Pilih Kategori --</option>
+                                            <option value="baik" <?php echo $konsul->kategori_dynamo == 'baik' ? 'selected' : ''; ?>>Baik</option>
+                                            <option value="cukup" <?php echo $konsul->kategori_dynamo == 'cukup' ? 'selected' : ''; ?>>Cukup</option>
+                                            <option value="kurang" <?php echo $konsul->kategori_dynamo == 'kurang' ? 'selected' : ''; ?>>Kurang</option>
+                                        </select>
+
+                                        <small class="text-xs"><b>c. <i>Plank</i></b></small>
+                                        <div class="input-group mt-0">
+                                            <input type="number" class="form-control form-control-sm" min="0" name="hasil_plank" placeholder="Waktu" value="{{ $konsul->hasil_plank }}">
+                                        </div>
+
+                                        <small class="text-xs"><b>d. <i>Sit Up</i></b></small>
+                                        <div class="input-group mt-0">
+                                            <input type="number" class="form-control form-control-sm" min="0" name="hasil_situp" placeholder="Total" value="{{ $konsul->hasil_situp }}">
+                                            <select class="form-control form-control-sm w-25" name="kategori_situp">
+                                                <option value="">-- Pilih Kategori --</option>
+                                                <option value="baik" <?php echo $konsul->kategori_situp == 'baik' ? 'selected' : ''; ?>>Baik</option>
+                                                <option value="cukup" <?php echo $konsul->kategori_situp == 'cukup' ? 'selected' : ''; ?>>Cukup</option>
+                                                <option value="kurang" <?php echo $konsul->kategori_situp == 'kurang' ? 'selected' : ''; ?>>Kurang</option>
+                                            </select>
+                                        </div>
+
+                                        <small class="text-xs"><b>e. <i>Lingkar perut</i></b></small>
+                                        <div class="input-group mt-0">
+                                            <input type="number" class="form-control form-control-sm" min="0" name="hasil_lingperut" placeholder="Hasil (cm)" value="{{ $konsul->hasil_lingperut }}">
+                                        </div>
+
+                                        <small class="text-xs"><b>f. <i>Tekanan darah</i></b></small>
+                                        <div class="input-group mt-0">
+                                            <input type="number" class="form-control form-control-sm" min="0" name="hasil_tekdarah" placeholder="Hasil (mmHg)" value="{{ $konsul->hasil_tekdarah }}">
+                                        </div>
+
+                                        <small class="text-xs"><b>g. <i>Denyut nadi</i></b></small>
+                                        <div class="input-group mt-0">
+                                            <input type="number" class="form-control form-control-sm" min="0" name="hasil_nadi" placeholder="Hasil (kali/menit)" value="{{ $konsul->hasil_nadi }}">
+                                        </div>
+
+
+                                        <!-- Test Fitness -->
+                                        <!-- <input id="true-fitness" type="radio" name="fitness" class="ml-2" value="1" {{ $konsul->test_fitness == true ? 'checked' : '' }}>
+                                        <label for="true-fitness"><i class="fa fa-check-circle text-xs text-success"></i> sudah</label>
+
+                                        <input id="false-fitness" type="radio" name="fitness" class="ml-2" value="0" {{ $konsul->test_fitness == false ? 'checked' : '' }}>
+                                        <label for="false-fitness"><i class="fa fa-times-circle text-xs text-danger"></i> belum</label> -->
+                                    </div>
+                                    @endif
+
+
+                                    <label class="col-md-4 col-6">1. Test Sipgar</label>
+                                    <label class="col-md-1 col-1">:</label>
+                                    <div class="col-md-7 col-12 form-group">
+                                        <div class="input-group">
+                                            <input type="number" class="form-control form-control-sm" min="0" name="hasil_sipgar" placeholder="Waktu" value="{{ $konsul->hasil_sipgar }}">
+                                            <select class="form-control form-control-sm w-25" name="kategori_sipgar">
+                                                <option value="">-- Pilih Kategori --</option>
+                                                <option value="baik" <?php echo $konsul->kategori_sipgar == 'baik' ? 'selected' : ''; ?>>Baik</option>
+                                                <option value="cukup" <?php echo $konsul->kategori_sipgar == 'cukup' ? 'selected' : ''; ?>>Cukup</option>
+                                                <option value="kurang" <?php echo $konsul->kategori_sipgar == 'kurang' ? 'selected' : ''; ?>>Kurang</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+
 
                                     <div class="col-md-4 col-4 mt-2">&nbsp;</div>
                                     <div class="col-md-8 col-8 mt-5 text-right">

@@ -174,10 +174,12 @@
 
                                 <label class="text-white ml-4">
                                     <span><i class="fa fa-clock-o"></i>
-                                        @if ($userKonsul->first()->waktu_konsul == 1) 07.00 WIB s/d 07.30 WIB @endif
-                                        @if ($userKonsul->first()->waktu_konsul == 2) 07.30 WIB s/d 08.00 WIB @endif
-                                        @if ($userKonsul->first()->waktu_konsul == 3) 08.00 WIB s/d 08.30 WIB @endif
-                                        @if ($userKonsul->first()->waktu_konsul == 4) 08.30 WIB s/d 09.00 WIB @endif
+                                        @if ($userKonsul->first()->waktu_konsul == 1) 07.00 WIB s/d 07.20 WIB @endif
+                                        @if ($userKonsul->first()->waktu_konsul == 2) 07.20 WIB s/d 08.40 WIB @endif
+                                        @if ($userKonsul->first()->waktu_konsul == 3) 07.40 WIB s/d 08.00 WIB @endif
+                                        @if ($userKonsul->first()->waktu_konsul == 4) 08.00 WIB s/d 08.20 WIB @endif
+                                        @if ($userKonsul->first()->waktu_konsul == 5) 08.20 WIB s/d 08.40 WIB @endif
+                                        @if ($userKonsul->first()->waktu_konsul == 6) 08.40 WIB s/d 09.00 WIB @endif
                                     </span>
                                 </label> <br>
 
@@ -188,13 +190,19 @@
                                 @if ($userKonsul->first()->konsultasi == 1)
                                 <label class="text-white ml-4 mt-4">
                                     <span><i class="fa fa-pencil"></i> Catatan Dokter: </span>
-                                    <p class="text-white">{{ $userKonsul->first()->catatan_pasien }}</p>
+                                    <p class="text-white">{!! nl2br($userKonsul->first()->catatan_pasien) !!}</p>
                                 </label>
                                 @endif
                             </div>
                             @endif
                         </div>
 
+                    </div>
+                </div>
+
+                <div class="section-body mb-5">
+                    <div class="schedule p-3 border-main">
+                        <h6 class="text-main">Riwayat</h6>
                     </div>
                 </div>
             </div>

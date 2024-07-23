@@ -84,10 +84,12 @@
             <td class="td-1">Waktu Konsul</td>
             <td class="td-2">:</td>
             <td class="td-3">
-                @if ($konsul->waktu_konsul == 1) 07.00 WIB s/d 07.30 WIB @endif
-                @if ($konsul->waktu_konsul == 2) 07.30 WIB s/d 08.00 WIB @endif
-                @if ($konsul->waktu_konsul == 3) 08.00 WIB s/d 08.30 WIB @endif
-                @if ($konsul->waktu_konsul == 4) 08.30 WIB s/d 09.00 WIB @endif
+                @if ($konsul->waktu_konsul == 1) 07.00 WIB s/d 07.20 WIB @endif
+                @if ($konsul->waktu_konsul == 2) 07.20 WIB s/d 08.40 WIB @endif
+                @if ($konsul->waktu_konsul == 3) 07.40 WIB s/d 08.00 WIB @endif
+                @if ($konsul->waktu_konsul == 4) 08.00 WIB s/d 08.20 WIB @endif
+                @if ($konsul->waktu_konsul == 5) 08.20 WIB s/d 08.40 WIB @endif
+                @if ($konsul->waktu_konsul == 6) 08.40 WIB s/d 09.00 WIB @endif
             </td>
         </tr>
         <tr>
@@ -98,7 +100,7 @@
         <tr>
             <td class="td-1" style="vertical-align: top;">Catatan Dokter</td>
             <td class="td-2" style="vertical-align: top;">:</td>
-            <td class="td-3">{{ $konsul->catatan_pasien }}</td>
+            <td class="td-3">{!! nl2br($konsul->catatan_pasien) !!}</td>
         </tr>
     </table>
 </body>

@@ -72,16 +72,34 @@ class KonsulController extends Controller
     public function update(Request $request, $id)
     {
         Konsultasi::where('id_konsultasi', $id)->update([
-            'test_sipgar'   => (int) $request->sipgar,
-            'test_fitness'  => (int) $request->fitness,
+            'test_sipgar'     => $request->hasil_sipgar ? 1 : 0,
+            'hasil_sipgar'    => $request->hasil_sipgar,
+            'kategori_sipgar' => $request->kategori_sipgar,
+            'test_fitness'    => $request->hasil_backs ? 1 : 0,
+            'hasil_backs'     => $request->hasil_backs,
+            'kategori_backs'  => $request->kategori_backs,
+            'hasil_dynamo_r'  => $request->hasil_dynamo_r,
+            'hasil_dynamo_l'  => $request->hasil_dynamo_l,
+            'kategori_dynamo' => $request->kategori_dynamo,
+            'hasil_plank'     => $request->hasil_plank,
+            'hasil_situp'     => $request->hasil_situp,
+            'kategori_situp'  => $request->kategori_situp,
+            'hasil_lingperut' => $request->hasil_lingperut,
+            'hasil_tekdarah'  => $request->hasil_tekdarah,
+            'hasil_nadi'      => $request->hasil_nadi,
+            'konsultasi'     => $request->catatan_pasien ? 1 : 0,
+            'catatan_dokter' => $request->catatan_dokter,
+            'catatan_pasien' => $request->catatan_pasien
         ]);
 
         if ($request->tanggal_konsul && $request->waktu_konsul && !$request->catatan_dokter && !$request->catatan_pasien) {
+            dd('pasien');
             Konsultasi::where('id_konsultasi', $id)->update([
                 'tanggal_konsul' => $request->tanggal_konsul,
                 'waktu_konsul'   => $request->waktu_konsul,
             ]);
         } elseif ($request->tanggal_konsul && $request->catatan_dokter && $request->catatan_pasien) {
+            dd('dokter');
             Konsultasi::where('id_konsultasi', $id)->update([
                 'konsultasi'     => 1,
                 'catatan_dokter' => $request->catatan_dokter,
