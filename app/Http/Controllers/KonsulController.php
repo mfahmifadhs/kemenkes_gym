@@ -93,13 +93,11 @@ class KonsulController extends Controller
         ]);
 
         if ($request->tanggal_konsul && $request->waktu_konsul && !$request->catatan_dokter && !$request->catatan_pasien) {
-            dd('pasien');
             Konsultasi::where('id_konsultasi', $id)->update([
                 'tanggal_konsul' => $request->tanggal_konsul,
                 'waktu_konsul'   => $request->waktu_konsul,
             ]);
         } elseif ($request->tanggal_konsul && $request->catatan_dokter && $request->catatan_pasien) {
-            dd('dokter');
             Konsultasi::where('id_konsultasi', $id)->update([
                 'konsultasi'     => 1,
                 'catatan_dokter' => $request->catatan_dokter,
