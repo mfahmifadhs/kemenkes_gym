@@ -167,7 +167,7 @@
                                     </div>
                                     @endif
 
-                                    @if ($konsul->test_fitness == 1)
+                                    @if ($konsul->test_sipgar == 1)
                                     <label class="col-md-4 col-6">2. Test Fitness</label>
                                     <label class="col-md-1 col-1">:</label>
                                     <div class="col-md-7 col-12 form-group">
@@ -243,9 +243,11 @@
                                             <input type="number" class="form-control form-control-sm" min="0" name="hasil_sipgar" placeholder="Waktu" value="{{ $konsul->hasil_sipgar }}">
                                             <select class="form-control form-control-sm w-25" name="kategori_sipgar">
                                                 <option value="">-- Pilih Kategori --</option>
+                                                <option value="sangatbaik" <?php echo $konsul->kategori_sipgar == 'sangatbaik' ? 'selected' : ''; ?>>Sangat Baik</option>
                                                 <option value="baik" <?php echo $konsul->kategori_sipgar == 'baik' ? 'selected' : ''; ?>>Baik</option>
                                                 <option value="cukup" <?php echo $konsul->kategori_sipgar == 'cukup' ? 'selected' : ''; ?>>Cukup</option>
                                                 <option value="kurang" <?php echo $konsul->kategori_sipgar == 'kurang' ? 'selected' : ''; ?>>Kurang</option>
+                                                <option value="sangatkurang" <?php echo $konsul->kategori_sipgar == 'sangatkurang' ? 'selected' : ''; ?>>Sangat Kurang</option>
                                             </select>
                                         </div>
                                     </div>
