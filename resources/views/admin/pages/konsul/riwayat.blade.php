@@ -206,10 +206,10 @@
                                         </div>
                                         <div class="card-body">
                                             <label class="text-sm">Catatan Dokter</label>
-                                            <h6 class="text-sm">{{ $row->catatan_dokter }}</h6>
+                                            <h6 class="text-sm">{!! nl2br($row->catatan_dokter) !!}</h6>
                                             <hr>
                                             <label class="text-sm">Catatan Pasien</label>
-                                            <h6 class="text-sm">{{ $row->catatan_pasien }}</h6>
+                                            <h6 class="text-sm">{!! nl2br($row->catatan_pasien) !!}</h6>
                                         </div>
                                     </div>
                                 </div>
