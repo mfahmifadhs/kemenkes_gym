@@ -149,7 +149,11 @@
                                 <tbody>
                                     @foreach ($member as $row)
                                     <tr>
-                                        <td>{{ $member->firstItem() + $loop->index }}</td>
+                                        <td>
+                                            {{ $member->firstItem() + $loop->index }}
+                                            @if ($row->status == 'true') <i class="fas fa-check-circle text-success"></i> @endif
+                                            @if ($row->status == 'false') <i class="fas fa-times-circle text-danger"></i> @endif
+                                        </td>
                                         <td>
                                             <a href="{{ route('member.detail', $row->id) }}"><i class="fas fa-eye"></i></a>
                                             @if (Auth::user()->role_id == 1)

@@ -169,6 +169,20 @@
                                 <label class="col-form-label text-sm">Berat Badan</label>
                                 <input type="text" class="form-control" name="berat" value="{{ $member->berat }}">
                             </div>
+
+                            @if (Auth::user()->role_id == 1)
+                            <div class="col-md-12">
+                                <label class="col-form-label text-sm">Status</label> <br>
+                                <label for="aktif" class="bg-success p-2 rounded text-xs">
+                                    <input id="aktif" type="radio" name="status" value="true" <?php echo $member->status == 'true' ? 'checked' : ''; ?>>
+                                    AKTIF
+                                </label>
+                                <label for="non-aktif" class="bg-danger p-2 rounded text-xs">
+                                    <input id="non-aktif" type="radio" name="status" value="false" <?php echo $member->status == 'false' ? 'checked' : ''; ?>>
+                                    TIDAK AKTIF
+                                </label>
+                            </div>
+                            @endif
                         </div>
                     </div>
                     <div class="card-footer text-right">

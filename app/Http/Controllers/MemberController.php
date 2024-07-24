@@ -189,6 +189,12 @@ class MemberController extends Controller
                 'berat'          => $request->berat
             ]);
 
+            if ($role == 1) {
+                User::where('id', $id)->update([
+                    'status' => $request->status
+                ]);
+            }
+
 
             if ($role == 1 || $role == 3) {
                 return redirect()->route('member.detail', $id)->with('success', 'Berhasil Menyimpan Perubahan');

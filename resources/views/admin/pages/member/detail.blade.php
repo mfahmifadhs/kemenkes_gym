@@ -26,7 +26,11 @@
                     </h3>
                 </div>
                 <div class="card-body">
-                    <label class="text-secondary text-sm mb-0"><i>Informasi Member</i></label>
+                    <label class="text-secondary text-sm mb-0">
+                        @if ($member->status == 'true') <i class="fas fa-check-circle fa-2x text-success"></i> @endif
+                        @if ($member->status == 'false') <i class="fas fa-times-circle fa-2x text-danger"></i> @endif
+                        <i>Informasi Member</i>
+                    </label>
                     <div class="row">
                         <div class="col-md-12 mt-2">
                             <label class="mb-0 text-sm">ID</label>
