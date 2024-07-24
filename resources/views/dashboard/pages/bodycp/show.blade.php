@@ -21,7 +21,7 @@
                                             <div class="col-md-5 col-5">1. Height</div>
                                             <div class="col-md-7 col-7">: Tinggi Badan</div>
 
-                                            <div class="col-md-5 col-5">2. Clotes</div>
+                                            <div class="col-md-5 col-5">2. Clothes</div>
                                             <div class="col-md-7 col-7">: Berat Baju</div>
 
                                             <div class="col-md-5 col-5">3. Weight</div>
