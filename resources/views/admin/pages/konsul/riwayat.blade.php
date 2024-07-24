@@ -207,7 +207,7 @@
                                         <div class="card-body">
                                             <label class="text-sm">Catatan Dokter</label>
                                             <h6 class="text-sm">
-                                                @if ($row->catatan_dokter) Tidak ada catatan @endif
+                                                @if (!$row->catatan_dokter) Tidak ada catatan @endif
                                                 {!! nl2br($row->catatan_dokter) !!}
                                             </h6>
                                             <hr>
