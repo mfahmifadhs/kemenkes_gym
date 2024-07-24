@@ -159,6 +159,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('konsultasi/reset', [KonsulController::class, 'reset'])->name('konsul.reset');
     Route::get('konsultasi/tambah', [KonsulController::class, 'store'])->name('konsul.store');
     Route::get('konsultasi/batal', [KonsulController::class, 'cancel'])->name('konsul.cancel');
+    Route::get('konsultasi/detail/{id}', [KonsulController::class, 'detail'])->name('konsul.detail');
     Route::get('konsultasi/hapus/{id}', [KonsulController::class, 'delete'])->name('konsul.delete');
     Route::get('konsultasi/download/{id}', [KonsulController::class, 'download'])->name('konsul.download');
 
@@ -168,7 +169,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('kelas/kehadiran/{id}', [JadwalController::class, 'attendance'])->name('kelas.attendance');
         Route::get('class/schedule/detail/{id}', [JadwalController::class, 'detail'])->name('jadwal.detail');
 
-        Route::get('konsultasi/detail/{id}', [KonsulController::class, 'detail'])->name('konsul.detail');
+        Route::get('konsultasi/member/{id}', [KonsulController::class, 'riwayat'])->name('konsul.user.detail');
         Route::get('konsultasi/update/{id}', [KonsulController::class, 'update'])->name('konsul.update');
 
         Route::get('member', [MemberController::class, 'show'])->name('member');

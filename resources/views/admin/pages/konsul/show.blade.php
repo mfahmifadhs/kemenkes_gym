@@ -77,7 +77,7 @@
                                         <div class="card p-2 text-dark border border-dark">
                                             <div class="row">
                                                 <div class="col-md-2 col-2 my-auto">
-                                                    <h3 class="text-info text-center"><b>{{ $konsul->firstItem() + $loop->index }}</b></h3>
+                                                    <h3 class="text-info text-center"><b>{{ $row->kode_book }}</b></h3>
                                                 </div>
                                                 <div class="col-md-10 col-10">
                                                     <h6 class="text-xs">
@@ -139,29 +139,22 @@
                                     <th>Aksi</th>
                                     <th>Nama</th>
                                     <th>Asal</th>
-                                    <th>Tanggal Konsul</th>
-                                    <th>Waktu Konsul</th>
+                                    <th>Total Konsul</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($konsulAll->where('konsultasi', 1) as $row)
+                                @foreach ($user as $row)
                                 <tr>
-                                    <td>{{ $row->kode_book }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>
-                                        <a href="{{ route('konsul.detail', $row->id_konsultasi) }}"><i class="fas fa-eye"></i></a>
+                                        <a href="{{ route('konsul.user.detail', $row->id) }}"><i class="fas fa-eye"></i></a>
                                         @if (Auth::user()->role_id == 1)
-                                        <a href="{{ route('konsul.delete', $row->id_konsultasi) }}"><i class="fas fa-trash"></i></a>
+                                        <a href="{{ route('konsul.user.delete', $row->id) }}"><i class="fas fa-trash"></i></a>
                                         @endif
                                     </td>
-                                    <td class="text-left">{{ $row->member->nama }}</td>
-                                    <td class="text-left">{{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</td>
-                                    <td>{{ $row->tanggal_konsul }}</td>
-                                    <td class="text-proper">
-                                        @if ($row->waktu_konsul == 1) 07.00 WIB s/d 07.30 WIB @endif
-                                        @if ($row->waktu_konsul == 2) 07.30 WIB s/d 08.00 WIB @endif
-                                        @if ($row->waktu_konsul == 3) 08.00 WIB s/d 08.30 WIB @endif
-                                        @if ($row->waktu_konsul == 4) 08.30 WIB s/d 09.00 WIB @endif
-                                    </td>
+                                    <td class="text-left">{{ $row->nama }}</td>
+                                    <td class="text-left">{{ $row->instansi == 'pusat' ? $row->uker->nama_unit_kerja : $row->nama_instansi }}</td>
+                                    <td>{{ $row->konsul->count() }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

@@ -358,15 +358,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
         })
 
         $(document).ready(function() {
-            $('.number').on('input', function() {
-                // Menghapus karakter selain angka (termasuk tanda titik koma sebelumnya)
-                var value = $(this).val().replace(/[^0-9]/g, '');
-                // Format dengan menambahkan titik koma setiap tiga digit
-                var formattedValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, '');
+    $('.number').on('input', function() {
+        // Menghapus karakter selain angka dan simbol /
+        var value = $(this).val().replace(/[^0-9\/]/g, '');
 
-                $(this).val(formattedValue);
-            });
-        });
+        // Memastikan hanya ada satu simbol / di input
+        if ((value.match(/\//g) || []).length > 1) {
+            value = value.substring(0, value.lastIndexOf("/"));
+        }
+
+        // Mengembalikan nilai yang telah difilter ke input field
+        $(this).val(value);
+    });
+});
 
         // Waktu live
         $(function() {

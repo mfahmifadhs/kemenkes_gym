@@ -21,14 +21,12 @@
 
                 @if ($message = Session::get('success'))
                 <div id="alert" class="alert bg-success">
-                    <div class="row">
-                        <p style="color:white;margin: auto;">{{ $message }}</p>
-                    </div>
+                    <p style="color:white;margin: auto;">{{ $message }}</p>
                 </div>
                 <script>
                     setTimeout(function() {
                         document.getElementById('alert').style.display = 'none';
-                    }, 5000);
+                    }, 10000);
                 </script>
                 @endif
 
@@ -104,13 +102,19 @@
                                     <a href="{{ route('konsul.download', $userKonsul->first()->id_konsultasi) }}" onclick="confirmDownload(event)" class="btn btn-primary bg-danger btn-sm mt-2 btn-block">
                                         Download Hasil Konsultasi
                                     </a>
+                                    <small>
+                                        <center>
+                                            Konsultasi berikutnya pada:
+                                            {{ Carbon\Carbon::parse($userKonsul->first()->tanggal_konsul)->addMonth(3)->isoFormat('DD MMMM Y') }}
+                                        </center>
+                                    </small>
                                     @endif
                                 </div>
                             </div>
                         </form>
 
                         <div class="row">
-                            @if ($userKonsul->where('status', 'false')->count() != 0)
+                            @if ($userKonsul->where('konsultasi', 'false')->count() != 0)
                             <div class="col-md-3">
                                 <div class="vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
                                     <div class="vertical-timeline-item vertical-timeline-element">
@@ -151,13 +155,20 @@
                             <div class="col-md-9 col-12 mt-5">
                                 <div class="vertical-line"></div>
                                 <h4 class="text-white ml-4 text-uppercase">Mohon untuk melakukan Tes Vo2Max SIPGAR & Tes Fitness</h4>
-                                <h6 class="text-secondary ml-4">untuk melakukan tes silahkan hubungi Coach untuk mengatur jadwal.</h6>
+                                <h6 class="text-white ml-4">
+                                    untuk melakukan tes silahkan hubungi Coach untuk mengatur jadwal dan membawa form konsultasi
+                                    yang dapat diunduh
+                                    <a href="https://drive.google.com/file/d/12vtEvF52o8xvSv1JeN00pwv8QEDc4ZTE/view?usp=sharing" class="text-danger" target="__blank">
+                                        <b><u>DISINI</u></b>
+                                    </a>.
+                                </h6>
 
                                 <div class="input-group ml-4">
                                     <a href="https://api.whatsapp.com/send?phone=+{{ $phoneSalsa }}&text={{ $msg }}" target="_blank" class="btn btn-primary btn-sm">
                                         <i class="fa fa-male"></i> Hubungi Coach Wiyata
                                     </a>
-                                    <a href="https://api.whatsapp.com/send?phone=+{{ $phoneWiyata }}&text={{ $msg }}" target="_blank" class="btn btn-primary btn-sm ml-2">
+                                    &nbsp;
+                                    <a href="https://api.whatsapp.com/send?phone=+{{ $phoneWiyata }}&text={{ $msg }}" target="_blank" class="btn btn-primary btn-sm">
                                         <i class="fa fa-female"></i> Hubungi Coach Salsa
                                     </a>
                                 </div>
@@ -202,7 +213,41 @@
 
                 <div class="section-body mb-5">
                     <div class="schedule p-3 border-main">
-                        <h6 class="text-main">Riwayat</h6>
+                        <h6 class="text-main mb-3">Riwayat</h6>
+
+                        <div class="row">
+                            @foreach (Auth::user()->konsul->where('status', 'true')->sortBy('tanggal_konsul') as $row)
+                            <a href="{{ route('konsul.detail', $row->id_konsultasi) }}" class="col-md-4">
+                                <div class="card p-3 text-dark border border-dark form-group">
+                                    <div class="row">
+                                        <div class="col-md-2 col-2 my-auto">
+                                            <h3 class="text-info text-center"><b>{{ $loop->iteration }}</b></h3>
+                                        </div>
+                                        <div class="col-md-10 col-10">
+                                            <h6 class="small"><i class="fa fa-calendar"></i> <b>{{ Carbon\Carbon::parse($row->tanggal_konsul)->isoFormat('DD MMMM Y') }}</b></h6>
+                                            <h6 class="small"><i class="fa fa-clock-o"></i>
+                                                <b>
+                                                    @if ($row->waktu_konsul == 1) 07.00 WIB s/d 07.20 WIB @endif
+                                                    @if ($row->waktu_konsul == 2) 07.20 WIB s/d 07.40 WIB @endif
+                                                    @if ($row->waktu_konsul == 3) 07.40 WIB s/d 08.00 WIB @endif
+                                                    @if ($row->waktu_konsul == 4) 08.00 WIB s/d 08.20 WIB @endif
+                                                    @if ($row->waktu_konsul == 5) 08.20 WIB s/d 09.40 WIB @endif
+                                                    @if ($row->waktu_konsul == 6) 08.40 WIB s/d 09.00 WIB @endif
+                                                </b>
+                                            </h6>
+                                            <h6 class="small mt-2"><i class="fa fa-edit"></i> Catatan : <br>
+                                                {{ Str::limit($row->catatan_pasien, 70) }}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            @endforeach
+
+                            @if (Auth::user()->konsul->where('status', 'true')->count() == 0)
+                            <small class="col-md-12 text-white">Tidak ada data</small>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

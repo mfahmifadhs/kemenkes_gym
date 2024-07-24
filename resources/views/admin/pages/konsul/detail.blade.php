@@ -182,17 +182,27 @@
                                             </select>
                                         </div>
 
-                                        <small class="text-xs"><b>b. <i>Handgrip Dynamometer</i></b></small>
+                                        <small class="text-xs"><b>b. <i>Handgrip Dynamometer Kiri</i></b></small>
                                         <div class="input-group mt-0">
-                                            <input type="number" class="form-control form-control-sm" min="0" name="hasil_dynamo_r" placeholder="Kiri (kg)" value="{{ $konsul->hasil_dynamo_r }}">
-                                            <input type="number" class="form-control form-control-sm" min="0" name="hasil_dynamo_l" placeholder="Kanan (kg)" value="{{ $konsul->hasil_dynamo_l }}">
+                                            <input type="number" class="form-control form-control-sm" min="0" name="hasil_dynamo_l" placeholder="Kiri (kg)" value="{{ $konsul->hasil_dynamo_l }}">
+                                            <select class="form-control form-control-sm w-25" name="kategori_dynamo_l">
+                                                <option value="">-- Pilih Kategori --</option>
+                                                <option value="baik" <?php echo $konsul->kategori_dynamo_l == 'baik' ? 'selected' : ''; ?>>Baik</option>
+                                                <option value="cukup" <?php echo $konsul->kategori_dynamo_l == 'cukup' ? 'selected' : ''; ?>>Cukup</option>
+                                                <option value="kurang" <?php echo $konsul->kategori_dynamo_l == 'kurang' ? 'selected' : ''; ?>>Kurang</option>
+                                            </select>
                                         </div>
-                                        <select class="form-control form-control-sm mt-1" name="kategori_dynamo">
-                                            <option value="">-- Pilih Kategori --</option>
-                                            <option value="baik" <?php echo $konsul->kategori_dynamo == 'baik' ? 'selected' : ''; ?>>Baik</option>
-                                            <option value="cukup" <?php echo $konsul->kategori_dynamo == 'cukup' ? 'selected' : ''; ?>>Cukup</option>
-                                            <option value="kurang" <?php echo $konsul->kategori_dynamo == 'kurang' ? 'selected' : ''; ?>>Kurang</option>
-                                        </select>
+
+                                        <small class="text-xs"><b>b. <i>Handgrip Dynamometer Kanan</i></b></small>
+                                        <div class="input-group mt-0">
+                                            <input type="number" class="form-control form-control-sm" min="0" name="hasil_dynamo_r" placeholder="Kanan (kg)" value="{{ $konsul->hasil_dynamo_r }}">
+                                            <select class="form-control form-control-sm w-25" name="kategori_dynamo_r">
+                                                <option value="">-- Pilih Kategori --</option>
+                                                <option value="baik" <?php echo $konsul->kategori_dynamo_r == 'baik' ? 'selected' : ''; ?>>Baik</option>
+                                                <option value="cukup" <?php echo $konsul->kategori_dynamo_r == 'cukup' ? 'selected' : ''; ?>>Cukup</option>
+                                                <option value="kurang" <?php echo $konsul->kategori_dynamo_r == 'kurang' ? 'selected' : ''; ?>>Kurang</option>
+                                            </select>
+                                        </div>
 
                                         <small class="text-xs"><b>c. <i>Plank</i></b></small>
                                         <div class="input-group mt-0">
@@ -217,7 +227,7 @@
 
                                         <small class="text-xs"><b>f. <i>Tekanan darah</i></b></small>
                                         <div class="input-group mt-0">
-                                            <input type="number" class="form-control form-control-sm" min="0" name="hasil_tekdarah" placeholder="Hasil (mmHg)" value="{{ $konsul->hasil_tekdarah }}">
+                                            <input type="text" class="form-control form-control-sm number" min="0" name="hasil_tekdarah" placeholder="Hasil (mmHg)" value="{{ $konsul->hasil_tekdarah }}">
                                         </div>
 
                                         <small class="text-xs"><b>g. <i>Denyut nadi</i></b></small>
