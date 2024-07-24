@@ -114,7 +114,7 @@
                         </form>
 
                         <div class="row">
-                            @if ($userKonsul->where('konsultasi', 'false')->count() != 0)
+                            @if ($userKonsul->count() != 0)
                             <div class="col-md-3">
                                 <div class="vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
                                     <div class="vertical-timeline-item vertical-timeline-element">
