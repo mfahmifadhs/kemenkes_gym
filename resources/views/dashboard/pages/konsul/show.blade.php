@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-6 text-left">
                         <div class="section-title">
-                            <h4 class="text-main"><u>Konsultasi Kesehatan</u></h4>
+                            <h4 class="text-main"><u>Konsultasi</u></h4>
                         </div>
                     </div>
                     <div class="col-6 text-right mt-1">
@@ -50,15 +50,18 @@
                             <input type="hidden" name="member_id" value="{{ Auth::user()->member_id }}">
                             <input type="hidden" name="dokter_id" value="{{ $dokter->id_dokter }}">
                             <div class="row text-white mb-2">
+
+                                @if ($userKonsul->count() == 0)
                                 <div class="col-md-3">
                                     <img src="{{ asset('dist/img/'. $dokter->foto_dokter) }}" alt="">
                                 </div>
-                                <div class="col-md-9 mt-2">
-                                    <h5 class="font-weight-bold">{{ $dokter->nama_dokter }}</h5>
+                                @endif
+                                <div class="col-md-9 col-12">
+                                    <h5 class="font-weight-bold mt-2">{{ $dokter->nama_dokter }}</h5>
                                     <h5 class="text-secondary font-weight-bold mb-3">{{ $dokter->spesialisasi }}</h5>
 
-                                    <small class="text-white">{{ $dokter->profil_dokter }}</small> <br>
                                     @if (Auth::user()->konsul->where('status', 'false')->count() == 0)
+                                    <small class="text-white">{{ $dokter->profil_dokter }}</small> <br>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <small>
@@ -90,10 +93,10 @@
                                         </div>
                                     </div>
 
-                                    <button type="submit" onclick="confirmSubmit(event)" class="btn btn-primary btn-block">Konsul</button>
+                                    <button type="submit" onclick="confirmSubmit(event)" class="btn btn-primary btn-block">Daftar Konsul</button>
                                     @elseif (!$userKonsul->first()->konsultasi)
                                     <a href="{{ route('konsul.cancel') }}" onclick="confirmCancel(event)" class="btn btn-danger btn-sm mt-2 btn-block">
-                                        Batalkan
+                                        <i class="fa fa-times-circle"></i> Batal Konsul
                                     </a>
                                     @elseif ($userKonsul->first()->konsultasi)
                                     <a href="{{ route('konsul.reset') }}" onclick="confirmReset(event)" class="btn btn-primary btn-sm mt-2 btn-block">
@@ -154,24 +157,29 @@
                             @if ($userKonsul->where('test_sipgar', 0)->first() || $userKonsul->where('test_fitness', 0)->first())
                             <div class="col-md-9 col-12 mt-5">
                                 <div class="vertical-line"></div>
-                                <h4 class="text-white ml-4 text-uppercase">Mohon untuk melakukan Tes Vo2Max SIPGAR & Tes Fitness</h4>
-                                <h6 class="text-white ml-4">
-                                    untuk melakukan tes silahkan hubungi Coach untuk mengatur jadwal dan membawa form konsultasi
-                                    yang dapat diunduh
+                                <h4 class="text-white ml-4">
+                                    Silahkan menghubungi Coach untuk mengatur jadwal Tes Vo2Max SIPGAR, Tes Fitness. Formulir dapat diunduh
                                     <a href="https://drive.google.com/file/d/12vtEvF52o8xvSv1JeN00pwv8QEDc4ZTE/view?usp=sharing" class="text-danger" target="__blank">
-                                        <b><u>DISINI</u></b>
-                                    </a>.
-                                </h6>
+                                        <b><u>DISINI.</u></b>
+                                    </a>
+                                </h4>
 
                                 <div class="input-group ml-4">
-                                    <a href="https://api.whatsapp.com/send?phone=+{{ $phoneSalsa }}&text={{ $msg }}" target="_blank" class="btn btn-primary btn-sm">
+                                    <a href="https://api.whatsapp.com/send?phone=+{{ $phoneWiyata  }}&text={{ $msg }}" target="_blank" class="btn btn-primary btn-sm">
                                         <i class="fa fa-male"></i> Hubungi Coach Wiyata
                                     </a>
                                     &nbsp;
-                                    <a href="https://api.whatsapp.com/send?phone=+{{ $phoneWiyata }}&text={{ $msg }}" target="_blank" class="btn btn-primary btn-sm">
+                                    <a href="https://api.whatsapp.com/send?phone=+{{ $phoneSalsa}}&text={{ $msg }}" target="_blank" class="btn btn-primary btn-sm">
                                         <i class="fa fa-female"></i> Hubungi Coach Salsa
                                     </a>
                                 </div>
+                            </div>
+                            @endif
+
+
+                            @if ($userKonsul->where('test_sipgar', 1)->first() && $userKonsul->where('test_fitness', 1)->first() && !$userKonsul->first()?->tanggal_konsul)
+                            <div class="col-md-9 col-12 mt-3">
+                            <small class="text-white">Menunggu Jadwal Konsultasi</small>
                             </div>
                             @endif
 

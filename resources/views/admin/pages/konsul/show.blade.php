@@ -148,9 +148,6 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>
                                         <a href="{{ route('konsul.user.detail', $row->id) }}"><i class="fas fa-eye"></i></a>
-                                        @if (Auth::user()->role_id == 1)
-                                        <a href="{{ route('konsul.user.delete', $row->id) }}"><i class="fas fa-trash"></i></a>
-                                        @endif
                                     </td>
                                     <td class="text-left">{{ $row->nama }}</td>
                                     <td class="text-left">{{ $row->instansi == 'pusat' ? $row->uker->nama_unit_kerja : $row->nama_instansi }}</td>

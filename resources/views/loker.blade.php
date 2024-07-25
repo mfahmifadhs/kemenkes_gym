@@ -23,7 +23,7 @@
             </div>
             @endif
 
-            @if ($status == true)
+            @if ($status == 'true')
             <div class="col-lg-8">
                 <div class="leave-comment">
                     <label class="text-white h4 mb-0">ID MEMBER</label><br>
