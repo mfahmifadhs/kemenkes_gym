@@ -181,14 +181,8 @@ class AbsenController extends Controller
 
     public function mobile($kelas)
     {
-        if ($kelas == '$2y$12$yTjO5czXJ8CfU7BN5RhDaOijdfu6iluvyQ3W6uYMGSFKYwdSVbWKq') {
-            $idKelas = 999;
-        } else {
-            $idKelas = null;
-        }
-
         $tambah = new Absensi();
-        $tambah->jadwal_id    = $idKelas;
+        $tambah->jadwal_id    = $kelas;
         $tambah->user_id      = Auth::user()->id;
         $tambah->tanggal      = Carbon::now();
         $tambah->waktu_masuk  = Carbon::now();
