@@ -58,6 +58,7 @@ Route::get('/menu-tab', function () {
 })->name('menu.tab');
 
 
+
 Route::post('absensi/post/{id}', [AbsenController::class, 'store']);
 Route::post('Attendance/list', [AbsenController::class, 'list'])->name('absen.list');
 
@@ -89,6 +90,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/leaderboard', function () {
         return redirect()->route('dashboard');
     })->name('leaderboard');
+
+
+
+    Route::get('kehadiran/{kelas}', [AbsenController::class, 'mobile']);
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('waktu', [DashboardController::class, 'time'])->name('dashboard.time');

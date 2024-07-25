@@ -132,6 +132,7 @@
                                         <th>WAKTU DATANG</th>
                                         <th>WAKTU KELUAR</th>
                                         <th>LAMA LATIHAN</th>
+                                        <th>LATIHAN</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -151,7 +152,7 @@
                                         </td>
                                         <td>{{ $row->tanggal }}</td>
                                         <td class="text-left">{{ $row->member->nama }}</td>
-                                        <td class="text-left">{{ $row->member->uker->nama_unit_kerja }}</td>
+                                        <td class="text-left">{{ $row->member->uker ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</td>
                                         <td>{{ $row->waktu_masuk }}</td>
                                         <td>{{ $row->waktu_keluar }}</td>
                                         <td>
@@ -164,6 +165,7 @@
                                             echo $selisih->format('%h jam %i menit');
                                             ?>
                                         </td>
+                                        <td>{{ $row->jadwal_id == 999 ? 'BOOTCAMP' : ($row->jadwal ? $row->jadwal->kelas->nama_kelas : 'EXERCISE') }}</td>
                                     </tr>
                                     @endforeach
 
@@ -206,7 +208,7 @@
                     </div>
                     <div class="row form-group">
                         <label class="col-form-label col-md-3">Unit Kerja</label>
-                        <input type="text" class="form-control col-md-9" value="{{ $row->member->uker->nama_unit_kerja }}" readonly>
+                        <input type="text" class="form-control col-md-9" value="{{ $row->member->uker ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}" readonly>
                     </div>
                     <div class="row form-group">
                         <label class="col-form-label col-md-3">Waktu Datang</label>

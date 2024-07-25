@@ -11,6 +11,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use DB;
 use Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -135,7 +137,6 @@ class AbsenController extends Controller
                     $jadwal = null;
                 }
             }
-
         } else {
             $jadwal = null;
         }
@@ -176,6 +177,22 @@ class AbsenController extends Controller
         ]);
 
         return redirect()->route('absen.show')->with('success', 'Successfully Updated');
+    }
+
+    public function mobile($kelas)
+    {
+        $idKelas = Crypt::decrypt($kelas);
+
+        $tambah = new Absensi();
+        $tambah->jadwal_id    = $idKelas;
+        $tambah->user_id      = Auth::user()->id;
+        $tambah->tanggal      = Carbon::now();
+        $tambah->waktu_masuk  = Carbon::now();
+        $tambah->waktu_keluar = Carbon::now()->addHours(3);
+        $tambah->created_at   = Carbon::now();
+        $tambah->save();
+
+        return redirect()->route('dashboard')->with('success', 'Berhasil Absensi Kelas!');
     }
 
     public function delete($id)

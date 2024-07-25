@@ -2,40 +2,78 @@
 @section('content')
 
 <!-- Contact Section Begin -->
-<section class="contact-section spad h-100">
+<section class="contact-section spad">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 mx-auto mt-5 text-center">
+            <div class="col-md-12 mx-auto mt-5 text-center">
                 <div class="section-title contact-title text-center">
                     <h2><u>PEMINJAMAN LOKER</u></h2>
                 </div>
             </div>
             @if ($status == 'false')
-            <div class="col-lg-6 mx-auto ">
+            <div class="col-md-6 mx-auto">
                 <div class="leave-comment">
-                    @if ($message = Session::get('success'))
-                    HALO
-                    @endif
                     <label class="text-white h4 mb-0">ID MEMBER</label><br>
-                    <small class="text-white mt-0">Please scan ID Member here.</small>
+                    <small class="text-white mt-0">Scan QR Code disini / masukkan 4 digit terakhir nomor member.</small>
                     <input type="text" name="member_id" class="form-control bg-white number" id="member_id" placeholder="Member ID" min="0" maxlength="19">
                 </div>
             </div>
             @endif
 
             @if ($status == 'true')
-            <div class="col-lg-8">
-                <div class="leave-comment">
-                    <label class="text-white h4 mb-0">ID MEMBER</label><br>
-                    <small class="text-white mt-0">Please scan ID Member here.</small>
-                    <input type="text" name="member_id" class="form-control bg-white number" id="member_id" placeholder="Member ID" min="0" maxlength="19">
+            <div class="col-md-6">
+                <a href="{{ route('loker') }}" class="btn btn-main btn-sm text-white bg-main">
+                    <i class="fa fa-arrow-circle-o-left"></i> Kembali
+                </a>
+                <div class="border-main p-2 mt-3 text-white">
+                    <div class="row p-2">
+                        <div class="col-md-12 mb-2">Profil Member</div>
+                        <div class="col-md-4 col-4 form-group">Member ID</div>
+                        <div class="col-md-8 col-8 form-group">: {{ $member->member_id }}</div>
+                        <div class="col-md-4 col-4 form-group">Nama</div>
+                        <div class="col-md-8 col-8 form-group">: {{ $member->nama }}</div>
+                        <div class="col-md-4 col-4 form-group">NIP/NIK</div>
+                        <div class="col-md-8 col-8 form-group">: {{ $member->nip_nik }}</div>
+                        <div class="col-md-4 col-4 form-group">Jenis Kelamin</div>
+                        <div class="col-md-8 col-8 form-group">: {{ $member->jenis_kelamin == 'male' ? 'Laki-laki' : 'Perempuan' }}</div>
+                        <div class="col-md-4 col-4 form-group">Asal</div>
+                        <div class="col-md-8 col-8 form-group">: {{ $member->instansi == 'pusat' ? $member->uker->nama_unit_kerja : $member->nama_instansi }}</div>
+                        <div class="col-md-4 col-4 form-group">Tanggal Pinjam</div>
+                        <div class="col-md-8 col-8 form-group">: 21 Januari 2024</div>
+                        <div class="col-md-4 col-4 form-group">Waktu Pinjam</div>
+                        <div class="col-md-8 col-8 form-group">: 10.50 WIB</div>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-4 border-main p-2 mt-3">
-                <center>
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                <div class="border-main p-2 mt-5 text-center">
                     <h3 class="text-main">Nomor Loker</h3>
-                    <input type="text" class="bottom-border-input number" placeholder="Enter a number">
-                </center>
+                    <input type="text" class="bottom-border-input number" id="no_loker">
+                    <label class="text-white">Pilih Jaminan Identitas :</label>
+                    <div class="input-group small ml-5">
+                        <label for="ktp" class="bg-main p-2 rounded">
+                            <input id="kp" type="radio" name="jaminan" value="ktp">
+                            <b>Kartu Pegawai</b>
+                        </label>
+                        <label for="ktp" class="bg-main p-2 rounded ml-2">
+                            <input id="ktp" type="radio" name="jaminan" value="ktp">
+                            <b>KTP</b>
+                        </label>
+                        <label for="ktp" class="bg-main p-2 rounded mx-2">
+                            <input id="sim" type="radio" name="jaminan" value="sim">
+                            <b>SIM</b>
+                        </label>
+                        <label for="ktp" class="bg-main p-2 rounded">
+                            <input id="ktp" type="radio" name="jaminan" value="lainnya">
+                            <b>Lainnya</b>
+                        </label>
+                    </div>
+                    <hr>
+                    <button class="btn btn-main btn-md bg-main w-75 mx-3 mt-2">
+                        <b>Submit</b>
+                    </button>
+                </div>
             </div>
             @endif
         </div>
@@ -130,13 +168,13 @@
 </script>
 
 <script>
-    // Menggunakan event DOMContentLoaded untuk memastikan semua elemen telah dimuat
     document.addEventListener('DOMContentLoaded', function() {
-        // Dapatkan elemen input
         var memberInput = document.getElementById('member_id');
-
-        // Fokuskan pada elemen input
         memberInput.focus();
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        var noLoker = document.getElementById('no_loker');
+        noLoker.focus();
     });
 </script>
 

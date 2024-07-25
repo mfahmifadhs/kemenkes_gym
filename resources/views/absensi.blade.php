@@ -228,12 +228,13 @@
                 totalSpan.text(total);
 
                 data.forEach((item, index) => {
+
                     let row = `<tr>
                             <td class="text-center">${index + 1}</td>
                             <td class="text-center">${item.member.nama}</td>
-                            <td class="text-center">${item.member.uker.nama_unit_kerja}</td>
+                            <td class="text-center">${item.member.instansi == 'pusat' ? item.member.uker.nama_unit_kerja : item.member.nama_instansi}</td>
                             <td class="text-center">${item.waktu_masuk}</td>
-                            <td class="text-center">${item.jadwal ? item.jadwal.kelas.nama_kelas : 'EXERCISE'}</td>
+                            <td class="text-center">${item.jadwal ? item.jadwal.kelas.nama_kelas : item.jadwal_id == 999 ? 'BOOTCAMP' : 'EXERCISE'}</td>
                         </tr>`;
                     tbody.append(row);
                 });
