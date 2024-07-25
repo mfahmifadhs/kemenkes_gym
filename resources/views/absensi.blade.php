@@ -234,7 +234,7 @@
                             <td class="text-center">${item.member.nama}</td>
                             <td class="text-center">${item.member.instansi == 'pusat' ? item.member.uker.nama_unit_kerja : item.member.nama_instansi}</td>
                             <td class="text-center">${item.waktu_masuk}</td>
-                            <td class="text-center">${item.jadwal ? item.jadwal.kelas.nama_kelas : item.jadwal_id == 999 ? 'BOOTCAMP' : 'EXERCISE'}</td>
+                            <td class="text-center">${item.jadwal ? item.jadwal.kelas.nama_kelas : item.jadwal_id == 999 ? 'BOOTCAMP' : item.jadwal_id == 998 ? 'AEROBIC' : 'EXERCISE'}</td>
                         </tr>`;
                     tbody.append(row);
                 });

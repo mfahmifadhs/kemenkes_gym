@@ -165,7 +165,7 @@
                                             echo $selisih->format('%h jam %i menit');
                                             ?>
                                         </td>
-                                        <td>{{ $row->jadwal_id == 999 ? 'BOOTCAMP' : ($row->jadwal ? $row->jadwal->kelas->nama_kelas : 'EXERCISE') }}</td>
+                                        <td>{{ $row->jadwal_id == 999 ? 'BOOTCAMP' : ($row->jadwal_id == 998 ? 'AEROBIC' : ($row->jadwal ? $row->jadwal->kelas->nama_kelas : 'EXERCISE')) }}</td>
                                     </tr>
                                     @endforeach
 
