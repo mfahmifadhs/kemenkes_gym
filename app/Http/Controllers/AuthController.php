@@ -172,7 +172,7 @@ class AuthController extends Controller
 
     public function resendActivation(Request $request)
     {
-        $user = User::where('email', $request->email)->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')->first();
+        $user = User::where('email', $request->email)->leftjoin('t_unit_kerja', 'id_unit_kerja', 'uker_id')->first();
 
         if (!$user) {
             return back()->with('failed', 'Akun tidak ditemukan!');
@@ -202,7 +202,7 @@ class AuthController extends Controller
 
     public function sentMailResetPass(Request $request)
     {
-        $user = User::where('email', $request->get('email'))->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')->first();
+        $user = User::where('email', $request->get('email'))->leftjoin('t_unit_kerja', 'id_unit_kerja', 'uker_id')->first();
 
         if (!$user) {
             return back()->with('failed', 'Email belum terdaftar');

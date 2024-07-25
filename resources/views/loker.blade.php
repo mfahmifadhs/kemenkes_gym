@@ -2,7 +2,7 @@
 @section('content')
 
 <!-- Contact Section Begin -->
-<section class="contact-section spad">
+<section class="contact-section spad h-100">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 mx-auto mt-5 text-center">
@@ -10,78 +10,38 @@
                     <h2><u>PEMINJAMAN LOKER</u></h2>
                 </div>
             </div>
+            @if ($status == 'false')
             <div class="col-lg-6 mx-auto ">
                 <div class="leave-comment">
                     @if ($message = Session::get('success'))
-                    <div id="alert" class="alert bg-success">
-                        <p style="color:white;margin: auto;">{{ $message }}</p>
-                    </div>
-                    <script>
-                        setTimeout(function() {
-                            document.getElementById('alert').style.display = 'none';
-                        }, 10000);
-                    </script>
-                    @endif
-                    @if ($message = Session::get('failed'))
-                    <div id="alert" class="alert bg-danger">
-                        <p style="color:white;margin: auto;">{{ $message }}</p>
-                    </div>
-                    <script>
-                        setTimeout(function() {
-                            document.getElementById('alert').style.display = 'none';
-                        }, 5000);
-                    </script>
+                    HALO
                     @endif
                     <label class="text-white h4 mb-0">ID MEMBER</label><br>
                     <small class="text-white mt-0">Please scan ID Member here.</small>
                     <input type="text" name="member_id" class="form-control bg-white number" id="member_id" placeholder="Member ID" min="0" maxlength="19">
                 </div>
             </div>
+            @endif
+
+            @if ($status == true)
+            <div class="col-lg-8">
+                <div class="leave-comment">
+                    <label class="text-white h4 mb-0">ID MEMBER</label><br>
+                    <small class="text-white mt-0">Please scan ID Member here.</small>
+                    <input type="text" name="member_id" class="form-control bg-white number" id="member_id" placeholder="Member ID" min="0" maxlength="19">
+                </div>
+            </div>
+            <div class="col-lg-4 border-main p-2 mt-3">
+                <center>
+                    <h3 class="text-main">Nomor Loker</h3>
+                    <input type="text" class="bottom-border-input number" placeholder="Enter a number">
+                </center>
+            </div>
+            @endif
         </div>
     </div>
 </section>
 <!-- Contact Section End -->
-
-<!-- Schedule Section Begin -->
-<section class="choseus-section spad h-100 my-auto">
-    <div id="schedule" class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title">
-                    <h2>DAFTAR HADIR</h2>
-                </div>
-            </div>
-
-            <div class="col-lg-12 mb-5">
-                <h1 class="text-white text-center">
-                    <span id="total"></span>
-                </h1>
-            </div>
-            <div class="col-lg-12">
-                <div class="table-responsive" style="max-height: 300px;overflow-y: auto;">
-                    <table class="table table-striped text-white small">
-                        <thead>
-                            <tr>
-                                <th colspan="5">
-                                    {{ \Carbon\Carbon::now()->isoFormat('DD MMMM Y') }}
-                                </th>
-                            </tr>
-                            <tr class="text-center">
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Asal</th>
-                                <th>Waktu</th>
-                                <th>Latihan</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Schedule Section End -->
 
 <audio id="sound-datang" src="{{ asset('dist/sound/sound-datang.mp3') }}" preload="auto"></audio>
 <audio id="sound-gagal" src="{{ asset('dist/sound/sound-gagal.mp3') }}" preload="auto"></audio>
@@ -95,7 +55,7 @@
             var member_id = $(this).val();
 
             $.ajax({
-                url: '/absensi/post/' + member_id,
+                url: '/loker/false/' + member_id,
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}'
@@ -107,12 +67,11 @@
                             icon: 'success',
                             title: 'Halo',
                             text: 'Selamat Datang',
-                            timer: 1000, // Durasi popup (dalam milidetik)
-                            showConfirmButton: false // Tombol OK tidak ditampilkan
+                            timer: 1000,
+                            showConfirmButton: false
                         }).then((result) => {
-                            // Callback ini akan dipanggil setelah popup Swal ditutup
-                            // Memuat ulang halaman
-                            location.reload();
+                            // location.reload();
+                            window.location.href = '/loker/true/' + member_id;
                         });
                     } else if (response.thanks) {
                         document.getElementById('sound-thanks').play();
@@ -123,7 +82,7 @@
                             timer: 1000,
                             showConfirmButton: false
                         }).then((result) => {
-                            location.reload();
+                            // location.reload();
                         });
                     } else if (response.hadir) {
                         document.getElementById('sound-hadir').play();
@@ -134,7 +93,7 @@
                             timer: 1000,
                             showConfirmButton: false
                         }).then((result) => {
-                            location.reload();
+                            // location.reload();
                         });
                     } else {
                         document.getElementById('sound-gagal').play();
@@ -147,7 +106,7 @@
                         }).then((result) => {
                             // Callback ini akan dipanggil setelah popup Swal ditutup
                             // Memuat ulang halaman
-                            location.reload();
+                            // location.reload();
                         });
                     }
                 },
@@ -162,7 +121,7 @@
                     }).then((result) => {
                         // Callback ini akan dipanggil setelah popup Swal ditutup
                         // Memuat ulang halaman
-                        location.reload();
+                        // location.reload();
                     });
                 }
             });
@@ -184,7 +143,7 @@
 <script>
     $(document).ready(function() {
         $.ajax({
-            url: "{{ route('loker.check') }}",
+            url: "",
             method: "POST",
             data: {
                 _token: "{{ csrf_token() }}" // Sertakan token CSRF

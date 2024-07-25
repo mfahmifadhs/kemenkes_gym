@@ -82,7 +82,8 @@ Route::get('survey-kepuasan/store/{id}', [SurveyController::class, 'store'])->na
 
 
 Route::get('loker', [LokerController::class, 'index'])->name('loker');
-Route::post('loker', [LokerController::class, 'check'])->name('loker.check');
+Route::get('loker/{status}/{id}', [LokerController::class, 'check'])->name('loker.check');
+Route::post('loker/{status}/{id}', [LokerController::class, 'check'])->name('loker.check');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/leaderboard', function () {
