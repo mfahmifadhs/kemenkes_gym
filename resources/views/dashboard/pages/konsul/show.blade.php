@@ -55,6 +55,8 @@
                                 <div class="col-md-3">
                                     <img src="{{ asset('dist/img/'. $dokter->foto_dokter) }}" alt="">
                                 </div>
+                                @else
+                                <div class="col-md-3"></div>
                                 @endif
                                 <div class="col-md-9 col-12">
                                     <h5 class="font-weight-bold mt-2">{{ $dokter->nama_dokter }}</h5>
