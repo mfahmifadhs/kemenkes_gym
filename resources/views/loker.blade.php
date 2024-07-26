@@ -144,7 +144,7 @@
                         }).then((result) => {
                             // Callback ini akan dipanggil setelah popup Swal ditutup
                             // Memuat ulang halaman
-                            // location.reload();
+                            location.reload();
                         });
                     }
                 },
@@ -159,7 +159,7 @@
                     }).then((result) => {
                         // Callback ini akan dipanggil setelah popup Swal ditutup
                         // Memuat ulang halaman
-                        // location.reload();
+                        location.reload();
                     });
                 }
             });
