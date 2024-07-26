@@ -47,9 +47,6 @@
                             <b>Lainnya</b>
                         </label>
                     </div> -->
-                    <button class="btn btn-main btn-md bg-main w-75 mx-3 mt-2 my-3">
-                        <b>Submit</b>
-                    </button>
                 </div>
             </div>
             <div class="col-md-1"></div>
