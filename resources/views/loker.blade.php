@@ -22,35 +22,13 @@
 
             @if ($status == 'true')
             <div class="col-md-6">
-                <a href="{{ route('loker') }}" class="btn btn-main btn-sm text-white bg-main">
+                <a href="{{ route('loker') }}" class="btn btn-main btn-sm text-white bg-main mb-3">
                     <i class="fa fa-arrow-circle-o-left"></i> Kembali
                 </a>
-                <div class="border-main p-2 mt-3 text-white">
-                    <div class="row p-2">
-                        <div class="col-md-12 mb-2">Profil Member</div>
-                        <div class="col-md-4 col-4 form-group">Member ID</div>
-                        <div class="col-md-8 col-8 form-group">: {{ $member->member_id }}</div>
-                        <div class="col-md-4 col-4 form-group">Nama</div>
-                        <div class="col-md-8 col-8 form-group">: {{ $member->nama }}</div>
-                        <div class="col-md-4 col-4 form-group">NIP/NIK</div>
-                        <div class="col-md-8 col-8 form-group">: {{ $member->nip_nik }}</div>
-                        <div class="col-md-4 col-4 form-group">Jenis Kelamin</div>
-                        <div class="col-md-8 col-8 form-group">: {{ $member->jenis_kelamin == 'male' ? 'Laki-laki' : 'Perempuan' }}</div>
-                        <div class="col-md-4 col-4 form-group">Asal</div>
-                        <div class="col-md-8 col-8 form-group">: {{ $member->instansi == 'pusat' ? $member->uker->nama_unit_kerja : $member->nama_instansi }}</div>
-                        <div class="col-md-4 col-4 form-group">Tanggal Pinjam</div>
-                        <div class="col-md-8 col-8 form-group">: 21 Januari 2024</div>
-                        <div class="col-md-4 col-4 form-group">Waktu Pinjam</div>
-                        <div class="col-md-8 col-8 form-group">: 10.50 WIB</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-5">
-                <div class="border-main p-2 mt-5 text-center">
+                <div class="border-main p-2 text-center">
                     <h3 class="text-main">Nomor Loker</h3>
-                    <input type="text" class="bottom-border-input number" id="no_loker">
-                    <label class="text-white">Pilih Jaminan Identitas :</label>
+                    <input type="number" class="bottom-border-input number" id="no_loker" style="-webkit-appearance: none;"><br>
+                    <!-- <label class="text-white">Pilih Jaminan Identitas :</label>
                     <div class="input-group small ml-5">
                         <label for="ktp" class="bg-main p-2 rounded">
                             <input id="kp" type="radio" name="jaminan" value="ktp">
@@ -68,12 +46,34 @@
                             <input id="ktp" type="radio" name="jaminan" value="lainnya">
                             <b>Lainnya</b>
                         </label>
-                    </div>
-                    <hr>
-                    <button class="btn btn-main btn-md bg-main w-75 mx-3 mt-2">
+                    </div> -->
+                    <button class="btn btn-main btn-md bg-main w-75 mx-3 mt-2 my-3">
                         <b>Submit</b>
                     </button>
                 </div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                <div class="border-main p-2 mt-3 text-white">
+                    <div class="row p-2">
+                        <div class="col-md-12 mb-2">Profil Member</div>
+                        <div class="col-md-4 col-4">Member ID</div>
+                        <div class="col-md-8 col-8">: {{ $member->member_id }}</div>
+                        <div class="col-md-4 col-4">Nama</div>
+                        <div class="col-md-8 col-8">: {{ $member->nama }}</div>
+                        <div class="col-md-4 col-4">NIP/NIK</div>
+                        <div class="col-md-8 col-8">: {{ $member->nip_nik }}</div>
+                        <div class="col-md-4 col-4">Jenis Kelamin</div>
+                        <div class="col-md-8 col-8">: {{ $member->jenis_kelamin == 'male' ? 'Laki-laki' : 'Perempuan' }}</div>
+                        <div class="col-md-4 col-4">Asal</div>
+                        <div class="col-md-8 col-8">: {{ $member->instansi == 'pusat' ? $member->uker->nama_unit_kerja : $member->nama_instansi }}</div>
+                        <div class="col-md-4 col-4">Tanggal Pinjam</div>
+                        <div class="col-md-8 col-8">: 21 Januari 2024</div>
+                        <div class="col-md-4 col-4">Waktu Pinjam</div>
+                        <div class="col-md-8 col-8">: 10.50 WIB</div>
+                    </div>
+                </div>
+
             </div>
             @endif
         </div>
