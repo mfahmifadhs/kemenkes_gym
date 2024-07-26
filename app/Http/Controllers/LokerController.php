@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Loker;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class LokerController extends Controller
@@ -23,6 +25,20 @@ class LokerController extends Controller
         if (!$member) {
             return response()->json(['success' => false]);
         } else
+
+        return response()->json(['success' => true]);
+    }
+
+    public function store($id, $loker)
+    {
+        $member = User::where('id', $id)->first();
+
+        $tambah = new Loker();
+        $tambah->member_id   = $id;
+        $tambah->jenis_loker = $member->jenis_kelamin;
+        $tambah->no_loker    = $loker;
+        $tambah->created_at  = Carbon::now();
+        $tambah->save();
 
         return response()->json(['success' => true]);
     }

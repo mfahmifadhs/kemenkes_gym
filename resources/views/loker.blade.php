@@ -33,7 +33,7 @@
     </div>
 
     <!-- Header Section Begin -->
-    <header class="header-section" style="margin-top: 5%;">
+    <header class="header-section" style="margin-top: 4%;">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-4 mx-auto text-center">
@@ -52,9 +52,9 @@
     <section class="contact-section spad mt-5">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 mx-auto mt-5 text-center">
+                <div class="col-md-12 mx-auto mt-4 text-center">
                     <div class="section-title contact-title text-center">
-                        <h2>PEMINJAMAN LOKER</h2>
+                        <h2 class="text-pink">PEMINJAMAN LOKER</h2>
                     </div>
                 </div>
                 @if ($status == 'false')
@@ -69,12 +69,12 @@
 
                 @if ($status == 'true')
                 <div class="col-md-6">
-                    <a href="{{ route('loker') }}" class="btn btn-main btn-sm text-white bg-main mb-3">
+                    <a href="{{ route('loker') }}" class="btn btn-main btn-sm text-white {{ $member->jenis_kelamin == 'male' ? 'bg-main' : 'bg-pink' }} mb-3">
                         <i class="fa fa-arrow-circle-o-left"></i> Kembali
                     </a>
-                    <div class="border-main p-2 text-center">
-                        <h3 class="text-main">Nomor Loker</h3>
-                        <input type="number" class="bottom-border-input number" id="no_loker" style="-webkit-appearance: none;"><br>
+                    <div class="{{ $member->jenis_kelamin == 'male' ? 'border-main' : 'border-pink' }} p-2 text-center">
+                        <h3 class="{{ $member->jenis_kelamin == 'male' ? 'text-main' : 'text-pink' }}">Nomor Loker</h3>
+                        <input id="no_loker" type="number" name="no_loker" class="bottom-border-input number"><br>
                         <!-- <label class="text-white">Pilih Jaminan Identitas :</label>
                     <div class="input-group small ml-5">
                         <label for="ktp" class="bg-main p-2 rounded">
@@ -98,7 +98,7 @@
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-5">
-                    <div class="border-main p-2 mt-5 text-white">
+                    <div class="{{ $member->jenis_kelamin == 'male' ? 'border-main' : 'border-pink' }} p-2 mt-5 text-white">
                         <div class="row p-2">
                             <div class="col-md-12 mb-2">Profil Member</div>
                             <div class="col-md-4 col-4">Member ID</div>
@@ -159,6 +159,7 @@
         });
     </script>
 
+    <!-- Cek Member -->
     <script>
         $(document).ready(function() {
             $('#member_id').on('change', function() {
@@ -182,6 +183,75 @@
                             }).then((result) => {
                                 // location.reload();
                                 window.location.href = '/loker/true/' + member_id;
+                            });
+                        } else if (response.thanks) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Terima Kasih',
+                                text: 'Sampai Jumpa',
+                                timer: 1000,
+                                showConfirmButton: false
+                            }).then((result) => {
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal',
+                                text: 'Data Tidak Ditemukan',
+                                timer: 1000, // Durasi popup (dalam milidetik)
+                                showConfirmButton: false // Tombol OK tidak ditampilkan
+                            }).then((result) => {
+                                // Callback ini akan dipanggil setelah popup Swal ditutup
+                                // Memuat ulang halaman
+                                location.reload();
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: 'Data Tidak Ditemukan',
+                            timer: 1000, // Durasi popup (dalam milidetik)
+                            showConfirmButton: false // Tombol OK tidak ditampilkan
+                        }).then((result) => {
+                            // Callback ini akan dipanggil setelah popup Swal ditutup
+                            // Memuat ulang halaman
+                            location.reload();
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Input loker -->
+    <script>
+        $(document).ready(function() {
+            $('#no_loker').on('change', function() {
+                var member_id = <?php echo $status == 'false' ? 0 : $member->id; ?>;
+                var no_loker  = $(this).val();
+
+                console.log('halo', member_id)
+                $.ajax({
+                    url: '/loker/post/'+ member_id +'/'+ no_loker,
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Sukses',
+                                text: 'Berhasil menyimpan peminjaman loker',
+                                timer: 1000,
+                                showConfirmButton: false
+                            }).then((result) => {
+                                // location.reload();
+                                window.location.href = '/loker';
                             });
                         } else if (response.thanks) {
                             document.getElementById('sound-thanks').play();

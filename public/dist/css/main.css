@@ -3450,6 +3450,16 @@ ol {
     border-color: #00b9ad;
 }
 
+.text-pink {
+    color: #ff00d9;
+    font-weight: bold;
+}
+
+.border-pink {
+    border: 1px solid;
+    border-color: #ff00d9;
+}
+
 .bottom-border-input {
     border: none;
     border-bottom: 2px solid white;

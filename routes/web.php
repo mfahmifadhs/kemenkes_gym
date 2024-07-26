@@ -85,12 +85,12 @@ Route::get('survey-kepuasan/store/{id}', [SurveyController::class, 'store'])->na
 Route::get('loker', [LokerController::class, 'index'])->name('loker');
 Route::get('loker/{status}/{id}', [LokerController::class, 'check'])->name('loker.check');
 Route::post('loker/{status}/{id}', [LokerController::class, 'check'])->name('loker.check');
+Route::post('loker/post/{memberId}/{noLoker}', [LokerController::class, 'store'])->name('loker.store');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/leaderboard', function () {
         return redirect()->route('dashboard');
     })->name('leaderboard');
-
 
 
     Route::get('kehadiran/{kelas}', [AbsenController::class, 'mobile']);
