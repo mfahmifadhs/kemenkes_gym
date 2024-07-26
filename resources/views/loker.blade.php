@@ -1,34 +1,81 @@
-@extends('app')
-@section('content')
+<!DOCTYPE html>
+<html lang="zxx">
 
-<!-- Contact Section Begin -->
-<section class="contact-section spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 mx-auto mt-5 text-center">
-                <div class="section-title contact-title text-center">
-                    <h2><u>PEMINJAMAN LOKER</u></h2>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Kemenkes Bootcamp">
+    <meta name="keywords" content="Gym, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kemenkes Bootcamp & Fitness Center</title>
+    <link rel="icon" href="{{ asset('dist/img/icon-kemenkes.png') }}" type="image/x-icon">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{{ asset('dist/css/bootstrap.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('dist/css/font-awesome.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('dist/css/flaticon.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('dist/css/owl.carousel.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('dist/css/barfiller.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('dist/css/magnific-popup.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('dist/css/slicknav.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('dist/css/main.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('dist/css/select2.css') }}">
+</head>
+
+<body style="background-color: #151515;">
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header Section Begin -->
+    <header class="header-section" style="margin-top: 5%;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4 mx-auto text-center">
+                    <div class="logo">
+                        <a href="/">
+                            <img src="{{ asset('dist/img/logo.png') }}" alt="">
+                        </a>
+                    </div>
                 </div>
             </div>
-            @if ($status == 'false')
-            <div class="col-md-6 mx-auto">
-                <div class="leave-comment">
-                    <label class="text-white h4 mb-0">ID MEMBER</label><br>
-                    <small class="text-white mt-0">Scan QR Code disini / masukkan 4 digit terakhir nomor member.</small>
-                    <input type="number" name="member_id" class="form-control bg-white" id="member_id" placeholder="Member ID" min="0" maxlength="19">
-                </div>
-            </div>
-            @endif
+        </div>
+    </header>
+    <!-- Header End -->
 
-            @if ($status == 'true')
-            <div class="col-md-6">
-                <a href="{{ route('loker') }}" class="btn btn-main btn-sm text-white bg-main mb-3">
-                    <i class="fa fa-arrow-circle-o-left"></i> Kembali
-                </a>
-                <div class="border-main p-2 text-center">
-                    <h3 class="text-main">Nomor Loker</h3>
-                    <input type="number" class="bottom-border-input number" id="no_loker" style="-webkit-appearance: none;"><br>
-                    <!-- <label class="text-white">Pilih Jaminan Identitas :</label>
+    <!-- Contact Section Begin -->
+    <section class="contact-section spad mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mx-auto mt-5 text-center">
+                    <div class="section-title contact-title text-center">
+                        <h2>PEMINJAMAN LOKER</h2>
+                    </div>
+                </div>
+                @if ($status == 'false')
+                <div class="col-md-6 mx-auto">
+                    <div class="leave-comment">
+                        <label class="text-white h4 mb-0">ID MEMBER</label><br>
+                        <small class="text-white mt-0">Scan QR Code disini / masukkan 4 digit terakhir nomor member.</small>
+                        <input type="number" name="member_id" class="form-control bg-white" id="member_id" placeholder="Member ID" min="0" maxlength="19">
+                    </div>
+                </div>
+                @endif
+
+                @if ($status == 'true')
+                <div class="col-md-6">
+                    <a href="{{ route('loker') }}" class="btn btn-main btn-sm text-white bg-main mb-3">
+                        <i class="fa fa-arrow-circle-o-left"></i> Kembali
+                    </a>
+                    <div class="border-main p-2 text-center">
+                        <h3 class="text-main">Nomor Loker</h3>
+                        <input type="number" class="bottom-border-input number" id="no_loker" style="-webkit-appearance: none;"><br>
+                        <!-- <label class="text-white">Pilih Jaminan Identitas :</label>
                     <div class="input-group small ml-5">
                         <label for="ktp" class="bg-main p-2 rounded">
                             <input id="kp" type="radio" name="jaminan" value="ktp">
@@ -47,90 +94,133 @@
                             <b>Lainnya</b>
                         </label>
                     </div> -->
-                </div>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-5">
-                <div class="border-main p-2 mt-3 text-white">
-                    <div class="row p-2">
-                        <div class="col-md-12 mb-2">Profil Member</div>
-                        <div class="col-md-4 col-4">Member ID</div>
-                        <div class="col-md-8 col-8">: {{ $member->member_id }}</div>
-                        <div class="col-md-4 col-4">Nama</div>
-                        <div class="col-md-8 col-8">: {{ $member->nama }}</div>
-                        <div class="col-md-4 col-4">NIP/NIK</div>
-                        <div class="col-md-8 col-8">: {{ $member->nip_nik }}</div>
-                        <div class="col-md-4 col-4">Jenis Kelamin</div>
-                        <div class="col-md-8 col-8">: {{ $member->jenis_kelamin == 'male' ? 'Laki-laki' : 'Perempuan' }}</div>
-                        <div class="col-md-4 col-4">Asal</div>
-                        <div class="col-md-8 col-8">: {{ $member->instansi == 'pusat' ? $member->uker->nama_unit_kerja : $member->nama_instansi }}</div>
-                        <div class="col-md-4 col-4">Tanggal Pinjam</div>
-                        <div class="col-md-8 col-8">: 21 Januari 2024</div>
-                        <div class="col-md-4 col-4">Waktu Pinjam</div>
-                        <div class="col-md-8 col-8">: 10.50 WIB</div>
                     </div>
                 </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
+                    <div class="border-main p-2 mt-5 text-white">
+                        <div class="row p-2">
+                            <div class="col-md-12 mb-2">Profil Member</div>
+                            <div class="col-md-4 col-4">Member ID</div>
+                            <div class="col-md-8 col-8">: {{ $member->member_id }}</div>
+                            <div class="col-md-4 col-4">Nama</div>
+                            <div class="col-md-8 col-8">: {{ $member->nama }}</div>
+                            <div class="col-md-4 col-4">NIP/NIK</div>
+                            <div class="col-md-8 col-8">: {{ $member->nip_nik }}</div>
+                            <div class="col-md-4 col-4">Jenis Kelamin</div>
+                            <div class="col-md-8 col-8">: {{ $member->jenis_kelamin == 'male' ? 'Laki-laki' : 'Perempuan' }}</div>
+                            <div class="col-md-4 col-4">Asal</div>
+                            <div class="col-md-8 col-8">: {{ $member->instansi == 'pusat' ? $member->uker->nama_unit_kerja : $member->nama_instansi }}</div>
+                            <div class="col-md-4 col-4">Tanggal Pinjam</div>
+                            <div class="col-md-8 col-8">: 21 Januari 2024</div>
+                            <div class="col-md-4 col-4">Waktu Pinjam</div>
+                            <div class="col-md-8 col-8">: 10.50 WIB</div>
+                        </div>
+                    </div>
 
+                </div>
+                @endif
             </div>
-            @endif
         </div>
-    </div>
-</section>
-<!-- Contact Section End -->
+    </section>
+    <!-- Contact Section End -->
 
-<audio id="sound-datang" src="{{ asset('dist/sound/sound-datang.mp3') }}" preload="auto"></audio>
-<audio id="sound-gagal" src="{{ asset('dist/sound/sound-gagal.mp3') }}" preload="auto"></audio>
-<audio id="sound-thanks" src="{{ asset('dist/sound/sound-thanks.mp3') }}" preload="auto"></audio>
-<audio id="sound-hadir" src="{{ asset('dist/sound/sound-hadir.mp3') }}" preload="auto"></audio>
 
-@section('js')
-<script>
-    $(document).ready(function() {
-        $('#member_id').on('change', function() {
-            var member_id = $(this).val();
+    <button id="btnToTop" class="btn-to-top btn-lg" title="Home">
+        <i class="fa fa-arrow-up"></i>
+    </button>
 
-            $.ajax({
-                url: '/loker/false/' + member_id,
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    if (response.success) {
-                        document.getElementById('sound-datang').play();
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Halo',
-                            text: 'Selamat Datang',
-                            timer: 1000,
-                            showConfirmButton: false
-                        }).then((result) => {
-                            // location.reload();
-                            window.location.href = '/loker/true/' + member_id;
-                        });
-                    } else if (response.thanks) {
-                        document.getElementById('sound-thanks').play();
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Terima Kasih',
-                            text: 'Sampai Jumpa',
-                            timer: 1000,
-                            showConfirmButton: false
-                        }).then((result) => {
-                            // location.reload();
-                        });
-                    } else if (response.hadir) {
-                        document.getElementById('sound-hadir').play();
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Gagal',
-                            text: 'Sudah melakukan rekam kehadiran',
-                            timer: 1000,
-                            showConfirmButton: false
-                        }).then((result) => {
-                            // location.reload();
-                        });
-                    } else {
+    <!-- Js Plugins -->
+    <script src="{{ asset('dist/jquery/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('dist/js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('dist/js/masonry.pkgd.min.js') }}"></script>
+    <script src="{{ asset('dist/js/jquery.barfiller.js') }}"></script>
+    <script src="{{ asset('dist/js/jquery.slicknav.js') }}"></script>
+    <script src="{{ asset('dist/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('dist/js/main.js') }}"></script>
+    <script src="{{ asset('dist/js/select2.full.js') }}"></script>
+    <script src="{{ asset('dist/js/sweetalert2.all.min.js') }}"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/0.7.0/chartjs-plugin-datalabels.min.js"></script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var memberInput = document.getElementById('member_id');
+            memberInput.focus();
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var noLoker = document.getElementById('no_loker');
+            noLoker.focus();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#member_id').on('change', function() {
+                var member_id = $(this).val();
+
+                $.ajax({
+                    url: '/loker/false/' + member_id,
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Halo',
+                                text: 'Selamat Datang',
+                                timer: 1000,
+                                showConfirmButton: false
+                            }).then((result) => {
+                                // location.reload();
+                                window.location.href = '/loker/true/' + member_id;
+                            });
+                        } else if (response.thanks) {
+                            document.getElementById('sound-thanks').play();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Terima Kasih',
+                                text: 'Sampai Jumpa',
+                                timer: 1000,
+                                showConfirmButton: false
+                            }).then((result) => {
+                                // location.reload();
+                            });
+                        } else if (response.hadir) {
+                            document.getElementById('sound-hadir').play();
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal',
+                                text: 'Sudah melakukan rekam kehadiran',
+                                timer: 1000,
+                                showConfirmButton: false
+                            }).then((result) => {
+                                // location.reload();
+                            });
+                        } else {
+                            document.getElementById('sound-gagal').play();
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal',
+                                text: 'Data Tidak Ditemukan',
+                                timer: 1000, // Durasi popup (dalam milidetik)
+                                showConfirmButton: false // Tombol OK tidak ditampilkan
+                            }).then((result) => {
+                                // Callback ini akan dipanggil setelah popup Swal ditutup
+                                // Memuat ulang halaman
+                                location.reload();
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
                         document.getElementById('sound-gagal').play();
                         Swal.fire({
                             icon: 'error',
@@ -144,73 +234,11 @@
                             location.reload();
                         });
                     }
-                },
-                error: function(xhr, status, error) {
-                    document.getElementById('sound-gagal').play();
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Gagal',
-                        text: 'Data Tidak Ditemukan',
-                        timer: 1000, // Durasi popup (dalam milidetik)
-                        showConfirmButton: false // Tombol OK tidak ditampilkan
-                    }).then((result) => {
-                        // Callback ini akan dipanggil setelah popup Swal ditutup
-                        // Memuat ulang halaman
-                        location.reload();
-                    });
-                }
+                });
             });
         });
-    });
-</script>
+    </script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var memberInput = document.getElementById('member_id');
-        memberInput.focus();
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-        var noLoker = document.getElementById('no_loker');
-        noLoker.focus();
+</body>
 
-        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-            noLoker.click();
-        }
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        $.ajax({
-            url: "",
-            method: "POST",
-            data: {
-                _token: "{{ csrf_token() }}" // Sertakan token CSRF
-            },
-            success: function(data) {
-                let total = data.length;
-                let tbody = $('table tbody');
-                let totalSpan = $('#total');
-
-                totalSpan.text(total);
-
-                data.forEach((item, index) => {
-                    let row = `<tr>
-                            <td class="text-center">${index + 1}</td>
-                            <td class="text-center">${item.member.nama}</td>
-                            <td class="text-center">${item.member.uker.nama_unit_kerja}</td>
-                            <td class="text-center">${item.waktu_masuk}</td>
-                            <td class="text-center">${item.jadwal ? item.jadwal.kelas.nama_kelas : 'EXERCISE'}</td>
-                        </tr>`;
-                    tbody.append(row);
-                });
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log('Error:', textStatus, errorThrown);
-            }
-        });
-    });
-</script>
-
-@endsection
-@endsection
+</html>
