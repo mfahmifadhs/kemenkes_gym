@@ -175,6 +175,10 @@
     document.addEventListener('DOMContentLoaded', function() {
         var noLoker = document.getElementById('no_loker');
         noLoker.focus();
+
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            noLoker.click();
+        }
     });
 </script>
 
