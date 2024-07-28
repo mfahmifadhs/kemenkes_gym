@@ -82,14 +82,14 @@
                             </div>
                         </a>
 
-                        <!-- <a href="{{ route('konsul') }}" class="col-md-3 form-group col-6">
+                        <a href="{{ route('konsul') }}" class="col-md-3 form-group col-6">
                             <div class="card bg-main" style="border-radius: 20px;">
                                 <div class="card-body text-white text-center font-weight-bold p-2 small">
                                     <i class="fa fa-stethoscope"></i> Konsultasi
                                 </div>
                             </div>
                             <span class="new-label">New</span>
-                        </a> -->
+                        </a>
                         <!-- <a href="{{ route('progres') }}" class="col-md-2 col-6">
                             <div class="card bg-main" style="border-radius: 20px;">
                                 <div class="card-body text-white text-center font-weight-bold p-2 small">
