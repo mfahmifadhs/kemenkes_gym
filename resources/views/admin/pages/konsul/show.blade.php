@@ -111,7 +111,7 @@
                     <div class="row">
                         <div class="col-md-12 col-12 mx-2">
                             Total: {{ number_format($konsul->total(), 0, ',', '.') }}
-                            Current page: {{ $konsul->count()}}
+                            Current page: {{ $konsul->currentPage() }} of {{ $konsul->lastPage() }}
 
                             <div class="mt-2">{{ $konsul->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
                         </div>
