@@ -96,7 +96,7 @@
                                                         <h6>
                                                             <small class="text-xs">{{ $row->created_at }}</small><br>
                                                             <b>{{ strtoupper($row->member->nama) }}</b> <br>
-                                                            <small>{{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</small>
+                                                            <small class="text-xs">{{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</small>
                                                         </h6>
                                                     </h6>
                                                 </div>
