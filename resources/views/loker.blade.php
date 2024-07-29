@@ -171,9 +171,10 @@
                     data: {
                         _token: '{{ csrf_token() }}'
                     },
-                    success: function(response) {
-                        if (response.success) {
 
+                    success: function(response) {
+                        console.log('halo' + response)
+                        if (response.success) {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Halo',
@@ -184,15 +185,15 @@
                                 // location.reload();
                                 window.location.href = '/loker/true/' + member_id;
                             });
-                        } else if (response.thanks) {
+                        } else if (response.ongoing) {
                             Swal.fire({
-                                icon: 'success',
-                                title: 'Terima Kasih',
-                                text: 'Sampai Jumpa',
+                                icon: 'failed',
+                                title: 'Sedang Meminjam',
+                                text: '',
                                 timer: 1000,
                                 showConfirmButton: false
                             }).then((result) => {
-                                location.reload();
+                                window.location.href = '/loker';
                             });
                         } else {
                             Swal.fire({
@@ -253,27 +254,25 @@
                                 // location.reload();
                                 window.location.href = '/loker';
                             });
-                        } else if (response.thanks) {
-                            document.getElementById('sound-thanks').play();
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Terima Kasih',
-                                text: 'Sampai Jumpa',
-                                timer: 1000,
-                                showConfirmButton: false
-                            }).then((result) => {
-                                // location.reload();
-                            });
-                        } else if (response.hadir) {
-                            document.getElementById('sound-hadir').play();
+                        } else if (response.ongoing) {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Gagal',
-                                text: 'Sudah melakukan rekam kehadiran',
+                                title: 'SEDANG MEMINJAM',
+                                text: '',
                                 timer: 1000,
                                 showConfirmButton: false
                             }).then((result) => {
-                                // location.reload();
+                                window.location.href = '/loker';
+                            });
+                        } else if (response.full) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'LOKER TIDAK TERSEDIA',
+                                text: '',
+                                timer: 1000,
+                                showConfirmButton: false
+                            }).then((result) => {
+                                window.location.href = '/loker/true/' + member_id;
                             });
                         } else {
                             document.getElementById('sound-gagal').play();

@@ -103,8 +103,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <a href="{{ route('bodyck') }}" class="dropdown-item">
                                         <i class="fa fa-weight-scale"></i> Body Composition
                                     </a>
-                                    <a href="{{ route('leaderboard') }}" class="dropdown-item">
-                                        <i class="fa fa-ranking-star"></i> Leaderboard
+                                    <a href="{{ route('loker.show') }}" class="dropdown-item">
+                                        <i class="fa fa-th-large"></i> Loker
                                     </a>
                                     @endif
                                     <a href="{{ route('konsul') }}" class="dropdown-item">

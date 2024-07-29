@@ -92,6 +92,7 @@ Route::group(['middleware' => 'auth'], function () {
         return redirect()->route('dashboard');
     })->name('leaderboard');
 
+    Route::get('loker/daftar', [LokerController::class, 'show'])->name('loker.show');
 
     Route::get('kehadiran/{kelas}', [AbsenController::class, 'mobile']);
 

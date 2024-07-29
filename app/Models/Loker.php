@@ -22,4 +22,9 @@ class Loker extends Model
         'waktu_kembali',
         'kartu_identitas'
     ];
+
+
+    public function member() {
+        return $this->belongsTo(User::class, 'member_id');
+    }
 }
