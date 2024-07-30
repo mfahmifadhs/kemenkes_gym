@@ -74,7 +74,12 @@
                     </a>
                     <div class="{{ $member->jenis_kelamin == 'male' ? 'border-main' : 'border-pink' }} p-2 text-center">
                         <h3 class="{{ $member->jenis_kelamin == 'male' ? 'text-main' : 'text-pink' }}">Nomor Loker</h3>
-                        <input id="no_loker" type="number" name="no_loker" class="bottom-border-input number"><br>
+                        @if ($member->jenis_kelamin == 'male')
+                        <input id="no_loker" type="number" name="no_loker" class="bottom-border-input number" max="36"><br>
+                        @elseif ($member->jenis_kelamin == 'male')
+                        <input id="no_loker" type="number" name="no_loker" class="bottom-border-input number" max="45"><br>
+                        @endif
+
                         <!-- <label class="text-white">Pilih Jaminan Identitas :</label>
                     <div class="input-group small ml-5">
                         <label for="ktp" class="bg-main p-2 rounded">
