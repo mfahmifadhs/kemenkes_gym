@@ -51,16 +51,24 @@
                                         @endphp
 
                                         <!-- Baris -->
-                                        @for ($i = 1; $i <= 3; $i++)
-                                        <tr>
-                                            @for ($j = 1; $j <= 12; $j++)
-                                            <td>{{ $counter }}</td>
-                                            @php
+                                        @for ($i = 1; $i <= 3; $i++) <tr>
+                                            @for ($j = 1; $j <= 12; $j++) @foreach ($lokerToday->where('jenis_loker', 'male')->whereNull('waktu_kembali') as $row)
+                                                @if ($row->no_loker == $counter)
+                                                <td class="link-cell bg-danger" data-url="{{ route('loker.no.detail', ['ctg' => 'male', 'id' => $counter]) }}">
+                                                    {{ $counter }}
+                                                </td>
+                                                @else
+                                                <td class="link-cell" data-url="{{ route('loker.no.detail', ['ctg' => 'male', 'id' => $counter]) }}">
+                                                    {{ $counter }}
+                                                </td>
+                                                @endif
+                                                @endforeach
+                                                @php
                                                 $counter++;
-                                            @endphp
-                                            @endfor
-                                        </tr>
-                                        @endfor
+                                                @endphp
+                                                @endfor
+                                                </tr>
+                                                @endfor
                                     </tbody>
                                 </table>
                             </div>
@@ -78,7 +86,7 @@
                                 </div>
                             </div>
 
-                            <div class="card-body p-1">
+                            <div class="card-body">
                                 <table class="table table-bordered">
                                     <tbody class="text-center">
                                         <!-- Inisialisasi counter -->
@@ -87,16 +95,24 @@
                                         @endphp
 
                                         <!-- Baris -->
-                                        @for ($i = 1; $i <= 3; $i++)
-                                        <tr>
-                                            @for ($j = 1; $j <= 15; $j++)
-                                            <td>{{ $counter }}</td>
-                                            @php
+                                        @for ($i = 1; $i <= 3; $i++) <tr>
+                                            @for ($j = 1; $j <= 15; $j++) @foreach ($lokerToday->where('jenis_loker', 'female')->whereNull('waktu_kembali') as $row)
+                                                @if ($row->no_loker == $counter)
+                                                <td class="link-cell bg-danger" data-url="{{ route('loker.no.detail', ['ctg' => 'female', 'id' => $counter]) }}">
+                                                    {{ $counter }}
+                                                </td>
+                                                @else
+                                                <td class="link-cell" data-url="{{ route('loker.no.detail', ['ctg' => 'female', 'id' => $counter]) }}">
+                                                    {{ $counter }}
+                                                </td>
+                                                @endif
+                                                @endforeach
+                                                @php
                                                 $counter++;
-                                            @endphp
-                                            @endfor
-                                        </tr>
-                                        @endfor
+                                                @endphp
+                                                @endfor
+                                                </tr>
+                                                @endfor
                                     </tbody>
                                 </table>
                             </div>
@@ -104,8 +120,8 @@
                     </div>
 
                     <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
+                        <div class="card border border-dark">
+                            <div class="card-header border-dark">
                                 <label class="card-title">
                                     <h6 class="text-xs mb-0">{{ Carbon\Carbon::now()->isoFormat('DD MMMM Y') }}</h6>
                                     Pemakaian Loker
@@ -116,34 +132,82 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="card-body p-1 rounded">
-                                <table class="table table-bordered text-center small">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 0%;">No</th>
-                                            <th>Nama</th>
-                                            <th>Asal</th>
-                                            <th>Waktu Pinjam</th>
-                                            <th>Waktu Kembali</th>
-                                            <th>Kategori</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($lokerToday as $row)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $row->member->nama }}</td>
-                                            <td>{{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</td>
-                                            <td>{{ Carbon\Carbon::parse($row->created_at)->format('H:i:s') }}</td>
-                                            <td>{{ $row->waktu_kembali }}</td>
-                                            <td>
-                                                @if ($row->jenis_loker == 'male') <span class="badge badge-info">Laki-laki</span> @endif
-                                                @if ($row->jenis_loker == 'female') <span class="badge badge-pink">Perempuan</span> @endif
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                            <div class="card-body rounded">
+                                <div class="table-responsive">
+                                    <table id="tLokerToday" class="table table-bordered text-center small">
+                                        <thead>
+                                            <tr>
+                                                <th>Nama</th>
+                                                <th>Asal</th>
+                                                <th>No. Loker</th>
+                                                <th>Waktu Pinjam</th>
+                                                <th>Waktu Kembali</th>
+                                                <th>Kategori</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($lokerToday as $row)
+                                            <tr>
+                                                <td class="text-left">{{ $loop->iteration }}. &emsp; {{ $row->member->nama }}</td>
+                                                <td>{{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</td>
+                                                <td class="text-md"><b>{{ $row->no_loker }}</b></td>
+                                                <td>{{ Carbon\Carbon::parse($row->created_at)->format('H:i:s') }}</td>
+                                                <td>{{ $row->waktu_kembali }}</td>
+                                                <td>
+                                                    @if ($row->jenis_loker == 'male') <span class="badge badge-info">Laki-laki</span> @endif
+                                                    @if ($row->jenis_loker == 'female') <span class="badge badge-pink">Perempuan</span> @endif
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <hr>
+                        <div class="card border border-dark">
+                            <div class="card-header border-dark">
+                                <label class="card-title">Riwayat Pemakaian Loker</label>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool text-dark" data-card-widget="collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body rounded">
+                                <div class="table-responsive">
+                                    <table id="tLoker" class="table table-bordered text-center small">
+                                        <thead>
+                                            <tr>
+                                                <th>Nama</th>
+                                                <th>Asal</th>
+                                                <th>No. Loker</th>
+                                                <th>Waktu Pinjam</th>
+                                                <th>Waktu Kembali</th>
+                                                <th>Kategori</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($riwayat as $row)
+                                            <tr>
+                                                <td class="text-left">{{ $loop->iteration }}. &emsp; {{ $row->member->nama }}</td>
+                                                <td>{{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</td>
+                                                <td class="text-md"><b>{{ $row->no_loker }}</b></td>
+                                                <td>{{ Carbon\Carbon::parse($row->created_at)->format('H:i:s') }}</td>
+                                                <td>{{ $row->waktu_kembali }}</td>
+                                                <td>
+                                                    @if ($row->jenis_loker == 'male') <span class="badge badge-info">Laki-laki</span> @endif
+                                                    @if ($row->jenis_loker == 'female') <span class="badge badge-pink">Perempuan</span> @endif
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -153,4 +217,78 @@
     </div><br>
 </div>
 
+@section('js')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.link-cell').forEach(function(cell) {
+            cell.addEventListener('click', function() {
+                window.location.href = this.getAttribute('data-url');
+            });
+        });
+    });
+</script>
+
+<script>
+    $(function() {
+        let today = '{{ Carbon\Carbon::now() }}'
+        $("#tLokerToday").DataTable({
+            "responsive": false,
+            "lengthChange": true,
+            "autoWidth": true,
+            "info": true,
+            "paging": true,
+            "searching": true,
+            buttons: [{
+                extend: 'pdf',
+                text: ' Print PDF',
+                pageSize: 'A4',
+                className: 'rounded bg-danger',
+                title: 'Loker - ' + today,
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5]
+                },
+            }, {
+                extend: 'excel',
+                text: ' Download Xls',
+                pageSize: 'A4',
+                className: 'ml-1 rounded bg-success',
+                title: 'Loker - ' + today,
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5]
+                },
+            }],
+            "bDestroy": true
+        }).buttons().container().appendTo('#tLokerToday_wrapper .col-md-6:eq(0)');
+
+        $("#tLoker").DataTable({
+            "responsive": false,
+            "lengthChange": true,
+            "autoWidth": true,
+            "info": true,
+            "paging": true,
+            "searching": true,
+            buttons: [{
+                extend: 'pdf',
+                text: ' Print PDF',
+                pageSize: 'A4',
+                className: 'rounded bg-danger',
+                title: 'Loker - ' + today,
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5]
+                },
+            }, {
+                extend: 'excel',
+                text: ' Download Xls',
+                pageSize: 'A4',
+                className: 'ml-1 rounded bg-success',
+                title: 'Loker - ' + today,
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5]
+                },
+            }],
+            "bDestroy": true
+        }).buttons().container().appendTo('#tLoker_wrapper .col-md-6:eq(0)');
+    })
+</script>
+@endsection
 @endsection

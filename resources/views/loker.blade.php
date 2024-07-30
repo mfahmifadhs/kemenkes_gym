@@ -254,6 +254,16 @@
                                 // location.reload();
                                 window.location.href = '/loker';
                             });
+                        } else if (response.pengembalian) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'PENGEMBALIAN BERHASIL',
+                                text: 'Terima kasih, sampai jumpa kembali',
+                                timer: 1000,
+                                showConfirmButton: false
+                            }).then((result) => {
+                                window.location.href = '/loker';
+                            });
                         } else if (response.ongoing) {
                             Swal.fire({
                                 icon: 'error',

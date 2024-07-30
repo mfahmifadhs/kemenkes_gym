@@ -35,35 +35,55 @@ class LokerController extends Controller
     {
         $member = User::where('id', $id)->first();
 
-        $lokerPakai  = Loker::where('waktu_kembali', null)->where('member_id', $id)->count();
-        $lokerPenuh  = Loker::where('waktu_kembali', null)->where('no_loker', $loker)
+        $lokerPakai   = Loker::where('waktu_kembali', null)->where('member_id', $id)->count();
+        $lokerKembali = Loker::where('waktu_kembali', null)->where('no_loker', $loker)->where('member_id', $id)->count();
+        $lokerPenuh   = Loker::where('waktu_kembali', null)->where('no_loker', $loker)
             ->where('jenis_loker', $member->jenis_kelamin)->count();
 
-        if ($lokerPakai == 1) {
+        if ($lokerKembali == 1) {
+            Loker::where('waktu_kembali', null)->where('member_id', $id)->update([
+                'waktu_kembali' => Carbon::now()
+            ]);
+
+            return response()->json(['pengembalian' => true]);
+
+        } else if ($lokerPakai == 1) {
+
             return response()->json(['ongoing' => true]);
-        }
 
-        if ($lokerPenuh == 1) {
+        } else if ($lokerPenuh == 1) {
+
             return response()->json(['full' => true]);
+
+        } else {
+            $tambah = new Loker();
+            $tambah->member_id   = $id;
+            $tambah->jenis_loker = $member->jenis_kelamin;
+            $tambah->no_loker    = $loker;
+            $tambah->created_at  = Carbon::now();
+            $tambah->save();
+
+            return response()->json(['success' => true]);
         }
-
-        $tambah = new Loker();
-        $tambah->member_id   = $id;
-        $tambah->jenis_loker = $member->jenis_kelamin;
-        $tambah->no_loker    = $loker;
-        $tambah->created_at  = Carbon::now();
-        $tambah->save();
-
-        return response()->json(['success' => true]);
     }
 
     public function show()
     {
+        $riwayat = Loker::orderBy('created_at', 'DESC')->get();
         $lokerToday = Loker::orderBy('created_at', 'DESC')
             ->where(DB::raw("DATE_FORMAT(created_at, '%d%m%y')"), Carbon::now()->format('dmy'))
             ->get();
 
 
-        return view('admin.pages.loker.show', compact('lokerToday'));
+        return view('admin.pages.loker.show', compact('lokerToday', 'riwayat'));
+    }
+
+    public function detail($ctg, $id)
+    {
+        $kategori = $ctg == 'male' ? 'Laki-laki' : 'Perempuan';
+        $pengguna = Loker::where('jenis_loker', $ctg)->where('no_loker', $id)->first();
+        $riwayat  = Loker::where('jenis_loker', $ctg)->where('no_loker', $id)->get();
+
+        return view('admin.pages.loker.detail', compact('kategori', 'id', 'pengguna', 'riwayat'));
     }
 }

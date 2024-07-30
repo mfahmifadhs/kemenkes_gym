@@ -6041,6 +6041,11 @@ a.badge:focus {
     background-color: #3f6791;
 }
 
+.badge-pink {
+    color: #fff;
+    background-color: #ff00d9;
+}
+
 a.badge-primary:hover,
 a.badge-primary:focus {
     color: #fff;
@@ -55740,4 +55745,8 @@ ul,
     top: 50%;
     margin: -5px 0 0 -5px;
     background: #fff;
+}
+
+.link-cell {
+    cursor: pointer;
 }
