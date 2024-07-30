@@ -153,10 +153,8 @@
 
     <script>
         $(document).ready(function() {
-            let maxVal = 36; // Default for male
-            @if ($member->jenis_kelamin == 'female')
-                maxVal = 45;
-            @endif
+            let gender = '{{ $member?->jenis_kelamin }}';
+            let maxVal = gender == 'male' ? 36 : 45;
 
             $('#no_loker').attr('max', maxVal);
 
