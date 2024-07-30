@@ -95,24 +95,32 @@
                                         @endphp
 
                                         <!-- Baris -->
-                                        @for ($i = 1; $i <= 3; $i++) <tr>
-                                            @for ($j = 1; $j <= 15; $j++) @foreach ($lokerToday->where('jenis_loker', 'female')->whereNull('waktu_kembali') as $row)
-                                                @if ($row->no_loker == $counter)
-                                                <td class="link-cell bg-danger" data-url="{{ route('loker.no.detail', ['ctg' => 'female', 'id' => $counter]) }}">
-                                                    {{ $counter }}
-                                                </td>
+                                        @for ($i = 1; $i <= 3; $i++)
+                                            <tr>
+                                            @for ($j = 1; $j <= 15; $j++)
+                                                @if (!$lokerToday)
+                                                    <td class="link-cell" data-url="{{ route('loker.no.detail', ['ctg' => 'female', 'id' => $counter]) }}">
+                                                        {{ $counter }}
+                                                    </td>
                                                 @else
-                                                <td class="link-cell" data-url="{{ route('loker.no.detail', ['ctg' => 'female', 'id' => $counter]) }}">
-                                                    {{ $counter }}
-                                                </td>
+                                                    @foreach ($lokerToday->where('jenis_loker', 'female')->whereNull('waktu_kembali') as $row)
+                                                        @if ($row->no_loker == $counter)
+                                                        <td class="link-cell bg-danger" data-url="{{ route('loker.no.detail', ['ctg' => 'female', 'id' => $counter]) }}">
+                                                            {{ $counter }}
+                                                        </td>
+                                                        @else
+                                                        <td class="link-cell" data-url="{{ route('loker.no.detail', ['ctg' => 'female', 'id' => $counter]) }}">
+                                                            {{ $counter }}
+                                                        </td>
+                                                        @endif
+                                                    @endforeach
                                                 @endif
-                                                @endforeach
                                                 @php
-                                                $counter++;
+                                                    $counter++;
                                                 @endphp
-                                                @endfor
-                                                </tr>
-                                                @endfor
+                                            @endfor
+                                            </tr>
+                                        @endfor
                                     </tbody>
                                 </table>
                             </div>
