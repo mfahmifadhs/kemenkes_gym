@@ -76,7 +76,7 @@
                         <h3 class="{{ $member->jenis_kelamin == 'male' ? 'text-main' : 'text-pink' }}">Nomor Loker</h3>
                         @if ($member->jenis_kelamin == 'male')
                         <input id="no_loker" type="number" name="no_loker" class="bottom-border-input number" max="36"><br>
-                        @elseif ($member->jenis_kelamin == 'male')
+                        @elseif ($member->jenis_kelamin == 'female')
                         <input id="no_loker" type="number" name="no_loker" class="bottom-border-input number" max="45"><br>
                         @endif
 
