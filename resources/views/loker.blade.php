@@ -151,6 +151,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/0.7.0/chartjs-plugin-datalabels.min.js"></script>
 
+    <script>
+        $(document).ready(function() {
+            let maxVal = 36; // Default for male
+            @if ($member->jenis_kelamin == 'female')
+                maxVal = 45;
+            @endif
+
+            $('#no_loker').attr('max', maxVal);
+
+            $('#no_loker').on('input', function() {
+                if ($(this).val() > maxVal) {
+                    $(this).val(maxVal);
+                }
+            });
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
