@@ -62,7 +62,7 @@
                     <div class="leave-comment">
                         <label class="text-white h4 mb-0">ID MEMBER</label><br>
                         <small class="text-white mt-0">Scan QR Code disini / masukkan 4 digit terakhir nomor member.</small>
-                        <input type="number" name="member_id" class="form-control bg-white" id="member_id" placeholder="Member ID" min="0" maxlength="19">
+                        <input type="number" name="member_id" class="form-control form-control-lg bg-white" id="member_id" placeholder="Member ID" min="0" maxlength="19">
                     </div>
                 </div>
                 @endif
