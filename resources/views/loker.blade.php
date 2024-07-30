@@ -114,7 +114,7 @@
                             <div class="col-md-4 col-4">Tanggal Pinjam</div>
                             <div class="col-md-8 col-8">: {{ Carbon\Carbon::now()->isoFormat('dddd, DD MMMM Y') }}</div>
                             <div class="col-md-4 col-4">Waktu Pinjam</div>
-                            <div class="col-md-8 col-8">: {{ Carbon\Carbon::now()->format('H:i:s') }} WIB</div>
+                            <div class="col-md-8 col-8">: {{ Carbon\Carbon::now()->format('H:i') }} WIB</div>
                         </div>
                     </div>
 
