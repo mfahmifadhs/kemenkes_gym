@@ -291,7 +291,7 @@
                                 timer: 1000,
                                 showConfirmButton: false
                             }).then((result) => {
-                                window.location.href = '/loker';
+                                window.location.href = '/loker/true/' + member_id;
                             });
                         } else if (response.full) {
                             Swal.fire({
