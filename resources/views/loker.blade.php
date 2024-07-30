@@ -112,9 +112,9 @@
                             <div class="col-md-4 col-4">Asal</div>
                             <div class="col-md-8 col-8">: {{ $member->instansi == 'pusat' ? $member->uker->nama_unit_kerja : $member->nama_instansi }}</div>
                             <div class="col-md-4 col-4">Tanggal Pinjam</div>
-                            <div class="col-md-8 col-8">: 21 Januari 2024</div>
+                            <div class="col-md-8 col-8">: {{ Carbon\Carbon::now()->isoFormat('dddd, DD MMMM Y') }}/div>
                             <div class="col-md-4 col-4">Waktu Pinjam</div>
-                            <div class="col-md-8 col-8">: 10.50 WIB</div>
+                            <div class="col-md-8 col-8">: {{ Carbon\Carbon::now()->format('H:i:s') }} WIB</div>
                         </div>
                     </div>
 
