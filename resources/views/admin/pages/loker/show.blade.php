@@ -199,6 +199,7 @@
                                     <table id="tLoker" class="table table-bordered text-center small">
                                         <thead>
                                             <tr>
+                                                <th style="width: 0%;"</th>
                                                 <th>Nama</th>
                                                 <th>Asal</th>
                                                 <th>No. Loker</th>
@@ -210,6 +211,11 @@
                                         <tbody>
                                             @foreach ($riwayat as $row)
                                             <tr>
+                                                <td>
+                                                    <a href="" onclick="confirmRemove(event, '<?php echo route('loker.riwayat.delete', $row->id_peminjaman); ?>')">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                </td>
                                                 <td class="text-left">{{ $loop->iteration }}. &emsp; {{ $row->member->nama }}</td>
                                                 <td>{{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</td>
                                                 <td class="text-md"><b>{{ $row->no_loker }}</b></td>
@@ -290,7 +296,7 @@
                 className: 'rounded bg-danger',
                 title: 'Loker - ' + today,
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5]
+                    columns: [1, 2, 3, 4, 5, 6]
                 },
             }, {
                 extend: 'excel',
@@ -299,12 +305,31 @@
                 className: 'ml-1 rounded bg-success',
                 title: 'Loker - ' + today,
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5]
+                    columns: [1, 2, 3, 4, 5, 6]
                 },
             }],
             "bDestroy": true
         }).buttons().container().appendTo('#tLoker_wrapper .col-md-6:eq(0)');
     })
+</script>
+
+<script>
+    function confirmRemove(event, url) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: 'Hapus ?',
+            text: 'Hapus data peminjam',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
+    }
 </script>
 @endsection
 @endsection

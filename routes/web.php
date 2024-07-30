@@ -94,6 +94,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('loker/daftar', [LokerController::class, 'show'])->name('loker.show');
     Route::get('loker/detail/{ctg}/{id}', [LokerController::class, 'detail'])->name('loker.no.detail');
+    Route::get('loker/riwayat/delete/{id}', [LokerController::class, 'delete'])->name('loker.riwayat.delete');
 
     Route::get('kehadiran/{kelas}', [AbsenController::class, 'mobile']);
 

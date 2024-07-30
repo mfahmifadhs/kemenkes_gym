@@ -86,4 +86,10 @@ class LokerController extends Controller
 
         return view('admin.pages.loker.detail', compact('kategori', 'id', 'pengguna', 'riwayat'));
     }
+
+    public function delete($id)
+    {
+        Loker::where('id_peminjaman', $id)->delete();
+        return redirect()->route('loker.show')->with('success', 'Berhasil menghapus data');
+    }
 }

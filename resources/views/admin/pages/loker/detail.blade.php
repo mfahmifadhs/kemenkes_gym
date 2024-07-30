@@ -14,7 +14,7 @@
 
 <div class="content-wrapper">
     <div class="content-header">
-        <div class="container-fluid col-md-5 col-12 mx-auto">
+        <div class="container-fluid col-md-8 col-12 mx-auto">
             <div class="row mb-2">
                 <div class="col-sm-12 col-12">
                     <h1 class="m-0 text-lg">Detail Loker {{ $id }} - {{ $kategori }}</h1>
@@ -30,7 +30,7 @@
 
     <div class="content">
         <div class="container-fluid">
-            <div class="col-md-5 col-12 mx-auto">
+            <div class="col-md-8 col-12 mx-auto">
                 <div class="row">
                     @if ($pengguna)
                     <div class="col-md-12">
@@ -48,20 +48,22 @@
                             </div>
                             <div class="card-body rounded">
                                 <div class="input-group">
-                                    <label style="width: 20%;">Nama</label>
-                                    <div>: {{ $pengguna->member->nama }}</div>
-                                </div>
-                                <div class="input-group">
-                                    <label style="width: 20%;">Asal</label>
+                                    <label style="width: 10%;">Nama</label>
+                                    <div style="width: 30%;">: {{ $pengguna->member->nama }}</div>
+
+                                    <label style="width: 15%;">Asal</label>
                                     <div>: {{ $pengguna->member->uker ? $pengguna->member->uker->nama_unit_kerja : $pengguna->member->nama_instansi }}</div>
                                 </div>
                                 <div class="input-group">
-                                    <label style="width: 20%;">Tanggal</label>
-                                    <div>: {{ Carbon\Carbon::parse($pengguna->created_at)->isoFormat('dddd, DD MMMM Y') }}</div>
                                 </div>
                                 <div class="input-group">
-                                    <label style="width: 20%;">Waktu Pinjam</label>
+                                    <label style="width: 10%;">Tanggal</label>
+                                    <div style="width: 30%;">: {{ Carbon\Carbon::parse($pengguna->created_at)->isoFormat('dddd, DD MMMM Y') }}</div>
+
+                                    <label style="width: 15%;">Waktu Pinjam</label>
                                     <div>: {{ Carbon\Carbon::parse($pengguna->created_at)->format('H:i:s') }}</div>
+                                </div>
+                                <div class="input-group">
                                 </div>
                             </div>
                         </div>
@@ -86,6 +88,7 @@
                                     <table id="tdetail" class="table table-bordered small text-center">
                                         <thead>
                                             <tr>
+                                                <th>Aksi</th>
                                                 <th>Nama</th>
                                                 <th>Asal</th>
                                                 <th>Tanggal</th>
@@ -96,6 +99,11 @@
                                         <tbody>
                                             @foreach($riwayat as $row)
                                             <tr>
+                                                <td>
+                                                    <a href="" onclick="confirmRemove(event, '<?php echo route('loker.riwayat.delete', $row->id_peminjaman); ?>')">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                </td>
                                                 <td>{{ $loop->iteration }}. {{ $row->member->nama }}</td>
                                                 <td>{{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</td>
                                                 <td>{{ Carbon\Carbon::parse($row->created_at)->format('d/m/Y') }}</td>
@@ -134,12 +142,31 @@
                 className: 'bg-danger',
                 title: 'Loker - ' + id + ' - ' + ctg,
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4]
+                    columns: [1, 2, 3, 4, 5]
                 },
             }],
             "bDestroy": true
         }).buttons().container().appendTo('#tdetail_wrapper .col-md-6:eq(0)');
     })
+</script>
+
+<script>
+    function confirmRemove(event, url) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: 'Hapus ?',
+            text: 'Hapus data peminjam',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
+    }
 </script>
 @endsection
 @endsection
