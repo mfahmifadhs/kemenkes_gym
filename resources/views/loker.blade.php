@@ -153,7 +153,7 @@
 
     <script>
         $(document).ready(function() {
-            let gender = '{{ $member?->jenis_kelamin }}';
+            let gender = `{{ $status == 'true' ? $member->jenis_kelamin : '' }}`;
             let maxVal = gender == 'male' ? 36 : 45;
 
             $('#no_loker').attr('max', maxVal);
