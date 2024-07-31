@@ -178,7 +178,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12 col-12 mx-2">
-                                        Total: {{ number_format($konsul->where('test_fitness', 1)->where('konsultasi', 0)->count(), 0, ',', '.') }}
+                                        Total: {{ number_format($konsul->count(), 0, ',', '.') }}
                                         Current page: {{ $konsul->currentPage() }} of {{ $konsul->lastPage() }}
 
                                         <div class="mt-2">{{ $konsul->appends(request()->query())->links('pagination::bootstrap-4') }}</div>

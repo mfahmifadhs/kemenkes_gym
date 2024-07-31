@@ -148,7 +148,7 @@
                                     <label class="col-md-1 col-1">:</label>
                                     <div class="col-md-7 col-12 form-group">
                                         <div class="input-group">
-                                            <input id="tanggal_konsul" type="date" class="form-control form-control-sm" name="tanggal_konsul" value="{{ old('tanggal_konsul') }}" min="{{ date('Y-m-d') }}">
+                                            <input id="tanggal_konsul" type="date" class="form-control form-control-sm" name="tanggal_konsul" value="{{ $konsul->tanggal_konsul }}" min="{{ date('Y-m-d') }}">
                                         </div>
                                     </div>
 
