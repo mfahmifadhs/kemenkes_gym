@@ -67,12 +67,12 @@
                                                     @if ($konsul->test_fitness)
                                                     <small>
                                                         <i class="fa fa-stethoscope"></i>
-                                                        No. Antrian : {{ $konsul->kode_book }} <br>
+                                                        No. Antrian : {{ $konsul->antrian_konsul }} <br>
                                                         <i class="fa fa-calendar-alt"></i>
                                                         {{ Carbon\Carbon::parse($konsul->tanggal_konsul)->isoFormat('DD MMMM Y') }} <br>
                                                         <i class="fa fa-clock"></i>
                                                         @if ($konsul->waktu_konsul == 1) 07.00 WIB s/d 07.20 WIB @endif
-                                                        @if ($konsul->waktu_konsul == 2) 07.20 WIB s/d 08.40 WIB @endif
+                                                        @if ($konsul->waktu_konsul == 2) 07.20 WIB s/d 07.40 WIB @endif
                                                         @if ($konsul->waktu_konsul == 3) 07.40 WIB s/d 08.00 WIB @endif
                                                         @if ($konsul->waktu_konsul == 4) 08.00 WIB s/d 08.20 WIB @endif
                                                         @if ($konsul->waktu_konsul == 5) 08.20 WIB s/d 08.40 WIB @endif
@@ -148,7 +148,7 @@
                                     <label class="col-md-1 col-1">:</label>
                                     <div class="col-md-7 col-12 form-group">
                                         <div class="input-group">
-                                            <input id="tanggal_konsul" type="date" class="form-control form-control-sm" name="tanggal_konsul" value="{{ $konsul->tanggal_konsul }}" min="{{ date('Y-m-d') }}">
+                                            <input id="tanggal_konsul" type="date" class="form-control form-control-sm" name="tanggal_konsul" value="{{ old('tanggal_konsul') }}" min="{{ date('Y-m-d') }}">
                                         </div>
                                     </div>
 
@@ -166,6 +166,21 @@
                                                 <option value="4" <?php echo $konsul->waktu_konsul == 6 ? 'selected' : ''; ?>>08.40 s/d 09.00</option>
                                             </select>
                                         </div>
+                                    </div>
+
+                                    <label class="col-md-4 col-6 mt-2">5. No. Antrian</label>
+                                    <label class="col-md-1 col-1 mt-2">:</label>
+                                    <div class="col-md-7 col-12 form-group mt-1">
+                                        <div class="input-group mb-3">
+                                            <input id="nomor_antrian" type="text" name="antrian_konsul" class="form-control form-control-sm" readonly>
+                                            <div class="input-group-append">
+                                                <button id="ambil_nomor" type="button" class="input-group-text bg-white border-dark text-xs">Ambil Nomor</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <hr>
                                     </div>
                                     @endif
 
@@ -245,6 +260,9 @@
                                         <input id="false-fitness" type="radio" name="fitness" class="ml-2" value="0" {{ $konsul->test_fitness == false ? 'checked' : '' }}>
                                         <label for="false-fitness"><i class="fa fa-times-circle text-xs text-danger"></i> belum</label> -->
                                     </div>
+                                    <div class="col-md-12">
+                                        <hr>
+                                    </div>
                                     @endif
 
 
@@ -302,8 +320,26 @@
         })
 
         form.submit();
-
     }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('ambil_nomor').addEventListener('click', function() {
+            var tanggal = document.getElementById('tanggal_konsul').value;
+
+            if (tanggal) {
+                fetch(`/antrian-konsul?tanggal=${tanggal}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('nomor_antrian').value = data.nomor_antrian;
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else {
+                alert('Silakan pilih tanggal terlebih dahulu.');
+            }
+        });
+    });
 </script>
 @endsection
 @endsection

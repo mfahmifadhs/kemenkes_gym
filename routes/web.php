@@ -176,7 +176,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('konsultasi/hapus/{id}', [KonsulController::class, 'delete'])->name('konsul.delete');
     Route::get('konsultasi/download/{id}', [KonsulController::class, 'download'])->name('konsul.download');
 
-
+    Route::get('/antrian-konsul', [KonsulController::class, 'antrianKonsul']);
 
     Route::group(['middleware' => ['access:admin']], function () {
         Route::get('kelas/kehadiran/{id}', [JadwalController::class, 'attendance'])->name('kelas.attendance');

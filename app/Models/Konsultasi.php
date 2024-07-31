@@ -39,6 +39,7 @@ class Konsultasi extends Model
         'konsultasi',
         'tanggal_konsul',
         'waktu_konsul',
+        'antrian_konsul',
         'catatan_dokter',
         'catatan_pasien',
         'status'

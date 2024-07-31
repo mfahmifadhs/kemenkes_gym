@@ -191,13 +191,16 @@
                                 <div class="vertical-line"></div>
                                 <label class="text-success text-sm ml-4 font-weight-bold">Berikut jadwal konsultasi anda:</label> <br>
                                 <label class="text-white ml-4">
+                                    <span><i class="fa fa-hashtag"></i> Nomor Antrian : {{ $userKonsul->first()->antrian_konsul }}</span>
+                                </label> <br>
+                                <label class="text-white ml-4">
                                     <span><i class="fa fa-calendar"></i> {{ Carbon\Carbon::parse($userKonsul->first()->tanggal_konsul)->isoFormat('DD MMMM Y') }}</span>
                                 </label> <br>
 
                                 <label class="text-white ml-4">
                                     <span><i class="fa fa-clock-o"></i>
                                         @if ($userKonsul->first()->waktu_konsul == 1) 07.00 WIB s/d 07.20 WIB @endif
-                                        @if ($userKonsul->first()->waktu_konsul == 2) 07.20 WIB s/d 08.40 WIB @endif
+                                        @if ($userKonsul->first()->waktu_konsul == 2) 07.20 WIB s/d 07.40 WIB @endif
                                         @if ($userKonsul->first()->waktu_konsul == 3) 07.40 WIB s/d 08.00 WIB @endif
                                         @if ($userKonsul->first()->waktu_konsul == 4) 08.00 WIB s/d 08.20 WIB @endif
                                         @if ($userKonsul->first()->waktu_konsul == 5) 08.20 WIB s/d 08.40 WIB @endif

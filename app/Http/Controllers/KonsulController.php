@@ -100,6 +100,7 @@ class KonsulController extends Controller
             Konsultasi::where('id_konsultasi', $id)->update([
                 'tanggal_konsul' => $request->tanggal_konsul,
                 'waktu_konsul'   => $request->waktu_konsul,
+                'antrian_konsul' => $request->antrian_konsul,
             ]);
         } elseif ($request->tanggal_konsul && $request->catatan_dokter && $request->catatan_pasien) {
             Konsultasi::where('id_konsultasi', $id)->update([
@@ -142,5 +143,13 @@ class KonsulController extends Controller
         $konsul = Konsultasi::where('member_id', $id)->get();
 
         return view('admin.pages.konsul.riwayat', compact('member', 'konsul'));
+    }
+
+    public function antrianKonsul(Request $request)
+    {
+        $tanggal = $request->query('tanggal');
+        $antrian = Konsultasi::whereDate('tanggal_konsul', $tanggal)->max('antrian_konsul') + 1;
+
+        return response()->json(['nomor_antrian' => $antrian]);
     }
 }

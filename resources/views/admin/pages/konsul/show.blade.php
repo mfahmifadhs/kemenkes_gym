@@ -3,10 +3,10 @@
 
 <div class="content-wrapper">
     <div class="content-header">
-        <div class="container-fluid col-md-6">
+        <div class="container-fluid col-md-8">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1 class="m-0"> Konsultasi</small></h1>
+                    <h1 class="m-0">Konsultasi</small></h1>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                         <li class="breadcrumb-item active">Konsultasi {{ $dokter->nama_dokter }}</li>
@@ -17,7 +17,7 @@
     </div>
 
     <div class="content">
-        <div class="container-fluid col-md-6">
+        <div class="container-fluid col-md-8">
             <div class="card">
                 <div class="card-header">
                     <div class="row">
@@ -51,69 +51,140 @@
             </div>
 
             <div class="card p-2">
-                <div class="card-header mb-3">
-                    <label class="card-title text-sm mt-1">
-                        <i class="fas fa-circle-check text-success"></i> Daftar Pasien Aktif
-                    </label>
+                <div class="card-header">
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                             <i class="fas fa-minus"></i>
                         </button>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-borderless">
-                        <tbody>
-
-                            @if ($konsul->count() == 0)
-                            <div class="small text-center">
-                                Data tidak tersedia
-                            </div>
-                            @endif
-                            @foreach ($konsul as $row)
-                            <tr>
-                                <td>
-                                    <a href="{{ route('konsul.detail', $row->id_konsultasi) }}">
-                                        <div class="card p-2 text-dark border border-dark">
-                                            <div class="row">
-                                                <div class="col-md-2 col-2 my-auto">
-                                                    <h3 class="text-info text-center"><b>{{ $row->kode_book }}</b></h3>
-                                                </div>
-                                                <div class="col-md-10 col-10">
-                                                    <h6 class="text-xs">
-                                                        <span>
-                                                            @if ($row->test_sipgar == 1) <i class="fas fa-check-circle text-success"></i> Test Sipgar
-                                                            @else <i class="fas fa-times-circle text-danger"></i> Test Sipgar @endif
-
-                                                            @if ($row->test_fitness == 1) <i class="fas fa-check-circle text-success ml-1"></i> Test Fitness
-                                                            @else <i class="fas fa-times-circle text-danger ml-1"></i> Test Fitness @endif
-
-                                                            @if ($row->konsultasi == 1) <i class="fas fa-check-circle text-success ml-1"></i> Konsultasi
-                                                            @else <i class="fas fa-times-circle text-danger ml-1"></i> Konsultasi @endif
-                                                        </span>
-                                                    </h6>
-                                                    <h6 class="text-xs">
-                                                        <h6>
-                                                            <small class="text-xs">{{ $row->created_at }}</small><br>
-                                                            <b>{{ strtoupper($row->member->nama) }}</b> <br>
-                                                            <small class="text-xs">{{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</small>
-                                                        </h6>
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table><hr>
+                <div class="card-body p-2">
                     <div class="row">
-                        <div class="col-md-12 col-12 mx-2">
-                            Total: {{ number_format($konsul->total(), 0, ',', '.') }}
-                            Current page: {{ $konsul->currentPage() }} of {{ $konsul->lastPage() }}
+                        <div class="col-md-6">
+                            <div class="card-header mb-3">
+                                <label class="card-title text-sm mt-1">
+                                    <i class="fas fa-circle-check text-success"></i> Antrian Booking Konsultasi
+                                </label>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        @if ($konsul->where('test_fitness', 0)->count() == 0)
+                                        <div class="small text-center">
+                                            Data tidak tersedia
+                                        </div>
+                                        @endif
+                                        @foreach ($konsul->where('test_fitness', 0) as $row)
+                                        <tr>
+                                            <td>
+                                                <a href="{{ route('konsul.detail', $row->id_konsultasi) }}">
+                                                    <div class="card p-2 text-dark border border-dark">
+                                                        <div class="row">
+                                                            <div class="col-md-2 col-2 my-auto">
+                                                                <h3 class="text-info text-center"><b>{{ ($konsul->currentPage() - 1) * $konsul->perPage() + $loop->iteration }}</b></h3>
+                                                            </div>
+                                                            <div class="col-md-10 col-10">
+                                                                <h6 class="text-xs">
+                                                                    <span>
+                                                                        @if ($row->test_sipgar == 1) <i class="fas fa-check-circle text-success"></i> Test Sipgar
+                                                                        @else <i class="fas fa-times-circle text-danger"></i> Test Sipgar @endif
 
-                            <div class="mt-2">{{ $konsul->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
+                                                                        @if ($row->test_fitness == 1) <i class="fas fa-check-circle text-success ml-1"></i> Test Fitness
+                                                                        @else <i class="fas fa-times-circle text-danger ml-1"></i> Test Fitness @endif
+
+                                                                        @if ($row->konsultasi == 1) <i class="fas fa-check-circle text-success ml-1"></i> Konsultasi
+                                                                        @else <i class="fas fa-times-circle text-danger ml-1"></i> Konsultasi @endif
+                                                                    </span>
+                                                                </h6>
+                                                                <h6 class="text-xs">
+                                                                    <h6>
+                                                                        <small class="text-xs">{{ $row->created_at }}</small><br>
+                                                                        <b>{{ strtoupper($row->member->nama) }}</b> <br>
+                                                                        <small class="text-xs">{{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</small>
+                                                                    </h6>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12 col-12 mx-2">
+                                        Total: {{ number_format($konsul->where('test_fitness', 0)->count(), 0, ',', '.') }}
+                                        Current page: {{ $konsul->currentPage() }} of {{ $konsul->lastPage() }}
+
+                                        <div class="mt-2">{{ $konsul->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-header mb-3">
+                                <label class="card-title text-sm mt-1">
+                                    <i class="fas fa-circle-check text-success"></i> Antrian Konsultasi Dokter
+                                </label>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        @if ($konsul->where('test_fitness', 1)->where('konsultasi', 0)->count() == 0)
+                                        <div class="small text-center">
+                                            Data tidak tersedia
+                                        </div>
+                                        @endif
+                                        @foreach ($konsul->where('test_fitness', 1)->where('konsultasi', 0)->sortBy('antrian_konsul') as $row)
+                                        <tr>
+                                            <td>
+                                                <a href="{{ route('konsul.detail', $row->id_konsultasi) }}">
+                                                    <div class="card p-2 text-dark border border-dark">
+                                                        <div class="row">
+                                                            <div class="col-md-2 col-2 my-auto">
+                                                                <h3 class="text-info text-center"><b>{{ $row->kode_book }}</b></h3>
+                                                            </div>
+                                                            <div class="col-md-10 col-10">
+                                                                <h6 class="text-xs">
+                                                                    <span>
+                                                                        @if ($row->test_sipgar == 1) <i class="fas fa-check-circle text-success"></i> Test Sipgar
+                                                                        @else <i class="fas fa-times-circle text-danger"></i> Test Sipgar @endif
+
+                                                                        @if ($row->test_fitness == 1) <i class="fas fa-check-circle text-success ml-1"></i> Test Fitness
+                                                                        @else <i class="fas fa-times-circle text-danger ml-1"></i> Test Fitness @endif
+
+                                                                        @if ($row->konsultasi == 1) <i class="fas fa-check-circle text-success ml-1"></i> Konsultasi
+                                                                        @else <i class="fas fa-times-circle text-danger ml-1"></i> Konsultasi @endif
+                                                                    </span>
+                                                                </h6>
+                                                                <h6 class="text-xs">
+                                                                    <h6>
+                                                                        <small class="text-xs">{{ $row->created_at }}</small><br>
+                                                                        <b>{{ strtoupper($row->member->nama) }}</b> <br>
+                                                                        <small class="text-xs">{{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</small>
+                                                                    </h6>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12 col-12 mx-2">
+                                        Total: {{ number_format($konsul->where('test_fitness', 1)->where('konsultasi', 0)->count(), 0, ',', '.') }}
+                                        Current page: {{ $konsul->currentPage() }} of {{ $konsul->lastPage() }}
+
+                                        <div class="mt-2">{{ $konsul->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
