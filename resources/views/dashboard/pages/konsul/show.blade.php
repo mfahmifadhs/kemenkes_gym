@@ -65,7 +65,7 @@
                                     @if (Auth::user()->konsul->where('status', 'false')->count() == 0)
                                     <small class="text-white">{{ $dokter->profil_dokter }}</small> <br>
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-5">
                                             <small>
                                                 <label class="mt-4"><b>Tahapan: </b></label> <br>
                                                 1. Pre Test (Tes Kebugaran, Tes Fisik) <br>
@@ -75,7 +75,7 @@
                                             </small>
                                         </div>
 
-                                        <div class="col-md-8">
+                                        <div class="col-md-7">
                                             <small>
                                                 <label class="mt-4"><b>Lokasi & Jam Praktek: </b></label> <br>
                                                 <i class="fa fa-calendar"></i> Setiap Hari Jumat <br>
