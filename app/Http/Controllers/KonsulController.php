@@ -159,7 +159,7 @@ class KonsulController extends Controller
         $tanggal = $request->query('tanggal');
         $cekAntrian = Konsultasi::whereDate('tanggal_konsul', $tanggal)->count();
 
-        $antrian = $cekAntrian;
+        $antrian = $cekAntrian + 1;
         return response()->json(['nomor_antrian' => $antrian]);
     }
 }
