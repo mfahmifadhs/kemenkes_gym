@@ -20,7 +20,7 @@ class KonsulController extends Controller
         if ($role != 4) {
             $test    = ['Test Sipgar', 'Test Fitness', 'Konsul'];
             $book    = Konsultasi::where('test_fitness', 0)->paginate(5);
-            $konsul  = Konsultasi::where('test_fitness', 1)->paginate(5);
+            $konsul  = Konsultasi::where('test_fitness', 1)->orderBy('antrian_konsul', 'asc')->paginate(5);
             $user    = User::has('konsul')->with('konsul')->get();
             return view('admin.pages.konsul.show', compact('dokter', 'book', 'konsul','user','test'));
         } else {

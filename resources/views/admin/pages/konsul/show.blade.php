@@ -132,19 +132,19 @@
                             <div class="table-responsive">
                                 <table class="table table-borderless">
                                     <tbody>
-                                        @if ($konsul->where('test_fitness', 1)->where('konsultasi', 0)->count() == 0)
+                                        @if ($konsul->count() == 0)
                                         <div class="small text-center">
                                             Data tidak tersedia
                                         </div>
                                         @endif
-                                        @foreach ($konsul->where('test_fitness', 1)->where('konsultasi', 0)->sortBy('antrian_konsul') as $row)
+                                        @foreach ($konsul as $row)
                                         <tr>
                                             <td>
                                                 <a href="{{ route('konsul.detail', $row->id_konsultasi) }}">
                                                     <div class="card p-2 text-dark border border-dark">
                                                         <div class="row">
                                                             <div class="col-md-2 col-2 my-auto">
-                                                                <h3 class="text-info text-center"><b>{{ $row->kode_book }}</b></h3>
+                                                                <h3 class="text-info text-center"><b>{{ $row->antrian_konsul }}</b></h3>
                                                             </div>
                                                             <div class="col-md-10 col-10">
                                                                 <h6 class="text-xs">
