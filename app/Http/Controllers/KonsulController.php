@@ -157,8 +157,9 @@ class KonsulController extends Controller
     public function antrianKonsul(Request $request)
     {
         $tanggal = $request->query('tanggal');
-        $antrian = Konsultasi::whereDate('tanggal_konsul', $tanggal)->max('antrian_konsul') + 1;
+        $cekAntrian = Konsultasi::whereDate('tanggal_konsul', $tanggal)->count();
 
+        $antrian = $cekAntrian + 1;
         return response()->json(['nomor_antrian' => $antrian]);
     }
 }
