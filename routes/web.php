@@ -5,6 +5,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BodyckController;
 use App\Http\Controllers\BodycpController;
+use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FaqController;
@@ -95,6 +96,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('loker/daftar', [LokerController::class, 'show'])->name('loker.show');
     Route::get('loker/detail/{ctg}/{id}', [LokerController::class, 'detail'])->name('loker.no.detail');
     Route::get('loker/riwayat/delete/{id}', [LokerController::class, 'delete'])->name('loker.riwayat.delete');
+
+    Route::get('challenge', [ChallengeController::class, 'index'])->name('challenge');
+    Route::get('challenge/{id}', [ChallengeController::class, 'detail'])->name('challenge.detail');
 
     Route::get('kehadiran/{kelas}', [AbsenController::class, 'mobile']);
 

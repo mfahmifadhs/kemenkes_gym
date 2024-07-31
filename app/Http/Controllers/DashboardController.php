@@ -33,7 +33,7 @@ class DashboardController extends Controller
         $jadwal = Jadwal::where('tanggal_kelas', $today)->get();
         $absen  = Absensi::where('tanggal', Carbon::now()->format('Y-m-d'))->get();
         $totalPeminatan = MinatKelas::count();
-        $totalMember    = User::where('role_id', 4)->count();
+        $totalMember    = User::where('role_id', 4)->get();
         $totalKepuasan  = Survey::get();
 
         if ($roleId == 1 || $roleId == 3) {

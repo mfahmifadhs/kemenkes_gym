@@ -44,10 +44,12 @@
                             @if (Auth::user()->uker_id != '121103')
                             <div class="card-header">
                                 <div class="row text-sm">
-                                    <div class="col-md-6 col-5">
-                                        <i class="fas fa-users"></i> Total Peserta : <b>{{ $totalMember }}</b>
+                                    <div class="col-md-8 col-12">
+                                        <i class="fas fa-users"></i> Total Member : <b>{{ $totalMember->count() }}</b> <br>
+                                        <i class="fas fa-user-check text-success"></i> Total Member Aktif : <b>{{ $totalMember->where('status', 'true')->count() }}</b> &emsp;
+                                        <i class="fas fa-user-times text-danger"></i> Total Member Tidak Aktif : <b>{{ $totalMember->where('status', 'false')->count() }}</b>
                                     </div>
-                                    <div class="col-md-6 col-7 text-right">
+                                    <div class="col-md-4 col-12 text-right mt-2">
                                         <i class="fas fa-face-smile text-success border-dark"></i> Puas : <b>{{ $totalKepuasan->where('kepuasan', 'puas')->count() }}</b>
                                         <i class="fas fa-face-frown ml-2 text-danger border-dark"></i> Tidak Puas : <b>{{ $totalKepuasan->where('kepuasan', 'tidak puas')->count() }}</b>
                                     </div>
