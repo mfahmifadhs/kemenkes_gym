@@ -69,19 +69,19 @@
                             <div class="table-responsive">
                                 <table class="table table-borderless">
                                     <tbody>
-                                        @if ($konsul->where('test_fitness', 0)->count() == 0)
+                                        @if ($book->count() == 0)
                                         <div class="small text-center">
                                             Data tidak tersedia
                                         </div>
                                         @endif
-                                        @foreach ($konsul->where('test_fitness', 0) as $row)
+                                        @foreach ($book as $row)
                                         <tr>
                                             <td>
                                                 <a href="{{ route('konsul.detail', $row->id_konsultasi) }}">
                                                     <div class="card p-2 text-dark border border-dark">
                                                         <div class="row">
                                                             <div class="col-md-2 col-2 my-auto">
-                                                                <h3 class="text-info text-center"><b>{{ ($konsul->currentPage() - 1) * $konsul->perPage() + $loop->iteration }}</b></h3>
+                                                                <h3 class="text-info text-center"><b>{{ ($book->currentPage() - 1) * $book->perPage() + $loop->iteration }}</b></h3>
                                                             </div>
                                                             <div class="col-md-10 col-10">
                                                                 <h6 class="text-xs">
@@ -115,10 +115,10 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12 col-12 mx-2">
-                                        Total: {{ number_format($konsul->where('test_fitness', 0)->count(), 0, ',', '.') }}
-                                        Current page: {{ $konsul->currentPage() }} of {{ $konsul->lastPage() }}
+                                        Total: {{ number_format($book->count(), 0, ',', '.') }}
+                                        Current page: {{ $book->currentPage() }} of {{ $book->lastPage() }}
 
-                                        <div class="mt-2">{{ $konsul->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
+                                        <div class="mt-2">{{ $book->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
                                     </div>
                                 </div>
                             </div>
