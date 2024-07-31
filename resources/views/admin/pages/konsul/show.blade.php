@@ -66,7 +66,7 @@
                                     <i class="fas fa-circle-check text-success"></i> Antrian Booking Konsultasi
                                 </label>
                             </div>
-                            <div class="table-responsive">
+                            <div class="table-responsive scroll" style="overflow-y: auto; max-height: 50vh;">
                                 <table class="table table-borderless">
                                     <tbody>
                                         @if ($book->count() == 0)
@@ -129,7 +129,7 @@
                                     <i class="fas fa-circle-check text-success"></i> Antrian Konsultasi Dokter
                                 </label>
                             </div>
-                            <div class="table-responsive">
+                            <div class="table-responsive" style="overflow-y: auto; max-height: 50vh;">
                                 <table class="table table-borderless">
                                     <tbody>
                                         @if ($konsul->count() == 0)
