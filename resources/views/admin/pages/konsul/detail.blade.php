@@ -71,10 +71,12 @@
                                                         <i class="fa fa-calendar-alt"></i>
                                                         {{ Carbon\Carbon::parse($konsul->tanggal_konsul)->isoFormat('DD MMMM Y') }} <br>
                                                         <i class="fa fa-clock"></i>
-                                                        @if ($konsul->waktu_konsul == 1) 07.00 WIB s/d 07.30 WIB @endif
-                                                        @if ($konsul->waktu_konsul == 2) 07.30 WIB s/d 08.00 WIB @endif
-                                                        @if ($konsul->waktu_konsul == 3) 08.00 WIB s/d 08.30 WIB @endif
-                                                        @if ($konsul->waktu_konsul == 4) 08.30 WIB s/d 09.00 WIB @endif
+                                                        @if ($konsul->waktu_konsul == 1) 07.00 WIB s/d 07.20 WIB @endif
+                                                        @if ($konsul->waktu_konsul == 2) 07.20 WIB s/d 08.40 WIB @endif
+                                                        @if ($konsul->waktu_konsul == 3) 07.40 WIB s/d 08.00 WIB @endif
+                                                        @if ($konsul->waktu_konsul == 4) 08.00 WIB s/d 08.20 WIB @endif
+                                                        @if ($konsul->waktu_konsul == 5) 08.20 WIB s/d 08.40 WIB @endif
+                                                        @if ($konsul->waktu_konsul == 6) 08.40 WIB s/d 09.00 WIB @endif
                                                         <br>
                                                         <i class="fa fa-map-pin"></i> Ruang Dokter, Kemenkes Bootcamp & Fitness Center
                                                     </small>

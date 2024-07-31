@@ -68,9 +68,10 @@
                                         <div class="col-md-4">
                                             <small>
                                                 <label class="mt-4"><b>Tahapan: </b></label> <br>
-                                                1. Tes Vo2Max SIPGAR <br>
-                                                2. Tes Fitness <br>
-                                                3. Konsultasi
+                                                1. Pre Test (Tes Kebugaran, Tes Fisik) <br>
+                                                2. Konsultasi Dokter <br>
+                                                3. Exercise <br>
+                                                4. Post Test
                                             </small>
                                         </div>
 
@@ -89,7 +90,7 @@
                                                 2. Melakukan tes sesuai tahapan, sebelum melakukan konsultasi. <br>
                                                 3. Membuat jadwal tes dengan <i>coach</i>. <br>
                                                 4. Jika setelah <i>booking</i> dilakukan pembatalan, maka antrian dimulai dari awal. <br>
-                                                5. Kuota konsultasi hanya <b>4 pasien / hari</b>. <br>
+                                                5. Kuota konsultasi hanya <b>6 pasien / hari</b>. <br>
                                                 6. Jadwal konsultasi akan diberikan oleh <i>coach</i>, setelah melakukan semua tes.
                                             </small>
                                         </div>
