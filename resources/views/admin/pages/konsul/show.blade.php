@@ -161,9 +161,20 @@
                                                                 </h6>
                                                                 <h6 class="text-xs">
                                                                     <h6>
-                                                                        <small class="text-xs">{{ $row->created_at }}</small><br>
+                                                                        <small class="text-xs">
+                                                                            <i class="fa fa-calendar"></i> {{ Carbon\Carbon::parse($row->tanggal_konsul)->isoFormat('DD MMMM Y') }} &nbsp;
+                                                                            <i class="fa fa-clock"></i>
+                                                                            @if ($row->waktu_konsul == 1) 07.00 WIB s/d 07.20 WIB @endif
+                                                                            @if ($row->waktu_konsul == 2) 07.20 WIB s/d 07.40 WIB @endif
+                                                                            @if ($row->waktu_konsul == 3) 07.40 WIB s/d 08.00 WIB @endif
+                                                                            @if ($row->waktu_konsul == 4) 08.00 WIB s/d 08.20 WIB @endif
+                                                                            @if ($row->waktu_konsul == 5) 08.20 WIB s/d 08.40 WIB @endif
+                                                                            @if ($row->waktu_konsul == 6) 08.40 WIB s/d 09.00 WIB @endif
+                                                                        </small><br>
                                                                         <b>{{ strtoupper($row->member->nama) }}</b> <br>
-                                                                        <small class="text-xs">{{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</small>
+                                                                        <small class="text-xs">
+                                                                            {{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}
+                                                                        </small>
                                                                     </h6>
                                                                 </h6>
                                                             </div>

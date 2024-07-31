@@ -20,9 +20,12 @@ class KonsulController extends Controller
         if ($role != 4) {
             $test    = ['Test Sipgar', 'Test Fitness', 'Konsul'];
             $book    = Konsultasi::where('test_fitness', 0)->paginate(5, ['*'], 'book_page');
-            $konsul  = Konsultasi::where('test_fitness', 1)->orderBy('antrian_konsul', 'asc')->paginate(5, ['*'], 'konsul_page');
+            $konsul  = Konsultasi::where('test_fitness', 1)->where('konsultasi', 0)
+                ->orderBy('tanggal_konsul', 'asc')
+                ->orderBy('antrian_konsul', 'asc')
+                ->paginate(5, ['*'], 'konsul_page');
             $user    = User::has('konsul')->with('konsul')->get();
-            return view('admin.pages.konsul.show', compact('dokter', 'book', 'konsul','user','test'));
+            return view('admin.pages.konsul.show', compact('dokter', 'book', 'konsul', 'user', 'test'));
         } else {
             $user        = User::where('id', Auth::user()->id)->first();
             $nama        = $user->nama;
@@ -42,7 +45,7 @@ class KonsulController extends Controller
         $konsul = Konsultasi::where('id_konsultasi', $id)->first();
 
 
-        return view($role.'.pages.konsul.detail', compact('id', 'dokter', 'konsul'));
+        return view($role . '.pages.konsul.detail', compact('id', 'dokter', 'konsul'));
     }
 
     public function store(Request $request)
@@ -94,7 +97,10 @@ class KonsulController extends Controller
             'hasil_nadi'        => $request->hasil_nadi,
             'konsultasi'        => $request->catatan_pasien ? 1 : 0,
             'catatan_dokter'    => $request->catatan_dokter,
-            'catatan_pasien'    => $request->catatan_pasien
+            'catatan_pasien'    => $request->catatan_pasien,
+            'tanggal_konsul'    => $request->tanggal_konsul,
+            'waktu_konsul'      => $request->waktu_konsul,
+            'antrian_konsul'    => $request->antrian_konsul
         ]);
 
         if ($request->tanggal_konsul && $request->waktu_konsul && !$request->catatan_dokter && !$request->catatan_pasien) {
@@ -104,10 +110,12 @@ class KonsulController extends Controller
                 'antrian_konsul' => $request->antrian_konsul,
             ]);
         } elseif ($request->tanggal_konsul && $request->catatan_dokter && $request->catatan_pasien) {
+            dd($request->all());
             Konsultasi::where('id_konsultasi', $id)->update([
                 'konsultasi'     => 1,
                 'catatan_dokter' => $request->catatan_dokter,
-                'catatan_pasien' => $request->catatan_pasien
+                'catatan_pasien' => $request->catatan_pasien,
+
             ]);
         }
 

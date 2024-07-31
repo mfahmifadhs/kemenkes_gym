@@ -172,7 +172,7 @@
                                     <label class="col-md-1 col-1 mt-2">:</label>
                                     <div class="col-md-7 col-12 form-group mt-1">
                                         <div class="input-group mb-3">
-                                            <input id="nomor_antrian" type="text" name="antrian_konsul" class="form-control form-control-sm" readonly>
+                                            <input id="nomor_antrian" type="text" name="antrian_konsul" class="form-control form-control-sm" value="{{ $konsul?->antrian_konsul }}" readonly>
                                             <div class="input-group-append">
                                                 <button id="ambil_nomor" type="button" class="input-group-text bg-white border-dark text-xs">Ambil Nomor</button>
                                             </div>
