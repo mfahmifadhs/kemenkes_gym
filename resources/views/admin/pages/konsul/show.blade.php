@@ -170,7 +170,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($konsul as $row)
-                                        <tr>
+                                        <tr class="link-cell" data-url="{{ route('konsul.detail', $row->id_konsultasi) }}">
                                             <td>
                                                 <h3 class="text-info text-center"><b>{{ $row->antrian_konsul }}</b></h3>
                                             </td>
