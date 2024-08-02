@@ -50,24 +50,61 @@
                 </div>
             </div>
 
-            <div class="card p-2">
+            <div class="card border border-dark p-2">
                 <div class="card-header">
+                    <label class="card-title text-sm">
+                        <i class="fas fa-users text-success"></i> &nbsp; Daftar Pasien
+                    </label>
                     <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <button type="button" class="btn btn-tool text-dark" data-card-widget="collapse">
                             <i class="fas fa-minus"></i>
                         </button>
                     </div>
                 </div>
                 <div class="card-body p-2">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="card-header mb-3">
-                                <label class="card-title text-sm mt-1">
-                                    <i class="fas fa-circle-check text-success"></i> Antrian Booking Konsultasi
-                                </label>
-                            </div>
+                        <div class="col-md-12">
                             <div class="table-responsive scroll" style="overflow-y: auto; max-height: 50vh;">
-                                <table class="table table-borderless">
+                                <h6 class="card-title text-xs text-secondary mt-1">
+                                    <i class="fas fa-circle-check text-success"></i> Antrian Booking Konsultasi
+                                </h6><br>
+                                <table id="tpBook" class="table table-bordered small text-center">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 8%;">No</th>
+                                            <th style="width: 15%;">Tanggal</th>
+                                            <th>Nama</th>
+                                            <th>Asal</th>
+                                            <th>Progres</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($book as $row)
+                                        <tr class="link-cell" data-url="{{ route('konsul.detail', $row->id_konsultasi) }}">
+                                            <td>
+                                                <h3 class="text-info text-center"><b>{{ $loop->iteration }}</b></h3>
+                                            </td>
+                                            <td style="width: 0%;">
+                                                {{ Carbon\Carbon::parse($row->created_at)->isoFormat('H:m DD/MM/Y') }}
+                                            </td>
+                                            <td>{{ $row->member->nama }}</td>
+                                            <td>{{ $row->member->uker ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</td>
+                                            <td class="text-left text-xs" style="width: 0%;">
+                                                @if ($row->test_sipgar == 1) <i class="fas fa-check-circle text-success"></i> tes sipgar
+                                                @else <i class="fas fa-times-circle text-danger"></i> tes sipgar @endif <br>
+
+                                                @if ($row->test_fitness == 1) <i class="fas fa-check-circle text-success"></i> tes fitness
+                                                @else <i class="fas fa-times-circle text-danger"></i> tes fsitness @endif <br>
+
+                                                @if ($row->konsultasi == 1) <i class="fas fa-check-circle text-success"></i> konsultasi
+                                                @else <i class="fas fa-times-circle text-danger"></i> konsultasi @endif
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+                                <!-- <table class="table table-borderless">
                                     <tbody>
                                         @if ($book->count() == 0)
                                         <div class="small text-center">
@@ -111,26 +148,68 @@
                                         </tr>
                                         @endforeach
                                     </tbody>
-                                </table>
-                                <hr>
-                                <div class="row">
+                                </table> -->
+
+                                <!-- <div class="row">
                                     <div class="col-md-12 col-12 mx-2">
                                         Total: {{ number_format($book->count(), 0, ',', '.') }}
                                         Current page: {{ $book->currentPage() }} of {{ $book->lastPage() }}
 
                                         <div class="mt-2">{{ $book->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="card-header mb-3">
-                                <label class="card-title text-sm mt-1">
-                                    <i class="fas fa-circle-check text-success"></i> Antrian Konsultasi Dokter
-                                </label>
-                            </div>
+                        <div class="col-md-12">
+                            <hr class="border border-dark my-4">
                             <div class="table-responsive" style="overflow-y: auto; max-height: 50vh;">
-                                <table class="table table-borderless">
+                                <h6 class="card-title text-xs text-secondary mt-1">
+                                    <i class="fas fa-circle-check text-success"></i> Antrian Konsultasi Dokter
+                                </h6><br>
+                                <table id="tpKonsul" class="table table-bordered small text-center">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 0%;">No. Antrian</th>
+                                            <th>Nama</th>
+                                            <th>Asal</th>
+                                            <th style="width: 0%;">Tanggal</th>
+                                            <th style="width: 0%;">Waktu</th>
+                                            <th style="width: 0%;">Progres</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($konsul as $row)
+                                        <tr>
+                                            <td>
+                                                <h3 class="text-info text-center"><b>{{ $row->antrian_konsul }}</b></h3>
+                                            </td>
+                                            <td class="text-left">{{ $row->member->nama }}</td>
+                                            <td>{{ $row->member->uker ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</td>
+                                            <td class="text-uppercase">{{ Carbon\Carbon::parse($row->tanggal_konsul)->isoFormat('DD/MMM/Y') }}</td>
+                                            <td>
+                                                @if ($row->waktu_konsul == 1) 07.00 WIB s/d 07.20 WIB @endif
+                                                @if ($row->waktu_konsul == 2) 07.20 WIB s/d 07.40 WIB @endif
+                                                @if ($row->waktu_konsul == 3) 07.40 WIB s/d 08.00 WIB @endif
+                                                @if ($row->waktu_konsul == 4) 08.00 WIB s/d 08.20 WIB @endif
+                                                @if ($row->waktu_konsul == 5) 08.20 WIB s/d 08.40 WIB @endif
+                                                @if ($row->waktu_konsul == 6) 08.40 WIB s/d 09.00 WIB @endif
+                                            </td>
+                                            <td class="text-left text-xs">
+                                                @if ($row->test_sipgar == 1) <i class="fas fa-check-circle text-success"></i> tes sipgar
+                                                @else <i class="fas fa-times-circle text-danger"></i> tes sipgar @endif <br>
+
+                                                @if ($row->test_fitness == 1) <i class="fas fa-check-circle text-success"></i> tes fitness
+                                                @else <i class="fas fa-times-circle text-danger"></i> tes fsitness @endif <br>
+
+                                                @if ($row->konsultasi == 1) <i class="fas fa-check-circle text-success"></i> konsultasi
+                                                @else <i class="fas fa-times-circle text-danger"></i> konsultasi @endif
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+                                <!-- <table class="table table-borderless">
                                     <tbody>
                                         @if ($konsul->count() == 0)
                                         <div class="small text-center">
@@ -185,16 +264,16 @@
                                         </tr>
                                         @endforeach
                                     </tbody>
-                                </table>
-                                <hr>
-                                <div class="row">
+                                </table> -->
+
+                                <!-- <div class="row">
                                     <div class="col-md-12 col-12 mx-2">
                                         Total: {{ number_format($konsul->count(), 0, ',', '.') }}
                                         Current page: {{ $konsul->currentPage() }} of {{ $konsul->lastPage() }}
 
                                         <div class="mt-2">{{ $konsul->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -207,7 +286,7 @@
                         <i class="fas fa-history text-success"></i> Riwayat Konsultasi
                     </label>
                     <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <button type="button" class="btn btn-tool text-dark" data-card-widget="collapse">
                             <i class="fas fa-minus"></i>
                         </button>
                     </div>
@@ -255,7 +334,7 @@
 
             <div class="card border border-dark p-2">
                 <div class="card-header border-dark">
-                    <label class="card-title text-sm mt-1">
+                    <label class="card-title text-sm mt-1 text-dark">
                         <i class="fas fa-history text-success"></i> Riwayat Daftar Pasien
                     </label>
                     <div class="card-tools">
@@ -300,6 +379,16 @@
 
 @section('js')
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.link-cell').forEach(function(cell) {
+            cell.addEventListener('click', function() {
+                window.location.href = this.getAttribute('data-url');
+            });
+        });
+    });
+</script>
+
+<script>
     $(function() {
         $("#table-active").DataTable({
             "responsive": false,
@@ -308,6 +397,24 @@
             "info": false,
             "paging": false,
             "searching": false
+        })
+
+        $("#tpBook").DataTable({
+            "responsive": false,
+            "lengthChange": true,
+            "autoWidth": true,
+            "info": true,
+            "paging": true,
+            "searching": true
+        })
+
+        $("#tpKonsul").DataTable({
+            "responsive": false,
+            "lengthChange": true,
+            "autoWidth": true,
+            "info": true,
+            "paging": true,
+            "searching": true
         })
 
         $("#table-history").DataTable({
