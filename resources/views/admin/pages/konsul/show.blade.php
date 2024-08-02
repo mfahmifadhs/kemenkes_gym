@@ -219,6 +219,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Aksi</th>
+                                    <th>No. Antrian</th>
                                     <th>Nama</th>
                                     <th>Asal</th>
                                     <th>Tanggal</th>
@@ -232,6 +233,7 @@
                                     <td>
                                         <a href="{{ route('konsul.detail', $row->id_konsultasi) }}"><i class="fas fa-eye"></i></a>
                                     </td>
+                                    <td class="text-left">{{ $row->antrian_konsul }}</td>
                                     <td class="text-left">{{ $row->member->nama }}</td>
                                     <td class="text-left">{{ $row->member->uker ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</td>
                                     <td>{{ Carbon\Carbon::parse($row->tanggal_konsul)->isoFormat('dddd, DD MMMM Y') }}</td>
