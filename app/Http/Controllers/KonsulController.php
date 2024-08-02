@@ -22,7 +22,6 @@ class KonsulController extends Controller
             $book    = Konsultasi::where('test_fitness', 0)->get(); //->paginate(5, ['*'], 'book_page');
             $konsul  = Konsultasi::where('test_fitness', 1)->where('konsultasi', 0)
                 ->orderBy('tanggal_konsul', 'asc')
-                ->orderBy('antrian_konsul', 'asc')
                 ->get();
                 // ->paginate(5, ['*'], 'konsul_page');
             $user    = User::has('konsul')->with('konsul')->get();
