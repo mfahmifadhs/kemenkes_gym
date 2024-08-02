@@ -176,7 +176,7 @@
                                             </td>
                                             <td class="text-left">{{ $row->member->nama }}</td>
                                             <td>{{ $row->member->uker ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</td>
-                                            <td class="text-uppercase">{{ $row->tanggal_konsul ?? Carbon\Carbon::parse($row->tanggal_konsul)->isoFormat('DD/MM/Y') }}</td>
+                                            <td class="text-uppercase">{{ $row->tanggal_konsul ? Carbon\Carbon::parse($row->tanggal_konsul)->isoFormat('DD/MM/Y') : '' }}</td>
                                             <td>
                                                 @if ($row->waktu_konsul == 1) 07.00 WIB s/d 07.20 WIB @endif
                                                 @if ($row->waktu_konsul == 2) 07.20 WIB s/d 07.40 WIB @endif
