@@ -201,8 +201,8 @@
                 </div>
             </div>
 
-            <div class="card p-2">
-                <div class="card-header">
+            <div class="card border border-dark p-2">
+                <div class="card-header border-dark">
                     <label class="card-title text-sm mt-1">
                         <i class="fas fa-history text-success"></i> Riwayat Konsultasi
                     </label>
@@ -253,8 +253,8 @@
                 </div>
             </div>
 
-            <div class="card p-2">
-                <div class="card-header">
+            <div class="card border border-dark p-2">
+                <div class="card-header border-dark">
                     <label class="card-title text-sm mt-1">
                         <i class="fas fa-history text-success"></i> Riwayat Daftar Pasien
                     </label>
