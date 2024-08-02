@@ -352,7 +352,7 @@
                 className: 'bg-danger',
                 title: 'Riwayat Pasien',
                 exportOptions: {
-                    columns: [0, 2, 3, 4, 5]
+                    columns: [0, 2, 3, 4, 5, 6]
                 },
             }, {
                 extend: 'excel',
@@ -360,7 +360,7 @@
                 className: 'bg-success',
                 title: 'Riwayat Pasien',
                 exportOptions: {
-                    columns: [0, 2, 3, 4, 5]
+                    columns: [0, 2, 3, 4, 5, 6]
                 },
             }],
             "bDestroy": true
