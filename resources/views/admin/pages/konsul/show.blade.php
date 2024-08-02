@@ -85,7 +85,7 @@
                                                 <h3 class="text-info text-center"><b>{{ $loop->iteration }}</b></h3>
                                             </td>
                                             <td style="width: 0%;">
-                                                {{ Carbon\Carbon::parse($row->created_at)->isoFormat('H:m DD/MM/Y') }}
+                                                {{ Carbon\Carbon::parse($row->created_at)->isoFormat('DD/MM/Y H:m') }}
                                             </td>
                                             <td>{{ $row->member->nama }}</td>
                                             <td>{{ $row->member->uker ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</td>
