@@ -204,6 +204,56 @@
             <div class="card p-2">
                 <div class="card-header">
                     <label class="card-title text-sm mt-1">
+                        <i class="fas fa-history text-success"></i> Riwayat Konsultasi
+                    </label>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="tKonsul" class="table table-bordered small text-center">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Aksi</th>
+                                    <th>Nama</th>
+                                    <th>Asal</th>
+                                    <th>Tanggal</th>
+                                    <th>Waktu</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($konsulTrue as $row)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        <a href="{{ route('konsul.detail', $row->id_konsultasi) }}"><i class="fas fa-eye"></i></a>
+                                    </td>
+                                    <td class="text-left">{{ $row->member->nama }}</td>
+                                    <td class="text-left">{{ $row->member->uker ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</td>
+                                    <td>{{ Carbon\Carbon::parse($row->tanggal_konsul)->isoFormat('dddd, DD MMMM Y') }}</td>
+                                    <td>
+                                        @if ($row->waktu_konsul == 1) 07.00 WIB s/d 07.20 WIB @endif
+                                        @if ($row->waktu_konsul == 2) 07.20 WIB s/d 07.40 WIB @endif
+                                        @if ($row->waktu_konsul == 3) 07.40 WIB s/d 08.00 WIB @endif
+                                        @if ($row->waktu_konsul == 4) 08.00 WIB s/d 08.20 WIB @endif
+                                        @if ($row->waktu_konsul == 5) 08.20 WIB s/d 08.40 WIB @endif
+                                        @if ($row->waktu_konsul == 6) 08.40 WIB s/d 09.00 WIB @endif
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card p-2">
+                <div class="card-header">
+                    <label class="card-title text-sm mt-1">
                         <i class="fas fa-history text-success"></i> Riwayat Daftar Pasien
                     </label>
                     <div class="card-tools">
@@ -285,6 +335,34 @@
             }],
             "bDestroy": true
         }).buttons().container().appendTo('#table-history_wrapper .col-md-6:eq(0)');
+
+        $("#tKonsul").DataTable({
+            "responsive": false,
+            "lengthChange": true,
+            "autoWidth": false,
+            "info": true,
+            "paging": true,
+            "searching": true,
+            buttons: [{
+                extend: 'pdf',
+                text: ' PDF',
+                pageSize: 'A4',
+                className: 'bg-danger',
+                title: 'Riwayat Pasien',
+                exportOptions: {
+                    columns: [0, 2, 3, 4, 5]
+                },
+            }, {
+                extend: 'excel',
+                text: ' Excel',
+                className: 'bg-success',
+                title: 'Riwayat Pasien',
+                exportOptions: {
+                    columns: [0, 2, 3, 4, 5]
+                },
+            }],
+            "bDestroy": true
+        }).buttons().container().appendTo('#tKonsul_wrapper .col-md-6:eq(0)');
     })
 
     function confirmRemove(event, url) {

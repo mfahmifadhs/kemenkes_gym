@@ -25,7 +25,8 @@ class KonsulController extends Controller
                 ->orderBy('antrian_konsul', 'asc')
                 ->paginate(5, ['*'], 'konsul_page');
             $user    = User::has('konsul')->with('konsul')->get();
-            return view('admin.pages.konsul.show', compact('dokter', 'book', 'konsul', 'user', 'test'));
+            $konsulTrue = Konsultasi::where('konsultasi', 1)->get();
+            return view('admin.pages.konsul.show', compact('dokter', 'book', 'konsul', 'user', 'test', 'konsulTrue'));
         } else {
             $user        = User::where('id', Auth::user()->id)->first();
             $nama        = $user->nama;
