@@ -149,15 +149,6 @@
                                         @endforeach
                                     </tbody>
                                 </table> -->
-
-                                <!-- <div class="row">
-                                    <div class="col-md-12 col-12 mx-2">
-                                        Total: {{ number_format($book->count(), 0, ',', '.') }}
-                                        Current page: {{ $book->currentPage() }} of {{ $book->lastPage() }}
-
-                                        <div class="mt-2">{{ $book->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -265,15 +256,6 @@
                                         @endforeach
                                     </tbody>
                                 </table> -->
-
-                                <!-- <div class="row">
-                                    <div class="col-md-12 col-12 mx-2">
-                                        Total: {{ number_format($konsul->count(), 0, ',', '.') }}
-                                        Current page: {{ $konsul->currentPage() }} of {{ $konsul->lastPage() }}
-
-                                        <div class="mt-2">{{ $konsul->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                     </div>
