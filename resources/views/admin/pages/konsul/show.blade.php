@@ -118,7 +118,7 @@
                                                     <div class="card p-2 text-dark border border-dark">
                                                         <div class="row">
                                                             <div class="col-md-2 col-2 my-auto">
-                                                                <h3 class="text-info text-center"><b>{{ ($book->currentPage() - 1) * $book->perPage() + $loop->iteration }}</b></h3>
+                                                                <h3 class="text-info text-center"><b>{{ $loop->iteration }}</b></h3>
                                                             </div>
                                                             <div class="col-md-10 col-10">
                                                                 <h6 class="text-xs">
