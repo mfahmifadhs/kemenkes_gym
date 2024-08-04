@@ -21,18 +21,30 @@
                                 <center class="border-main p-5">
                                     <img src="{{ asset('dist/img/challenge/fatloss.png') }}" class="w-75" alt=""><br>
                                     <h3 class="text-main mt-3">Fat Loss Challenge</h3>
+                                    @if (!$check)
                                     <a href="{{ route('challenge.detail', 'fatloss') }}" class="btn btn-primary bg-main w-75 p-3">
                                         Join Challenge
                                     </a>
+                                    @elseif ($check->challenge_id == 1)
+                                    <a href="{{ route('challenge.ticket', $check->id_detail) }}" class="btn btn-primary bg-success w-75 p-3">
+                                        ANDA SUDAH TERDAFTAR
+                                    </a>
+                                    @endif
                                 </center>
                             </div>
                             <div class="col-md-6">
                                 <center class="border-main p-5">
                                     <img src="{{ asset('dist/img/challenge/musclegain.png') }}" class="w-75" alt=""><br>
                                     <h3 class="text-main mt-3">Muscle Gain Challenge</h3>
+                                    @if (!$check)
                                     <a href="{{ route('challenge.detail', 'musclegain') }}" class="btn btn-primary bg-main w-75 p-3">
                                         Join Challenge
                                     </a>
+                                    @elseif ($check->challenge_id == 2)
+                                    <a href="{{ route('challenge.ticket', $check->id_detail) }}" class="btn btn-success bg-main w-75 p-3">
+                                        ANDA SUDAH TERDAFTAR
+                                    </a>
+                                    @endif
                                 </center>
                             </div>
                         </div>

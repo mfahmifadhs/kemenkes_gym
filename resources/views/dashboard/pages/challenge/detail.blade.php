@@ -90,8 +90,10 @@
                                         </small>
                                     </div>
                                 </div>
-
-                                <button type="submit" onclick="confirmSubmit(event)" class="btn btn-primary btn-block">Daftar Challenge</button>
+                                <form id="form" action="{{ route('challenge.join', Auth::user()->id) }}">
+                                    <input type="hidden" name="challenge_id" value="{{ $kode }}">
+                                    <button type="submit" onclick="confirmSubmit(event)" class="btn btn-primary btn-block">Daftar Challenge</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -102,5 +104,39 @@
     </div>
 </section>
 <!-- ChoseUs Section End -->
+
+@section('js')
+<script>
+    function confirmSubmit(event) {
+        event.preventDefault();
+
+        const form = document.getElementById('form');
+
+        Swal.fire({
+            title: 'Daftar Challenge',
+            text: 'Apakah kamu menyetujui seluruh syarat & ketentuan challenge ?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Loading...",
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    willOpen: () => {
+                        Swal.showLoading();
+                    },
+                })
+
+                form.submit();
+            }
+        });
+
+    }
+</script>
+@endsection
 
 @endsection

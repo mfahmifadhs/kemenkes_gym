@@ -99,6 +99,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('challenge', [ChallengeController::class, 'index'])->name('challenge');
     Route::get('challenge/{id}', [ChallengeController::class, 'detail'])->name('challenge.detail');
+    Route::get('challenge/join/{id}', [ChallengeController::class, 'join'])->name('challenge.join');
+    Route::get('challenge/ticket/{id}', [ChallengeController::class, 'ticket'])->name('challenge.ticket');
+    Route::get('challenge/download/{id}/{form}', [ChallengeController::class, 'download'])->name('challenge.download');
 
     Route::get('kehadiran/{kelas}', [AbsenController::class, 'mobile']);
 
