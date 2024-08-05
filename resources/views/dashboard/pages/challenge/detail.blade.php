@@ -74,7 +74,7 @@
 
                                             <br>
                                             <b>Untuk syarat & ketentuan lainnya, silahkan cek link berikut:
-                                                <a href=""><u>Ketentuan</u></a>
+                                                <a href="https://link.kemkes.go.id/FLnMGChallenges"><u>Ketentuan</u></a>
                                             </b>
                                         </small>
                                     </div>
