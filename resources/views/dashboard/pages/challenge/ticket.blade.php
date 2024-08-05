@@ -38,10 +38,10 @@
                             <h6 class="text-white text-xs">
                                 <b>Silahkan download form dibawah ini dan dibawa pada saat penimbangan Tahap 1</b>
                             </h6>
-                            <a href="{{ route('challenge.download', ['id' => $data->id_detail, 'form' => 'pernyataan']) }}" class="btn btn-default btn-md text-white text-uppercase bg-main mt-3" onabort="confirmDownload(event)">
+                            <a href="{{ route('challenge.download', ['id' => $data->id_detail, 'form' => 'pernyataan']) }}" class="btn btn-default btn-md text-white text-uppercase bg-main mt-3" onclick="zconfirmDownload(event)">
                                 <b><i class="fa fa-download"></i> Download <br> Form Persetujuan</b>
                             </a>
-                            <a href="{{ route('challenge.download', ['id' => $data->id_detail, 'form' => 'monitoring']) }}" class="btn btn-default btn-md text-white text-uppercase bg-main mt-3" onabort="confirmDownload(event)">
+                            <a href="{{ route('challenge.download', ['id' => $data->id_detail, 'form' => 'monitoring']) }}" class="btn btn-default btn-md text-white text-uppercase bg-main mt-3" onclick="zconfirmDownload(event)">
                                 <b><i class="fa fa-download"></i> Download <br> Lembar Monitoring</b>
                             </a>
                         </div>
