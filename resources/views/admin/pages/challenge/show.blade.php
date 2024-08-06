@@ -72,6 +72,7 @@
                                         <thead class="text-sm">
                                             <tr>
                                                 <th style="width: 5%;">No</th>
+                                                <th>Gender</th>
                                                 <th>Nama</th>
                                                 <th>Asal</th>
                                                 <th style="width: 10%;">Pengecekan</th>
@@ -81,6 +82,13 @@
                                             @foreach($challenge->where('challenge_id', 1) as $row)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
+                                                <td>
+                                                    @if ($row->member->jenis_kelamin == 'male')
+                                                    <span class="badge badge-success">Pria</span>
+                                                    @else
+                                                    <span class="badge badge-pink">Wanita</span>
+                                                    @endif
+                                                </td>
                                                 <td class="text-left">{{ $row->member->nama }} </td>
                                                 <td class="text-left">
                                                     {{ $row->member->instansi == 'pusat' ? $row->member->uker?->nama_unit_kerja : $row->member->nama_instansi }}
@@ -175,6 +183,7 @@
                                         <thead class="text-sm">
                                             <tr>
                                                 <th style="width: 5%;">No</th>
+                                                <th>Gander</th>
                                                 <th>Nama</th>
                                                 <th>Asal</th>
                                                 <th style="width: 10%;">Pengecekan</th>
@@ -184,6 +193,13 @@
                                             @foreach($challenge->where('challenge_id', 2) as $row)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
+                                                <td>
+                                                    @if ($row->member->jenis_kelamin == 'male')
+                                                    <span class="badge badge-success">Pria</span>
+                                                    @else
+                                                    <span class="badge badge-pink">Wanita</span>
+                                                    @endif
+                                                </td>
                                                 <td class="text-left">{{ $row->member->nama }}</td>
                                                 <td class="text-left">
                                                     {{ $row->member->instansi == 'pusat' ? $row->member->uker?->nama_unit_kerja : $row->member->nama_instansi }}
