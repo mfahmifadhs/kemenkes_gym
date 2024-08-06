@@ -78,7 +78,7 @@
                                             </tr>
                                         </thead>
                                         <tbody class="text-sm">
-                                            @foreach($challenge as $row)
+                                            @foreach($challenge->where('challenge_id', 1) as $row)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td class="text-left">{{ $row->member->nama }} </td>
@@ -181,7 +181,7 @@
                                             </tr>
                                         </thead>
                                         <tbody class="text-sm">
-                                            @foreach($challenge as $row)
+                                            @foreach($challenge->where('challenge_id', 2) as $row)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td class="text-left">{{ $row->member->nama }}</td>
