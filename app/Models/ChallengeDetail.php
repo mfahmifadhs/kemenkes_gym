@@ -28,4 +28,8 @@ class ChallengeDetail extends Model
     public function member() {
         return $this->belongsTo(User::class, 'member_id');
     }
+
+    public function bodyCp() {
+        return $this->hasMany(User::class, 'member_id');
+    }
 }

@@ -100,8 +100,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <ul aria-labelledby="menu" class="dropdown-menu border-0 shadow">
                                 <li>
                                     @if (Auth::user()->uker_id != '121103')
-                                    <a href="{{ route('bodyck') }}" class="dropdown-item">
+                                    <!-- <a href="{{ route('bodyck') }}" class="dropdown-item">
                                         <i class="fa fa-weight-scale"></i> Body Composition
+                                    </a> -->
+                                    <a href="{{ route('challenge') }}" class="dropdown-item">
+                                        <i class="fa fa-award"></i> Challenge
                                     </a>
                                     <a href="{{ route('loker.show') }}" class="dropdown-item">
                                         <i class="fa fa-th-large"></i> Loker
