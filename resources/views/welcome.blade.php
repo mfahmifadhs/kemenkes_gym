@@ -23,10 +23,10 @@
         <div class="hs-item set-bg" data-setbg="{{ asset('dist/img/hero-'.$i.'.jpg') }}">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-6 offset-lg-6">
+                    <div class="col-lg-12 offset-lg-12 text-center">
                         <div class="hi-text">
                             <!-- <span>Shape your body</span> -->
-                            <h1>You're <strong>stronger</strong> than you think</h1>
+                            <h1>You're <strong>stronger</strong> <br> than you think</h1>
                             <a href="{{ route('login') }}" class="primary-btn btn-normal">Masuk</a>
                         </div>
                     </div>
