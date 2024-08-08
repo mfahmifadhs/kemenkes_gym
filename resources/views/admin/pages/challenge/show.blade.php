@@ -65,23 +65,35 @@
                             </div>
                         </div>
                         <div class="text-sm mb-2"><i class="fas fa-weight-scale"></i> Fat Loss Participant</div>
-                        <div class="card">
-                            <div class="card-body">
+                        <div class="card border border-dark">
+                            <div class="card-body border-dark">
                                 <div class="table-responsive">
                                     <table id="tFatLoss" class="table table-bordered text-center">
                                         <thead class="text-sm">
                                             <tr>
                                                 <th style="width: 5%;">No</th>
-                                                <th>Gender</th>
+                                                <th style="width: 5%;">Aksi</th>
+                                                <th style="width: 5%;">Gender</th>
                                                 <th>Nama</th>
                                                 <th>Asal</th>
                                                 <th style="width: 10%;">Pengecekan</th>
                                             </tr>
                                         </thead>
-                                        <tbody class="text-sm">
+                                        <tbody class="text-xs">
                                             @foreach($challenge->where('challenge_id', 1) as $row)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
+                                                <td>
+                                                    <a href="{{ route('member.detail', $row->member_id) }}">
+                                                        <i class="fas fa-info-circle"></i>
+                                                    </a>
+                                                    <a href="" onclick="confirmRemove(event, '<?php echo route('challenge.participant.delete', $row->id_detail); ?>')">
+                                                        <i class="fas fa-trash-alt text-danger"></i>
+                                                    </a>
+                                                    <a href="#" type="button" data-toggle="modal" data-target="#modal-{{ $row->id_detail }}">
+                                                        <i class="fas fa-edit text-success"></i>
+                                                    </a>
+                                                </td>
                                                 <td>
                                                     @if ($row->member->jenis_kelamin == 'male')
                                                     <span class="badge badge-success">Pria</span>
@@ -176,14 +188,15 @@
                             </div>
                         </div>
                         <div class="text-sm mb-2"><i class="fas fa-weight-scale"></i> Muscle Gain Participant</div>
-                        <div class="card">
-                            <div class="card-body">
+                        <div class="card border border-dark">
+                            <div class="card-body border-dark">
                                 <div class="table-responsive">
                                     <table id="tMuscleGain" class="table table-bordered text-center">
                                         <thead class="text-sm">
                                             <tr>
                                                 <th style="width: 5%;">No</th>
-                                                <th>Gander</th>
+                                                <th style="width: 5%;">Aksi</th>
+                                                <th style="width: 5%;">Gander</th>
                                                 <th>Nama</th>
                                                 <th>Asal</th>
                                                 <th style="width: 10%;">Pengecekan</th>
@@ -193,6 +206,17 @@
                                             @foreach($challenge->where('challenge_id', 2) as $row)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
+                                                <td>
+                                                    <a href="{{ route('member.detail', $row->member_id) }}">
+                                                        <i class="fas fa-info-circle"></i>
+                                                    </a>
+                                                    <a href="" onclick="confirmRemove(event, '<?php echo route('challenge.participant.delete', $row->id_detail); ?>')">
+                                                        <i class="fas fa-trash-alt text-danger"></i>
+                                                    </a>
+                                                    <a href="#" type="button" data-toggle="modal" data-target="#modal-{{ $row->id_detail }}">
+                                                        <i class="fas fa-edit text-success"></i>
+                                                    </a>
+                                                </td>
                                                 <td>
                                                     @if ($row->member->jenis_kelamin == 'male')
                                                     <span class="badge badge-success">Pria</span>
@@ -265,6 +289,50 @@
     </div><br>
 </div>
 
+
+<!-- Modal -->
+@foreach($challenge as $row)
+<div class="modal fade border border-dark" id="modal-{{ $row->id_detail }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form id="form" action="{{ route('challenge.participant.update', $row->id_detail) }}" method="GET">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Update Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <h6 class="font-weight-bold">Nama</h6>
+                            <h6>{{ $row->member->nama }}</h6>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h6 class="font-weight-bold">Asal</h6>
+                            <h6>{{ $row->member->uker ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</h6>
+                        </div>
+                    </div>
+
+                    <label for="challenge">Pilihan Challenge</label>
+                    <select id="challenge" name="challenge_id" class="form-control" required>
+                        <option value="">-- Pilih Challenge --</option>
+                        <option value="1" <?php echo $row->challenge_id == 1 ? 'selected' : ''; ?>>Fat Loss</option>
+                        <option value="2" <?php echo $row->challenge_id == 2 ? 'selected' : ''; ?>>Muscle Gain</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="confirmSubmit(event)">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach
+
 @section('js')
 <script>
     $(function() {
@@ -290,7 +358,7 @@
                 className: 'bg-danger mr-2 rounded btn-sm',
                 title: 'fatloss',
                 exportOptions: {
-                    columns: [0, 1, 2]
+                    columns: [0, 2, 3, 4]
                 },
             }, {
                 extend: 'excel',
@@ -299,7 +367,7 @@
                 className: 'bg-success btn-sm rounded',
                 title: 'fatloss',
                 exportOptions: {
-                    columns: [0, 1, 2]
+                    columns: [0, 2, 3, 4]
                 },
             }],
             "bDestroy": true
@@ -319,7 +387,7 @@
                 className: 'bg-danger mr-2 rounded btn-sm',
                 title: 'musclegain',
                 exportOptions: {
-                    columns: [0, 1, 2]
+                    columns: [0, 2, 3, 4]
                 },
             }, {
                 extend: 'excel',
@@ -328,12 +396,49 @@
                 className: 'bg-success btn-sm rounded',
                 title: 'musclegain',
                 exportOptions: {
-                    columns: [0, 1, 2]
+                    columns: [0, 2, 3, 4]
                 },
             }],
             "bDestroy": true
         }).buttons().container().appendTo('#tMuscleGain_wrapper .col-md-6:eq(0)');
     });
+</script>
+
+<script>
+    function confirmSubmit(event) {
+        event.preventDefault();
+
+        const form = document.getElementById('form');
+
+        Swal.fire({
+            title: "Loading...",
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            willOpen: () => {
+                Swal.showLoading();
+            },
+        })
+
+        form.submit();
+    }
+
+    function confirmRemove(event, url) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: 'Hapus',
+            text: 'Hapus Data',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
+    }
 </script>
 @endsection
 

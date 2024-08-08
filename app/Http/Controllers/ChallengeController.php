@@ -109,4 +109,18 @@ class ChallengeController extends Controller
 
         return $results;
     }
+
+    public function participantUpdate(Request $request, $id)
+    {
+        ChallengeDetail::where('id_detail', $id)->update([
+            'challenge_id' => $request->get('challenge_id')
+        ]);
+        return redirect()->route('challenge')->with('success', 'Berhasil Memperbaharui Data!');
+    }
+
+    public function participantDelete($id)
+    {
+        ChallengeDetail::where('id_detail', $id)->delete();
+        return redirect()->route('challenge')->with('success', 'Berhasil Menghapus Data!');
+    }
 }
