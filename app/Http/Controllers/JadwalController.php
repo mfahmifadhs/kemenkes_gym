@@ -176,21 +176,8 @@ class JadwalController extends Controller
     public function join(Request $request, $id)
     {
         $role = Auth::user()->role_id;
-        $penalty = Penalty::where('user_id', Auth::user()->id)->where('status', 'false')->first();
         $jadwal  = Jadwal::where('id_jadwal', $id)->first();
         $daftar  = Peserta::where('member_id', Auth::user()->id)->where('jadwal_id', $id)->where('tanggal_latihan', $jadwal->tanggal_kelas)->first();
-
-        if ($penalty) {
-            $tgl_awal = Carbon::now()->startOfDay();
-            $tgl_akhir = Carbon::parse($penalty->tgl_akhir_penalty)->startOfDay();
-            $total_hari = $tgl_awal->diffInDays($tgl_akhir, false);
-
-            if ($total_hari == 0) {
-                Penalty::where('id_penalty', $penalty->id_penalty)->update([
-                    'status' => 'true'
-                ]);
-            }
-        }
 
         if ($request->all() == []) {
             $tglNow     = Carbon::now()->startOfDay();

@@ -10,6 +10,7 @@ use App\Models\Bodycp;
 use App\Models\Jadwal;
 use App\Models\Kelas;
 use App\Models\MinatKelas;
+use App\Models\Penalty;
 use App\Models\Pengajuan;
 use App\Models\PengajuanDetail;
 use App\Models\Survey;
@@ -23,6 +24,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $penalty       = $this->penalty();
         $totalUtama    = $this->totalMinatByUker();
         $totalKelas    = $this->totalMinatByKelas();
         $totalStatus   = $this->totalMinatByStatus();
@@ -144,5 +146,24 @@ class DashboardController extends Controller
         ->get();
 
         return $total;
+    }
+
+    public function penalty()
+    {
+        $penalty = Penalty::where('user_id', Auth::user()->id)->where('status', 'false')->first();
+
+        if ($penalty) {
+            $tgl_awal = Carbon::now()->startOfDay();
+            $tgl_akhir = Carbon::parse($penalty->tgl_akhir_penalty)->startOfDay();
+            $total_hari = $tgl_awal->diffInDays($tgl_akhir, false);
+
+            if ($total_hari <= 0) {
+                Penalty::where('id_penalty', $penalty->id_penalty)->update([
+                    'status' => 'true'
+                ]);
+            }
+        }
+
+        return true;
     }
 }
