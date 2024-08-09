@@ -90,6 +90,7 @@
                                     <th>NIP/NIK</th>
                                     <th>Tanggal Lahir</th>
                                     <th>Unit Kerja/UPT/Umum</th>
+                                    <th>Tanggal</th>
                                     <th>Waktu</th>
                                 </tr>
                             </thead>
@@ -122,6 +123,7 @@
                                     <td>{{ $row->member->tanggal_lahir }}</td>
                                     <td class="text-left">{{ $row->member->instansi == 'pusat' ? $row->member->uker?->nama_unit_kerja : $row->member->nama_instansi }}</td>
 
+                                    <td>{{ $row->tanggal_latihan }}</td>
                                     <td>{{ $row->created_at }}</td>
                                 </tr>
                                 @endforeach
@@ -191,10 +193,19 @@
                 extend: 'pdf',
                 text: ' Print PDF',
                 pageSize: 'A4',
-                className: 'bg-danger',
+                className: 'bg-danger rounded',
                 title: 'Kehadiran',
                 exportOptions: {
                     columns: [3, 4, 5, 6]
+                },
+            },{
+                extend: 'excel',
+                text: ' Excel',
+                pageSize: 'A4',
+                className: 'bg-success rounded ml-2',
+                title: 'Kehadiran',
+                exportOptions: {
+                    columns: [0, 2, 3, 4, 5, 6, 7, 8]
                 },
             }],
             "bDestroy": true
