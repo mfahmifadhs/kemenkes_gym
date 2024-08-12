@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BodyckDetail;
 use App\Models\Challenge;
 use App\Models\ChallengeDetail;
+use App\Models\UnitUtama;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PDF;
@@ -14,18 +15,58 @@ class ChallengeController extends Controller
 {
     public function index()
     {
-        $role = Auth::user()->role_id;
+        $instansi  = '';
+        $gender    = '';
+        $role      = Auth::user()->role_id;
         $challenge = ChallengeDetail::get();
         $check     = ChallengeDetail::where('member_id', Auth::user()->id)->first();
+        $utama     = UnitUtama::get();
 
         $topFatLoss    = collect($this->topProgress(2))->take(3);
         $topMuscleGain = collect($this->topProgress(5))->take(3);
 
-        if ($role != 4)  {
-            return view('admin.pages.challenge.show', compact('challenge', 'topFatLoss', 'topMuscleGain'));
+        if ($role != 4) {
+            return view('admin.pages.challenge.show', compact('challenge', 'topFatLoss', 'topMuscleGain', 'utama', 'instansi','gender'));
         } else {
             return view('dashboard.pages.challenge.show', compact('check'));
         }
+    }
+
+    public function filter(Request $request)
+    {
+        $instansi  = $request->get('instansi');
+        $unitUtama = $request->get('utama');
+        $gender    = $request->get('gender');
+        $data      = ChallengeDetail::with('member');
+
+        $utama     = UnitUtama::get();
+        $topFatLoss    = collect($this->topProgress(2))->take(3);
+        $topMuscleGain = collect($this->topProgress(5))->take(3);
+
+        if ($instansi || $unitUtama || $gender) {
+            if ($instansi) {
+                $data = $data->whereHas('member', function ($query) use ($instansi) {
+                    $query->where('instansi', $instansi);
+                });
+            }
+
+            if ($unitUtama) {
+                $data = $data->whereHas('member.uker', function ($query) use ($unitUtama) {
+                    $query->where('unit_utama_id', $unitUtama);
+                });
+            }
+
+            if ($gender) {
+                $data = $data->whereHas('member', function ($query) use ($gender) {
+                    $query->where('jenis_kelamin', $gender);
+                });
+            }
+            $challenge = $data->get();
+        } else {
+            $challenge = $data->get();
+        }
+
+        return view('admin.pages.challenge.show', compact('challenge','topFatLoss','topMuscleGain','utama','instansi','gender'));
     }
 
     public function detail($id)

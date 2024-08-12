@@ -25,8 +25,8 @@
                 </div>
                 @if (Auth::user()->role_id == 1)
                 <div class="col-sm-6 col-6 text-right mt-2">
-                    <a href="" class="btn btn-default btn-sm border-dark">
-                        <i class="fas fa-circle-plus"></i> Create
+                    <a href="#" class="btn btn-default btn-sm border-dark" data-toggle="modal" data-target="#filter">
+                        <i class="fas fa-filter"></i> Filter
                     </a>
                 </div>
                 @endif
@@ -39,33 +39,19 @@
             <div class="col-md-12 col-12 mx-auto">
                 <div class="row">
                     <div class="col-md-6">
-                        <table class="table">
-
-                        </table>
-                        <!-- Man Top 3 Fat Loss -->
-                        <div class="text-sm text-primary font-weight-bold mb-2">
-                            <i class="fas fa-fire"></i> Man Top 3 Fat Loss
-                        </div>
-                        <div class="row">
-                            @for ($i = 1; $i <= 3; $i++)
-                            <div class="col-md-4 col-4">
-                                <div class="card border border-dark">
-                                    <div class="card-header border-dark text-center p-2">
-                                        <h3 class="font-weight-bold text-info mb-0">{{ $i }}</h3>
-                                    </div>
-                                    <div class="card-body border-dark p-1">
-                                        <h6 class="text-center text-sm">
-                                            <small>Nama</small><br>
-                                            <small>Asal</small><br>
-                                            <small><b>3%</b></small>
-                                        </h6>
-                                    </div>
+                        <div class="card border border-dark">
+                            <div class="card-header border-dark">
+                                <h6 class="card-title">
+                                    <small class="font-weight-bold">
+                                        <i class="fas fa-weight-scale"></i> Fat Loss Participant
+                                    </small>
+                                </h6>
+                                <div class="card-tools">
+                                    <a href="">
+                                        <i class="fas fa-filter"></i>
+                                    </a>
                                 </div>
                             </div>
-                            @endfor
-                        </div>
-                        <div class="text-sm mb-2"><i class="fas fa-weight-scale"></i> Fat Loss Participant</div>
-                        <div class="card border border-dark">
                             <div class="card-body border-dark">
                                 <div class="table-responsive">
                                     <table id="tFatLoss" class="table table-bordered text-center">
@@ -159,138 +145,169 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Muscle Gain -->
-                    <div class="col-md-6">
+                        <hr>
+                        <!-- Man Top 3 Fat Loss -->
+                        <div class="text-sm text-primary font-weight-bold mb-2">
+                            <i class="fas fa-fire"></i> Man Top 3 Fat Loss
+                        </div>
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="text-sm mb-2"><i class="fas fa-fire"></i> Top 3 Best Muscle Gain</div>
-                                @foreach (collect($topMuscleGain)->sortBy('progress') as $row)
-                                <div class="info-box">
-                                    <span class="info-box-icon bg-info elevation-1">
-                                        <h2 class="font-weight-bold mt-2">{{ $loop->iteration }}</h2>
-                                    </span>
-                                    <div class="info-box-content">
-                                        <span class="info-box-text small">
-                                            <h6>{{ ucwords(strtolower($row['nama'])) }} <br>
-                                                <small>{{ Str::limit($row['uker'], 40) }}</small>
-                                            </h6>
-                                        </span>
-                                        <span class="info-box-number">
-                                            <b>{{ $row['progress'] }} <small class="text-xs">%</small></b>
-                                        </span>
+                            @for ($i = 1; $i <= 3; $i++) <div class="col-md-4 col-4">
+                                <div class="card border border-dark">
+                                    <div class="card-header border-dark text-center p-2">
+                                        <h3 class="font-weight-bold text-info mb-0">{{ $i }}</h3>
+                                    </div>
+                                    <div class="card-body border-dark p-1">
+                                        <h6 class="text-center text-sm">
+                                            <small>Nama</small><br>
+                                            <small>Asal</small><br>
+                                            <small><b>3%</b></small>
+                                        </h6>
                                     </div>
                                 </div>
-                                @endforeach
-                                @if (!collect($topMuscleGain)->count())
-                                <div class="mt-2 mb-4">Tidak ada data</div>
-                                @endif
+                        </div>
+                        @endfor
+                    </div>
+                </div>
+                <!-- Muscle Gain -->
+                <div class="col-md-6">
+                    <div class="card border border-dark">
+                        <div class="card-header border-dark">
+                            <h6 class="card-title">
+                                <small class="font-weight-bold">
+                                    <i class="fas fa-weight-scale"></i> Muscle Gain Participant
+                                </small>
+                            </h6>
+                            <div class="card-tools">
+                                <a href="">
+                                    <i class="fas fa-filter"></i>
+                                </a>
                             </div>
                         </div>
-                        <div class="text-sm mb-2"><i class="fas fa-weight-scale"></i> Muscle Gain Participant</div>
-                        <div class="card border border-dark">
-                            <div class="card-body border-dark">
-                                <div class="table-responsive">
-                                    <table id="tMuscleGain" class="table table-bordered text-center">
-                                        <thead class="text-sm">
-                                            <tr>
-                                                <th style="width: 5%;">No</th>
-                                                <th style="width: 5%;">Aksi</th>
-                                                <th style="width: 5%;">Gander</th>
-                                                <th>Nama</th>
-                                                <th>Asal</th>
-                                                <th style="width: 10%;">Pengecekan</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="text-sm">
-                                            @foreach($challenge->where('challenge_id', 2) as $row)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>
-                                                    <a href="{{ route('member.detail', $row->member_id) }}">
-                                                        <i class="fas fa-info-circle"></i>
-                                                    </a>
-                                                    <a href="" onclick="confirmRemove(event, '<?php echo route('challenge.participant.delete', $row->id_detail); ?>')">
-                                                        <i class="fas fa-trash-alt text-danger"></i>
-                                                    </a>
-                                                    <a href="#" type="button" data-toggle="modal" data-target="#modal-{{ $row->id_detail }}">
-                                                        <i class="fas fa-edit text-success"></i>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    @if ($row->member->jenis_kelamin == 'male')
-                                                    <span class="badge badge-success">Pria</span>
-                                                    @else
-                                                    <span class="badge badge-pink">Wanita</span>
-                                                    @endif
-                                                </td>
-                                                <td class="text-left">{{ $row->member->nama }}</td>
-                                                <td class="text-left">
-                                                    {{ $row->member->instansi == 'pusat' ? $row->member->uker?->nama_unit_kerja : $row->member->nama_instansi }}
-                                                </td>
-                                                <td>
-                                                    @foreach ($row->bodyCp as $noTanita => $subRow)
-                                                    <a href="" data-toggle="modal" data-target="#detail-{{ $subRow->id_bodyck }}">
-                                                        <span class="text-success">
-                                                            <i class="fas fa-check-circle"></i> Tanita {{ $noTanita+1 }} - {{ Carbon\Carbon::parse($subRow->tanggal_cek)->format('d-m-Y') }}
-                                                        </span><br>
-                                                    </a>
-                                                    @foreach ($challenge->bodyp->where('bodyck_id', $subRow->id_bodyck) as $detail)
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="detail-{{ $subRow->id_bodyck }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Tanita {{ $noTanita+1 }}</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <div class="row">
-                                                                        <label class="col-md-5">Nama</label>
-                                                                        <div class="col-md-1">:</div>
-                                                                        <div class="col-md-5">{{ $row->nama }}</div>
-                                                                        <label class="col-md-5">Asal Instansi/Unit Kerja</label>
-                                                                        <div class="col-md-1">:</div>
-                                                                        <div class="col-md-6">{{ $row->instansi == 'pusat' ? $row->uker->nama_unit_kerja : $row->nama_instansi }}</div>
-                                                                    </div>
-                                                                    <hr>
-                                                                    @foreach ($bodyckParam as $rowParam)
-                                                                    <div class="row">
-                                                                        <div class="col-md-5">
-                                                                            <label>{{ $rowParam->nama_param }}</label>
-                                                                        </div>
-                                                                        <div class="col-md-1">:</div>
-                                                                        <div class="col-md-6">
-                                                                            {{ $detail->firstWhere('param_id', $rowParam->id_param)->nilai }} {{ $rowParam->satuan }}
-                                                                        </div>
-                                                                    </div>
-                                                                    @endforeach
-                                                                </div>
-                                                                <div class="modal-footer"></div>
+                        <div class="card-body border-dark">
+                            <div class="table-responsive">
+                                <table id="tMuscleGain" class="table table-bordered text-center">
+                                    <thead class="text-sm">
+                                        <tr>
+                                            <th style="width: 5%;">No</th>
+                                            <th style="width: 5%;">Aksi</th>
+                                            <th style="width: 5%;">Gander</th>
+                                            <th>Nama</th>
+                                            <th>Asal</th>
+                                            <th style="width: 10%;">Pengecekan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-xs">
+                                        @foreach($challenge->where('challenge_id', 2) as $row)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>
+                                                <a href="{{ route('member.detail', $row->member_id) }}">
+                                                    <i class="fas fa-info-circle"></i>
+                                                </a>
+                                                <a href="" onclick="confirmRemove(event, '<?php echo route('challenge.participant.delete', $row->id_detail); ?>')">
+                                                    <i class="fas fa-trash-alt text-danger"></i>
+                                                </a>
+                                                <a href="#" type="button" data-toggle="modal" data-target="#modal-{{ $row->id_detail }}">
+                                                    <i class="fas fa-edit text-success"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                @if ($row->member->jenis_kelamin == 'male')
+                                                <span class="badge badge-success">Pria</span>
+                                                @else
+                                                <span class="badge badge-pink">Wanita</span>
+                                                @endif
+                                            </td>
+                                            <td class="text-left">{{ $row->member->nama }}</td>
+                                            <td class="text-left">
+                                                {{ $row->member->instansi == 'pusat' ? $row->member->uker?->nama_unit_kerja : $row->member->nama_instansi }}
+                                            </td>
+                                            <td>
+                                                @foreach ($row->bodyCp as $noTanita => $subRow)
+                                                <a href="" data-toggle="modal" data-target="#detail-{{ $subRow->id_bodyck }}">
+                                                    <span class="text-success">
+                                                        <i class="fas fa-check-circle"></i> Tanita {{ $noTanita+1 }} - {{ Carbon\Carbon::parse($subRow->tanggal_cek)->format('d-m-Y') }}
+                                                    </span><br>
+                                                </a>
+                                                @foreach ($challenge->bodyp->where('bodyck_id', $subRow->id_bodyck) as $detail)
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="detail-{{ $subRow->id_bodyck }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Tanita {{ $noTanita+1 }}</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
                                                             </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <label class="col-md-5">Nama</label>
+                                                                    <div class="col-md-1">:</div>
+                                                                    <div class="col-md-5">{{ $row->nama }}</div>
+                                                                    <label class="col-md-5">Asal Instansi/Unit Kerja</label>
+                                                                    <div class="col-md-1">:</div>
+                                                                    <div class="col-md-6">{{ $row->instansi == 'pusat' ? $row->uker->nama_unit_kerja : $row->nama_instansi }}</div>
+                                                                </div>
+                                                                <hr>
+                                                                @foreach ($bodyckParam as $rowParam)
+                                                                <div class="row">
+                                                                    <div class="col-md-5">
+                                                                        <label>{{ $rowParam->nama_param }}</label>
+                                                                    </div>
+                                                                    <div class="col-md-1">:</div>
+                                                                    <div class="col-md-6">
+                                                                        {{ $detail->firstWhere('param_id', $rowParam->id_param)->nilai }} {{ $rowParam->satuan }}
+                                                                    </div>
+                                                                </div>
+                                                                @endforeach
+                                                            </div>
+                                                            <div class="modal-footer"></div>
                                                         </div>
                                                     </div>
-                                                    @endforeach
-                                                    @endforeach
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                                </div>
+                                                @endforeach
+                                                @endforeach
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
+
+                    <hr>
+                    <!-- Man Top 3 Fat Loss -->
+                    <div class="text-sm text-primary font-weight-bold mb-2">
+                        <i class="fas fa-fire"></i> Man Top 3 Muscle Gain
+                    </div>
+                    <div class="row">
+                        @for ($i = 1; $i <= 3; $i++) <div class="col-md-4 col-4">
+                            <div class="card border border-dark">
+                                <div class="card-header border-dark text-center p-2">
+                                    <h3 class="font-weight-bold text-info mb-0">{{ $i }}</h3>
+                                </div>
+                                <div class="card-body border-dark p-1">
+                                    <h6 class="text-center text-sm">
+                                        <small>Nama</small><br>
+                                        <small>Asal</small><br>
+                                        <small><b>3%</b></small>
+                                    </h6>
+                                </div>
+                            </div>
+                    </div>
+                    @endfor
                 </div>
             </div>
         </div>
-    </div><br>
+    </div>
+</div>
+</div><br>
 </div>
 
 
-<!-- Modal -->
+<!-- Modal Edit -->
 @foreach($challenge as $row)
 <div class="modal fade border border-dark" id="modal-{{ $row->id_detail }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -332,6 +349,57 @@
     </div>
 </div>
 @endforeach
+
+<!-- Modal Filter -->
+<div class="modal fade" id="filter" tabindex="-1" role="dialog" aria-labelledby="filterLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-sm">
+            <div class="modal-header border-dark">
+                <h5 class="modal-title font-weight-bold text-info text-md" id="filterLabel">
+                    <i class="fas fa-filter"></i> Filter
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ route('challenge.participant.filter') }}" method="GET">
+                @csrf
+                <div class="modal-body">
+                    <label class="text-sm mb-0">Pilih Instansi</label>
+                    <select name="instansi" class="form-control form-control-sm border-dark" id="instansi">
+                        <option value="">-- Seluruh Instansi --</option>
+                        <option value="pusat" <?php echo $instansi == 'pusat' ? 'selected' : ''; ?>>Kemenkes</option>
+                        <option value="upt" <?php echo $instansi == 'upt' ? 'selected' : ''; ?>>UPT</option>
+                        <option value="umum" <?php echo $instansi == 'umum' ? 'selected' : ''; ?>>Mitra</option>
+                    </select>
+
+                    <div id="pusat" class="d-none">
+                        <label class="small mt-2 mb-0">Pilih Unit Utama</label>
+                        <select id="utamaSelect" name="utama" class="form-control form-control-sm border-dark">
+                            <option value="">-- Seluruh Unit Utama --</option>
+                            @foreach ($utama as $row)
+                            <option value="{{ $row->id_unit_utama }}">
+                                {{ $row->nama_unit_utama }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <label class="small mt-2 mb-0">Pilih Gender</label>
+                    <select name="gender" class="form-control form-control-sm border-dark" id="">
+                        <option value="">-- Seluruh Gender --</option>
+                        <option value="male" <?php echo $gender == 'male' ? 'selected' : ''; ?>>Laki-laki</option>
+                        <option value="female" <?php echo $gender == 'female' ? 'selected' : ''; ?>>Perempuan</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-info btn-sm"><i class="fas fa-search"></i> Cari</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 @section('js')
 <script>
@@ -402,6 +470,29 @@
             "bDestroy": true
         }).buttons().container().appendTo('#tMuscleGain_wrapper .col-md-6:eq(0)');
     });
+</script>
+
+<script>
+    $(document).ready(function() {
+        // Asal Instansi
+        $('select[name="instansi"]').change(function() {
+            var selectedValue = $(this).val()
+
+            if (selectedValue === 'pusat') {
+                $('#pusat').removeClass('d-none')
+                $('#umum').addClass('d-none')
+            } else if (selectedValue === 'umum') {
+                $('#pusat').addClass('d-none')
+                $('#umum').removeClass('d-none')
+            } else if (selectedValue === 'upt') {
+                $('#pusat').addClass('d-none')
+                $('#umum').removeClass('d-none')
+            } else {
+                $('#pusat').addClass('d-none')
+                $('#umum').addClass('d-none')
+            }
+        });
+    })
 </script>
 
 <script>
