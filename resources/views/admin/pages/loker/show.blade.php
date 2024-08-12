@@ -183,60 +183,6 @@
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="col-md-12">
-                        <hr>
-                        <div class="card border border-dark">
-                            <div class="card-header border-dark">
-                                <label class="card-title">Riwayat Pemakaian Loker</label>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool text-dark" data-card-widget="collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="card-body rounded">
-                                <div class="table-responsive">
-                                    <table id="tLoker" class="table table-bordered text-center small">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th style="width: 0%;"></th>
-                                                <th>Nama</th>
-                                                <th>Asal</th>
-                                                <th>No. Loker</th>
-                                                <th>Waktu Pinjam</th>
-                                                <th>Waktu Kembali</th>
-                                                <th>Kategori</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($riwayat as $row)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>
-                                                    <a href="" onclick="confirmRemove(event, '<?php echo route('loker.riwayat.delete', $row->id_peminjaman); ?>')">
-                                                        <i class="fas fa-trash"></i>
-                                                    </a>
-                                                </td>
-                                                <td class="text-left">{{ $row->member->nama }}</td>
-                                                <td>{{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</td>
-                                                <td class="text-md"><b>{{ $row->no_loker }}</b></td>
-                                                <td>{{ Carbon\Carbon::parse($row->created_at)->format('H:i:s') }}</td>
-                                                <td>{{ $row->waktu_kembali }}</td>
-                                                <td>
-                                                    @if ($row->jenis_loker == 'male') <span class="badge badge-info">Laki-laki</span> @endif
-                                                    @if ($row->jenis_loker == 'female') <span class="badge badge-pink">Perempuan</span> @endif
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
