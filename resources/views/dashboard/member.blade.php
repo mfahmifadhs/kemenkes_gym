@@ -36,10 +36,6 @@
                                     </h4>
                                     <span style="font-size: 10px; color: red;"><b>Kuota terbatas</b></span> -->
                                     <!-- <h3 class="text-white"><b>COMING SOON!</b></h3> -->
-                                    <a href="https://link.kemkes.go.id/LombaBootcampWarrior" class="btn btn-danger btn-sm"
-                                    style="margin: 10vh 0px 0px 35%; font-size: 12px; background-color: #a41515;" target="__blank">
-                                        IKUT LOMBA
-                                    </a>
                                 </div>
                                 <div class="col-4 text-center">
                                     <a type="button" href="{{ route('member.qrcode') }}" class="btn btn-default bg-white border border-dark px-2 py-0 pt-1">
@@ -103,6 +99,15 @@
                                 </div>
                             </div>
                             <span class="new-label">Hot</span>
+                        </a>
+
+                        <a href="https://link.kemkes.go.id/LombaBootcampWarrior" class="col-md-3 form-group col-6" target="_blank">
+                            <div class="card" style="border-radius: 20px; background: linear-gradient(180deg, red 50%, white 50%);">
+                                <div class="card-body text-dark text-center font-weight-bold p-2 small">
+                                    <i class="fa fa-trophy"></i> Bootcamp Warrior
+                                </div>
+                            </div>
+                            <span class="label-warning">Spesial Kemerdekaan</span>
                         </a>
                         <!-- <a href="{{ route('progres') }}" class="col-md-2 col-6">
                             <div class="card bg-main" style="border-radius: 20px;">
