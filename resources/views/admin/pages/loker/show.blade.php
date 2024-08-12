@@ -42,7 +42,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="card-body p-1">
+                            <div class="card-body p-1 table-responsive">
                                 <table class="table table-bordered">
                                     <tbody class="text-center">
                                         <!-- Inisialisasi counter -->
@@ -55,7 +55,7 @@
                                             <tr>
                                             @for ($j = 1; $j <= 12; $j++)
                                                 @if ($lokerToday->where('jenis_loker', 'male')->whereNull('waktu_kembali')->count() == 0)
-                                                    <td class="link-cell" data-url="{{ route('loker.no.detail', ['ctg' => 'female', 'id' => $counter]) }}">
+                                                    <td class="link-cell" data-url="{{ route('loker.no.detail', ['ctg' => 'male', 'id' => $counter]) }}">
                                                         {{ $counter }}
                                                     </td>
                                                 @else
@@ -94,7 +94,7 @@
                                 </div>
                             </div>
 
-                            <div class="card-body">
+                            <div class="card-body table-responsive">
                                 <table class="table table-bordered">
                                     <tbody class="text-center">
                                         <!-- Inisialisasi counter -->
