@@ -47,9 +47,7 @@
                                     </small>
                                 </h6>
                                 <div class="card-tools">
-                                    <a href="">
-                                        <i class="fas fa-filter"></i>
-                                    </a>
+                                    Total : {{ $challenge->where('challenge_id', 1)->count() }}
                                 </div>
                             </div>
                             <div class="card-body border-dark">
@@ -178,9 +176,7 @@
                                 </small>
                             </h6>
                             <div class="card-tools">
-                                <a href="">
-                                    <i class="fas fa-filter"></i>
-                                </a>
+                                Total : {{ $challenge->where('challenge_id', 2)->count() }}
                             </div>
                         </div>
                         <div class="card-body border-dark">
