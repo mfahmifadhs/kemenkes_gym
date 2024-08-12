@@ -23,13 +23,12 @@
                         <li class="breadcrumb-item active">Challenge</li>
                     </ol>
                 </div>
-                @if (Auth::user()->role_id == 1)
+
                 <div class="col-sm-6 col-6 text-right mt-2">
                     <a href="#" class="btn btn-default btn-sm border-dark" data-toggle="modal" data-target="#filter">
                         <i class="fas fa-filter"></i> Filter
                     </a>
                 </div>
-                @endif
             </div>
         </div>
     </div>
