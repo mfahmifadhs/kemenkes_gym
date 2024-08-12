@@ -39,30 +39,30 @@
             <div class="col-md-12 col-12 mx-auto">
                 <div class="row">
                     <div class="col-md-6">
+                        <table class="table">
+
+                        </table>
+                        <!-- Man Top 3 Fat Loss -->
+                        <div class="text-sm text-primary font-weight-bold mb-2">
+                            <i class="fas fa-fire"></i> Man Top 3 Fat Loss
+                        </div>
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="text-sm mb-2"><i class="fas fa-fire"></i> Top 3 Fat Loss</div>
-                                @foreach (collect($topFatLoss)->sortBy('progress') as $row)
-                                <div class="info-box">
-                                    <span class="info-box-icon bg-info elevation-1">
-                                        <h2 class="font-weight-bold mt-2">{{ $loop->iteration }}</h2>
-                                    </span>
-                                    <div class="info-box-content">
-                                        <span class="info-box-text small">
-                                            <h6>{{ ucwords(strtolower($row['nama'])) }} <br>
-                                                <small>{{ Str::limit($row['uker'], 40) }}</small>
-                                            </h6>
-                                        </span>
-                                        <span class="info-box-number">
-                                            <b>{{ $row['progress'] }} <small class="text-xs">%</small></b>
-                                        </span>
+                            @for ($i = 1; $i <= 3; $i++)
+                            <div class="col-md-4 col-4">
+                                <div class="card border border-dark">
+                                    <div class="card-header border-dark text-center p-2">
+                                        <h3 class="font-weight-bold text-info mb-0">{{ $i }}</h3>
+                                    </div>
+                                    <div class="card-body border-dark p-1">
+                                        <h6 class="text-center text-sm">
+                                            <small>Nama</small><br>
+                                            <small>Asal</small><br>
+                                            <small><b>3%</b></small>
+                                        </h6>
                                     </div>
                                 </div>
-                                @endforeach
-                                @if (!collect($topFatLoss)->count())
-                                <div class="mt-2 mb-4">Tidak ada data</div>
-                                @endif
                             </div>
+                            @endfor
                         </div>
                         <div class="text-sm mb-2"><i class="fas fa-weight-scale"></i> Fat Loss Participant</div>
                         <div class="card border border-dark">

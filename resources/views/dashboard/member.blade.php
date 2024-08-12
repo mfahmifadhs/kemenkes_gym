@@ -17,6 +17,7 @@
                 <div id="alert" class="alert bg-success">
                     <p style="color:white;margin: auto;">{{ $message }}</p>
                 </div>
+
                 <script>
                     setTimeout(function() {
                         document.getElementById('alert').style.display = 'none';
@@ -35,6 +36,10 @@
                                     </h4>
                                     <span style="font-size: 10px; color: red;"><b>Kuota terbatas</b></span> -->
                                     <!-- <h3 class="text-white"><b>COMING SOON!</b></h3> -->
+                                    <a href="https://link.kemkes.go.id/LombaBootcampWarrior" class="btn btn-danger btn-sm"
+                                    style="margin: 10vh 0px 0px 35%; font-size: 12px; background-color: #a41515;" target="__blank">
+                                        IKUT LOMBA
+                                    </a>
                                 </div>
                                 <div class="col-4 text-center">
                                     <a type="button" href="{{ route('member.qrcode') }}" class="btn btn-default bg-white border border-dark px-2 py-0 pt-1">

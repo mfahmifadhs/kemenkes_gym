@@ -130,6 +130,10 @@
         <i class="fa fa-arrow-up"></i>
     </button>
 
+    <audio id="welcomeAudio" loop>
+        <source src="{{ asset('dist/music/17aug.mp3') }}">
+    </audio>
+
     <!-- Footer Section Begin -->
     <section class="footer-section" style="margin-top: 26%;">
         <div class="container">
@@ -173,6 +177,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/0.7.0/chartjs-plugin-datalabels.min.js"></script>
 
     @yield('js')
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var audio = document.getElementById('welcomeAudio');
+            audio.play().catch((error) => {
+                console.log('Autoplay diblokir:', error);
+            });
+        });
+    </script>
 
     <script>
         $(document).ready(function() {
