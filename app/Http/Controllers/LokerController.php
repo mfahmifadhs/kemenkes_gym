@@ -81,8 +81,8 @@ class LokerController extends Controller
     public function detail($ctg, $id)
     {
         $kategori = $ctg == 'male' ? 'Laki-laki' : 'Perempuan';
-        $pengguna = Loker::where('jenis_loker', $ctg)->where('no_loker', $id)->first();
-        $riwayat  = Loker::where('jenis_loker', $ctg)->where('no_loker', $id)->get();
+        $pengguna = Loker::where('jenis_loker', $ctg)->where('no_loker', $id)->whereNull('waktu_kembali')->first();
+        $riwayat  = Loker::where('jenis_loker', $ctg)->where('no_loker', $id)->orderBy('id_peminjaman', 'DESC')->get();
 
         return view('admin.pages.loker.detail', compact('kategori', 'id', 'pengguna', 'riwayat'));
     }
