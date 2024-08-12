@@ -201,7 +201,8 @@
                                     <table id="tLoker" class="table table-bordered text-center small">
                                         <thead>
                                             <tr>
-                                                <th style="width: 0%;"</th>
+                                                <th>No</th>
+                                                <th style="width: 0%;"></th>
                                                 <th>Nama</th>
                                                 <th>Asal</th>
                                                 <th>No. Loker</th>
