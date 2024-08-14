@@ -45,38 +45,23 @@
                             <div class="card-body p-1 table-responsive">
                                 <table class="table table-bordered">
                                     <tbody class="text-center">
-                                        <!-- Inisialisasi counter -->
                                         @php
                                         $counter = 1;
+                                        // Retrieve and organize data before rendering
+                                        $lockedNumbers = $lokerToday->where('jenis_loker', 'male')->whereNull('waktu_kembali')->pluck('no_loker')->toArray();
                                         @endphp
 
-                                        <!-- Baris -->
-                                        @for ($i = 1; $i <= 3; $i++)
-                                            <tr>
-                                            @for ($j = 1; $j <= 12; $j++)
-                                                @if ($lokerToday->where('jenis_loker', 'male')->whereNull('waktu_kembali')->count() == 0)
-                                                    <td class="link-cell" data-url="{{ route('loker.no.detail', ['ctg' => 'male', 'id' => $counter]) }}">
-                                                        {{ $counter }}
-                                                    </td>
-                                                @else
-                                                    @foreach ($lokerToday->where('jenis_loker', 'male')->whereNull('waktu_kembali') as $row)
-                                                        @if ($row->no_loker == $counter)
-                                                        <td class="link-cell bg-danger" data-url="{{ route('loker.no.detail', ['ctg' => 'male', 'id' => $counter]) }}">
-                                                            {{ $counter }}
-                                                        </td>
-                                                        @else
-                                                        <td class="link-cell" data-url="{{ route('loker.no.detail', ['ctg' => 'male', 'id' => $counter]) }}">
-                                                            {{ $counter }}
-                                                        </td>
-                                                        @endif
-                                                    @endforeach
-                                                @endif
+                                        @for ($i = 1; $i <= 3; $i++) <tr>
+                                            @for ($j = 1; $j <= 12; $j++) @php $isLocked=in_array($counter, $lockedNumbers); @endphp <td class="link-cell {{ $isLocked ? 'bg-danger' : '' }}" data-url="{{ route('loker.no.detail', ['ctg' => 'male', 'id' => $counter]) }}">
+                                                {{ $counter }}
+                                                </td>
+
                                                 @php
-                                                    $counter++;
+                                                $counter++;
                                                 @endphp
-                                            @endfor
-                                            </tr>
-                                        @endfor
+                                                @endfor
+                                                </tr>
+                                                @endfor
                                     </tbody>
                                 </table>
                             </div>
@@ -94,41 +79,26 @@
                                 </div>
                             </div>
 
-                            <div class="card-body table-responsive">
+                            <div class="card-body p-1 table-responsive">
                                 <table class="table table-bordered">
                                     <tbody class="text-center">
-                                        <!-- Inisialisasi counter -->
                                         @php
                                         $counter = 1;
+                                        // Retrieve and organize data before rendering
+                                        $lockedNumbers = $lokerToday->where('jenis_loker', 'female')->whereNull('waktu_kembali')->pluck('no_loker')->toArray();
                                         @endphp
 
-                                        <!-- Baris -->
-                                        @for ($i = 1; $i <= 3; $i++)
-                                            <tr>
-                                            @for ($j = 1; $j <= 15; $j++)
-                                                @if ($lokerToday->where('jenis_loker', 'female')->whereNull('waktu_kembali')->count() == 0)
-                                                    <td class="link-cell" data-url="{{ route('loker.no.detail', ['ctg' => 'female', 'id' => $counter]) }}">
-                                                        {{ $counter }}
-                                                    </td>
-                                                @else
-                                                    @foreach ($lokerToday->where('jenis_loker', 'female')->whereNull('waktu_kembali') as $row)
-                                                        @if ($row->no_loker == $counter)
-                                                        <td class="link-cell bg-danger" data-url="{{ route('loker.no.detail', ['ctg' => 'female', 'id' => $counter]) }}">
-                                                            {{ $counter }}
-                                                        </td>
-                                                        @else
-                                                        <td class="link-cell" data-url="{{ route('loker.no.detail', ['ctg' => 'female', 'id' => $counter]) }}">
-                                                            {{ $counter }}
-                                                        </td>
-                                                        @endif
-                                                    @endforeach
-                                                @endif
+                                        @for ($i = 1; $i <= 3; $i++) <tr>
+                                            @for ($j = 1; $j <= 15; $j++) @php $isLocked=in_array($counter, $lockedNumbers); @endphp <td class="link-cell {{ $isLocked ? 'bg-danger' : '' }}" data-url="{{ route('loker.no.detail', ['ctg' => 'female', 'id' => $counter]) }}">
+                                                {{ $counter }}
+                                                </td>
+
                                                 @php
-                                                    $counter++;
+                                                $counter++;
                                                 @endphp
-                                            @endfor
-                                            </tr>
-                                        @endfor
+                                                @endfor
+                                                </tr>
+                                                @endfor
                                     </tbody>
                                 </table>
                             </div>
