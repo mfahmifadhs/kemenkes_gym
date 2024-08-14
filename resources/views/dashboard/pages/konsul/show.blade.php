@@ -172,8 +172,8 @@
                                         <i class="fa fa-male"></i> Hubungi Coach Wiyata
                                     </a>
                                     &nbsp;
-                                    <a href="https://api.whatsapp.com/send?phone=+{{ $phoneSalsa}}&text={{ $msg }}" target="_blank" class="btn btn-primary btn-sm">
-                                        <i class="fa fa-female"></i> Hubungi Coach Salsa
+                                    <a href="https://api.whatsapp.com/send?phone=+{{ $phoneFaris}}&text={{ $msg }}" target="_blank" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-female"></i> Hubungi Coach Faris
                                     </a>
                                 </div>
                             </div>
