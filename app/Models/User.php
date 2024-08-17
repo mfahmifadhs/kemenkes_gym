@@ -79,4 +79,8 @@ class User extends Authenticatable
     public function konsul() {
         return $this->hasMany(Konsultasi::class, 'member_id');
     }
+
+    public function bodycp() {
+        return $this->hasMany(Bodycp::class, 'member_id');
+    }
 }

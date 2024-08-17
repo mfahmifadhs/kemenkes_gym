@@ -25,6 +25,9 @@
                 </div>
 
                 <div class="col-sm-6 col-6 text-right mt-2">
+                    <a href="{{ route('challenge.leaderboard') }}" class="btn btn-default btn-sm border-dark">
+                        <i class="fas fa-ranking-star"></i> Leaderboard
+                    </a>
                     <a href="#" class="btn btn-default btn-sm border-dark" data-toggle="modal" data-target="#filter">
                         <i class="fas fa-filter"></i> Filter
                     </a>
@@ -52,14 +55,14 @@
                             <div class="card-body border-dark">
                                 <div class="table-responsive">
                                     <table id="tFatLoss" class="table table-bordered text-center">
-                                        <thead class="text-sm">
+                                        <thead class="text-xs">
                                             <tr>
-                                                <th style="width: 5%;">No</th>
+                                                <th style="width: 0%;">No</th>
                                                 <th style="width: 5%;">Aksi</th>
+                                                <th style="width: 10%;">Tanita</th>
                                                 <th style="width: 5%;">Gender</th>
                                                 <th>Nama</th>
                                                 <th>Asal</th>
-                                                <th style="width: 10%;">Pengecekan</th>
                                             </tr>
                                         </thead>
                                         <tbody class="text-xs">
@@ -78,6 +81,11 @@
                                                     </a>
                                                 </td>
                                                 <td>
+                                                    @if ($row->member->bodycp()->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-09'])->count() == 1)
+                                                    <b><i class="fas fa-check-circle text-success"></i> Tahap 1</b>
+                                                    @endif
+                                                </td>
+                                                <td>
                                                     @if ($row->member->jenis_kelamin == 'male')
                                                     <span class="badge badge-success">Pria</span>
                                                     @else
@@ -87,8 +95,7 @@
                                                 <td class="text-left">{{ $row->member->nama }} </td>
                                                 <td class="text-left">
                                                     {{ $row->member->instansi == 'pusat' ? $row->member->uker?->nama_unit_kerja : $row->member->nama_instansi }}
-                                                </td>
-                                                <td>
+
                                                     @foreach ($row->bodyCp as $noTanita => $subRow)
                                                     <a href="" data-toggle="modal" data-target="#detail-{{ $subRow->id_bodyck }}">
                                                         <span class="text-success">
@@ -183,12 +190,12 @@
                                 <table id="tMuscleGain" class="table table-bordered text-center">
                                     <thead class="text-sm">
                                         <tr>
-                                            <th style="width: 5%;">No</th>
+                                            <th style="width: 0%;">No</th>
                                             <th style="width: 5%;">Aksi</th>
+                                            <th style="width: 10%;">Aksi</th>
                                             <th style="width: 5%;">Gander</th>
                                             <th>Nama</th>
                                             <th>Asal</th>
-                                            <th style="width: 10%;">Pengecekan</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-xs">
@@ -207,6 +214,11 @@
                                                 </a>
                                             </td>
                                             <td>
+                                                @if ($row->member->bodycp()->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-09'])->count() == 1)
+                                                <b><i class="fas fa-check-circle text-success"></i> Tahap 1</b>
+                                                @endif
+                                            </td>
+                                            <td>
                                                 @if ($row->member->jenis_kelamin == 'male')
                                                 <span class="badge badge-success">Pria</span>
                                                 @else
@@ -216,8 +228,7 @@
                                             <td class="text-left">{{ $row->member->nama }}</td>
                                             <td class="text-left">
                                                 {{ $row->member->instansi == 'pusat' ? $row->member->uker?->nama_unit_kerja : $row->member->nama_instansi }}
-                                            </td>
-                                            <td>
+
                                                 @foreach ($row->bodyCp as $noTanita => $subRow)
                                                 <a href="" data-toggle="modal" data-target="#detail-{{ $subRow->id_bodyck }}">
                                                     <span class="text-success">
@@ -307,7 +318,7 @@
 <div class="modal fade border border-dark" id="modal-{{ $row->id_detail }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form id="form" action="{{ route('challenge.participant.update', $row->id_detail) }}" method="GET">
+            <form id="form-{{ $row->id_detail }}" action="{{ route('challenge.participant.update', $row->id_detail) }}" method="GET">
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Update Data</h5>
@@ -337,7 +348,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="confirmSubmit(event)">Simpan</button>
+                    <button type="button" class="btn btn-primary" onclick="confirmSubmit(event, <?php echo $row->id_detail; ?>)">Simpan</button>
                 </div>
             </form>
         </div>
@@ -491,10 +502,10 @@
 </script>
 
 <script>
-    function confirmSubmit(event) {
+    function confirmSubmit(event, id) {
         event.preventDefault();
 
-        const form = document.getElementById('form');
+        const form = document.getElementById('form-' + id);
 
         Swal.fire({
             title: "Loading...",

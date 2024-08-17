@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\BodyckDetail;
+use App\Models\Bodycp;
 use App\Models\Challenge;
 use App\Models\ChallengeDetail;
+use App\Models\Leaderboard;
 use App\Models\UnitUtama;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PDF;
 use Auth;
+use DB;
 
 class ChallengeController extends Controller
 {
@@ -26,9 +29,19 @@ class ChallengeController extends Controller
         $topMuscleGain = collect($this->topProgress(5))->take(3);
 
         if ($role != 4) {
-            return view('admin.pages.challenge.show', compact('challenge', 'topFatLoss', 'topMuscleGain', 'utama', 'instansi','gender'));
+            return view('admin.pages.challenge.show', compact('challenge', 'topFatLoss', 'topMuscleGain', 'utama', 'instansi', 'gender'));
         } else {
-            return view('dashboard.pages.challenge.show', compact('check'));
+            $user = Auth::user()->id;
+            $challenge = ChallengeDetail::where('member_id', $user)->first();
+            $bodyCp    = Bodycp::orderBy('id_bodycp', 'ASC')->where('member_id', $user)
+                ->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-09'])
+                ->get();
+
+            if (!$challenge) {
+                return redirect()->route('dashboard')->with('failed', 'Pendaftaran Challenge Sudah Ditutup');
+            }
+
+            return view('dashboard.pages.challenge.show', compact('check', 'challenge', 'bodyCp'));
         }
     }
 
@@ -66,7 +79,7 @@ class ChallengeController extends Controller
             $challenge = $data->get();
         }
 
-        return view('admin.pages.challenge.show', compact('challenge','topFatLoss','topMuscleGain','utama','instansi','gender'));
+        return view('admin.pages.challenge.show', compact('challenge', 'topFatLoss', 'topMuscleGain', 'utama', 'instansi', 'gender'));
     }
 
     public function detail($id)
@@ -163,5 +176,104 @@ class ChallengeController extends Controller
     {
         ChallengeDetail::where('id_detail', $id)->delete();
         return redirect()->route('challenge')->with('success', 'Berhasil Menghapus Data!');
+    }
+
+    public function leaderboard()
+    {
+        $instansi  = '';
+        $gender    = '';
+        $utama     = UnitUtama::get();
+        $challenge = Challenge::get();
+        $board     = Leaderboard::orderBy('id_leaderboard', 'ASC')->get();
+        $peserta   = ChallengeDetail::with('member')->get();
+
+        $timbangan = Bodycp::orderBy('id_bodycp', 'ASC')
+            ->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-09'])
+            ->get();
+
+        return view('admin.pages.challenge.leaderboard', compact('board', 'peserta', 'challenge', 'timbangan', 'utama', 'instansi', 'gender'));
+    }
+
+    public function leaderboardFilter(Request $request)
+    {
+        $tahapan = [
+            ['title' => 'tahap1', 'startDate' => '2024-08-05', 'endDate' => '2024-08-09'],
+            ['title' => 'tahap2', 'startDate' => '2024-09-02', 'endDate' => '2024-09-06'],
+            ['title' => 'tahap3', 'startDate' => '2024-10-01', 'endDate' => '2024-10-04'],
+            ['title' => 'tahap4', 'startDate' => '2024-10-28', 'endDate' => '2024-10-31'],
+        ];
+
+        $instansi   = $request->get('instansi');
+        $unitUtama  = $request->get('utama');
+        $gender     = $request->get('gender');
+        $tahap      = $request->get('tahap');
+        $board      = Leaderboard::orderBy('id_leaderboard', 'ASC')->get();
+        $pilihTahap = collect($tahapan)->firstWhere('title', $tahap);
+        $pickChall  = $request->get('challenge');
+        $challenge  = Challenge::get();
+        $utama      = UnitUtama::get();
+        $peserta    = ChallengeDetail::with('member')->get();
+        $bodyCp     = Bodycp::with('member', 'member.uker')->orderBy('id_bodycp', 'ASC');
+        $dataChall  = ChallengeDetail::with('member','challenge')->orderBy('id_detail', 'ASC');
+
+        if ($instansi || $tahap || $unitUtama || $gender || $pickChall) {
+            if ($instansi) {
+                $result = $dataChall->whereHas('member', function ($query) use ($instansi) {
+                    $query->where('instansi', $instansi);
+                });
+            }
+
+            if ($unitUtama) {
+                $result = $dataChall->whereHas('member.uker', function ($query) use ($unitUtama) {
+                    $query->where('unit_utama_id', $unitUtama);
+                });
+            }
+
+            if ($tahap) {
+                $result = $bodyCp->whereBetween(
+                    DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"),
+                    [$pilihTahap['startDate'], $pilihTahap['endDate']]
+                );
+            }
+
+            if ($gender) {
+                $result = $dataChall->whereHas('member', function ($query) use ($gender) {
+                    $query->where('jenis_kelamin', $gender);
+                });
+            }
+
+            if ($pickChall) {
+                $result = $dataChall->whereHas('challenge', function ($query) use ($challenge) {
+                    $query->where('challenge_id', $challenge);
+                });
+            }
+
+            $timbangan = $result->get();
+        }
+
+        return view('admin.pages.challenge.leaderboard', compact('board', 'peserta', 'challenge', 'timbangan', 'utama', 'instansi', 'gender'));
+    }
+
+    public function leaderboardUpdate(Request $request, $id)
+    {
+        $member = $request->get('member_id');
+        $nilai  = $request->get('nilai');
+
+        Leaderboard::where('id_leaderboard', $id)->update([
+            'member_id' => $member,
+            'nilai'     => $nilai
+        ]);
+
+        return redirect()->route('challenge.leaderboard')->with('success', 'Berhasil menyimpan pemenang');
+    }
+
+    public function leaderboardDelete($id)
+    {
+        Leaderboard::where('id_leaderboard', $id)->update([
+            'member_id' => null,
+            'nilai'     => null
+        ]);
+
+        return redirect()->route('challenge.leaderboard')->with('success', 'Berhasil menghapus pemenang');
     }
 }

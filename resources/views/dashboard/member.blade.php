@@ -25,6 +25,18 @@
                 </script>
                 @endif
 
+                @if ($message = Session::get('failed'))
+                <div id="alert" class="alert bg-danger">
+                    <p style="color:white;margin: auto;">{{ $message }}</p>
+                </div>
+
+                <script>
+                    setTimeout(function() {
+                        document.getElementById('alert').style.display = 'none';
+                    }, 5000);
+                </script>
+                @endif
+
                 <div class="section-body">
                     <div class="card mb-3" style="border-radius: 20px;background-image: url('<?php echo asset('dist/img/bg-card.png'); ?>'); background-size: cover; background-position: center;">
                         <div class="card-body">

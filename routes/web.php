@@ -98,6 +98,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('loker/riwayat/delete/{id}', [LokerController::class, 'delete'])->name('loker.riwayat.delete');
 
     Route::get('challenge', [ChallengeController::class, 'index'])->name('challenge');
+    Route::get('challenge/leaderboard', [ChallengeController::class, 'leaderboard'])->name('challenge.leaderboard');
+    Route::get('challenge/leaderboard/filter', [ChallengeController::class, 'leaderboardFilter'])->name('challenge.leaderboard.filter');
+    Route::get('challenge/leaderboard/update/{id}', [ChallengeController::class, 'leaderboardUpdate'])->name('challenge.leaderboard.update');
+    Route::get('challenge/leaderboard/delete/{id}', [ChallengeController::class, 'leaderboardDelete'])->name('challenge.leaderboard.delete');
     Route::get('challenge/{id}', [ChallengeController::class, 'detail'])->name('challenge.detail');
     Route::get('challenge/join/{id}', [ChallengeController::class, 'join'])->name('challenge.join');
     Route::get('challenge/ticket/{id}', [ChallengeController::class, 'ticket'])->name('challenge.ticket');
