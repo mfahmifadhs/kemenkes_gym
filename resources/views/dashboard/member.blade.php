@@ -113,14 +113,6 @@
                             <span class="new-label">Hot</span>
                         </a>
 
-                        <a href="https://link.kemkes.go.id/LombaBootcampWarrior" class="col-md-3 form-group col-6" target="_blank">
-                            <div class="card" style="border-radius: 20px; background: linear-gradient(180deg, red 50%, white 50%);">
-                                <div class="card-body text-dark text-center font-weight-bold p-2 small">
-                                    <i class="fa fa-trophy"></i> Bootcamp Warrior
-                                </div>
-                            </div>
-                            <span class="label-warning">Spesial Kemerdekaan</span>
-                        </a>
                         <!-- <a href="{{ route('progres') }}" class="col-md-2 col-6">
                             <div class="card bg-main" style="border-radius: 20px;">
                                 <div class="card-body text-white text-center font-weight-bold p-2 small">
