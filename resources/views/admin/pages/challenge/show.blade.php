@@ -70,10 +70,10 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>
-                                                    <a href="{{ route('member.detail', $row->member_id) }}">
+                                                    <a href="{{ route('challenge.participant.detail', $row->member_id) }}">
                                                         <i class="fas fa-info-circle"></i>
                                                     </a>
-                                                    <a href="" onclick="confirmRemove(event, '<?php echo route('challenge.participant.delete', $row->id_detail); ?>')">
+                                                    <a href="" onclick="confirmRemove(event, `{{ route('challenge.participant.delete', $row->id_detail) }}`)">
                                                         <i class="fas fa-trash-alt text-danger"></i>
                                                     </a>
                                                     <a href="#" type="button" data-toggle="modal" data-target="#modal-{{ $row->id_detail }}">
@@ -81,7 +81,7 @@
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    @if ($row->member->bodycp()->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-09'])->count() == 1)
+                                                    @if ($row->member->bodycp()->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-09'])->count() != 0)
                                                     <b><i class="fas fa-check-circle text-success"></i> Tahap 1</b>
                                                     @endif
                                                 </td>
@@ -203,10 +203,10 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
-                                                <a href="{{ route('member.detail', $row->member_id) }}">
+                                                <a href="{{ route('challenge.participant.detail', $row->member_id) }}">
                                                     <i class="fas fa-info-circle"></i>
                                                 </a>
-                                                <a href="" onclick="confirmRemove(event, '<?php echo route('challenge.participant.delete', $row->id_detail); ?>')">
+                                                <a href="" onclick="confirmRemove(event, `{{ route('challenge.participant.delete', $row->id_detail) }} `)">
                                                     <i class="fas fa-trash-alt text-danger"></i>
                                                 </a>
                                                 <a href="#" type="button" data-toggle="modal" data-target="#modal-{{ $row->id_detail }}">
@@ -214,7 +214,7 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                @if ($row->member->bodycp()->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-09'])->count() == 1)
+                                                @if ($row->member->bodycp()->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-09'])->count() != 0)
                                                 <b><i class="fas fa-check-circle text-success"></i> Tahap 1</b>
                                                 @endif
                                             </td>
@@ -348,7 +348,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="confirmSubmit(event, <?php echo $row->id_detail; ?>)">Simpan</button>
+                    <button type="button" class="btn btn-primary" onclick="confirmSubmit(event, `{{ $row->id_detail }}`)">Simpan</button>
                 </div>
             </form>
         </div>

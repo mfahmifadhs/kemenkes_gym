@@ -33,7 +33,7 @@ class ChallengeController extends Controller
         } else {
             $user = Auth::user()->id;
             $challenge = ChallengeDetail::where('member_id', $user)->first();
-            $bodyCp    = Bodycp::orderBy('id_bodycp', 'ASC')->where('member_id', $user)
+            $bodyCp    = Bodycp::orderBy('id_bodycp', 'DESC')->where('member_id', $user)
                 ->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-09'])
                 ->get();
 
@@ -168,6 +168,19 @@ class ChallengeController extends Controller
         return $results;
     }
 
+    public function participantDetail($id)
+    {
+        $challenge = ChallengeDetail::where('member_id', $id)->first();
+        $bodyCp    = Bodycp::orderBy('id_bodycp', 'DESC')->where('member_id', $id)
+            ->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-09'])
+            ->get();
+        if (!$bodyCp) {
+            return redirect()->route('challenge')->with('failed', 'Data Penimbangan Tidak Ditemukan');
+        }
+
+        return view('admin.pages.challenge.detail', compact('challenge','bodyCp'));
+    }
+
     public function participantUpdate(Request $request, $id)
     {
         ChallengeDetail::where('id_detail', $id)->update([
@@ -218,7 +231,7 @@ class ChallengeController extends Controller
         $utama      = UnitUtama::get();
         $peserta    = ChallengeDetail::with('member')->get();
         $bodyCp     = Bodycp::with('member', 'member.uker')->orderBy('id_bodycp', 'ASC');
-        $dataChall  = ChallengeDetail::with('member','challenge')->orderBy('id_detail', 'ASC');
+        $dataChall  = ChallengeDetail::with('member', 'challenge')->orderBy('id_detail', 'ASC');
 
         if ($instansi || $tahap || $unitUtama || $gender || $pickChall) {
             if ($instansi) {
@@ -279,5 +292,12 @@ class ChallengeController extends Controller
         ]);
 
         return redirect()->route('challenge.leaderboard')->with('success', 'Berhasil menghapus pemenang');
+    }
+
+    public function tanitaDelete($id)
+    {
+        $detail = Bodycp::where('id_bodycp', $id)->first();
+        Bodycp::where('id_bodycp', $id)->delete();
+        return back()->with('success', 'Berhasil Menghapus Data');
     }
 }
