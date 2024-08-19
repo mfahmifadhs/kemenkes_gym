@@ -27,8 +27,8 @@
                                 @endif
 
                                 @php
-                                $first = $bodyCp->first();
-                                $last = $bodyCp->last();
+                                $first = $bodyCp?->first();
+                                $last = $bodyCp?->last();
                                 @endphp
                             </div>
                             <div class="col-md-9 col-12">
