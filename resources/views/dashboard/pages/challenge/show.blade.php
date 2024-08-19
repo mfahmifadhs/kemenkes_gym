@@ -58,14 +58,14 @@
                                         <div class="input-group small">
                                             <label style="width: 20%;">Fat Loss</label>
                                             <label style="width: 80%;">:
-                                                {{ ($first->fatp - $last->fatp) < 0 ? '+' : '-' }} {{ abs($first->fatp - $last->fatp) }} %
+                                                {{ ($first?->fatp - $last?->fatp) < 0 ? '+' : '-' }} {{ abs($first?->fatp - $last?->fatp) }} %
                                             </label>
                                         </div>
                                         @else
                                         <div class="input-group small">
                                             <label style="width: 20%;">Muscle Gain</label>
                                             <label style="width: 80%;">:
-                                                {{ ($first->pmm - $last->pmm) < 0 ? '+' : '-' }} {{ number_format(abs($last->pmm - $first->pmm), 1) }} kg
+                                                {{ ($first?->pmm - $last?->pmm) < 0 ? '+' : '-' }} {{ number_format(abs($last?->pmm - $first?->pmm), 1) }} kg
                                             </label>
                                         </div>
                                         @endif
