@@ -41,6 +41,10 @@ class ChallengeController extends Controller
                 return redirect()->route('dashboard')->with('failed', 'Pendaftaran Challenge Sudah Ditutup');
             }
 
+            if (!$bodyCp) {
+                return redirect()->route('dashboard')->with('failed', 'Data Penimbangan Tidak Ditemukan');
+            }
+
             return view('dashboard.pages.challenge.show', compact('check', 'challenge', 'bodyCp'));
         }
     }
