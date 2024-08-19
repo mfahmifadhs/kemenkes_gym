@@ -123,10 +123,10 @@
                                             {{ Carbon\Carbon::createFromFormat('d/m/Y H:i', $row->tanggal_cek)->isoFormat('DD MMMM Y') }}
                                         </td>
                                         <td class="text-left">
-                                            {{ ucwords(strtolower($row->member->nama)) }}
+                                            {{ ucwords(strtolower($row->member?->nama)) }}
                                         </td>
                                         <td class="text-left">
-                                            {{ $row->member->uker ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}
+                                            {{ $row->member?->uker ? $row->member?->uker->nama_unit_kerja : $row->member?->nama_instansi }}
                                         </td>
                                         <td>{{ $row->fatp }} %</td>
                                         <td>{{ $row->pmm }} kg</td>
