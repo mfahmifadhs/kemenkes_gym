@@ -75,7 +75,7 @@
                                             </a>
                                             @else
                                             <span class="text-left">
-                                                <a href="#" onclick="confirmRemove(event, '<?php echo route('challenge.leaderboard.delete', $row->id_leaderboard); ?>')">
+                                                <a href="#" onclick="confirmRemove(event, `{{ route('challenge.leaderboard.delete', $row->id_leaderboard) }} `)">
                                                     <i class="fas fa-trash-alt text-danger"></i>
                                                 </a>
                                                 <b>{{ $row->member->nama }}</b> <br>
@@ -104,7 +104,6 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 0%;">No</th>
-                                        <th style="width: 0%;">Tanggal</th>
                                         <th class="text-left">Nama</th>
                                         <th class="text-left" style="width: 10%;">Asal</th>
                                         <th>Fat</th>
@@ -112,24 +111,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($timbangan as $row)
+                                    @foreach (collect($timbangan)->sortBy('nama') as $row)
                                     <tr>
                                         <td class="text-left">
-                                            <i class="fas fa-info-circle text-primary"></i>
+                                            <a href="{{ route('challenge.participant.detail', $row['member_id']) }}">
+                                                <i class="fas fa-info-circle"></i>
+                                            </a>
                                             {{ $loop->iteration }}
                                         </td>
-                                        <td>
-                                            {{ Carbon\Carbon::createFromFormat('d/m/Y H:i', $row->tanggal_cek)->isoFormat('HH:mm') }}
-                                            {{ Carbon\Carbon::createFromFormat('d/m/Y H:i', $row->tanggal_cek)->isoFormat('DD MMMM Y') }}
-                                        </td>
-                                        <td class="text-left">
-                                            {{ ucwords(strtolower($row->member?->nama)) }}
-                                        </td>
-                                        <td class="text-left">
-                                            {{ $row->member?->uker ? $row->member?->uker->nama_unit_kerja : $row->member?->nama_instansi }}
-                                        </td>
-                                        <td>{{ $row->fatp }} %</td>
-                                        <td>{{ $row->pmm }} kg</td>
+                                        <td class="text-left">{{ strtoupper($row['nama']) }}</td>
+                                        <td class="text-left">{{ strtoupper($row['uker']) }}</td>
+                                        <td>{{ $row['fatp_diff'] }} %</td>
+                                        <td>{{ $row['fatm_diff'] }} kg</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -201,7 +194,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="confirmSubmit(event, <?php echo $row->id_leaderboard; ?>)">Simpan</button>
+                    <button type="button" class="btn btn-primary" onclick="confirmSubmit(event, `{{ $row->id_leaderboard }}`)">Simpan</button>
                 </div>
             </form>
         </div>

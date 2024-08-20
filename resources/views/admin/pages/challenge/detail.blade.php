@@ -122,11 +122,8 @@
                                                     <th>HEIGHT</th>
                                                     <th>CLOTHES</th>
                                                     <th>WEIGHT</th>
-                                                    @if ($challenge->challenge_id == 1)
                                                     <th>FAT</th>
-                                                    @else
                                                     <th>MUSCLE&nbsp;MASS</th>
-                                                    @endif
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -143,11 +140,8 @@
                                                     <td>{{ $row->height }} cm</td>
                                                     <td>{{ $row->clothes }} kg</td>
                                                     <td>{{ $row->weight }} kg</td>
-                                                    @if ($challenge->challenge_id == 1)
                                                     <td>{{ $row->fatp }} %</td>
-                                                    @else
                                                     <td>{{ $row->pmm }} kg</td>
-                                                    @endif
                                                 </tr>
                                                 @endforeach
 
@@ -156,11 +150,8 @@
                                                 <tr>
                                                     <td colspan="6"></td>
                                                     <td>{{ ($first->weight - $last->weight) < 0 ? '+' : '-' }} {{ abs($first->weight - $last->weight) }} kg</td>
-                                                    @if ($challenge->challenge_id == 1)
                                                     <td>{{ ($first->fatp - $last->fatp) < 0 ? '+' : '-' }} {{ abs($first->fatp - $last->fatp) }} %</td>
-                                                    @else
                                                     <td>{{ ($first->pmm - $last->pmm) < 0 ? '+' : '-' }} {{ number_format(abs($last->pmm - $first->pmm), 1) }} kg</td>
-                                                    @endif
                                                 </tr>
                                                 @endif
 

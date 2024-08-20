@@ -130,41 +130,44 @@ class ChallengeController extends Controller
         }
     }
 
-    public function topProgress($paramId)
+    public function topProgress()
     {
-        $bodyCkDetails = BodyckDetail::where('param_id', $paramId)
-            ->join('t_bodyck', 'id_bodyck', 'bodyck_id')
-            ->join('users', 'id', 't_bodyck.member_id')
-            ->leftJoin('t_unit_kerja', 'id_unit_kerja', 'uker_id')
-            ->get(['t_bodyck.member_id', 't_bodyck_detail.nilai', 'users.nama', 'users.instansi', 'users.nama_instansi', 't_unit_kerja.nama_unit_kerja', 't_bodyck_detail.id_detail'])
-            ->where('t_bodyck.tanggal', '>=', '2024-08-05')
+        $bodyCp = Bodycp::with('member', 'member.uker')
+            ->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])
+            ->get()
             ->groupBy('member_id');
 
-        $results = [];
-        foreach ($bodyCkDetails as $member_id => $details) {
-            $details = $details->sortBy('id_detail');
-            $hasil_pertama = $details->first()->nilai;
-            $hasil_akhir = $details->last()->nilai;
+        $challenge = ChallengeDetail::groupBy('member_id')->get();
 
-            $resProgress = $hasil_pertama - $hasil_akhir;
-            $member = $details->first();
+        foreach ($bodyCp as $member_id => $details) {
+            // Mendapatkan hasil pertama dan terakhir
+            $hasil_pertama = $details->first();
+            $hasil_akhir   = $details->last();
+            // Menghitung selisih FATP dan FATM
+            $selisihFATP = $hasil_akhir->fatp - $hasil_pertama->fatp;
+            $selisihFATM = $hasil_akhir->pmm - $hasil_pertama->pmm;
 
-            $progress = $resProgress < 0 ? '-' . abs($resProgress) : '+' . (string)$resProgress;
-            $uker = $member->instansi === 'pusat' ? $member->nama_unit_kerja : $member->nama_instansi;
+            // Menentukan nilai progress
+            $progressFATP = $selisihFATP < 0 ? '+' . number_format(abs($selisihFATP), 1) : '-' . number_format((string) $selisihFATP, 1);
+            $progressFATM = $selisihFATM < 0 ? '+' . number_format(abs($selisihFATM), 1) : '-' . number_format((string) $selisihFATM, 1);
 
-            if ($progress != 0) {
+            $member = $details->first()->member;
+            $uker = $member?->instansi == 'pusat' ? $member->uker->nama_unit_kerja : $member?->nama_instansi;
+
+            if ($selisihFATP != 0 || $selisihFATM != 0) {
                 $results[$member_id] = [
-                    'nama' => $member->nama,
-                    'uker' => $uker,
-                    'progress' => $progress,
-                    'satuan' => $paramId == 2 ? '%' : 'kg'
+                    'member_id' => $member->id,
+                    'nama'      => $member->nama,
+                    'uker'      => $uker,
+                    'fatp_diff' => $progressFATP,
+                    'fatm_diff' => $progressFATM
                 ];
             }
         }
 
-        // Mengurutkan array berdasarkan nilai fat_loss
+        // Mengurutkan array berdasarkan selisih FATP
         usort($results, function ($a, $b) {
-            return abs($b['progress']) <=> abs($a['progress']);
+            return abs($b['fatp_diff']) <=> abs($a['fatp_diff']);
         });
 
         return $results;
@@ -173,14 +176,14 @@ class ChallengeController extends Controller
     public function participantDetail($id)
     {
         $challenge = ChallengeDetail::where('member_id', $id)->first();
-        $bodyCp    = Bodycp::orderBy('id_bodycp', 'DESC')->where('member_id', $id)
+        $bodyCp    = Bodycp::orderBy('tanggal_cek', 'ASC')->where('member_id', $id)
             ->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])
             ->get();
         if (!$bodyCp) {
             return redirect()->route('challenge')->with('failed', 'Data Penimbangan Tidak Ditemukan');
         }
 
-        return view('admin.pages.challenge.detail', compact('challenge','bodyCp'));
+        return view('admin.pages.challenge.detail', compact('challenge', 'bodyCp'));
     }
 
     public function participantStore(Request $request)
@@ -225,9 +228,7 @@ class ChallengeController extends Controller
         $board     = Leaderboard::orderBy('id_leaderboard', 'ASC')->get();
         $peserta   = ChallengeDetail::with('member')->get();
 
-        $timbangan = Bodycp::orderBy('id_bodycp', 'ASC')
-            ->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])
-            ->get();
+        $timbangan = $this->topProgress();
 
         return view('admin.pages.challenge.leaderboard', compact('board', 'peserta', 'challenge', 'timbangan', 'utama', 'instansi', 'gender'));
     }
