@@ -99,7 +99,7 @@
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    @if ($row->member->bodycp()->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-09'])->count() != 0)
+                                                    @if ($row->member->bodycp()->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])->count() != 0)
                                                     <b><i class="fas fa-check-circle text-success"></i> Tahap 1</b>
                                                     @endif
                                                 </td>
@@ -232,7 +232,7 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                @if ($row->member->bodycp()->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-09'])->count() != 0)
+                                                @if ($row->member->bodycp()->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])->count() != 0)
                                                 <b><i class="fas fa-check-circle text-success"></i> Tahap 1</b>
                                                 @endif
                                             </td>
