@@ -442,13 +442,7 @@
                 <div class="modal-body">
                     <label class="text-sm mb-0">Peserta</label>
                     <select name="member" class="form-control form-control-sm border-dark member" style="width: 100%;">
-                        <option value="">-- Seluruh Instansi --</option>
-                        @foreach ($member as $row)
-                        <option value="{{ $row->id }}">
-                            {{ strtoupper($row->nama) }} -
-                            {{ strtoupper($row->uker ? $row->uker->nama_unit_kerja : $row->nama_instansi) }}
-                        </option>
-                        @endforeach
+                        <option value="">-- Pilih Peserta --</option>
                     </select>
 
                     <label class="small mt-2 mb-0">Challenge</label>
@@ -472,7 +466,27 @@
 
 @section('js')
 <script>
-    $('.member').select2()
+    $('.member').select2({
+        ajax: {
+            url: '/member/json', // Ganti dengan URL endpoint yang benar
+            dataType: 'json',
+            delay: 250,
+            data: function(params) {
+                return {
+                    search: params.term
+                };
+            },
+            processResults: function(data) {
+                return {
+                    results: data
+                };
+            },
+            cache: true
+        },
+        placeholder: 'Pilih Peserta',
+        minimumInputLength: 1,
+    });
+
     $(function() {
         var currentdate = new Date();
         var datetime = "Tanggal: " + currentdate.getDate() + "/" +

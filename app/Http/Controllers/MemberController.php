@@ -378,4 +378,27 @@ class MemberController extends Controller
         // Menampilkan hasil dalam format JSON
         return response()->json($result);
     }
+
+    public function json(Request $request)
+    {
+        $search = $request->search;
+        $user   = User::with('uker')->where('role_id', 4)->orderBy('nama', 'ASC');
+
+        if ($search == '') {
+            $res = $user->get();
+        } else {
+            $res = $user->where('nama', 'like', '%' . $search . '%')->get();
+        }
+
+        $response = array();
+
+        foreach ($res   as $data) {
+            $response[] = array(
+                "id"    =>  $data->id,
+                "text"  =>  strtoupper($data->nama . ' - ' . ($data->uker ? $data->uker->nama_unit_kerja : $data->nama_instansi))
+            );
+        }
+
+        return response()->json($response);
+    }
 }
