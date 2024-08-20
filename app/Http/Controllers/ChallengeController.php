@@ -133,35 +133,41 @@ class ChallengeController extends Controller
     public function topProgress()
     {
         $bodyCp = Bodycp::with('member', 'member.uker')
-            ->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])
+            ->whereBetween(DB::raw("STR_TO_DATE(tanggal_cek, '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])
             ->get()
             ->groupBy('member_id');
 
-        $challenge = ChallengeDetail::groupBy('member_id')->get();
+        $challenge = ChallengeDetail::pluck('member_id')->toArray(); // Ambil semua member_id dari challenge
+
+        $results = [];
 
         foreach ($bodyCp as $member_id => $details) {
-            // Mendapatkan hasil pertama dan terakhir
-            $hasil_pertama = $details->first();
-            $hasil_akhir   = $details->last();
-            // Menghitung selisih FATP dan FATM
-            $selisihFATP = $hasil_akhir->fatp - $hasil_pertama->fatp;
-            $selisihFATM = $hasil_akhir->pmm - $hasil_pertama->pmm;
+            // Cek apakah member_id ada di dalam challenge
+            if (in_array($member_id, $challenge)) {
+                // Mendapatkan hasil pertama dan terakhir
+                $hasil_pertama = $details->first();
+                $hasil_akhir   = $details->last();
 
-            // Menentukan nilai progress
-            $progressFATP = $selisihFATP < 0 ? '+' . number_format(abs($selisihFATP), 1) : '-' . number_format((string) $selisihFATP, 1);
-            $progressFATM = $selisihFATM < 0 ? '+' . number_format(abs($selisihFATM), 1) : '-' . number_format((string) $selisihFATM, 1);
+                // Menghitung selisih FATP dan FATM
+                $selisihFATP = $hasil_akhir->fatp - $hasil_pertama->fatp;
+                $selisihFATM = $hasil_akhir->pmm - $hasil_pertama->pmm;
 
-            $member = $details->first()->member;
-            $uker = $member?->instansi == 'pusat' ? $member->uker->nama_unit_kerja : $member?->nama_instansi;
+                // Menentukan nilai progress
+                $progressFATP = $selisihFATP < 0 ? '+' . number_format(abs($selisihFATP), 1) : '-' . number_format((string) $selisihFATP, 1);
+                $progressFATM = $selisihFATM < 0 ? '+' . number_format(abs($selisihFATM), 1) : '-' . number_format((string) $selisihFATM, 1);
 
-            if ($selisihFATP != 0 || $selisihFATM != 0) {
-                $results[$member_id] = [
-                    'member_id' => $member->id,
-                    'nama'      => $member->nama,
-                    'uker'      => $uker,
-                    'fatp_diff' => $progressFATP,
-                    'fatm_diff' => $progressFATM
-                ];
+                $member = $details->first()->member;
+                $uker = $member->instansi === 'pusat' ? $member->uker->nama_unit_kerja : $member->nama_instansi;
+
+                if ($selisihFATP != 0 || $selisihFATM != 0) {
+                    $results[$member_id] = [
+                        'member_id' => $member->id,
+                        'nama'      => $member->nama,
+                        'uker'      => $uker,
+                        'fatp_diff' => $progressFATP,
+                        'fatm_diff' => $progressFATM
+                    ];
+                }
             }
         }
 
