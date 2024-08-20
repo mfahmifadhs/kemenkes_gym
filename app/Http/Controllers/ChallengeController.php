@@ -36,7 +36,7 @@ class ChallengeController extends Controller
             $user = Auth::user()->id;
             $challenge = ChallengeDetail::where('member_id', $user)->first();
             $bodyCp    = Bodycp::orderBy('id_bodycp', 'DESC')->where('member_id', $user)
-                ->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-09'])
+                ->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])
                 ->get();
 
             if (!$challenge) {
@@ -174,7 +174,7 @@ class ChallengeController extends Controller
     {
         $challenge = ChallengeDetail::where('member_id', $id)->first();
         $bodyCp    = Bodycp::orderBy('id_bodycp', 'DESC')->where('member_id', $id)
-            ->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-09'])
+            ->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])
             ->get();
         if (!$bodyCp) {
             return redirect()->route('challenge')->with('failed', 'Data Penimbangan Tidak Ditemukan');
@@ -226,7 +226,7 @@ class ChallengeController extends Controller
         $peserta   = ChallengeDetail::with('member')->get();
 
         $timbangan = Bodycp::orderBy('id_bodycp', 'ASC')
-            ->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-09'])
+            ->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])
             ->get();
 
         return view('admin.pages.challenge.leaderboard', compact('board', 'peserta', 'challenge', 'timbangan', 'utama', 'instansi', 'gender'));
@@ -235,7 +235,7 @@ class ChallengeController extends Controller
     public function leaderboardFilter(Request $request)
     {
         $tahapan = [
-            ['title' => 'tahap1', 'startDate' => '2024-08-05', 'endDate' => '2024-08-09'],
+            ['title' => 'tahap1', 'startDate' => '2024-08-05', 'endDate' => '2024-08-20'],
             ['title' => 'tahap2', 'startDate' => '2024-09-02', 'endDate' => '2024-09-06'],
             ['title' => 'tahap3', 'startDate' => '2024-10-01', 'endDate' => '2024-10-04'],
             ['title' => 'tahap4', 'startDate' => '2024-10-28', 'endDate' => '2024-10-31'],
