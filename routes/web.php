@@ -129,7 +129,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('absen/checkout/survey/{id}', [AbsenController::class, 'survey'])->name('survey.post');
 
     Route::get('member/qrcode', [MemberController::class, 'qrcode'])->name('member.qrcode');
-    // Route::get('member/data/select/json', [MemberController::class, 'json'])->name('member.qrcode');
+    Route::get('user/data/select/json', [MemberController::class, 'json']);
 
     // Route::get('/member/qrcode', function () {
     //     return view('dashboard.pages.user.qrcode');

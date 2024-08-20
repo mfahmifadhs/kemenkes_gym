@@ -468,7 +468,7 @@
 <script>
     $('.member').select2({
         ajax: {
-            url: '/member/json', // Ganti dengan URL endpoint yang benar
+            url: '/user/data/select/json', // Ganti dengan URL endpoint yang benar
             dataType: 'json',
             delay: 250,
             data: function(params) {
