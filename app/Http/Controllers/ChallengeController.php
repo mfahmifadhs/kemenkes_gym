@@ -8,6 +8,7 @@ use App\Models\Challenge;
 use App\Models\ChallengeDetail;
 use App\Models\Leaderboard;
 use App\Models\UnitUtama;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PDF;
@@ -29,7 +30,8 @@ class ChallengeController extends Controller
         $topMuscleGain = collect($this->topProgress(5))->take(3);
 
         if ($role != 4) {
-            return view('admin.pages.challenge.show', compact('challenge', 'topFatLoss', 'topMuscleGain', 'utama', 'instansi', 'gender'));
+            $member = User::where('role_id', 4)->orderBy('nama', 'ASC')->get();
+            return view('admin.pages.challenge.show', compact('challenge', 'topFatLoss', 'topMuscleGain', 'utama', 'instansi', 'gender', 'member'));
         } else {
             $user = Auth::user()->id;
             $challenge = ChallengeDetail::where('member_id', $user)->first();
@@ -179,6 +181,25 @@ class ChallengeController extends Controller
         }
 
         return view('admin.pages.challenge.detail', compact('challenge','bodyCp'));
+    }
+
+    public function participantStore(Request $request)
+    {
+        $challenge = ChallengeDetail::where('member_id', $request->member)->count();
+
+        if ($challenge != 0 || !$request->challenge_id) {
+            return redirect()->route('challenge')->with('failed', 'Gagal, terjadi kesalahan!');
+        } else {
+            $detail = ChallengeDetail::withTrashed()->count() + 1;
+            $tambah = new ChallengeDetail();
+            $tambah->id_detail    = $detail;
+            $tambah->challenge_id = $request->challenge_id;
+            $tambah->member_id    = $request->member;
+            $tambah->created_at   = Carbon::now();
+            $tambah->save();
+
+            return redirect()->route('challenge')->with('success', 'Berhasil mendaftarkan peserta!');
+        }
     }
 
     public function participantUpdate(Request $request, $id)

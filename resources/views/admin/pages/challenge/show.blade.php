@@ -2,16 +2,6 @@
 
 @section('content')
 
-@if (Session::has('success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: '{{ Session::get("success") }}',
-    });
-</script>
-@endif
-
-
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid col-md-12 col-12 mx-auto">
@@ -25,6 +15,9 @@
                 </div>
 
                 <div class="col-sm-6 col-6 text-right mt-2">
+                    <a href="#" class="btn btn-default btn-sm border-dark" data-toggle="modal" data-target="#tambah">
+                        <i class="fas fa-plus-circle"></i> Tambah Peserta
+                    </a>
                     <a href="{{ route('challenge.leaderboard') }}" class="btn btn-default btn-sm border-dark">
                         <i class="fas fa-ranking-star"></i> Leaderboard
                     </a>
@@ -40,6 +33,31 @@
         <div class="container-fluid">
             <div class="col-md-12 col-12 mx-auto">
                 <div class="row">
+                    <div class="col-md-12">
+                        @if ($message = Session::get('success'))
+                        <div id="alert" class="alert bg-success">
+                            <p style="color:white;margin: auto;">{{ $message }}</p>
+                        </div>
+
+                        <script>
+                            setTimeout(function() {
+                                document.getElementById('alert').style.display = 'none';
+                            }, 10000);
+                        </script>
+                        @endif
+
+                        @if ($message = Session::get('failed'))
+                        <div id="alert" class="alert bg-failed">
+                            <p style="color:white;margin: auto;">{{ $message }}</p>
+                        </div>
+
+                        <script>
+                            setTimeout(function() {
+                                document.getElementById('alert').style.display = 'none';
+                            }, 10000);
+                        </script>
+                        @endif
+                    </div>
                     <div class="col-md-6">
                         <div class="card border border-dark">
                             <div class="card-header border-dark">
@@ -342,8 +360,8 @@
                     <label for="challenge">Pilihan Challenge</label>
                     <select id="challenge" name="challenge_id" class="form-control" required>
                         <option value="">-- Pilih Challenge --</option>
-                        <option value="1" <?php echo $row->challenge_id == 1 ? 'selected' : ''; ?>>Fat Loss</option>
-                        <option value="2" <?php echo $row->challenge_id == 2 ? 'selected' : ''; ?>>Muscle Gain</option>
+                        <option value="1" <?php echo (isset($row->challenge_id) && $row->challenge_id == 1) ? 'selected' : ''; ?>>Fat Loss</option>
+                        <option value="2" <?php echo (isset($row->challenge_id) && $row->challenge_id == 2) ? 'selected' : ''; ?>>Muscle Gain</option>
                     </select>
                 </div>
                 <div class="modal-footer">
@@ -407,8 +425,54 @@
     </div>
 </div>
 
+<!-- Modal Tambah -->
+<div class="modal fade" id="tambah" role="dialog" aria-labelledby="filterLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-dark">
+                <h5 class="modal-title font-weight-bold text-info text-md" id="filterLabel">
+                    <i class="fas fa-users"></i> Tambah Peserta
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="form-peserta" action="{{ route('challenge.participant.store') }}" method="GET">
+                @csrf
+                <div class="modal-body">
+                    <label class="text-sm mb-0">Peserta</label>
+                    <select name="member" class="form-control form-control-sm border-dark member" style="width: 100%;">
+                        <option value="">-- Seluruh Instansi --</option>
+                        @foreach ($member as $row)
+                        <option value="{{ $row->id }}">
+                            {{ strtoupper($row->nama) }} -
+                            {{ strtoupper($row->uker ? $row->uker->nama_unit_kerja : $row->nama_instansi) }}
+                        </option>
+                        @endforeach
+                    </select>
+
+                    <label class="small mt-2 mb-0">Challenge</label>
+                    <select name="challenge_id" class="form-control form-control-sm border-dark">
+                        <option value="">-- Pilih Challenge --</option>
+                        <option value="1">FAT LOSS</option>
+                        <option value="2">MUSCLE GAIN</option>
+
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-info btn-sm" onclick="confirmSubmit(event, 'peserta')">
+                        Simpan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @section('js')
 <script>
+    $('.member').select2()
     $(function() {
         var currentdate = new Date();
         var datetime = "Tanggal: " + currentdate.getDate() + "/" +

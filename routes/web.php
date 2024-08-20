@@ -107,6 +107,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('challenge/ticket/{id}', [ChallengeController::class, 'ticket'])->name('challenge.ticket');
     Route::get('challenge/download/{id}/{form}', [ChallengeController::class, 'download'])->name('challenge.download');
     Route::get('challenge/participant/filter', [ChallengeController::class, 'filter'])->name('challenge.participant.filter');
+    Route::get('challenge/participant/store', [ChallengeController::class, 'participantStore'])->name('challenge.participant.store');
     Route::get('challenge/participant/detail/{id}', [ChallengeController::class, 'participantDetail'])->name('challenge.participant.detail');
     Route::get('challenge/participant/tanita-delete/{id}', [ChallengeController::class, 'tanitaDelete'])->name('challenge.tanita.delete');
     Route::get('challenge/participant/delete/{id}', [ChallengeController::class, 'participantDelete'])->name('challenge.participant.delete');
