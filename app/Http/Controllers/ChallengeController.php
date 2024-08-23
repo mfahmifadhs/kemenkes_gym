@@ -30,8 +30,9 @@ class ChallengeController extends Controller
         $topMuscleGain = collect($this->topProgress(5))->take(3);
 
         if ($role != 4) {
+            $board  = Leaderboard::orderBy('id_leaderboard', 'ASC')->get();
             $member = User::where('role_id', 4)->orderBy('nama', 'ASC')->get();
-            return view('admin.pages.challenge.show', compact('challenge', 'topFatLoss', 'topMuscleGain', 'utama', 'instansi', 'gender', 'member'));
+            return view('admin.pages.challenge.show', compact('challenge','topFatLoss','topMuscleGain','utama','instansi','gender','member','board'));
         } else {
             $user = Auth::user()->id;
             $challenge = ChallengeDetail::where('member_id', $user)->first();
@@ -132,7 +133,7 @@ class ChallengeController extends Controller
 
     public function topProgress()
     {
-        $bodyCp = Bodycp::with('member', 'member.uker')
+        $bodyCp = Bodycp::with('member', 'member.uker', 'member.challenge')
             ->whereBetween(DB::raw("STR_TO_DATE(tanggal_cek, '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])
             ->get()
             ->groupBy('member_id');
@@ -157,13 +158,19 @@ class ChallengeController extends Controller
                 $progressFATM = $selisihFATM < 0 ? '+' . number_format(abs($selisihFATM), 1) : '-' . number_format((string) $selisihFATM, 1);
 
                 $member = $details->first()->member;
-                $uker = $member->instansi === 'pusat' ? $member->uker->nama_unit_kerja : $member->nama_instansi;
+                $chall  = $details->first()->member->challenge->first()->challenge_id;
+                $uker   = $member->instansi === 'pusat' ? $member->uker->nama_unit_kerja : $member->nama_instansi;
+                $utama  = $member->instansi === 'pusat' ? $member->uker->unit_utama_id : '';
 
                 if ($selisihFATP != 0 || $selisihFATM != 0) {
                     $results[$member_id] = [
                         'member_id' => $member->id,
                         'nama'      => $member->nama,
+                        'gender'    => $member->jenis_kelamin,
+                        'instansi'  => $member->instansi,
+                        'utama'     => $utama,
                         'uker'      => $uker,
+                        'challenge' => $chall   ,
                         'fatp_diff' => $progressFATP,
                         'fatm_diff' => $progressFATM
                     ];
@@ -229,6 +236,7 @@ class ChallengeController extends Controller
     {
         $instansi  = '';
         $gender    = '';
+        $pickChall = '';
         $utama     = UnitUtama::get();
         $challenge = Challenge::get();
         $board     = Leaderboard::orderBy('id_leaderboard', 'ASC')->get();
@@ -236,7 +244,7 @@ class ChallengeController extends Controller
 
         $timbangan = $this->topProgress();
 
-        return view('admin.pages.challenge.leaderboard', compact('board', 'peserta', 'challenge', 'timbangan', 'utama', 'instansi', 'gender'));
+        return view('admin.pages.challenge.leaderboard', compact('board', 'peserta', 'challenge', 'timbangan', 'utama', 'instansi', 'gender','pickChall'));
     }
 
     public function leaderboardFilter(Request $request)
@@ -259,44 +267,39 @@ class ChallengeController extends Controller
         $utama      = UnitUtama::get();
         $peserta    = ChallengeDetail::with('member')->get();
         $bodyCp     = Bodycp::with('member', 'member.uker')->orderBy('id_bodycp', 'ASC');
-        $dataChall  = ChallengeDetail::with('member', 'challenge')->orderBy('id_detail', 'ASC');
+        $dataChall  = $this->topProgress();
 
-        if ($instansi || $tahap || $unitUtama || $gender || $pickChall) {
+        if ($instansi || $unitUtama || $gender || $pickChall) {
             if ($instansi) {
-                $result = $dataChall->whereHas('member', function ($query) use ($instansi) {
-                    $query->where('instansi', $instansi);
+                $result = array_filter($dataChall, function ($item) use ($instansi) {
+                    return $item['instansi'] === $instansi;
                 });
             }
 
             if ($unitUtama) {
-                $result = $dataChall->whereHas('member.uker', function ($query) use ($unitUtama) {
-                    $query->where('unit_utama_id', $unitUtama);
+                $result = array_filter($dataChall, function ($item) use ($unitUtama) {
+                    return $item['utama'] === $unitUtama;
                 });
             }
 
-            if ($tahap) {
-                $result = $bodyCp->whereBetween(
-                    DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"),
-                    [$pilihTahap['startDate'], $pilihTahap['endDate']]
-                );
-            }
-
             if ($gender) {
-                $result = $dataChall->whereHas('member', function ($query) use ($gender) {
-                    $query->where('jenis_kelamin', $gender);
+                $result = array_filter($dataChall, function ($item) use ($gender) {
+                    return $item['gender'] === $gender;
                 });
             }
 
             if ($pickChall) {
-                $result = $dataChall->whereHas('challenge', function ($query) use ($challenge) {
-                    $query->where('challenge_id', $challenge);
+                $result = array_filter($dataChall, function ($item) use ($pickChall) {
+                    return $item['challenge'] === (int) $pickChall;
                 });
             }
 
-            $timbangan = $result->get();
+            $timbangan = $result;
+        } else {
+            $timbangan = $dataChall;
         }
 
-        return view('admin.pages.challenge.leaderboard', compact('board', 'peserta', 'challenge', 'timbangan', 'utama', 'instansi', 'gender'));
+        return view('admin.pages.challenge.leaderboard', compact('board', 'peserta', 'challenge', 'timbangan', 'utama', 'instansi', 'gender', 'pickChall'));
     }
 
     public function leaderboardUpdate(Request $request, $id)

@@ -83,4 +83,8 @@ class User extends Authenticatable
     public function bodycp() {
         return $this->hasMany(Bodycp::class, 'member_id');
     }
+
+    public function challenge() {
+        return $this->hasMany(ChallengeDetail::class, 'member_id');
+    }
 }

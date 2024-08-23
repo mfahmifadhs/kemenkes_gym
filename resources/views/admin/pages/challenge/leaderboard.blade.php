@@ -244,20 +244,13 @@
                         <option value="female" <?php echo $gender == 'female' ? 'selected' : ''; ?>>Perempuan</option>
                     </select>
 
-                    <label class="small mt-2 mb-0">Pilih Tahapan</label>
-                    <select id="utamaSelect" name="tahap" class="form-control form-control-sm border-dark">
-                        <option value="">-- Seluruh Tahapan --</option>
-                        <option value="tahap1">Tahap 1 (5 s/d 9 agustus 2024)</option>
-                        <option value="tahap2">Tahap 2 (2 s/d 6 september 2024)</option>
-                        <option value="tahap3">Tahap 3 (1 s/d 4 oktober 2024)</option>
-                        <option value="tahap4">Tahap 4 (28 s/d 31 oktober 2024)</option>
-                    </select>
-
                     <label class="small mt-2 mb-0">Pilih Challenge</label>
                     <select id="utamaSelect" name="challenge" class="form-control form-control-sm border-dark">
                         <option value="">-- Seluruh Challenge --</option>
                         @foreach ($challenge as $row)
-                        <option value="{{ $row->id_challenge }}">{{ $row->nama_challenge }}</option>
+                        <option value="{{ $row->id_challenge }}" <?php echo $pickChall == $row->id_challenge ? 'selected' : ''; ?>>
+                            {{ $row->nama_challenge }}
+                        </option>
                         @endforeach
                     </select>
                 </div>
