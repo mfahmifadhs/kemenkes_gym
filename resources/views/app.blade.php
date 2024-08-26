@@ -8,22 +8,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Kemenkes Bootcamp & Fitness Center</title>
-    <link rel="icon" href="/dist/img/icon-kemenkes.png" type="image/x-icon">
+    <link rel="icon" href="{{ asset('dist/img/icon-kemenkes.png') }}" type="image/x-icon">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="/dist/css/bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="/dist/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="/dist/css/flaticon.css" type="text/css">
-    <link rel="stylesheet" href="/dist/css/owl.carousel.css" type="text/css">
-    <link rel="stylesheet" href="/dist/css/barfiller.css" type="text/css">
-    <link rel="stylesheet" href="/dist/css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="/dist/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="/dist/css/main.css" type="text/css">
-    <link rel="stylesheet" href="/dist/css/select2.css">
+    <link rel="stylesheet" href="{{ asset('dist/css/bootstrap.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('dist/css/font-awesome.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('dist/css/flaticon.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('dist/css/owl.carousel.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('dist/css/barfiller.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('dist/css/magnific-popup.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('dist/css/slicknav.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('dist/css/main.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('dist/css/select2.css') }}">
 </head>
 
 <body>
@@ -57,7 +57,7 @@
         <div id="mobile-menu-wrap"></div>
         <div class="canvas-social text-left">
             <a href="https://www.tiktok.com/@kemenkes.bootcamp">
-                <img src="/dist/img/icon/tik-tok-black.png" width="14"> <small>kemenkesbootcamp</small>
+                <img src="{{ asset('dist/img/icon/tik-tok-black.png') }}" width="14"> <small>kemenkesbootcamp</small>
             </a>
             <a href="https://www.instagram.com/kemenkesbootcamp/"><i class="fa fa-instagram"></i> <small>kemenkesbootcamp</small></a>
         </div>
@@ -71,7 +71,7 @@
                 <div class="col-lg-3">
                     <div class="logo">
                         <a href="/">
-                            <img src="/dist/img/logo.png" alt="">
+                            <img src="{{ asset('dist/img/logo.png') }}" alt="">
                         </a>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                 </div>
                 <div class="top-option">
                     <div class="to-social">
-                        <a href="https://www.tiktok.com/@kemenkes.bootcamp"><img src="/dist/img/icon/tik-tok.png" width="15"></a>
+                        <a href="https://www.tiktok.com/@kemenkes.bootcamp"><img src="{{ asset('dist/img/icon/tik-tok.png') }}" width="15"></a>
                         <a href="https://www.instagram.com/kemenkesbootcamp/"><i class="fa fa-instagram"></i></a>
                     </div>
                 </div>
@@ -128,7 +128,7 @@
                 <div class="col-lg-4">
                     <div class="fs-about">
                         <div class="fa-logo">
-                            <a href="#"><img src="/dist/img/logo.png" alt=""></a>
+                            <a href="#"><img src="{{ asset('dist/img/logo.png') }}" alt=""></a>
                         </div>
                         <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                             labore dolore magna aliqua endisse ultrices gravida lorem.</p>
@@ -201,16 +201,16 @@
     <!-- Search model end -->
 
     <!-- Js Plugins -->
-    <script src="/dist/jquery/jquery-3.3.1.min.js"></script>
-    <script src="/dist/js/bootstrap.min.js"></script>
-    <script src="/dist/js/jquery.magnific-popup.min.js"></script>
-    <script src="/dist/js/masonry.pkgd.min.js"></script>
-    <script src="/dist/js/jquery.barfiller.js"></script>
-    <script src="/dist/js/jquery.slicknav.js"></script>
-    <script src="/dist/js/owl.carousel.min.js"></script>
-    <script src="/dist/js/main.js"></script>
-    <script src="/dist/js/select2.full.js"></script>
-    <script src="/dist/js/sweetalert2.all.min.js"></script>
+    <script src="{{ asset('dist/jquery/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('dist/js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('dist/js/masonry.pkgd.min.js') }}"></script>
+    <script src="{{ asset('dist/js/jquery.barfiller.js') }}"></script>
+    <script src="{{ asset('dist/js/jquery.slicknav.js') }}"></script>
+    <script src="{{ asset('dist/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('dist/js/main.js') }}"></script>
+    <script src="{{ asset('dist/js/select2.full.js') }}"></script>
+    <script src="{{ asset('dist/js/sweetalert2.all.min.js') }}"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
