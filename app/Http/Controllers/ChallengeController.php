@@ -60,6 +60,7 @@ class ChallengeController extends Controller
         $data      = ChallengeDetail::with('member');
 
         $utama     = UnitUtama::get();
+        $board     = [];
         $topFatLoss    = collect($this->topProgress(2))->take(3);
         $topMuscleGain = collect($this->topProgress(5))->take(3);
 
@@ -86,7 +87,7 @@ class ChallengeController extends Controller
             $challenge = $data->get();
         }
 
-        return view('admin.pages.challenge.show', compact('challenge', 'topFatLoss', 'topMuscleGain', 'utama', 'instansi', 'gender'));
+        return view('admin.pages.challenge.show', compact('challenge', 'topFatLoss', 'topMuscleGain', 'utama', 'instansi', 'gender', 'board'));
     }
 
     public function detail($id)

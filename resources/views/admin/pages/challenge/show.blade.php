@@ -173,6 +173,7 @@
                             <i class="fas fa-fire"></i> Man Top 3 Fat Loss
                         </div>
                         <div class="row">
+                            @if ($board)
                             @foreach ($board->where('challenge_id', 1)->where('kategori', 'male') as $row)
                             <div class="col-md-4 col-4">
                                 <div class="card bg-main border border-dark">
@@ -189,6 +190,7 @@
                                 </div>
                             </div>
                             @endforeach
+                            @endif
                         </div>
                     </div>
                     <!-- Muscle Gain -->
@@ -308,6 +310,7 @@
                             <i class="fas fa-fire"></i> Man Top 3 Muscle Gain
                         </div>
                         <div class="row">
+                            @if ($board)
                             @foreach ($board->where('challenge_id', 2)->where('kategori', 'male') as $row)
                             <div class="col-md-4 col-4">
                                 <div class="card bg-main border border-dark">
@@ -324,6 +327,7 @@
                                 </div>
                             </div>
                             @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
