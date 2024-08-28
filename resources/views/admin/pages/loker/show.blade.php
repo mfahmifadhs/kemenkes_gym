@@ -135,7 +135,17 @@
                                         <tbody>
                                             @foreach ($lokerToday as $row)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td>
+                                                    {{ $loop->iteration }}
+                                                    <a href="{{ route('member.detail', $row->member_id) }}">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                    @if (Auth::user()->role_id == 1)
+                                                    <a href="" onclick="confirmRemove(event, `{{ route('loker.riwayat.delete', $row->id_peminjaman) }}`)">
+                                                        <i class="fa fa-trash-alt"></i>
+                                                    </a>
+                                                    @endif
+                                                </td>
                                                 <td class="text-left">{{ $row->member->nama }}</td>
                                                 <td>{{ $row->member->instansi == 'pusat' ? $row->member->uker->nama_unit_kerja : $row->member->nama_instansi }}</td>
                                                 <td class="text-md"><b>{{ $row->no_loker }}</b></td>

@@ -28,13 +28,13 @@
         <div class="row">
             <div class="col-lg-12 mx-auto mt-5 text-center">
                 <div class="section-title contact-title text-center">
-                    <h2><u>JAM OPERASIONAL</u></h2>
-                    <h2>PAGI : 06.00 s/d 07.15 WIB | SORE : 16.00 s/d 19.30 WIB</h2>
+                    <h4 class="text-main"><u>JAM OPERASIONAL</u></h4>
+                    <h4 class="text-main mt-2">PAGI : 06.00 s/d 07.15 WIB | SORE : 16.00 s/d 19.30 WIB</h4>
                 </div>
                 <div class="section-title contact-title text-center">
-                    <h2><u>JADWAL KELAS</u></h2>
+                    <h4 class="text-main"><u>JADWAL KELAS</u></h4>
                 </div>
-                <img src="{{ asset('dist/img/schedule.png') }}" class="img-fluid w-100" alt="">
+                <img src="{{ asset('dist/img/schedule.png') }}" class="img-fluid w-75" alt="">
             </div>
             <div class="col-lg-12 mx-auto mt-5 text-center">
                 <div class="section-title contact-title text-center">
