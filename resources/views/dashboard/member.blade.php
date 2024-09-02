@@ -38,6 +38,7 @@
                 @endif
 
                 <div class="section-body">
+
                     <div class="card mb-3" style="border-radius: 20px;background-image: url('<?php echo asset('dist/img/bg-card.png'); ?>'); background-size: cover; background-position: center;">
                         <div class="card-body">
                             <div class="row">
@@ -112,6 +113,17 @@
                             </div>
                             <span class="new-label">Hot</span>
                         </a>
+
+                        <div class="input-group text-danger text-center mt-4 mx-4 font-weight-bold">
+                        <small>
+                            <span class="w-100">PENGUMUMAN :</span>
+                            <span class="w-100 text-justify">
+                                Penimbangan Tahap II Fat Loss & Muscle Gain Challenge tanggal <b>2 s/d 6 September 2024
+                                di Kemenkes Bootcamp & Fitness Center.</b>
+                                (Peserta yang tidak melakukan penimbangan, akan didiskualifikasi.)
+                            </span>
+                        </small>
+                    </div>
 
                         <!-- <a href="{{ route('progres') }}" class="col-md-2 col-6">
                             <div class="card bg-main" style="border-radius: 20px;">
