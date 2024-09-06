@@ -158,7 +158,7 @@ class ChallengeController extends Controller
                 $selisihFATM = $hasil_akhir->pmm - $hasil_pertama->pmm;
 
                 // Menentukan nilai progress
-                $progressFATP = $selisihFATP < 0 ? '+' . number_format(abs($selisihFATP), 1) : '-' . number_format((string) $selisihFATP, 1);
+                $progressFATP = $selisihFATP < 0 ? '-' . number_format(abs($selisihFATP), 1) : '+' . number_format((string) $selisihFATP, 1);
                 $progressFATM = $selisihFATM < 0 ? '+' . number_format(abs($selisihFATM), 1) : '-' . number_format((string) $selisihFATM, 1);
 
                 $member = $details->first()->member;
