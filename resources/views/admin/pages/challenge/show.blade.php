@@ -59,7 +59,7 @@
                         @endif
                     </div>
                     <div class="col-md-6">
-                        <div class="card border border-dark h-75">
+                        <div class="card border border-dark">
                             <div class="card-header border-dark">
                                 <h6 class="card-title">
                                     <small class="font-weight-bold">
@@ -222,7 +222,7 @@
                     </div>
                     <!-- Muscle Gain -->
                     <div class="col-md-6">
-                        <div class="card border border-dark h-75">
+                        <div class="card border border-dark">
                             <div class="card-header border-dark">
                                 <h6 class="card-title">
                                     <small class="font-weight-bold">
