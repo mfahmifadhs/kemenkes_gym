@@ -48,6 +48,10 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="input-group small">
+                                                <label style="width: 15%;">Member ID</label>
+                                                <label style="width: 85%;">: {{ $challenge->member->member_id }}</label>
+                                            </div>
+                                            <div class="input-group small">
                                                 <label style="width: 15%;">Nama Peserta</label>
                                                 <label style="width: 85%;">: {{ $challenge->member->nama }}</label>
                                             </div>

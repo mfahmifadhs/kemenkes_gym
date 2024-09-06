@@ -32,7 +32,7 @@ class ChallengeController extends Controller
         if ($role != 4) {
             $board  = Leaderboard::orderBy('id_leaderboard', 'ASC')->get();
             $member = User::where('role_id', 4)->orderBy('nama', 'ASC')->get();
-            return view('admin.pages.challenge.show', compact('challenge','topFatLoss','topMuscleGain','utama','instansi','gender','member','board'));
+            return view('admin.pages.challenge.show', compact('challenge', 'topFatLoss', 'topMuscleGain', 'utama', 'instansi', 'gender', 'member', 'board'));
         } else {
             $user = Auth::user()->id;
             $challenge = ChallengeDetail::where('member_id', $user)->first();
@@ -135,7 +135,10 @@ class ChallengeController extends Controller
     public function topProgress()
     {
         $bodyCp = Bodycp::with('member', 'member.uker', 'member.challenge')
-            ->whereBetween(DB::raw("STR_TO_DATE(tanggal_cek, '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])
+            ->where(function ($query) {
+                $query->whereBetween(DB::raw("STR_TO_DATE(tanggal_cek, '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])
+                    ->orWhereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-09-02', '2024-09-06']);
+            })
             ->get()
             ->groupBy('member_id');
 
@@ -171,7 +174,7 @@ class ChallengeController extends Controller
                         'instansi'  => $member->instansi,
                         'utama'     => $utama,
                         'uker'      => $uker,
-                        'challenge' => $chall   ,
+                        'challenge' => $chall,
                         'fatp_diff' => $progressFATP,
                         'fatm_diff' => $progressFATM
                     ];
@@ -190,8 +193,11 @@ class ChallengeController extends Controller
     public function participantDetail($id)
     {
         $challenge = ChallengeDetail::where('member_id', $id)->first();
-        $bodyCp    = Bodycp::orderBy('tanggal_cek', 'ASC')->where('member_id', $id)
-            ->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])
+        $bodyCp    = Bodycp::orderBy(DB::raw("STR_TO_DATE(tanggal_cek, '%d/%m/%Y')"), 'ASC')->where('member_id', $id)
+            ->where(function ($query) {
+                $query->whereBetween(DB::raw("STR_TO_DATE(tanggal_cek, '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])
+                    ->orWhereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-09-02', '2024-09-06']);
+            })
             ->get();
         if (!$bodyCp) {
             return redirect()->route('challenge')->with('failed', 'Data Penimbangan Tidak Ditemukan');
@@ -245,7 +251,7 @@ class ChallengeController extends Controller
 
         $timbangan = $this->topProgress();
 
-        return view('admin.pages.challenge.leaderboard', compact('board', 'peserta', 'challenge', 'timbangan', 'utama', 'instansi', 'gender','pickChall'));
+        return view('admin.pages.challenge.leaderboard', compact('board', 'peserta', 'challenge', 'timbangan', 'utama', 'instansi', 'gender', 'pickChall'));
     }
 
     public function leaderboardFilter(Request $request)

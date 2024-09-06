@@ -59,7 +59,7 @@
                         @endif
                     </div>
                     <div class="col-md-6">
-                        <div class="card border border-dark">
+                        <div class="card border border-dark h-75">
                             <div class="card-header border-dark">
                                 <h6 class="card-title">
                                     <small class="font-weight-bold">
@@ -101,6 +101,10 @@
                                                 <td>
                                                     @if ($row->member->bodycp()->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])->count() != 0)
                                                     <b><i class="fas fa-check-circle text-success"></i> Tahap 1</b>
+                                                    @endif
+
+                                                    @if ($row->member->bodycp()->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-09-02', '2024-09-06'])->count() != 0)
+                                                    <br><b><i class="fas fa-check-circle text-success"></i> Tahap 2</b>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -170,7 +174,7 @@
                         <hr>
                         <!-- Man Top 3 Fat Loss -->
                         <div class="text-sm text-primary font-weight-bold mb-2">
-                            <i class="fas fa-fire"></i> Man Top 3 Fat Loss
+                            <i class="fas fa-fire"></i> 3 Penurunan Fat Loss Terbaik (Kategori Laki-laki)
                         </div>
                         <div class="row">
                             @if ($board)
@@ -192,10 +196,33 @@
                             @endforeach
                             @endif
                         </div>
+                        <div class="text-sm text-pink font-weight-bold mb-2">
+                            <i class="fas fa-fire"></i> 3 Penurunan Fat Loss Terbaik (Kategori Perempuan)
+                        </div>
+                        <div class="row">
+                            @if ($board)
+                            @foreach ($board->where('challenge_id', 1)->where('kategori', 'female') as $row)
+                            <div class="col-md-4 col-4">
+                                <div class="card bg-pink border border-dark">
+                                    <div class="card-header border-dark text-center p-2">
+                                        <h3 class="font-weight-bold text-white mb-0">{{ $row->peringkat }}</h3>
+                                    </div>
+                                    <div class="card-body border-dark p-1">
+                                        <h6 class="text-center text-sm text-white text-capitalize">
+                                            <small>{{ $row->member?->uker ? $row->member?->uker->nama_unit_kerja : $row->member?->nama_instansi }}</small><br>
+                                            <b>{{ $row->member?->nama }}</b><br>
+                                            <b>{{ $row->nilai }} %</b>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                            @endif
+                        </div>
                     </div>
                     <!-- Muscle Gain -->
                     <div class="col-md-6">
-                        <div class="card border border-dark">
+                        <div class="card border border-dark h-75">
                             <div class="card-header border-dark">
                                 <h6 class="card-title">
                                     <small class="font-weight-bold">
@@ -307,7 +334,7 @@
                         <hr>
                         <!-- Man Top 3 Muscle Gain -->
                         <div class="text-sm text-primary font-weight-bold mb-2">
-                            <i class="fas fa-fire"></i> Man Top 3 Muscle Gain
+                            <i class="fas fa-fire"></i> 3 Peningkatan Fat Loss Terbaik (Kategori Laki-laki)
                         </div>
                         <div class="row">
                             @if ($board)
@@ -329,11 +356,35 @@
                             @endforeach
                             @endif
                         </div>
+                        <div class="text-sm text-pink font-weight-bold mb-2">
+                            <i class="fas fa-fire"></i> 3 Peningkatan Muscle Gain Terbaik (Kategori Perempuan)
+                        </div>
+                        <div class="row">
+                            @if ($board)
+                            @foreach ($board->where('challenge_id', 2)->where('kategori', 'female') as $row)
+                            <div class="col-md-4 col-4">
+                                <div class="card bg-pink border border-dark">
+                                    <div class="card-header border-dark text-center p-2">
+                                        <h3 class="font-weight-bold text-white mb-0">{{ $row->peringkat }}</h3>
+                                    </div>
+                                    <div class="card-body border-dark p-1">
+                                        <h6 class="text-center text-sm text-white text-capitalize">
+                                            <small>{{ $row->member?->uker ? $row->member?->uker->nama_unit_kerja : $row->member?->nama_instansi }}</small><br>
+                                            <b>{{ $row->member?->nama }}</b><br>
+                                            <b>{{ $row->nilai }} %</b>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
         </div><br>
     </div>
+</div>
 
 
     <!-- Modal Edit -->
