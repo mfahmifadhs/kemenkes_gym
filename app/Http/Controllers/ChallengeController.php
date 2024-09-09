@@ -174,7 +174,7 @@ class ChallengeController extends Controller
                         'instansi'  => $member->instansi,
                         'utama'     => $utama,
                         'uker'      => $uker,
-                        'challenge' => $chall,
+                        'challenge' => (int) $chall,
                         'fatp_diff' => $progressFATP,
                         'fatm_diff' => $progressFATM
                     ];
@@ -186,7 +186,7 @@ class ChallengeController extends Controller
         usort($results, function ($a, $b) {
             return abs($b['fatp_diff']) <=> abs($a['fatp_diff']);
         });
-
+        // dd($results);
         return $results;
     }
 
@@ -275,28 +275,29 @@ class ChallengeController extends Controller
         $peserta    = ChallengeDetail::with('member')->get();
         $bodyCp     = Bodycp::with('member', 'member.uker')->orderBy('id_bodycp', 'ASC');
         $dataChall  = $this->topProgress();
+        $result     = $dataChall;
 
         if ($instansi || $unitUtama || $gender || $pickChall) {
             if ($instansi) {
-                $result = array_filter($dataChall, function ($item) use ($instansi) {
+                $result = array_filter($result, function ($item) use ($instansi) {
                     return $item['instansi'] === $instansi;
                 });
             }
 
             if ($unitUtama) {
-                $result = array_filter($dataChall, function ($item) use ($unitUtama) {
+                $result = array_filter($result, function ($item) use ($unitUtama) {
                     return $item['utama'] === $unitUtama;
                 });
             }
 
             if ($gender) {
-                $result = array_filter($dataChall, function ($item) use ($gender) {
+                $result = array_filter($result, function ($item) use ($gender) {
                     return $item['gender'] === $gender;
                 });
             }
 
             if ($pickChall) {
-                $result = array_filter($dataChall, function ($item) use ($pickChall) {
+                $result = array_filter($result, function ($item) use ($pickChall) {
                     return $item['challenge'] === (int) $pickChall;
                 });
             }

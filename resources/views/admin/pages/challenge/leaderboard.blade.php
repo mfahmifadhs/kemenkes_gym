@@ -245,7 +245,7 @@
                     </select>
 
                     <label class="small mt-2 mb-0">Pilih Challenge</label>
-                    <select id="utamaSelect" name="challenge" class="form-control form-control-sm border-dark">
+                    <select name="challenge" class="form-control form-control-sm border-dark">
                         <option value="">-- Seluruh Challenge --</option>
                         @foreach ($challenge as $row)
                         <option value="{{ $row->id_challenge }}" <?php echo $pickChall == $row->id_challenge ? 'selected' : ''; ?>>
