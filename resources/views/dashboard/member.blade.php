@@ -113,7 +113,6 @@
                             </div>
                             <span class="new-label">Hot</span>
                         </a>
-                    </div>
 
                         <!-- <a href="{{ route('progres') }}" class="col-md-2 col-6">
                             <div class="card bg-main" style="border-radius: 20px;">
@@ -233,11 +232,11 @@
 <!-- bg card -->
 <div class="modal fade" id="zoomImg" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-body">
-                <img src="{{ asset('dist/img/bg-card.png') }}" alt="Member Card">
-            </div>
+        <div class="modal-body">
+            <img src="{{ asset('dist/img/bg-card.png') }}" alt="Member Card">
         </div>
     </div>
+</div>
 </div>
 
 @section('js')
