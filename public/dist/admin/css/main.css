@@ -3667,3 +3667,7 @@ ol {
     font-size: 10px;
     font-weight: bold;
 }
+
+.bg-card {
+    cursor: pointer;
+}

@@ -39,7 +39,7 @@
 
                 <div class="section-body">
 
-                    <div class="card mb-3" style="border-radius: 20px;background-image: url('<?php echo asset('dist/img/bg-card.png'); ?>'); background-size: cover; background-position: center;">
+                    <div class="card bg-card mb-3" style="border-radius: 20px;background-image: url('<?php echo asset('dist/img/bg-card.png'); ?>'); background-size: cover; background-position: center;" data-toggle="modal" data-target="#zoomImg">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-8 my-auto">
@@ -239,6 +239,16 @@
     </div>
 </div>
 <!-- ChoseUs Section End -->
+
+<!-- bg card -->
+<div class="modal fade" id="zoomImg" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-body">
+                <img src="{{ asset('dist/img/bg-card.png') }}" alt="Member Card">
+            </div>
+        </div>
+    </div>
+</div>
 
 @section('js')
 <script>
