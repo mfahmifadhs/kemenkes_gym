@@ -36,8 +36,11 @@ class ChallengeController extends Controller
         } else {
             $user = Auth::user()->id;
             $challenge = ChallengeDetail::where('member_id', $user)->first();
-            $bodyCp    = Bodycp::orderBy('id_bodycp', 'DESC')->where('member_id', $user)
-                ->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])
+            $bodyCp    = Bodycp::orderBy('id_bodycp', 'ASC')->where('member_id', $user)
+                ->where(function ($query) {
+                    $query->whereBetween(DB::raw("STR_TO_DATE(tanggal_cek, '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])
+                        ->orWhereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-09-02', '2024-09-06']);
+                })
                 ->get();
 
             if (!$challenge) {
