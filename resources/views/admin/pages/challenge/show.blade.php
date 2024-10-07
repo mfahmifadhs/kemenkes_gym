@@ -106,6 +106,10 @@
                                                     @if ($row->member->bodycp()->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-09-02', '2024-09-06'])->count() != 0)
                                                     <br><b><i class="fas fa-check-circle text-success"></i> Tahap 2</b>
                                                     @endif
+
+                                                    @if ($row->member->bodycp()->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-09-30', '2024-10-04'])->count() != 0)
+                                                    <br><b><i class="fas fa-check-circle text-success"></i> Tahap 3</b>
+                                                    @endif
                                                 </td>
                                                 <td>
                                                     @if ($row->member->jenis_kelamin == 'male')
@@ -268,6 +272,10 @@
 
                                                     @if ($row->member->bodycp()->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-09-02', '2024-09-06'])->count() != 0)
                                                     <br><b><i class="fas fa-check-circle text-success"></i> Tahap 2</b>
+                                                    @endif
+
+                                                    @if ($row->member->bodycp()->whereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-09-30', '2024-10-04'])->count() != 0)
+                                                    <br><b><i class="fas fa-check-circle text-success"></i> Tahap 3</b>
                                                     @endif
                                                 </td>
                                                 <td>
