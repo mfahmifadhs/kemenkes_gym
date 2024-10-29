@@ -25,7 +25,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $bkpk          = Auth::user()->uker->unit_utama_id == 46591 ? true : null;
+        $bkpk          = Auth::user()->uker?->unit_utama_id == 46591 ? true : null;
         $penalty       = $this->penalty();
         $totalUtama    = $this->totalMinatByUker();
         $totalKelas    = $this->totalMinatByKelas();
