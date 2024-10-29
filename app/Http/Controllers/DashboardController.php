@@ -131,7 +131,7 @@ class DashboardController extends Controller
             ->groupBy('id_unit_utama', 'nama_unit_utama')
             ->orderBy('total_member', 'DESC');
 
-        if ($bkpk->unit_utama_id == '46591') {
+        if ($bkpk && $bkpk->unit_utama_id == '46591') {
             $total = $data->where('unit_utama_id', '46591')->get();
         } else {
             $total = $data->get();
