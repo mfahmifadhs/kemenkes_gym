@@ -41,7 +41,7 @@ class AbsenController extends Controller
             if ($bkpk) {
                 $absen = $data->where('lokasi_id', 2)->get();
             } else {
-                $absen = $data->where('lokasi_id', '!=', 2)->get();
+                $absen = $data->get();
             }
 
             return view('admin.pages.absen.show', compact('absen', 'colDate', 'colMonth', 'colYear', 'utama', 'uker', 'colUtama', 'colUker', 'bkpk'));
