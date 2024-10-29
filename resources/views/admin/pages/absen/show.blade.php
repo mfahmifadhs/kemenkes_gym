@@ -40,6 +40,7 @@
                         <form id="form-absen" action="{{ route('absen.filter') }}" method="GET">
                             @csrf
                             <div class="row">
+                                @if (!$bkpk)
                                 <div class="col-md-3 form-group">
                                     <div class="small">Unit utama:</div>
                                     <select name="utama" class="form-control border-dark rounded" onchange="this.form.submit()">
@@ -62,6 +63,7 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                @endif
                                 <div class="col-md-6 form-group">
                                     <div class="small">Tanggal:</div>
                                     <div class="input-group">

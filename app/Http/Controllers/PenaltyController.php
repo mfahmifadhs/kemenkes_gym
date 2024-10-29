@@ -11,12 +11,16 @@ class PenaltyController extends Controller
 {
     public function show()
     {
+        $bkpk  = Auth::user()->uker->unit_utama_id == 46591 ? true : false;
         $upl   = Auth::user()->uker_id;
         $utama = UnitUtama::get();
         $dataPenalty = Penalty::where('t_penalty.status', 'false');
 
         if ($upl == '121103') {
-            $penalty = $dataPenalty->join('t_jadwal','id_jadwal','jadwal_id')->whereIn('kelas_id', [12,13,14])->get();
+            $penalty = $dataPenalty->join('t_jadwal', 'id_jadwal', 'jadwal_id')->whereIn('kelas_id', [12, 13, 14])->get();
+        } else if ($bkpk == true) {
+            $penalty = $dataPenalty->join('users', 'id', 'user_id')->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
+                ->where('unit_utama_id', 46591)->get();
         } else {
             $penalty = $dataPenalty->get();
         }

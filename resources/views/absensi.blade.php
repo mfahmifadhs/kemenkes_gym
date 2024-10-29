@@ -65,6 +65,7 @@
                     @endif
                     <label class="text-white h4 mb-0">ID MEMBER</label><br>
                     <small class="text-white mt-0">Please scan ID Member here.</small>
+                    <input type="hidden" name="lokasi" id="lokasi_id" value="{{ $lokasi }}">
                     <input type="text" name="member_id" class="form-control bg-white number" id="member_id" placeholder="Member ID" min="0" maxlength="19">
                 </div>
             </div>
@@ -124,9 +125,10 @@
     $(document).ready(function() {
         $('#member_id').on('change', function() {
             var member_id = $(this).val();
+            var lokasi_id = $('#lokasi_id').val();
 
             $.ajax({
-                url: '/absensi/post/' + member_id,
+                url: '/absensi/post/' + lokasi_id +'/'+ member_id,
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}'

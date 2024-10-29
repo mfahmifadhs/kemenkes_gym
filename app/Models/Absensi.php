@@ -16,6 +16,7 @@ class Absensi extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'lokasi_id',
         'jadwal_id',
         'user_id',
         'tanggal',

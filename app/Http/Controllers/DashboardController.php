@@ -14,6 +14,7 @@ use App\Models\Penalty;
 use App\Models\Pengajuan;
 use App\Models\PengajuanDetail;
 use App\Models\Survey;
+use App\Models\UnitKerja;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
@@ -24,6 +25,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $bkpk          = Auth::user()->uker->unit_utama_id == 46591 ? true : null;
         $penalty       = $this->penalty();
         $totalUtama    = $this->totalMinatByUker();
         $totalKelas    = $this->totalMinatByKelas();
@@ -35,11 +37,11 @@ class DashboardController extends Controller
         $jadwal = Jadwal::where('tanggal_kelas', $today)->get();
         $absen  = Absensi::where('tanggal', Carbon::now()->format('Y-m-d'))->get();
         $totalPeminatan = MinatKelas::count();
-        $totalMember    = User::where('role_id', 4)->get();
+        $totalMember    = $bkpk ? User::join('t_unit_kerja', 'id_unit_kerja', 'uker_id')->where('unit_utama_id', '46591')->where('role_id', 4)->get() : User::where('role_id', 4)->get();
         $totalKepuasan  = Survey::get();
 
         if ($roleId == 1 || $roleId == 3) {
-            return view('admin.dashboard', compact('totalPeminatan', 'totalMember', 'totalUtama', 'totalStatus', 'totalKelas', 'totalKepuasan'));
+            return view('admin.dashboard', compact('totalPeminatan', 'totalMember', 'totalUtama', 'totalStatus', 'totalKelas', 'totalKepuasan', 'bkpk'));
         } else if ($roleId == 4) {
             $role = 'member';
         } else {
@@ -121,13 +123,19 @@ class DashboardController extends Controller
 
     public function totalMinatByUker()
     {
-        $total = User::where('role_id', 4)
+        $bkpk = Auth::user()->uker;
+        $data = User::where('role_id', 4)
             ->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
             ->join('t_unit_utama', 'id_unit_utama', 'unit_utama_id')
             ->select('id_unit_utama', 'nama_unit_utama', DB::raw('COUNT(id) as total_member'))
             ->groupBy('id_unit_utama', 'nama_unit_utama')
-            ->orderBy('total_member', 'DESC')
-            ->get();
+            ->orderBy('total_member', 'DESC');
+
+        if ($bkpk->unit_utama_id == '46591') {
+            $total = $data->where('unit_utama_id', '46591')->get();
+        } else {
+            $total = $data->get();
+        }
 
         return $total;
     }
@@ -135,15 +143,15 @@ class DashboardController extends Controller
     public function totalMinatByStatus()
     {
         $total = User::where('role_id', 4)
-        ->select(
-            'instansi',
-            DB::raw('COUNT(id) as total_member'),
-            DB::raw('SUM(CASE WHEN nip_nik LIKE "19%" THEN 1 ELSE 0 END) as total_pns'),
-            DB::raw('SUM(CASE WHEN nip_nik LIKE "9%" THEN 1 ELSE 0 END) as total_ppnpn')
-        )
-        ->groupBy('instansi')
-        ->orderBy('total_member', 'DESC')
-        ->get();
+            ->select(
+                'instansi',
+                DB::raw('COUNT(id) as total_member'),
+                DB::raw('SUM(CASE WHEN nip_nik LIKE "19%" THEN 1 ELSE 0 END) as total_pns'),
+                DB::raw('SUM(CASE WHEN nip_nik LIKE "9%" THEN 1 ELSE 0 END) as total_ppnpn')
+            )
+            ->groupBy('instansi')
+            ->orderBy('total_member', 'DESC')
+            ->get();
 
         return $total;
     }

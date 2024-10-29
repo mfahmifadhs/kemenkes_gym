@@ -54,13 +54,17 @@ Route::get('/Attendance', function () {
     return view('absensi');
 })->name('attendance.show');
 
+Route::get('{lokasi}/Attendance', function ($lokasi) {
+    return view('absensi', compact('lokasi'));
+})->name('attendance.uker.show');
+
 Route::get('/menu-tab', function () {
     return view('menu-tab');
 })->name('menu.tab');
 
 
 
-Route::post('absensi/post/{id}', [AbsenController::class, 'store']);
+Route::post('absensi/post/{lokasi}/{id}', [AbsenController::class, 'store']);
 Route::post('Attendance/list', [AbsenController::class, 'list'])->name('absen.list');
 
 Route::post('activation/post', [AuthController::class, 'resendActivation'])->name('activation.post');

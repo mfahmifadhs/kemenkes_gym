@@ -33,11 +33,19 @@ class MemberController extends Controller
         $searchMail = '';
         $searchCol7 = '';
 
-        $member = User::where('role_id', 4)->paginate(10);
+        $bkpk   = Auth::user()->uker->unit_utama_id == 46591 ? true : false;
+        $data   = User::where('role_id', 4);
         $uker   = User::select('uker_id', 'nama_unit_kerja')->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
             ->groupBy('uker_id', 'nama_unit_kerja')
             ->orderBy('nama_unit_kerja', 'ASC')
             ->get();
+
+        if ($bkpk == true) {
+            $member = $data->join('t_unit_kerja','id_unit_kerja','uker_id')->where('unit_utama_id', 46591)->paginate(10);
+        } else {
+            $member = $data->paginate(10);
+        }
+
 
         return view('admin.pages.member.show', compact('member', 'uker', 'searchCol1', 'searchInst', 'searchUker', 'searchNama', 'searchNip', 'searchMail', 'searchCol7'));
     }
@@ -54,11 +62,16 @@ class MemberController extends Controller
         $searchNip  = $request->get('searchNip'); // NIP NIK
         $searchMail = $request->get('searchMail'); // Email
         $searchCol7 = $request->get('col7'); // Telepon
+        $bkpk       = Auth::user()->uker->unit_utama_id == 46591 ? true : false;
         $data       = User::where('role_id', 4);
         $uker       = User::select('uker_id', 'nama_unit_kerja')->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
             ->groupBy('uker_id', 'nama_unit_kerja')
             ->orderBy('nama_unit_kerja', 'ASC')
             ->get();
+
+        if ($bkpk == true) {
+            $data = $data->join('t_unit_kerja','id_unit_kerja','uker_id')->where('unit_utama_id', 46591);
+        }
 
         if ($searchCol1 || $searchInst || $searchUker || $searchNama || $searchNip || $searchMail || $searchCol7) {
             if ($searchCol1) {

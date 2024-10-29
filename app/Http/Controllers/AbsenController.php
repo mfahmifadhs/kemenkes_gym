@@ -20,6 +20,7 @@ class AbsenController extends Controller
 {
     public function show()
     {
+        $bkpk     = Auth::user()->uker->unit_utama_id == 46591 ? true : false;
         $role     = Auth::user()->role_id;
         $colDate  = Carbon::now()->format('d');
         $colMonth = Carbon::now()->format('m');
@@ -32,12 +33,18 @@ class AbsenController extends Controller
         $query    = Absensi::orderBy('id_absensi', 'DESC');
 
         if ($role == 1 || $role == 3) {
-            $absen = $query
+            $data = $query
                 ->where(DB::raw("DATE_FORMAT(tanggal, '%d')"), $colDate)
                 ->where(DB::raw("DATE_FORMAT(tanggal, '%m')"), $colMonth)
-                ->where(DB::raw("DATE_FORMAT(tanggal, '%Y')"), $colYear)
-                ->get();
-            return view('admin.pages.absen.show', compact('absen', 'colDate', 'colMonth', 'colYear', 'utama', 'uker', 'colUtama', 'colUker'));
+                ->where(DB::raw("DATE_FORMAT(tanggal, '%Y')"), $colYear);
+
+            if ($bkpk) {
+                $absen = $data->where('lokasi_id', 2)->get();
+            } else {
+                $absen = $data->where('lokasi_id', 1)->get();
+            }
+
+            return view('admin.pages.absen.show', compact('absen', 'colDate', 'colMonth', 'colYear', 'utama', 'uker', 'colUtama', 'colUker', 'bkpk'));
         } else if ($role == 4) {
             $absen = $query->where('user_id', Auth::user()->id)->paginate(10);
             return view('dashboard.pages.absen.show', compact('absen', 'colDate', 'colMonth', 'colYear'));
@@ -49,6 +56,7 @@ class AbsenController extends Controller
 
     public function filter(Request $request)
     {
+        $bkpk     = Auth::user()->uker->unit_utama_id == 46591 ? true : false;
         $perPage  = $request->get('perPage', 10);
         $colDate  = $request->get('tanggal');
         $colMonth = $request->get('bulan');
@@ -95,18 +103,25 @@ class AbsenController extends Controller
             $absen = $res->where('user_id', Auth::user()->id)->paginate($perPage);
             return view('dashboard.pages.absen.show', compact('absen', 'colDate', 'colMonth', 'colYear', 'colUtama', 'colUker'));
         } else {
-            $absen = $res->get();
-            return view('admin.pages.absen.show', compact('absen', 'colDate', 'colMonth', 'colYear', 'colUtama', 'colUker', 'utama', 'uker'));
+
+            if ($bkpk) {
+                $absen = $res->where('lokasi_id', 2)->get();
+            } else {
+                $absen = $res->where('lokasi_id', 1)->get();
+            }
+
+            return view('admin.pages.absen.show', compact('absen', 'colDate', 'colMonth', 'colYear', 'colUtama', 'colUker', 'utama', 'uker', 'bkpk'));
         }
     }
 
-    public function store(Request $request, $id)
+    public function store(Request $request, $lokasi, $id)
     {
-        $today = Carbon::now()->toDateString();
+        $lokasi  = $lokasi == 'PUSAT' ? 1 : 2;
+        $today   = Carbon::now()->toDateString();
         $timeNow = Carbon::now()->format('H:i:s');
-        $user  = User::where('member_id', $id)->first();
-        $absen = Absensi::where('tanggal', $today)->where('user_id', $user->id)->orderBy('id_absensi', 'desc')->first();
-        $jadwal = '';
+        $user    = User::where('member_id', $id)->first();
+        $absen   = Absensi::where('tanggal', $today)->where('user_id', $user->id)->orderBy('id_absensi', 'desc')->first();
+        $jadwal  = '';
 
         $classNow = Peserta::join('t_jadwal', 'id_jadwal', '=', 'jadwal_id')
             ->where('tanggal_latihan', $today)
@@ -148,6 +163,7 @@ class AbsenController extends Controller
         }
 
         $tambah = new Absensi();
+        $tambah->lokasi_id = $lokasi;
         $tambah->jadwal_id = $jadwal;
         $tambah->user_id = $user->id;
         $tambah->tanggal = Carbon::now();

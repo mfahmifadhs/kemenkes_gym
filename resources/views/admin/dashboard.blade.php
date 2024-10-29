@@ -21,6 +21,7 @@
             <div class="col-md-9 col-12 mx-auto">
                 <div class="row">
                     <div class="col-md-4">
+                        @if (!$bkpk)
                         <div class="card">
                             <div class="card-header">
                                 <i class="fas fa-pie-chart text-danger"></i> Total Peminatan
@@ -38,21 +39,24 @@
                                 </div>
                             </div>
                         </div>
+                        @else
+                        <img src="{{ asset('dist/img/bkpk-logo.png') }}" class="img-fluid bg-dark rounded" alt="">
+                        @endif
                     </div>
                     <div class="col-md-8">
-                        <div class="card">
+                        <div class="card border border-dark">
                             @if (Auth::user()->uker_id != '121103')
-                            <div class="card-header">
+                            <div class="card-header border-dark">
                                 <div class="row text-sm">
                                     <div class="col-md-8 col-12">
                                         <i class="fas fa-users"></i> Total Member : <b>{{ $totalMember->count() }}</b> <br>
                                         <i class="fas fa-user-check text-success"></i> Total Member Aktif : <b>{{ $totalMember->where('status', 'true')->count() }}</b> &emsp;
                                         <i class="fas fa-user-times text-danger"></i> Total Member Tidak Aktif : <b>{{ $totalMember->where('status', 'false')->count() }}</b>
                                     </div>
-                                    <div class="col-md-4 col-12 text-right mt-2">
+                                    <!-- <div class="col-md-4 col-12 text-right mt-2">
                                         <i class="fas fa-face-smile text-success border-dark"></i> Puas : <b>{{ $totalKepuasan->where('kepuasan', 'puas')->count() }}</b>
                                         <i class="fas fa-face-frown ml-2 text-danger border-dark"></i> Tidak Puas : <b>{{ $totalKepuasan->where('kepuasan', 'tidak puas')->count() }}</b>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             @endif
@@ -84,6 +88,7 @@
                                     </table>
                                 </div>
                             </div>
+                            @if (!$bkpk)
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <i class="fas fa-table"></i> Total Peminatan (Kelas)
@@ -143,6 +148,7 @@
                                     </table>
                                 </div>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>

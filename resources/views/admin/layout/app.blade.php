@@ -51,6 +51,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
                         </li>
 
+                        @if (Auth::user()->uker->unit_utama_id != 46591)
                         <li class="nav-item dropdown">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Class</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
@@ -64,6 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </li>
                             </ul>
                         </li>
+                        @endif
 
                         @if (Auth::user()->uker_id != '121103')
                         <li class="nav-item dropdown">
@@ -73,9 +75,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <a href="{{ route('absen.show') }}" class="dropdown-item">
                                         <i class="fa fa-table"></i> List
                                     </a>
+                                    @if (Auth::user()->uker->unit_utama_id != 46591)
                                     <a href="{{ route('absen.report') }}" class="dropdown-item">
                                         <i class="fa fa-pie-chart"></i> Report
                                     </a>
+                                    @endif
                                 </li>
                             </ul>
                         </li>
@@ -87,14 +91,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <a href="{{ route('member') }}" class="dropdown-item">
                                         <i class="fa fa-users"></i> List
                                     </a>
+                                    @if (Auth::user()->uker->unit_utama_id != 46591)
                                     <a href="{{ route('penalty') }}" class="dropdown-item">
                                         <i class="fa fa-calendar-times"></i> Penalty
                                     </a>
+                                    @endif
                                 </li>
                             </ul>
                         </li>
                         @endif
 
+                        @if (Auth::user()->uker->unit_utama_id != 46591)
                         <li class="nav-item dropdown">
                             <a id="menu" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Menu</a>
                             <ul aria-labelledby="menu" class="dropdown-menu border-0 shadow">
@@ -119,6 +126,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </li>
                             </ul>
                         </li>
+                        @endif
                         <li class="nav-item dropdown">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Profile</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
