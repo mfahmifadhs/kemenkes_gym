@@ -287,8 +287,10 @@ class AbsenController extends Controller
             ->orderBy('waktu_masuk', 'DESC');
 
         if ($lokasi == 'BKPK') {
+            dd('false');
             $absens = $data->where('lokasi_id', 2)->get();
         } else {
+            dd('true');
             $absens = $data->where('lokasi_id', '!=', 2)->get();
         }
 
