@@ -220,7 +220,8 @@
             url: "{{ route('absen.list') }}",
             method: "POST",
             data: {
-                _token: "{{ csrf_token() }}" // Sertakan token CSRF
+                _token: "{{ csrf_token() }}", // Sertakan token CSRF
+                lokasi: "{{ $lokasi }}"
             },
             success: function(data) {
                 let total = data.length;

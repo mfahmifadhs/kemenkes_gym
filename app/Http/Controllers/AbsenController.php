@@ -280,6 +280,7 @@ class AbsenController extends Controller
 
     public function list(Request $request)
     {
+        dd($request->all());
         $today = Carbon::today();
         $absens = Absensi::with(['member', 'member.uker', 'jadwal.kelas'])
             ->whereDate('tanggal', $today)
