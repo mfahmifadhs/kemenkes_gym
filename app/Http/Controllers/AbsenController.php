@@ -289,7 +289,7 @@ class AbsenController extends Controller
         if ($lokasi == 'BKPK') {
             $absens = $data->where('lokasi_id', 2)->get();
         } else {
-            $absens = $data->whereNotIn('lokasi_id', [2])->get();
+            $absens = $data->whereIn('lokasi_id', [null, 1])->get();
         }
 
         return response()->json($absens);
