@@ -123,7 +123,7 @@ class DashboardController extends Controller
 
     public function totalMinatByUker()
     {
-        $bkpk = Auth::user()->uker;
+        $bkpk = Auth::user()?->uker;
         $data = User::where('role_id', 4)
             ->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
             ->join('t_unit_utama', 'id_unit_utama', 'unit_utama_id')
