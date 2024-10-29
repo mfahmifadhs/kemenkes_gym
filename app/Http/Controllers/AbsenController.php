@@ -280,11 +280,18 @@ class AbsenController extends Controller
 
     public function list(Request $request)
     {
-        $today = Carbon::today();
-        $absens = Absensi::with(['member', 'member.uker', 'jadwal.kelas'])
+        $lokasi = $request->lokasi;
+
+        $today  = Carbon::today();
+        $data   = Absensi::with(['member', 'member.uker', 'jadwal.kelas'])
             ->whereDate('tanggal', $today)
-            ->orderBy('waktu_masuk', 'DESC')
-            ->get();
+            ->orderBy('waktu_masuk', 'DESC');
+
+        if ($lokasi == 'BKPK') {
+            $absens = $data->where('lokasi_id', 2)->get();
+        } else {
+            $absens = $data->where('lokasi_id', '!=', 2)->get();
+        }
 
         return response()->json($absens);
     }
