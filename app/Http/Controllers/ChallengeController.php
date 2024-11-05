@@ -40,7 +40,8 @@ class ChallengeController extends Controller
                 ->where(function ($query) {
                     $query->whereBetween(DB::raw("STR_TO_DATE(tanggal_cek, '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])
                         ->orWhereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-09-02', '2024-09-06'])
-                        ->orWhereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-09-30', '2024-10-04']);
+                        ->orWhereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-09-30', '2024-10-04'])
+                        ->orWhereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-10-28', '2024-11-05']);
                 })
                 ->get();
 
@@ -141,7 +142,8 @@ class ChallengeController extends Controller
             ->where(function ($query) {
                 $query->whereBetween(DB::raw("STR_TO_DATE(tanggal_cek, '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])
                     ->orWhereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-09-02', '2024-09-06'])
-                    ->orWhereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-09-30', '2024-10-04']);
+                    ->orWhereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-09-30', '2024-10-04'])
+                    ->orWhereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-10-28', '2024-11-05']);
             })
             ->get()
             ->groupBy('member_id');
@@ -201,7 +203,8 @@ class ChallengeController extends Controller
             ->where(function ($query) {
                 $query->whereBetween(DB::raw("STR_TO_DATE(tanggal_cek, '%d/%m/%Y')"), ['2024-08-05', '2024-08-20'])
                     ->orWhereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-09-02', '2024-09-06'])
-                    ->orWhereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-09-30', '2024-10-04']);
+                    ->orWhereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-09-30', '2024-10-04'])
+                    ->orWhereBetween(DB::raw("STR_TO_DATE(SUBSTRING_INDEX(tanggal_cek, ' ', 1), '%d/%m/%Y')"), ['2024-10-28', '2024-11-05']);
             })
             ->get();
         if (!$bodyCp) {
@@ -265,7 +268,7 @@ class ChallengeController extends Controller
             ['title' => 'tahap1', 'startDate' => '2024-08-05', 'endDate' => '2024-08-20'],
             ['title' => 'tahap2', 'startDate' => '2024-09-02', 'endDate' => '2024-09-06'],
             ['title' => 'tahap3', 'startDate' => '2024-09-30', 'endDate' => '2024-10-04'],
-            ['title' => 'tahap4', 'startDate' => '2024-10-28', 'endDate' => '2024-10-31'],
+            ['title' => 'tahap4', 'startDate' => '2024-10-28', 'endDate' => '2024-11-05'],
         ];
 
         $instansi   = $request->get('instansi');
