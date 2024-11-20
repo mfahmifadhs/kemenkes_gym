@@ -29,7 +29,7 @@
             <div class="col-lg-12 mx-auto mt-5 text-center">
                 <div class="section-title contact-title text-center">
                     <h4 class="text-main"><u>JAM OPERASIONAL</u></h4>
-                    @if ($lokasi == 'pusat')
+                    @if ($lokasi == 'PUSAT')
                     <h4 class="text-main mt-2">PAGI : 06.00 s/d 07.15 WIB | SORE : 16.00 s/d 19.30 WIB</h4>
                     @else
                     <h4 class="text-main mt-4">
@@ -39,7 +39,7 @@
                     </h4>
                     @endif
                 </div>
-                @if ($lokasi == 'pusat')
+                @if ($lokasi == 'PUSAT')
                 <div class="section-title contact-title text-center">
                     <h4 class="text-main"><u>JADWAL KELAS</u></h4>
                 </div>
