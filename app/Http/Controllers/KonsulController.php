@@ -30,10 +30,10 @@ class KonsulController extends Controller
             $nama        = $user->nama;
             $asal        = $user->instansi == 'pusat' ? $user->uker->nama_unit_kerja : $user->nama_instansi;
             $userKonsul  = Auth::user()->konsul->where('status', 'false');
-            $phoneFaris  = '6281317790710';
+            $phoneSalsa  = '62895361160934';
             $phoneWiyata = '6289673958264';
             $msg         = "Halo coach, saya *$nama* dari *$asal*. %0ASaya ingin menjadwalkan Tes Vo2Max dengan SIPGAR dan Fitness Test sebelum Konsultasi dengan Dokter.";
-            return view('dashboard.pages.konsul.show', compact('dokter', 'phoneFaris', 'phoneWiyata', 'msg', 'userKonsul'));
+            return view('dashboard.pages.konsul.show', compact('dokter', 'phoneSalsa', 'phoneWiyata', 'msg', 'userKonsul'));
         }
     }
 

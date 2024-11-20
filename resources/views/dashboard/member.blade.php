@@ -233,7 +233,7 @@
 <div class="modal fade" id="zoomImg" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-body">
-            <img src="{{ asset('dist/img/bg-card.png') }}" alt="Member Card">
+            <img src="{{ asset('dist/img/bg-card-zoom.png') }}" alt="Member Card">
         </div>
     </div>
 </div>
