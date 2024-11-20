@@ -29,14 +29,24 @@
             <div class="col-lg-12 mx-auto mt-5 text-center">
                 <div class="section-title contact-title text-center">
                     <h4 class="text-main"><u>JAM OPERASIONAL</u></h4>
+                    @if ($lokasi == 'pusat')
                     <h4 class="text-main mt-2">PAGI : 06.00 s/d 07.15 WIB | SORE : 16.00 s/d 19.30 WIB</h4>
+                    @else
+                    <h4 class="text-main mt-4">
+                        SESI 1 : 06.30 s/d 08.00 WIB |
+                        SESI 2 : 11.30 s/d 13.30 WIB |
+                        SESI 3 : 15.30 s/d 19.00 WIB
+                    </h4>
+                    @endif
                 </div>
+                @if ($lokasi == 'pusat')
                 <div class="section-title contact-title text-center">
                     <h4 class="text-main"><u>JADWAL KELAS</u></h4>
                 </div>
                 <img src="{{ asset('dist/img/schedule.png') }}" class="img-fluid w-75" alt="">
+                @endif
             </div>
-            <div class="col-lg-12 mx-auto mt-5 text-center">
+            <div class="col-lg-12 mx-auto mt-3 text-center">
                 <div class="section-title contact-title text-center">
                     <h2><u>KEHADIRAN</u></h2>
                 </div>
