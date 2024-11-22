@@ -133,7 +133,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($kelas->minat as $row)
+                                @foreach ($kelas?->minat as $row)
                                 @if ($row->member)
                                 @if ($row->member->jenis_kelamin == 'male')
                                 @php $maleCount++; @endphp
