@@ -39,7 +39,7 @@ class DashboardController extends Controller
         $totalMember    = $bkpk ? User::join('t_unit_kerja', 'id_unit_kerja', 'uker_id')->where('unit_utama_id', '46591')->where('role_id', 4)->get() : User::where('role_id', 4)->get();
         $totalKepuasan  = Survey::get();
 
-        $dataJadwal = Jadwal::where('tanggal_kelas', $today)->get();
+        $dataJadwal = Jadwal::where('tanggal_kelas', $today);
 
         if ($bkpk) {
             $jadwal = $dataJadwal->get();
