@@ -34,11 +34,18 @@ class DashboardController extends Controller
 
         $roleId = Auth::user()->role_id;
         $kelas  = Kelas::orderBy('nama_kelas', 'ASC')->where('status', 'true')->get();
-        $jadwal = Jadwal::where('tanggal_kelas', $today)->get();
         $absen  = Absensi::where('tanggal', Carbon::now()->format('Y-m-d'))->get();
         $totalPeminatan = MinatKelas::count();
         $totalMember    = $bkpk ? User::join('t_unit_kerja', 'id_unit_kerja', 'uker_id')->where('unit_utama_id', '46591')->where('role_id', 4)->get() : User::where('role_id', 4)->get();
         $totalKepuasan  = Survey::get();
+
+        $dataJadwal = Jadwal::where('tanggal_kelas', $today)->get();
+
+        if ($bkpk) {
+            $jadwal = $dataJadwal->get();
+        } else {
+            $jadwal = $dataJadwal->where('lokasi_id', null)->get();
+        }
 
         if ($roleId == 1 || $roleId == 3) {
             return view('admin.dashboard', compact('totalPeminatan', 'totalMember', 'totalUtama', 'totalStatus', 'totalKelas', 'totalKepuasan', 'bkpk'));
