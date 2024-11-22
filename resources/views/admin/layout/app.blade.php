@@ -51,7 +51,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
                         </li>
 
-                        @if (Auth::user()->uker->unit_utama_id != 46591)
                         <li class="nav-item dropdown">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Class</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
@@ -59,13 +58,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <a href="{{ route('kelas') }}" class="dropdown-item">
                                         <i class="fa fa-table"></i> List
                                     </a>
+                                    @if (Auth::user()->uker->unit_utama_id != 46591)
                                     <a href="{{ route('jadwal.show') }}" class="dropdown-item">
                                         <i class="fa fa-calendar"></i> Schedule
                                     </a>
+                                    @endif
                                 </li>
                             </ul>
                         </li>
-                        @endif
 
                         @if (Auth::user()->uker_id != '121103')
                         <li class="nav-item dropdown">

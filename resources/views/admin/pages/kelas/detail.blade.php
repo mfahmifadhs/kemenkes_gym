@@ -89,7 +89,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>
                                         <a href="{{ route('jadwal.detail', $row->id_jadwal) }}"><i class="fas fa-eye mx-1"></i></a>
-                                        @if (Auth::user()->role_id == 1)
+                                        @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 3)
                                         <a href="{{ route('jadwal.edit', $row->id_jadwal) }}"><i class="fas fa-pencil mx-1"></i></a>
                                         @endif
                                     </td>

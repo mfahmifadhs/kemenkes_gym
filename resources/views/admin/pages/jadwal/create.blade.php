@@ -48,6 +48,9 @@
                             <div class="col-md-6">
                                 <label class="mb-1 mt-3">Location</label>
                                 <input type="text" class="form-control" name="lokasi" value="Kemenkes Bootcamp & Fitness Center">
+                                @if (Auth::user()->uker->unit_utama_id)
+                                <input type="hidden" name="lokasi_id" value="2">
+                                @endif
                             </div>
                             <div class="col-md-12 mt-4">
                                 <button type="submit" class="btn btn-primary btn-block" onclick="confirmSubmit(event)">

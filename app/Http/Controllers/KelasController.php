@@ -21,7 +21,15 @@ class KelasController extends Controller
     public function show()
     {
         $role  = Auth::user()->role_id;
-        $kelas = Kelas::orderBy('nama_kelas', 'ASC')->get();
+        $data  = Kelas::orderBy('nama_kelas', 'ASC');
+        $bkpk  = Auth::user()->uker->unit_utama_id;
+
+        if ($bkpk == '46591') {
+            $kelas = $data->where('id_kelas', 3)->get();
+        } else {
+            $kelas = $data->get();
+        }
+
 
         if ($role == 1 || $role == 3) {
             return view('admin.pages.kelas.show', compact('kelas'));

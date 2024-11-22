@@ -18,6 +18,7 @@ class Jadwal extends Model
     protected $fillable = [
         'id_jadwal',
         'kelas_id',
+        'jadwal_id',
         'tanggal_kelas',
         'waktu_mulai',
         'waktu_selesai',
@@ -32,5 +33,9 @@ class Jadwal extends Model
 
     public function peserta() {
         return $this->hasMany(Peserta::class, 'jadwal_id');
+    }
+
+    public function lokasiGym() {
+        return $this->belongsTo(Lokasi::class, 'lokasi_id');
     }
 }

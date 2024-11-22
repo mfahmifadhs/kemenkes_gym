@@ -86,6 +86,7 @@ $cekWarna = $cekHari == 'Kamis' ? 'bg-pink' : 'bg-main';
                                                             {{ Carbon\Carbon::parse($row->waktu_selesai)->isoFormat('HH.mm') }}
                                                         </h6>
                                                         <h6 class="small">Kuota : {{ $totalPeserta }} / {{ $row->kuota }}</h6>
+                                                        <h6 style="font-size: 10px;">{{ $row->lokasi }}</h6>
                                                         <!-- Sudah daftar di kelas ini -->
                                                         @if (Auth::user()->classActive->where('jadwal_id', $row->id_jadwal)->count() > 0)
                                                         <h6 class="text-success" style="font-size: 11px;">Anda sudah terdaftar</h6>

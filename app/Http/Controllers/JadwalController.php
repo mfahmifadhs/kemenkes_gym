@@ -16,6 +16,7 @@ class JadwalController extends Controller
 {
     public function show()
     {
+        $bkpk       = Auth::user()->uker->unit_utama_id;
         $upl        = Auth::user()->uker_id;
         $role       = Auth::user()->role_id == 4 ? 'dashboard.pages.kelas' : 'admin.pages';
         $tglAwal    = Carbon::now();
@@ -41,8 +42,10 @@ class JadwalController extends Controller
 
         if ($role != 4 && $upl == '121103') {
             $jadwal = $dataJadwal->whereIn('kelas_id', [12,13,14])->get();
-        } else {
+        } else if ($role != 4 && $bkpk == '46591') {
             $jadwal = $dataJadwal->get();
+        } else {
+            $jadwal = $dataJadwal->where('lokasi_id', null)->get();
         }
 
         return view($role . '.jadwal.show', compact('id', 'jadwal', 'range', 'rangeAwal', 'today', 'daftar'));
@@ -63,6 +66,7 @@ class JadwalController extends Controller
 
     public function filter($id)
     {
+        $bkpk       = Auth::user()->uker;
         $upl        = Auth::user()->uker_id;
         $role       = Auth::user()->role_id == 4 ? 'dashboard.pages.kelas' : 'admin.pages';
         $tglAwal    = Carbon::now();
@@ -87,8 +91,10 @@ class JadwalController extends Controller
 
         if ($role != 4 && $upl == '121103') {
             $jadwal = $dataJadwal->whereIn('kelas_id', [12,13,14])->get();
-        } else {
+        } else if ($role != 4 && $bkpk->unit_utama_id == '46591') {
             $jadwal = $dataJadwal->get();
+        } else {
+            $jadwal = $dataJadwal->where('lokasi_id', null)->get();
         }
 
         return view($role . '.jadwal.show', compact('id', 'jadwal', 'range', 'rangeAwal', 'today', 'daftar', 'status'));
@@ -118,6 +124,7 @@ class JadwalController extends Controller
 
     public function store(Request $request)
     {
+        $bkpk  = Auth::user()->uker->unit_utama_id;
         $cekHari = Jadwal::where('kelas_id', $request->kelas_id)->whereDate('tanggal_kelas', '=', date('Y-m-d', strtotime($request->tanggal)))->count();
 
         if ($cekHari != 0) {
@@ -126,15 +133,21 @@ class JadwalController extends Controller
 
         $tambah = new Jadwal();
         $tambah->kelas_id       = $request->kelas_id;
+        $tambah->lokasi_id      = $request->lokasi_id ?? null;
         $tambah->tanggal_kelas  = $request->tanggal;
         $tambah->waktu_mulai    = $request->waktu_mulai;
         $tambah->waktu_selesai  = $request->waktu_selesai;
         $tambah->kuota          = $request->kuota;
         $tambah->nama_pelatih   = $request->nama_pelatih;
         $tambah->lokasi         = $request->lokasi;
-        $tambah->save();
+        // $tambah->save();
 
         $date = Carbon::parse($request->tanggal)->format('d-M-Y');
+
+
+        if ($bkpk == '46591') {
+            return redirect()->route('kelas.detail', $request->kelas_id)->with('success', 'Berhasil membuat jadwal!');
+        }
 
         return redirect()->route('jadwal.pilih', $date)->with('success', 'Berhasil membuat jadwal!');
     }
