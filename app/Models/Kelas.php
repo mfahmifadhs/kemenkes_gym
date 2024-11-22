@@ -42,11 +42,13 @@ class Kelas extends Model
 
         if ($utama == '46591') {
             return $this->hasMany(MinatKelas::class, 'kelas_id')
-                ->join('users', 'id', 't_minat_kelas.member_id')
-                ->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
-                ->where('unit_utama_id', '46591');
+                ->whereHas('member', function ($query) {
+                    $query->whereHas('uker', function ($subQuery) {
+                        $subQuery->where('unit_utama_id', '46591');
+                    });
+                });
         }
-        dd($utama);
+
         return $this->hasMany(MinatKelas::class, 'kelas_id');
     }
 }
