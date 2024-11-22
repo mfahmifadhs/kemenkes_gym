@@ -140,7 +140,7 @@ class JadwalController extends Controller
         $tambah->kuota          = $request->kuota;
         $tambah->nama_pelatih   = $request->nama_pelatih;
         $tambah->lokasi         = $request->lokasi;
-        // $tambah->save();
+        $tambah->save();
 
         $date = Carbon::parse($request->tanggal)->format('d-M-Y');
 
