@@ -125,7 +125,13 @@ class JadwalController extends Controller
     public function store(Request $request)
     {
         $bkpk  = Auth::user()->uker->unit_utama_id;
-        $cekHari = Jadwal::where('kelas_id', $request->kelas_id)->whereDate('tanggal_kelas', '=', date('Y-m-d', strtotime($request->tanggal)))->count();
+        $dataHari = Jadwal::where('kelas_id', $request->kelas_id)->whereDate('tanggal_kelas', '=', date('Y-m-d', strtotime($request->tanggal)));
+
+        if ($bkpk == '46591') {
+            $cekHari = $dataHari->where('lokasi_id', 2)->count();
+        } else {
+            $cekHari = $dataHari->count();
+        }
 
         if ($cekHari != 0) {
             return redirect()->route('kelas.detail', $request->kelas_id)->with('failed', 'Jadwal sudah tersedia!');
