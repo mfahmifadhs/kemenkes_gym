@@ -46,7 +46,7 @@ class Kelas extends Model
                 ->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
                 ->where('unit_utama_id', '46591');
         }
-
+        dd($utama);
         return $this->hasMany(MinatKelas::class, 'kelas_id');
     }
 }
