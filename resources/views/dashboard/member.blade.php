@@ -105,14 +105,14 @@
                             <!-- <span class="new-label">New</span> -->
                         </a>
 
-                        <a href="{{ route('challenge') }}" class="col-md-3 form-group col-6">
+                        <!-- <a href="{{ route('challenge') }}" class="col-md-3 form-group col-6">
                             <div class="card bg-warning" style="border-radius: 20px;">
                                 <div class="card-body text-dark text-center font-weight-bold p-2 small">
                                     <i class="fa fa-trophy"></i> Challenges
                                 </div>
                             </div>
                             <span class="new-label">Hot</span>
-                        </a>
+                        </a> -->
 
                         <!-- <a href="{{ route('progres') }}" class="col-md-2 col-6">
                             <div class="card bg-main" style="border-radius: 20px;">
