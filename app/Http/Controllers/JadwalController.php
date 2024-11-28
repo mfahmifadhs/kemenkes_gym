@@ -92,7 +92,7 @@ class JadwalController extends Controller
         if ($role != 4 && $upl == '121103') {
             $jadwal = $dataJadwal->whereIn('kelas_id', [12,13,14])->get();
         } else if ($role != 4 && $bkpk->unit_utama_id == '46591') {
-            $jadwal = $dataJadwal->get();
+            $jadwal = $dataJadwal->get(?);
         } else {
             $jadwal = $dataJadwal->where('lokasi_id', null)->get();
         }
