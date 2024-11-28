@@ -16,7 +16,7 @@ class JadwalController extends Controller
 {
     public function show()
     {
-        $bkpk       = Auth::user()->uker->unit_utama_id;
+        $bkpk       = Auth::user()->uker?->unit_utama_id;
         $upl        = Auth::user()->uker_id;
         $role       = Auth::user()->role_id == 4 ? 'dashboard.pages.kelas' : 'admin.pages';
         $tglAwal    = Carbon::now();
