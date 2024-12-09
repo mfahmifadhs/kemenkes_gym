@@ -90,10 +90,10 @@
                         </td>
                         <td class="text-left align-top">
                             <div class="row">
-                                <div class="col-4">Masuk :</div>
-                                <div class="col-8">{{ $row->waktu_masuk }}</div>
-                                <div class="col-4">Keluar :</div>
-                                <div class="col-8">{{ $row->waktu_keluar }}</div>
+                                <div class="col-4">Masuk</div>
+                                <div class="col-8">: {{ $row->waktu_masuk }}</div>
+                                <div class="col-4">Keluar</div>
+                                <div class="col-8">: {{ $row->waktu_keluar }}</div>
                             </div>
                         </td>
                     </tr>
