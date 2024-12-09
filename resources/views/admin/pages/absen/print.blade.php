@@ -72,7 +72,7 @@
                         <th>No</th>
                         <th style="width: 20%;">Tanggal</th>
                         <th>Member</th>
-                        <th>Kehadiran</th>
+                        <th style="width: 20%;">Kehadiran</th>
                     </tr>
                 </thead>
                 @foreach($absen as $row)
