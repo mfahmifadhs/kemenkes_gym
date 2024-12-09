@@ -85,7 +85,7 @@
                                 <div class="col-4">Nama</div>
                                 <div class="col-7">: {{ $row->member->nama }}</div>
                                 <div class="col-4">Unit Kerja</div>
-                                <div class="col-7">: {{ $row->member->uker->nama_unit_kerja }}</div>
+                                <div class="col-7">: {{ $row->member->uker?->nama_unit_kerja }}</div>
                             </div>
                         </td>
                         <td class="text-left align-top">
