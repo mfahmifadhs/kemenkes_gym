@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\KonsulExport;
 use App\Models\Dokter;
 use App\Models\Konsultasi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 
 class KonsulController extends Controller
@@ -21,7 +23,7 @@ class KonsulController extends Controller
             $test    = ['Test Sipgar', 'Test Fitness', 'Konsul'];
             $book    = Konsultasi::where('test_fitness', 0)->get(); //->paginate(5, ['*'], 'book_page');
             $konsul  = Konsultasi::where('test_fitness', 1)->where('konsultasi', 0)->orderBy('tanggal_konsul', 'ASC')->get();
-                // ->paginate(5, ['*'], 'konsul_page');
+            // ->paginate(5, ['*'], 'konsul_page');
             $user    = User::has('konsul')->with('konsul')->get();
             $konsulTrue = Konsultasi::where('konsultasi', 1)->get();
             return view('admin.pages.konsul.show', compact('dokter', 'book', 'konsul', 'user', 'test', 'konsulTrue'));
@@ -140,9 +142,13 @@ class KonsulController extends Controller
 
     public function download($id)
     {
-        $konsul = Konsultasi::where('id_konsultasi', $id)->first();
-        $pdf = PDF::loadView('admin.pages.konsul.pdf', compact('konsul'));
-        return $pdf->download('result.pdf');
+        if ($id == 'konsul-all') {
+            return Excel::download(new KonsulExport, 'showKonsultasi.xlsx');
+        } else {
+            $konsul = Konsultasi::where('id_konsultasi', $id)->first();
+            $pdf = PDF::loadView('admin.pages.konsul.pdf', compact('konsul'));
+            return $pdf->download('result.pdf');
+        }
     }
 
     public function riwayat($id)

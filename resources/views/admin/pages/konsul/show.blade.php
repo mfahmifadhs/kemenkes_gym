@@ -264,10 +264,13 @@
 
             <div class="card border border-dark p-2">
                 <div class="card-header border-dark">
-                    <label class="card-title text-sm mt-1">
+                    <label class="card-title text-sm">
                         <i class="fas fa-history text-success"></i> Riwayat Konsultasi
                     </label>
                     <div class="card-tools">
+                        <a href="{{ route('konsul.download', 'konsul-all') }}" class="btn btn-danger btn-xs mb-1">
+                            <i class="fas fa-download"></i> Download
+                        </a>
                         <button type="button" class="btn btn-tool text-dark" data-card-widget="collapse">
                             <i class="fas fa-minus"></i>
                         </button>
@@ -434,24 +437,6 @@
             "info": true,
             "paging": true,
             "searching": true,
-            buttons: [{
-                extend: 'pdf',
-                text: ' PDF',
-                pageSize: 'A4',
-                className: 'bg-danger',
-                title: 'Riwayat Pasien',
-                exportOptions: {
-                    columns: [0, 2, 3, 4, 5, 6]
-                },
-            }, {
-                extend: 'excel',
-                text: ' Excel',
-                className: 'bg-success',
-                title: 'Riwayat Pasien',
-                exportOptions: {
-                    columns: [0, 2, 3, 4, 5, 6]
-                },
-            }],
             "bDestroy": true
         }).buttons().container().appendTo('#tKonsul_wrapper .col-md-6:eq(0)');
     })

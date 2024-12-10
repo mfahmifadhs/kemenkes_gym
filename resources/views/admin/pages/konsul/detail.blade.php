@@ -24,7 +24,7 @@
 
     <div class="content">
         <div class="container-fluid col-md-6">
-            <div class="card">
+            <div class="card border border-dark">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-4">
@@ -85,6 +85,45 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <hr>
+                                <label class="text-secondary text-sm mb-3">
+                                    <i>Komposisi Tubuh</i>
+                                </label>
+                                <div class="row">
+                                    <h6 class="col-md-12 col-12 text-sm">
+                                        {{ $konsul->member->bodycp->last()->tanggal_cek }}
+                                    </h6>
+
+                                    <h6 class="col-md-7 col-3 text-sm">&bull; Berat Badan</h6>
+                                    <h6 class="col-md-5 col-3 text-sm">: {{ $konsul->member->bodycp->last()->weight }} kg</h6>
+
+                                    <h6 class="col-md-7 col-3 text-sm">&bull; Tinggi Badan</h6>
+                                    <h6 class="col-md-5 col-3 text-sm">: {{ $konsul->member->bodycp->last()->height }} cm</h6>
+
+                                    <h6 class="col-md-7 col-3 text-sm">&bull; <i>Fat Percent</i></h6>
+                                    <h6 class="col-md-5 col-3 text-sm">: {{ $konsul->member->bodycp->last()->fatp }} %</h6>
+
+                                    <h6 class="col-md-7 col-3 text-sm">&bull; <i>Fat</i></h6>
+                                    <h6 class="col-md-5 col-3 text-sm">: {{ $konsul->member->bodycp->last()->fatm }} kg</h6>
+
+                                    <h6 class="col-md-7 col-3 text-sm">&bull; <i>Muscle Mass</i></h6>
+                                    <h6 class="col-md-5 col-3 text-sm">: {{ $konsul->member->bodycp->last()->pmm }} kg</h6>
+
+                                    <h6 class="col-md-7 col-3 text-sm">&bull; <i>Bone Mass</i></h6>
+                                    <h6 class="col-md-5 col-3 text-sm">: {{ $konsul->member->bodycp->last()->bonem }} kg</h6>
+
+                                    <h6 class="col-md-7 col-3 text-sm">&bull; <i>Visceral Fat</i></h6>
+                                    <h6 class="col-md-5 col-3 text-sm">: {{ $konsul->member->bodycp->last()->vfatl }}</h6>
+
+                                    <h6 class="col-md-7 col-3 text-sm">&bull; <i>Metablic Age</i></h6>
+                                    <h6 class="col-md-5 col-3 text-sm">: {{ $konsul->member->bodycp->last()->metaage }} tahun</h6>
+
+                                    <h6 class="col-md-7 col-3 text-sm">&bull; BMI</h6>
+                                    <h6 class="col-md-5 col-3 text-sm">: {{ $konsul->member->bodycp->last()->bmi }} kg</h6>
+
+                                    <h6 class="col-md-7 col-3 text-sm">&bull; BMR</h6>
+                                    <h6 class="col-md-5 col-3 text-sm">: {{ $konsul->member->bodycp->last()->bmr }} kg</h6>
                                 </div>
                             </h3>
                         </div>
