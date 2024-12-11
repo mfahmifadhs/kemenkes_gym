@@ -30,7 +30,7 @@ class AbsenExport implements FromCollection, WithHeadings
         $data = Absensi::join('users', 'id', 'user_id')
             ->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
             ->leftjoin('t_jadwal', 'id_jadwal', 'jadwal_id')
-            ->leftjoin('t_kelar', 'id_jadwal', 'jadwal_id')
+            ->leftjoin('t_kelas', 'id_kelas', 'kelas_id')
             ->select(
                 DB::raw('ROW_NUMBER() OVER (ORDER BY id_absensi) as no'),
                 'tanggal',
