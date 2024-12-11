@@ -28,14 +28,15 @@ class AbsenExport implements FromCollection, WithHeadings
     public function collection()
     {
         $data = Absensi::join('users', 'id', 'user_id')
-            ->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
+            ->leftjoin('t_unit_kerja', 'id_unit_kerja', 'uker_id')
             ->leftjoin('t_jadwal', 'id_jadwal', 'jadwal_id')
             ->leftjoin('t_kelas', 'id_kelas', 'kelas_id')
             ->select(
                 DB::raw('ROW_NUMBER() OVER (ORDER BY id_absensi) as no'),
                 'tanggal',
                 'nama',
-                'nama_unit_kerja',
+                'instansi',
+                DB::raw("COALESCE(nama_unit_kerja, nama_instansi) as instansi"),
                 'waktu_masuk',
                 'waktu_keluar',
                 DB::raw("COALESCE(nama_kelas, 'exercise') as nama_kelas")
@@ -73,6 +74,6 @@ class AbsenExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ["NO", "TANGGAL", "NAMA", "UNIT KERJA", "WAKTU MASUK", "WAKTU KELUAR", "LATIHAN"];
+        return ["NO", "TANGGAL", "NAMA", "ASAL", "UNIT KERJA", "WAKTU MASUK", "WAKTU KELUAR", "LATIHAN"];
     }
 }
