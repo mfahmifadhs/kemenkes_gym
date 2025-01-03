@@ -39,7 +39,7 @@
 
                 <div class="section-body">
 
-                    <div class="card bg-card mb-3" style="border-radius: 20px;background-image: url('<?php echo asset('dist/img/bg-card.png'); ?>'); background-size: cover; background-position: center;" data-toggle="modal" data-target="#zoomImg">
+                    <div class="card bg-card mb-3" style="border-radius: 20px;background-image: url('<?php echo asset('dist/img/bg-card.png'); ?>'); background-size: cover; background-position: center;" data-toggle="modal" data-target="#zoomImgs">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-8 my-auto">
