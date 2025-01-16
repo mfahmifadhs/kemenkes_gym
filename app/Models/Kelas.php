@@ -26,7 +26,7 @@ class Kelas extends Model
 
     public function jadwal()
     {
-        $utama = Auth::user()->uker->unit_utama_id;
+        $utama = Auth::user()->uker?->unit_utama_id;
 
         if ($utama == '46591') {
             return $this->hasMany(Jadwal::class, 'kelas_id')
