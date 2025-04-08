@@ -131,7 +131,7 @@ class AbsenController extends Controller
             ->first();
 
         if ($classNow) {
-            if ($classNow->waktu_mulai == '06:30:00') {
+            if ($classNow->waktu_mulai == '06:15:00') {
                 if ($timeNow >= '05:30') {
                     Peserta::where('id_peserta', $classNow->id_peserta)->update([
                         'kehadiran' => 'hadir'
