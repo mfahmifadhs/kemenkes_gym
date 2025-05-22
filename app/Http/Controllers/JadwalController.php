@@ -331,4 +331,11 @@ class JadwalController extends Controller
 
         return redirect()->route('jadwal.detail', $peserta->jadwal_id)->with('success', 'Berhasil menyimpan perubahan!');
     }
+
+    public function delete($id)
+    {
+        Jadwal::where('id_jadwal', $id)->delete();
+
+        return back()->with('success', 'Berhasil Menghapus');
+    }
 }

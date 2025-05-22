@@ -92,6 +92,11 @@
                                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 3)
                                         <a href="{{ route('jadwal.edit', $row->id_jadwal) }}"><i class="fas fa-pencil mx-1"></i></a>
                                         @endif
+                                        @if (Auth::user()->role_id == 1)
+                                        <a href="" onclick="confirmLink(event, `{{ route('jadwal.delete', $row->id_jadwal) }}`)">
+                                            <i class="fas fa-trash-alt mx-1"></i>
+                                        </a>
+                                        @endif
                                     </td>
                                     <td>{{ $row->tanggal_kelas }}</td>
                                     <td>{{ Carbon\Carbon::parse($row->waktu_mulai)->isoFormat('HH.mm').' - '.Carbon\Carbon::parse($row->waktu_selesai)->isoFormat('HH.mm') }}</td>

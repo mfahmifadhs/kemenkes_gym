@@ -111,6 +111,11 @@ $cekWarna = $cekHari == 'Kamis' ? 'bg-pink' : 'bg-main';
                                         <a href="{{ route('jadwal.edit', $row->id_jadwal) }}" class="btn btn-sm {{ $cekWarna }} w-100 text-white mt-2">
                                             <small><i class="fa fa-edit"></i> Edit</small>
                                         </a>
+                                        @if (Auth::user()->role_id == 1)
+                                        <a href="" class="btn btn-sm {{ $cekWarna }} w-100 text-white mt-2" onclick="confirmLink(event, `{{ route('jadwal.delete', $row->id_jadwal) }}`)">
+                                            <small><i class="fa fa-trash"></i> Hapus</small>
+                                        </a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

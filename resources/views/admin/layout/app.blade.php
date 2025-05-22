@@ -369,19 +369,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
         })
 
         $(document).ready(function() {
-    $('.number').on('input', function() {
-        // Menghapus karakter selain angka dan simbol /
-        var value = $(this).val().replace(/[^0-9\/]/g, '');
+            $('.number').on('input', function() {
+                // Menghapus karakter selain angka dan simbol /
+                var value = $(this).val().replace(/[^0-9\/]/g, '');
 
-        // Memastikan hanya ada satu simbol / di input
-        if ((value.match(/\//g) || []).length > 1) {
-            value = value.substring(0, value.lastIndexOf("/"));
-        }
+                // Memastikan hanya ada satu simbol / di input
+                if ((value.match(/\//g) || []).length > 1) {
+                    value = value.substring(0, value.lastIndexOf("/"));
+                }
 
-        // Mengembalikan nilai yang telah difilter ke input field
-        $(this).val(value);
-    });
-});
+                // Mengembalikan nilai yang telah difilter ke input field
+                $(this).val(value);
+            });
+        });
 
         // Waktu live
         $(function() {
@@ -394,6 +394,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 success: function(response) {
                     $('#timestamp').html(response);
                 },
+            });
+        }
+    </script>
+
+    <script>
+        function confirmLink(event, url) {
+            event.preventDefault(); // Prevent the default link behavior
+            Swal.fire({
+                title: 'Proses',
+                text: '',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Ya!',
+                cancelButtonText: 'Batal!',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Proses...',
+                        text: 'Mohon menunggu.',
+                        icon: 'info',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    window.location.href = url;
+                }
             });
         }
     </script>

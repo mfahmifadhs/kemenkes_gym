@@ -223,6 +223,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('class/create/schedule/{id}', [JadwalController::class, 'create'])->name('jadwal.create');
         Route::get('class/create/tanggal/schedule/{id}', [JadwalController::class, 'createByDate'])->name('jadwal.createByDate');
         Route::get('class/edit/schedule/{id}', [JadwalController::class, 'edit'])->name('jadwal.edit');
+        Route::get('class/delete/schedule/{id}', [JadwalController::class, 'delete'])->name('jadwal.delete');
         Route::post('class/store/schedule', [JadwalController::class, 'store'])->name('jadwal.store');
         Route::post('class/update/schedule/{id}', [JadwalController::class, 'update'])->name('jadwal.update');
         Route::post('peserta/update/kehadiran/{id}', [JadwalController::class, 'updateKehadiran'])->name('kehadiran.update');
