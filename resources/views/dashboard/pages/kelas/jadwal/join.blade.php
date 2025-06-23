@@ -3,7 +3,7 @@
 
 @php
 $cekHari  = Carbon\Carbon::parse($jadwal->tanggal_kelas)->isoFormat('dddd');
-$cekWarna = $cekHari == 'Kamis' ? 'text-pink' : 'text-main';
+$cekWarna = $cekHari == 'Kamis' ? 'text-main' : 'text-main';
 
 $isPenalty    = Auth::user()->penalty->where('kelas_id', $jadwal->kelas_id)->count();
 $totalPeserta = $jadwal->peserta->where('tanggal_latihan', $jadwal->tanggal_kelas)->count();
@@ -56,10 +56,10 @@ $waktuSelesai = Carbon\Carbon::parse($jadwal->tanggal_kelas . ' ' . $jadwal->wak
                 @endif
 
                 <div class="section-body mb-5">
-                    <div class="schedule p-3 {{ $cekHari == 'Kamis' ? 'border-pink' : 'border-main' }}">
+                    <div class="schedule p-3 {{ $cekHari == 'Kamis' ? 'border-main' : 'border-main' }}">
                         <div class="section-title mb-2">
                             <h5 class="{{ $cekWarna }}">
-                                <b>JOIN CLASS</b> {{ $cekHari == 'Kamis' ? '(Ladies Day)' : '' }}
+                                <b>JOIN CLASS</b>
                             </h5>
                         </div>
                         <div class="row text-white mb-2">

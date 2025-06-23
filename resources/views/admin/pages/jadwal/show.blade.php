@@ -39,7 +39,7 @@ $cekWarna = $cekHari == 'Kamis' ? 'bg-pink' : 'bg-main';
                             <h6 class="small text-uppercase pt-2 font-weight-bold">{{ $dateNumber }}</h6>
                         </td>
                         @else
-                        <td class="{{ $warnaHari }} text-white font-weight-bold text-center" style="font-size: 14px; cursor: pointer;" onclick="window.location='<?php echo route('jadwal.pilih', $dateNumber); ?>'">
+                        <td class="bg-main text-white font-weight-bold text-center" style="font-size: 14px; cursor: pointer;" onclick="window.location='<?php echo route('jadwal.pilih', $dateNumber); ?>'">
                             <h6 class="small text-uppercase pt-2 font-weight-bold">{{ $dateNumber }}</h6>
                         </td>
                         @endif
@@ -50,12 +50,12 @@ $cekWarna = $cekHari == 'Kamis' ? 'bg-pink' : 'bg-main';
             <hr>
 
 
-            @if ($cekHari == 'Kamis')
+            <!-- @if ($cekHari == 'Kamis')
             <div class="mt-3">
                 <h5 class="text-pink">Ladies Day</h5>
                 <small>Setiap hari <b>Kamis</b> Kemenkes Bootcamp & Fitness Center hanya untuk <b>Wanita</b></small>
             </div>
-            @endif
+            @endif -->
 
             <div class="row">
                 @foreach ($jadwal as $row)
@@ -79,7 +79,7 @@ $cekWarna = $cekHari == 'Kamis' ? 'bg-pink' : 'bg-main';
                                 <div class="row">
                                     <div class="col-md-3 col-3 text-center my-auto">
                                         @if ($cekHari == 'Kamis')
-                                        <img src="{{ asset('dist/img/class/'. $row->kelas->img_icon) }}" width="50" class="bg-pink" style="border-radius: 50%; padding: 5px;">
+                                        <img src="{{ asset('dist/img/class/'. $row->kelas->img_icon) }}" width="50" class="bg-main" style="border-radius: 50%; padding: 5px;">
                                         @else
                                         <img src="{{ asset('dist/img/class/'. $row->kelas->img_icon) }}" width="50">
                                         @endif
@@ -105,14 +105,14 @@ $cekWarna = $cekHari == 'Kamis' ? 'bg-pink' : 'bg-main';
                                         @endif
                                     </div>
                                     <div class="col-md-3 col-3 my-auto">
-                                        <a href="{{ route('jadwal.detail', $row->id_jadwal) }}" class="btn btn-sm {{ $cekWarna }} text-white w-100">
+                                        <a href="{{ route('jadwal.detail', $row->id_jadwal) }}" class="btn btn-sm bg-main text-white w-100">
                                             <small><i class="fa fa-info-circle"></i> Detail</small>
                                         </a>
-                                        <a href="{{ route('jadwal.edit', $row->id_jadwal) }}" class="btn btn-sm {{ $cekWarna }} w-100 text-white mt-2">
+                                        <a href="{{ route('jadwal.edit', $row->id_jadwal) }}" class="btn btn-sm bg-main w-100 text-white mt-2">
                                             <small><i class="fa fa-edit"></i> Edit</small>
                                         </a>
                                         @if (Auth::user()->role_id == 1)
-                                        <a href="" class="btn btn-sm {{ $cekWarna }} w-100 text-white mt-2" onclick="confirmLink(event, `{{ route('jadwal.delete', $row->id_jadwal) }}`)">
+                                        <a href="" class="btn btn-sm bg-main w-100 text-white mt-2" onclick="confirmLink(event, `{{ route('jadwal.delete', $row->id_jadwal) }}`)">
                                             <small><i class="fa fa-trash"></i> Hapus</small>
                                         </a>
                                         @endif

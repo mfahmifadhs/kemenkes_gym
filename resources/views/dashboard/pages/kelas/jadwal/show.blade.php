@@ -34,7 +34,7 @@ $cekWarna = $cekHari == 'Kamis' ? 'bg-pink' : 'bg-main';
                                         <h6 class="small text-uppercase">{{ $dateNumber }}</h6>
                                     </td>
                                     @else
-                                    <td class="{{ $warnaHari }} text-dark font-weight-bold text-center" style="font-size: 14px; cursor: pointer;" onclick="window.location='<?php echo route('jadwal.pilih', $dateNumber); ?>'">
+                                    <td class="bg-main text-dark font-weight-bold text-center" style="font-size: 14px; cursor: pointer;" onclick="window.location='<?php echo route('jadwal.pilih', $dateNumber); ?>'">
                                         <h6 class="small text-uppercase">{{ $dateNumber }}</h6>
                                     </td>
                                     @endif
@@ -43,12 +43,12 @@ $cekWarna = $cekHari == 'Kamis' ? 'bg-pink' : 'bg-main';
                             </table>
                         </div>
 
-                        @if ($cekHari == 'Kamis')
+                        <!-- @if ($cekHari == 'Kamis')
                         <div class="mt-5">
                             <h5 class="text-pink">Ladies Day</h5>
                             <small class="text-white">Setiap hari <b>Kamis</b> Kemenkes Bootcamp & Fitness Center hanya untuk <b>Wanita</b></small>
                         </div>
-                        @endif
+                        @endif -->
 
                         <div class="row">
                             @foreach ($jadwal as $row)
@@ -73,7 +73,7 @@ $cekWarna = $cekHari == 'Kamis' ? 'bg-pink' : 'bg-main';
                                                 <tr>
                                                     <td style="width: 20%;">
                                                         @if ($cekHari == 'Kamis')
-                                                        <img src="{{ asset('dist/img/class/'. $row->kelas->img_icon) }}" width="50" class="bg-pink" style="border-radius: 50%; padding: 5px;">
+                                                        <img src="{{ asset('dist/img/class/'. $row->kelas->img_icon) }}" width="50" class="bg-main" style="border-radius: 50%; padding: 5px;">
                                                         @else
                                                         <img src="{{ asset('dist/img/class/'. $row->kelas->img_icon) }}" width="50">
                                                         @endif
@@ -94,19 +94,19 @@ $cekWarna = $cekHari == 'Kamis' ? 'bg-pink' : 'bg-main';
                                                     </td>
                                                     <td style="width: 20%;">
                                                         @if (Auth::user()->role_id == 4 && $cekDaftar == 0 && $totalPeserta != $row->kuota && Auth::user()->classActive->where('tanggal_latihan', $row->tanggal_kelas)->count() == 0)
-                                                        <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-primary {{ $cekWarna }}">
+                                                        <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-primary bg-main">
                                                             <i class="fa fa-hand-o-up"></i> Join
                                                         </a>
                                                         @elseif (Auth::user()->role_id == 4 && $totalPeserta == $row->kuota)
-                                                        <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-primary {{ $cekWarna }} text-white mt-3">
+                                                        <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-primary bg-main text-white mt-3">
                                                             <i class="fa fa-exclamation-circle"></i> FULL
                                                         </a>
                                                         @elseif (Auth::user()->role_id == 2)
-                                                        <a href="{{ route('jadwal.detail', $row->id_jadwal) }}" class="btn btn-sm {{ $cekWarna }} text-white mt-3">
+                                                        <a href="{{ route('jadwal.detail', $row->id_jadwal) }}" class="btn btn-sm bg-main text-white mt-3">
                                                             <small><i class="fa fa-info-circle"></i> Detail</small>
                                                         </a>
                                                         @else
-                                                        <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-sm {{ $cekWarna }} text-white mt-3">
+                                                        <a href="{{ route('jadwal.join', $row->id_jadwal) }}" class="btn btn-sm bg-main text-white mt-3">
                                                             <small><i class="fa fa-info-circle"></i> Detail</small>
                                                         </a>
                                                         @endif
