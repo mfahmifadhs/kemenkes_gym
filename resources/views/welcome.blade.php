@@ -93,8 +93,8 @@
 <!-- Schedule Section End -->
 
 <!-- Classes Section Begin -->
-<section class="classes-section spad mt-3">
-    <div id="class" class="container">
+<section class="classes-section spad">
+    <div id="class" class="container mt-3">
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
